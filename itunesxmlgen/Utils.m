@@ -35,7 +35,7 @@
   for (NSString* key in allKeys) {
 
     NSString* newKeyPath = [[currentKeyPath stringByAppendingString:@"/"] stringByAppendingString:key];
-    NSLog(@"checking key path: %@", newKeyPath);
+    //NSLog(@"checking key path: %@", newKeyPath);
 
     if (![dict2.allKeys containsObject:key]) {
       NSLog(@"dict2 is missing key path: %@", newKeyPath);
