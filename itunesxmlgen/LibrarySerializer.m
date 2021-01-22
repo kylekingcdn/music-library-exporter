@@ -85,7 +85,7 @@
   NSMutableArray<NSMutableDictionary*>* playlistsArray = [NSMutableArray array];
 
   // clear playlist ids dictionary
-  playlistIds = [NSMutableDictionary dictionary];
+  playlistIdsDict = [NSMutableDictionary dictionary];
 
   for (ITLibPlaylist* playlistItem in playlists) {
 
@@ -96,7 +96,7 @@
     // store playlist + id in playlistIds dict
     NSString* playlistPersistentIdHex = [LibrarySerializer getHexadecimalPersistentId:playlistItem.persistentID];
     NSNumber* playlistIdNumber = [NSNumber numberWithUnsignedInteger:playlistId];
-    [playlistIds setValue:playlistIdNumber forKey:playlistPersistentIdHex];
+    [playlistIdsDict setValue:playlistIdNumber forKey:playlistPersistentIdHex];
 
     // serialize playlist
     NSMutableDictionary* playlistDict = [self serializePlaylist:playlistItem withId:playlistId];
@@ -155,8 +155,8 @@
 
       // get track id
       NSString* trackPersistentId = [LibrarySerializer getHexadecimalPersistentId:trackItem.persistentID];
-      NSAssert([[trackIds allKeys] containsObject:trackPersistentId], @"trackIds doesn't contain persistent ID for track '%@'", trackPersistentId);
-      NSUInteger trackId = [[trackIds objectForKey:trackPersistentId] integerValue];
+      NSAssert([[trackIdsDict allKeys] containsObject:trackPersistentId], @"trackIds doesn't contain persistent ID for track '%@'", trackPersistentId);
+      NSUInteger trackId = [[trackIdsDict objectForKey:trackPersistentId] integerValue];
       NSAssert(trackId > 0, @"trackIds dict returned an invalid value: %lu", trackId);
 
       [playlistItemDict setValue:[NSNumber numberWithUnsignedInteger:trackId] forKey:@"Track ID"];
@@ -174,7 +174,7 @@
   NSMutableDictionary* tracksDict = [NSMutableDictionary dictionary];
 
   // clear track ids dictionary
-  trackIds = [NSMutableDictionary dictionary];
+  trackIdsDict = [NSMutableDictionary dictionary];
 
   for (ITLibMediaItem* trackItem in tracks) {
 
@@ -188,7 +188,7 @@
       NSString* trackPersistentIdHex = [LibrarySerializer getHexadecimalPersistentId:trackItem.persistentID];
 //      NSNumber* trackIdString = [NSNumber numberWithUnsignedInteger:trackId];
       NSString* trackIdString = [@(trackId) stringValue];
-      [trackIds setValue:trackIdString forKey:trackPersistentIdHex];
+      [trackIdsDict setValue:trackIdString forKey:trackPersistentIdHex];
 
       NSMutableDictionary* trackDict = [self serializeTrack:trackItem withId:trackId];
 
