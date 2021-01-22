@@ -17,20 +17,6 @@
 
 @implementation LibrarySerializer
 
-+ (NSArray<NSString*>*) trackProperties {
-
-  NSArray<NSString*>* properties = [NSArray arrayWithObjects:@"", nil];
-
-  return properties;
-}
-
-+ (NSArray<NSString*>*) playlistProperties {
-
-  NSArray<NSString*>* properties;
-
-  return properties;
-}
-
 + (NSString*) getHexadecimalPersistentId:(NSNumber*)decimalPersistentId {
 
   return [[NSString stringWithFormat:@"%0lx", decimalPersistentId.unsignedIntegerValue] uppercaseString];

@@ -22,9 +22,6 @@ NS_ASSUME_NONNULL_BEGIN
   NSUInteger lastId;
 }
 
-+ (NSArray<NSString*>*) trackProperties;
-+ (NSArray<NSString*>*) playlistProperties;
-
 @property (readonly) NSMutableDictionary* dictionary;
 @property NSString* filePath;
 
