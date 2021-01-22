@@ -80,40 +80,6 @@
   }
 }
 
-+ (void) compareTrack:(NSDictionary*)track1Dict withTrack:(NSDictionary*)track2Dict {
-
-  NSSet<NSString*>* ignoredKeys = [NSSet set];
-
-  [Utils compareDicts:track1Dict forDictionary:track2Dict exceptForKeys:ignoredKeys];
-}
-
-+ (void) compareDicts:(NSDictionary*)dict1 forDictionary:(NSDictionary*)dict2 exceptForKeys:(NSSet<NSString*>*)ignoredKeys {
-
-  NSArray<NSString*>* inequalKeys = [Utils getDictionaryKeysWithInequalValues:dict1 forDictionary:dict2 exceptForKeys:ignoredKeys];
-
-  for (NSString* inequalKey in inequalKeys) {
-    NSLog(@"inconsitent key %@ - dict1: %@, dict2: %@", inequalKey, [dict1 objectForKey:inequalKey], [dict2 objectForKey:inequalKey]);
-  }
-}
-
-+ (NSArray<NSString*>*) getDictionaryKeysWithInequalValues:(NSDictionary*)dict1 forDictionary:(NSDictionary*)dict2 exceptForKeys:(NSSet<NSString*>*)ignoredKeys {
-
-  NSMutableArray<NSString*>* inconsistentKeys = [NSMutableArray array];
-
-  NSMutableSet<NSString*>* allKeys = [NSMutableSet setWithArray:dict1.allKeys];
-  [allKeys addObjectsFromArray:dict2.allKeys];
-
-  for (NSString* trackKey in allKeys) {
-    if (![ignoredKeys containsObject:trackKey]) {
-      if ([dict1 objectForKey:trackKey] != [dict2 objectForKey:trackKey]) {
-        [inconsistentKeys addObject: trackKey];
-      }
-    }
-  }
-
-  return inconsistentKeys;
-}
-
 + (NSDictionary*) createPersistentIdDictionaryForItems:(NSArray<NSDictionary*>*)itemsArray withPersistentIdKey:(NSString*)persistentIdKey {
 
   NSDictionary* persistentIdDict = [NSMutableDictionary dictionary];
