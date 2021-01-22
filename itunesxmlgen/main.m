@@ -66,7 +66,16 @@ int main(int argc, const char * argv[]) {
 
     if (compareTrackDicts) {
 
-      NSArray<NSString*>* excludedTrackKeys = @[ ];
+      NSArray<NSString*>* excludedTrackKeys = @[
+        @"Track Type", @"File Type", // invalid values
+        @"Purchased", @"Matched", @"Apple Music", @"Disabled", @"Playlist Only", // invalid values
+        @"Date Modified", @"Date Added", @"Play Date UTC", @"Play Date", @"Skip Date", // invalid values
+        @"Track ID", // unavailable
+        @"File Folder Count", @"Library Folder Count", @"Artwork Count", // unavailable
+        @"Work", @"Movement Number", @"Movement Count", @"Movement Name", // unavailable
+        @"Loved", @"Disliked", @"Album Loved",  @"Album Disliked", // unavailable
+        @"Explicit", // unavailable
+      ];
       NSDictionary* sourceLibraryTrackIdsDict = [sourceLibraryParser libraryTracksPersistentIdDictionary];
       NSDictionary* generatedLibraryTrackIdsDict = [generatedLibraryParser libraryTracksPersistentIdDictionary];
 
