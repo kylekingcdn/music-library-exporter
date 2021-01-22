@@ -19,7 +19,7 @@
 
 + (NSString*) getHexadecimalPersistentId:(NSNumber*)decimalPersistentId {
 
-  return [[NSString stringWithFormat:@"%0lx", decimalPersistentId.unsignedIntegerValue] uppercaseString];
+  return [[NSString stringWithFormat:@"%016lx", decimalPersistentId.unsignedIntegerValue] uppercaseString];
 }
 
 + (void) dumpPropertiesForEntity:(ITLibMediaEntity*) entity {
