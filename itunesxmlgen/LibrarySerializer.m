@@ -128,8 +128,8 @@
   if (playlistItem.distinguishedKind == ITLibDistinguishedPlaylistKindMusic) {
     [playlistDict setValue:[NSNumber numberWithBool:YES] forKey:@"Music"];  // optional
   }
-  if (playlistItem.visible) {
-    [playlistDict setValue:[NSNumber numberWithBool:YES] forKey:@"Visible"];  // optional
+  if (!playlistItem.visible) {
+    [playlistDict setValue:[NSNumber numberWithBool:NO] forKey:@"Visible"];  // optional
   }
   [playlistDict setValue:[NSNumber numberWithBool:playlistItem.allItemsPlaylist] forKey:@"All Items"];
   if (playlistItem.kind == ITLibPlaylistKindFolder) {
