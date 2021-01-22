@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		2705444925B66A0A00FE6D65 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2705444825B66A0A00FE6D65 /* main.m */; };
+		2705445225B66B7A00FE6D65 /* iTunesLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2705445125B66B7A00FE6D65 /* iTunesLibrary.framework */; };
+		2705445925B670E700FE6D65 /* LibrarySerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2705445825B670E700FE6D65 /* LibrarySerializer.m */; };
+		27C52A7425B69C4B00D829F3 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C52A7325B69C4B00D829F3 /* Utils.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +28,11 @@
 /* Begin PBXFileReference section */
 		2705444525B66A0A00FE6D65 /* itunesxmlgen */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = itunesxmlgen; sourceTree = BUILT_PRODUCTS_DIR; };
 		2705444825B66A0A00FE6D65 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2705445125B66B7A00FE6D65 /* iTunesLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTunesLibrary.framework; path = System/Library/Frameworks/iTunesLibrary.framework; sourceTree = SDKROOT; };
+		2705445725B670E700FE6D65 /* LibrarySerializer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LibrarySerializer.h; sourceTree = "<group>"; };
+		2705445825B670E700FE6D65 /* LibrarySerializer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LibrarySerializer.m; sourceTree = "<group>"; };
+		27C52A7225B69C4B00D829F3 /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		27C52A7325B69C4B00D829F3 /* Utils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2705445225B66B7A00FE6D65 /* iTunesLibrary.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -43,6 +52,7 @@
 			children = (
 				2705444725B66A0A00FE6D65 /* itunesxmlgen */,
 				2705444625B66A0A00FE6D65 /* Products */,
+				2705445025B66B7A00FE6D65 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,8 +68,20 @@
 			isa = PBXGroup;
 			children = (
 				2705444825B66A0A00FE6D65 /* main.m */,
+				27C52A7225B69C4B00D829F3 /* Utils.h */,
+				27C52A7325B69C4B00D829F3 /* Utils.m */,
+				2705445725B670E700FE6D65 /* LibrarySerializer.h */,
+				2705445825B670E700FE6D65 /* LibrarySerializer.m */,
 			);
 			path = itunesxmlgen;
+			sourceTree = "<group>";
+		};
+		2705445025B66B7A00FE6D65 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2705445125B66B7A00FE6D65 /* iTunesLibrary.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -118,7 +140,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2705445925B670E700FE6D65 /* LibrarySerializer.m in Sources */,
 				2705444925B66A0A00FE6D65 /* main.m in Sources */,
+				27C52A7425B69C4B00D829F3 /* Utils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,9 +263,11 @@
 		2705444D25B66A0A00FE6D65 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9YLM7HTV6V;
 				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -249,9 +275,11 @@
 		2705444E25B66A0A00FE6D65 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9YLM7HTV6V;
 				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
