@@ -9,8 +9,9 @@
 
 #import <iTunesLibrary/ITLibrary.h>
 
-#include "Utils.h"
-#include "LibrarySerializer.h"
+#import "Utils.h"
+#import "LibraryParser.h"
+#import "LibrarySerializer.h"
 
 int main(int argc, const char * argv[]) {
 
@@ -24,27 +25,62 @@ int main(int argc, const char * argv[]) {
       return -1;
     }
 
+    // temporary run-time flags
+    bool generateNewLibrary = NO;
+    bool comparePlaylistDicts = NO;
+    bool compareTrackDicts = NO;
+
     NSString* desktopFilePath = [NSSearchPathForDirectoriesInDomains (NSDesktopDirectory, NSUserDomainMask, YES) firstObject];
     NSString* exportedLibraryFileName = @"exportedLibrary.xml";
     NSString* exportedLibraryFilePath = [[desktopFilePath stringByAppendingString:@"/"] stringByAppendingString:exportedLibraryFileName];
 
-    LibrarySerializer* serializer = [LibrarySerializer alloc];
-    [serializer serializeLibrary:library];
 
-    /*
+    /* -- generated library serialization/parsing -- */
+
+    // generate library dictionary via iTunesLibrary framework
+    if (generateNewLibrary) {
+
+      LibrarySerializer* serializer = [LibrarySerializer alloc];
+      [serializer serializeLibrary:library];
+
+      [serializer setFilePath:exportedLibraryFilePath];
+      [serializer writeDictionary];
+    }
+
+    // Parse generated library
+    LibraryParser* generatedLibraryParser = [LibraryParser alloc];
+    [generatedLibraryParser setLibraryDictionaryWithPropertyList:exportedLibraryFilePath];
+
+
+    /* -- source dictionary parsing -- */
+
+    // get dictionary for officially generated library
     NSString* sourceLibraryFileName = @"sourceLibrary.xml";
     NSString* sourceLibraryFilePath = [[desktopFilePath stringByAppendingString:@"/"] stringByAppendingString:sourceLibraryFileName];
 
-    NSDictionary* generatedLibraryDict = [serializer dictionary];
-    NSDictionary* sourceLibraryDict = [Utils readPropertyListFromFile:sourceLibraryFilePath];
+    LibraryParser* sourceLibraryParser = [LibraryParser alloc];
+    [sourceLibraryParser setLibraryDictionaryWithPropertyList:sourceLibraryFilePath];
 
-    NSArray<NSString*>* excludedKeyPaths = @[];
 
-    [Utils recursivelyCompareDictionary:sourceLibraryDict withDictionary:generatedLibraryDict exceptForKeyPaths:excludedKeyPaths withCurrentKeyPath:@""];
-    */
+    /* -- library comparison/validation -- */
 
-    [serializer setFilePath:exportedLibraryFilePath];
-    [serializer writeDictionary];
+    if (compareTrackDicts) {
+
+      NSArray<NSString*>* excludedTrackKeys = @[ ];
+      NSDictionary* sourceLibraryTrackIdsDict = [sourceLibraryParser libraryTracksPersistentIdDictionary];
+      NSDictionary* generatedLibraryTrackIdsDict = [generatedLibraryParser libraryTracksPersistentIdDictionary];
+
+      [Utils recursivelyCompareDictionary:sourceLibraryTrackIdsDict withDictionary:generatedLibraryTrackIdsDict exceptForKeys:excludedTrackKeys];
+    }
+
+    if (comparePlaylistDicts) {
+
+      NSArray<NSString*>* excludedPlaylistKeys = @[ @"Description", @"Smart Info", @"Smart Criteria", @"Playlist ID" ];
+      NSDictionary* sourceLibraryPlaylistIdsDict = [sourceLibraryParser libraryPlaylistsPersistentIdDictionary];
+      NSDictionary* generatedLibraryPlaylistIdsDict = [generatedLibraryParser libraryPlaylistsPersistentIdDictionary];
+
+      [Utils recursivelyCompareDictionary:sourceLibraryPlaylistIdsDict withDictionary:generatedLibraryPlaylistIdsDict exceptForKeys:excludedPlaylistKeys];
+    }
   }
 
   return 0;
