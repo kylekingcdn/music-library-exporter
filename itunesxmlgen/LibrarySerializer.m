@@ -204,8 +204,6 @@
 
   NSMutableDictionary* trackDict = [NSMutableDictionary dictionary];
 
-  NSUInteger artworkCount = trackItem.hasArtworkAvailable ? 1 : 0;
-
   [trackDict setValue:[NSNumber numberWithInteger: trackId] forKey:@"Track ID"];
   [trackDict setValue:trackItem.title forKey:@"Name"];
   [trackDict setValue:trackItem.artist.name forKey:@"Artist"];
@@ -215,32 +213,50 @@
   [trackDict setValue:trackItem.kind forKey:@"Kind"];
   [trackDict setValue:[NSNumber numberWithUnsignedLongLong:trackItem.fileSize] forKey:@"Size"];
   [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.totalTime] forKey:@"Total Time"];
-  [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.album.discNumber] forKey:@"Disc Number"];
-  [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.album.discCount] forKey:@"Disc Count"];
-  [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.trackNumber] forKey:@"Track Number"];
-  [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.album.trackCount] forKey:@"Track Count"];
+  if (trackItem.album.discNumber > 0) {
+    [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.album.discNumber] forKey:@"Disc Number"]; // optional
+  }
+  if (trackItem.album.discCount > 0) {
+    [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.album.discCount] forKey:@"Disc Count"]; // optional
+  }
+  if (trackItem.trackNumber > 0) {
+    [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.trackNumber] forKey:@"Track Number"]; // optional
+  }
+  if (trackItem.album.trackCount > 0) {
+    [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.album.trackCount] forKey:@"Track Count"]; // optional
+  }
   [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.year] forKey:@"Year"];
-  [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.beatsPerMinute] forKey:@"BPM"];
+  if (trackItem.beatsPerMinute > 0) {
+    [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.beatsPerMinute] forKey:@"BPM"]; // optional
+  }
   [trackDict setValue:trackItem.modifiedDate forKey:@"Date Modified"];
   [trackDict setValue:trackItem.addedDate forKey:@"Date Added"];
   [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.bitrate] forKey:@"Bit Rate"];
   [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.sampleRate] forKey:@"Sample Rate"];
   [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.sampleRate] forKey:@"Sample Rate"];
-  [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.playCount] forKey:@"Play Count"];
+  if (trackItem.playCount > 0) {
+    [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.playCount] forKey:@"Play Count"]; // optional
+  }
   //[trackDict setValue:trackItem.lastPlayedDate forKey:@"Play Date"]; convert to epoch
   [trackDict setValue:trackItem.lastPlayedDate forKey:@"Play Date UTC"];
-  [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.skipCount] forKey:@"Skip Count"];
-  [trackDict setValue:trackItem.skipDate forKey:@"Skip Date"];
+  if (trackItem.skipCount > 0) {
+    [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.skipCount] forKey:@"Skip Count"]; // optional
+    [trackDict setValue:trackItem.skipDate forKey:@"Skip Date"];
+  }
   [trackDict setValue:trackItem.releaseDate forKey:@"Release Date"];
-  [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.volumeNormalizationEnergy] forKey:@"Normalization"];
-  [trackDict setValue:[NSNumber numberWithUnsignedInteger:artworkCount] forKey:@"Artwork Count"];
+  if (trackItem.volumeNormalizationEnergy > 0) {
+    [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.volumeNormalizationEnergy] forKey:@"Normalization"]; // optional
+  }
+  if (trackItem.hasArtworkAvailable) {
+    [trackDict setValue:[NSNumber numberWithUnsignedInteger:1] forKey:@"Artwork Count"]; //optional
+  }
   [trackDict setValue:trackItem.album.sortTitle forKey:@"Sort Album"];
   [trackDict setValue:trackItem.album.sortAlbumArtist forKey:@"Sort Album Artist"];
   [trackDict setValue:trackItem.artist.sortName forKey:@"Sort Artist"];
   [trackDict setValue:trackItem.sortTitle forKey:@"Sort Name"];
   [trackDict setValue:[LibrarySerializer getHexadecimalPersistentId:trackItem.persistentID] forKey:@"Persistent ID"];
 //  [trackDict setValue:trackItem.title forKey:@"Track Type"];
-  [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.fileType] forKey:@"File Type"];
+//  [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.fileType] forKey:@"File Type"]; // optional - deprecated
   [trackDict setValue:[trackItem.location absoluteString] forKey:@"Location"];
 
   return trackDict;
