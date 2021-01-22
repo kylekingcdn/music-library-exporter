@@ -137,7 +137,6 @@
   }
   [playlistDict setValue:[NSNumber numberWithInteger:playlistId] forKey:@"Playlist ID"];
   [playlistDict setValue:[LibrarySerializer getHexadecimalPersistentId:playlistItem.persistentID] forKey:@"Playlist Persistent ID"];  // TODO: render as hex
-  [playlistDict setValue:[LibrarySerializer getHexadecimalPersistentId:playlistItem.parentID] forKey:@"Parent Persistent ID"];  // optional // TODO: render as hex
   if (playlistItem.parentID > 0) {
     [playlistDict setValue:[LibrarySerializer getHexadecimalPersistentId:playlistItem.parentID] forKey:@"Parent Persistent ID"];  // optional // TODO: render as hex
   }
