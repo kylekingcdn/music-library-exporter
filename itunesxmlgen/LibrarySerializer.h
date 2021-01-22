@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
   NSUInteger lastId;
 }
 
-@property (readonly) NSMutableDictionary* dictionary;
+@property (readonly) NSMutableDictionary* libraryDict;
 @property NSString* filePath;
 
 + (NSString*) getHexadecimalPersistentId:(NSNumber*)decimalPersistentId;

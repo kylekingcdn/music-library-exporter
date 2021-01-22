@@ -60,24 +60,24 @@
   NSLog(@"[LibrarySerializer serializeLibrary]");
 
   lastId = 1;
-  _dictionary = [NSMutableDictionary dictionary];
+  _libraryDict = [NSMutableDictionary dictionary];
 
-  [_dictionary setValue:[NSNumber numberWithUnsignedInteger:library.apiMajorVersion] forKey:@"Major Version"];
-  [_dictionary setValue:[NSNumber numberWithUnsignedInteger:library.apiMinorVersion] forKey:@"Minor Version"];
-  [_dictionary setValue:[NSDate date] forKey:@"Date"]; // TODO:finish me
-  [_dictionary setValue:library.applicationVersion forKey:@"Application Version"];
-  [_dictionary setValue:[NSNumber numberWithUnsignedInteger:library.features] forKey:@"Features"];
-  [_dictionary setValue:@(library.showContentRating) forKey:@"Show Content Ratings"];
-  [_dictionary setValue:library.mediaFolderLocation.absoluteString forKey:@"Music Folder"];
+  [_libraryDict setValue:[NSNumber numberWithUnsignedInteger:library.apiMajorVersion] forKey:@"Major Version"];
+  [_libraryDict setValue:[NSNumber numberWithUnsignedInteger:library.apiMinorVersion] forKey:@"Minor Version"];
+  [_libraryDict setValue:[NSDate date] forKey:@"Date"]; // TODO:finish me
+  [_libraryDict setValue:library.applicationVersion forKey:@"Application Version"];
+  [_libraryDict setValue:[NSNumber numberWithUnsignedInteger:library.features] forKey:@"Features"];
+  [_libraryDict setValue:@(library.showContentRating) forKey:@"Show Content Ratings"];
+  [_libraryDict setValue:library.mediaFolderLocation.absoluteString forKey:@"Music Folder"];
   //[dictionary setValue:library.persistentID forKey:@"Library Persistent ID"]; // Not available
 
   // add tracks dictionary to library dictionary
   NSMutableDictionary* tracksDict = [self serializeTracks:library.allMediaItems];
-  [_dictionary setObject:tracksDict forKey:@"Tracks"];
+  [_libraryDict setObject:tracksDict forKey:@"Tracks"];
 
   // add playlists array to library dictionary
   NSMutableArray<NSMutableDictionary*>* playlistsArray = [self serializePlaylists:library.allPlaylists];
-  [_dictionary setObject:playlistsArray forKey:@"Playlists"];
+  [_libraryDict setObject:playlistsArray forKey:@"Playlists"];
 }
 
 - (NSMutableArray<NSMutableDictionary*>*) serializePlaylists:(NSArray<ITLibPlaylist*>*) playlists {
@@ -251,7 +251,7 @@
   NSLog(@"[LibrarySerializer writeDictionary]");
 
   NSError* serializeError = nil;
-  NSData* data = [NSPropertyListSerialization dataWithPropertyList:_dictionary format:NSPropertyListXMLFormat_v1_0 options:0 error:&serializeError];
+  NSData* data = [NSPropertyListSerialization dataWithPropertyList:_libraryDict format:NSPropertyListXMLFormat_v1_0 options:0 error:&serializeError];
   if (serializeError) {
       NSLog(@"[LibrarySerializer writeDictionary] error serializing dictionary: %@", serializeError);
       return;
