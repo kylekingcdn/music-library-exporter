@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSDictionary*) readPropertyListFromFile:(NSString*)plistFilePath;
 
 + (NSSet<NSString*>*) getAllKeysForDictionary:(NSDictionary*)dict1 andDictionary:(NSDictionary*)dict2;
-+ (void) recursivelyCompareDictionary:(NSDictionary*)dict1 withDictionary:(NSDictionary*)dict2 exceptForKeyPaths:(nullable NSArray<NSString*>*)ignoredKeyPaths withCurrentKeyPath:(NSString*)currentKeyPath;
++ (void) recursivelyCompareDictionary:(NSDictionary*)dict1 withDictionary:(NSDictionary*)dict2 exceptForKeys:(nullable NSArray<NSString*>*)ignoredKeys;
 
 + (NSDictionary*) createPersistentIdDictionaryForItems:(NSArray<NSDictionary*>*)itemsArray withPersistentIdKey:(NSString*)persistentIdKey;
 + (NSDictionary*) createPersistentIdDictionaryForTracks:(NSArray<NSDictionary*>*)tracksArray;

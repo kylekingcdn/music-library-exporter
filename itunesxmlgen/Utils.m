@@ -28,52 +28,52 @@
   return immutableKeys;
 }
 
-+ (void) recursivelyCompareDictionary:(NSDictionary*)dict1 withDictionary:(NSDictionary*)dict2 exceptForKeyPaths:(nullable NSArray<NSString*>*)ignoredKeyPaths withCurrentKeyPath:(NSString*)currentKeyPath {
++ (void) recursivelyCompareDictionary:(NSDictionary*)dict1 withDictionary:(NSDictionary*)dict2 exceptForKeys:(nullable NSArray<NSString*>*)ignoredKeys {
 
   NSSet<NSString*>* allKeys = [Utils getAllKeysForDictionary:dict1 andDictionary:dict2];
 
   for (NSString* key in allKeys) {
 
-    NSString* newKeyPath = [[currentKeyPath stringByAppendingString:@"/"] stringByAppendingString:key];
-    //NSLog(@"checking key path: %@", newKeyPath);
+    if (![ignoredKeys containsObject:key]) {
 
-    if (![dict2.allKeys containsObject:key]) {
-      NSLog(@"dict2 is missing key path: %@", newKeyPath);
-    }
-    else if (![dict1.allKeys containsObject:key]) {
-      NSLog(@"dict2 has extra key path: %@", newKeyPath);
-    }
-    else {
-
-      id dict1Object = [dict1 objectForKey:key];
-      id dict2Object = [dict2 objectForKey:key];
-
-      // value is array
-      if ([dict1Object isKindOfClass:[NSArray class]]) {
-
-        if (![dict2Object isKindOfClass:[NSArray class]]) {
-            NSLog(@"dict2 object type should be array for key path: %@", newKeyPath);
-        }
-        else {
-//          NSArray* dict1Array = dict1Object;
-//          NSArray* dict2Array = dict2Object;
-          // TODO: finish me
-        }
+      if (![dict2.allKeys containsObject:key]) {
+        NSLog(@"dict2 is missing key: %@", key);
       }
-
-      // dictionary
-      else if ([dict1Object isKindOfClass:[NSDictionary class]]) {
-
-        NSDictionary* dict1Dict = dict1Object;
-        NSDictionary* dict2Dict = dict2Object;
-
-        [Utils recursivelyCompareDictionary:dict1Dict withDictionary:dict2Dict exceptForKeyPaths:ignoredKeyPaths withCurrentKeyPath:newKeyPath];
+      else if (![dict1.allKeys containsObject:key]) {
+        NSLog(@"dict2 has extra key: %@", key);
       }
-
-      // standard value
       else {
-        if (![dict1Object isEqual:dict2Object]) {
-          NSLog(@"key path: '%@' has different values: ['%@', '%@']", newKeyPath, dict1Object, dict2Object);
+
+        id dict1Object = [dict1 objectForKey:key];
+        id dict2Object = [dict2 objectForKey:key];
+
+        // value is array
+        if ([dict1Object isKindOfClass:[NSArray class]]) {
+
+          if (![dict2Object isKindOfClass:[NSArray class]]) {
+              NSLog(@"dict2 object type should be array for key: %@", key);
+          }
+          else {
+  //          NSArray* dict1Array = dict1Object;
+  //          NSArray* dict2Array = dict2Object;
+            // TODO: finish me
+          }
+        }
+
+        // dictionary
+        else if ([dict1Object isKindOfClass:[NSDictionary class]]) {
+
+          NSDictionary* dict1Dict = dict1Object;
+          NSDictionary* dict2Dict = dict2Object;
+
+          [Utils recursivelyCompareDictionary:dict1Dict withDictionary:dict2Dict exceptForKeys:ignoredKeys];
+        }
+
+        // standard value
+        else {
+          if (![dict1Object isEqual:dict2Object]) {
+            NSLog(@"key: '%@' has different values: ['%@', '%@']", key, dict1Object, dict2Object);
+          }
         }
       }
     }
