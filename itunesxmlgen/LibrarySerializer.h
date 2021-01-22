@@ -17,9 +17,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LibrarySerializer : NSObject {
 
-  NSMutableDictionary* dictionary;
-  NSString* filePath;
-
   NSMutableDictionary* trackIds;
   NSMutableDictionary* playlistIds;
   NSUInteger lastId;
@@ -28,7 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSArray<NSString*>*) trackProperties;
 + (NSArray<NSString*>*) playlistProperties;
 
-- (NSDictionary*) dictionary;
+@property (readonly) NSMutableDictionary* dictionary;
+@property NSString* filePath;
 
 + (NSString*) getHexadecimalPersistentId:(NSNumber*)decimalPersistentId;
 
@@ -46,9 +44,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSMutableDictionary*) serializeTracks: (NSArray<ITLibMediaItem*>*) tracks;
 - (NSMutableDictionary*) serializeTrack: (ITLibMediaItem*) trackItem withId: (NSUInteger) trackId;
-
-- (NSString*) filePath;
-- (void) setFilePath: (NSString*) newFilePath;
 
 - (void) writeDictionary;
 
