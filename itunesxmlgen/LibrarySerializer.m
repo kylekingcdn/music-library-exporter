@@ -115,25 +115,25 @@
   [playlistDict setValue:playlistItem.name forKey:@"Name"];
   /*[playlistDict setValue:playlistItem. forKey:@"Description"];*/ // unavailable
   if (playlistItem.master) {
-    [playlistDict setValue:[NSNumber numberWithBool:YES] forKey:@"Master"];  // optional
+    [playlistDict setValue:[NSNumber numberWithBool:YES] forKey:@"Master"];
   }
   [playlistDict setValue:[NSNumber numberWithInteger:playlistId] forKey:@"Playlist ID"];
   [playlistDict setValue:[LibrarySerializer getHexadecimalPersistentId:playlistItem.persistentID] forKey:@"Playlist Persistent ID"];
   if (playlistItem.parentID > 0) {
-    [playlistDict setValue:[LibrarySerializer getHexadecimalPersistentId:playlistItem.parentID] forKey:@"Parent Persistent ID"];  // optional
+    [playlistDict setValue:[LibrarySerializer getHexadecimalPersistentId:playlistItem.parentID] forKey:@"Parent Persistent ID"];
   }
   if (playlistItem.distinguishedKind > ITLibDistinguishedPlaylistKindNone) {
-    [playlistDict setValue:[NSNumber numberWithUnsignedInteger:playlistItem.distinguishedKind] forKey:@"Distinguished Kind"];  // optional
+    [playlistDict setValue:[NSNumber numberWithUnsignedInteger:playlistItem.distinguishedKind] forKey:@"Distinguished Kind"];
   }
   if (playlistItem.distinguishedKind == ITLibDistinguishedPlaylistKindMusic) {
-    [playlistDict setValue:[NSNumber numberWithBool:YES] forKey:@"Music"];  // optional
+    [playlistDict setValue:[NSNumber numberWithBool:YES] forKey:@"Music"];
   }
   if (!playlistItem.visible) {
-    [playlistDict setValue:[NSNumber numberWithBool:NO] forKey:@"Visible"];  // optional
+    [playlistDict setValue:[NSNumber numberWithBool:NO] forKey:@"Visible"];
   }
   [playlistDict setValue:[NSNumber numberWithBool:playlistItem.allItemsPlaylist] forKey:@"All Items"];
   if (playlistItem.kind == ITLibPlaylistKindFolder) {
-    [playlistDict setValue:[NSNumber numberWithBool:YES] forKey:@"Folder"];  // optional
+    [playlistDict setValue:[NSNumber numberWithBool:YES] forKey:@"Folder"];
   }
 
   // add playlist items array to playlist dict
@@ -206,58 +206,135 @@
 
   [trackDict setValue:[NSNumber numberWithInteger: trackId] forKey:@"Track ID"];
   [trackDict setValue:trackItem.title forKey:@"Name"];
-  [trackDict setValue:trackItem.artist.name forKey:@"Artist"];
-  [trackDict setValue:trackItem.album.albumArtist forKey:@"Album Artist"];
-  [trackDict setValue:trackItem.album.title forKey:@"Album"];
+  if (trackItem.artist.name) {
+    [trackDict setValue:trackItem.artist.name forKey:@"Artist"];
+  }
+  if (trackItem.album.albumArtist) {
+    [trackDict setValue:trackItem.album.albumArtist forKey:@"Album Artist"];
+  }
+  if (trackItem.composer.length > 0) {
+    [trackDict setValue:trackItem.composer forKey:@"Composer"];
+  }
+  if (trackItem.album.title) {
+    [trackDict setValue:trackItem.album.title forKey:@"Album"];
+  }
+  if (trackItem.grouping) {
+    [trackDict setValue:trackItem.grouping forKey:@"Grouping"];
+  }
   [trackDict setValue:trackItem.genre forKey:@"Genre"];
-  [trackDict setValue:trackItem.kind forKey:@"Kind"];
+  if (trackItem.kind) {
+    [trackDict setValue:trackItem.kind forKey:@"Kind"];
+  }
+  if (trackItem.comments) {
+    [trackDict setValue:trackItem.comments forKey:@"Comments"];
+  }
   [trackDict setValue:[NSNumber numberWithUnsignedLongLong:trackItem.fileSize] forKey:@"Size"];
   [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.totalTime] forKey:@"Total Time"];
+  if (trackItem.startTime > 0) {
+    [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.startTime] forKey:@"Start Time"];
+  }
+  if (trackItem.stopTime > 0) {
+    [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.stopTime] forKey:@"Stop Time"];
+  }
   if (trackItem.album.discNumber > 0) {
-    [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.album.discNumber] forKey:@"Disc Number"]; // optional
+    [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.album.discNumber] forKey:@"Disc Number"];
   }
   if (trackItem.album.discCount > 0) {
-    [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.album.discCount] forKey:@"Disc Count"]; // optional
+    [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.album.discCount] forKey:@"Disc Count"];
   }
   if (trackItem.trackNumber > 0) {
-    [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.trackNumber] forKey:@"Track Number"]; // optional
+    [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.trackNumber] forKey:@"Track Number"];
   }
   if (trackItem.album.trackCount > 0) {
-    [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.album.trackCount] forKey:@"Track Count"]; // optional
+    [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.album.trackCount] forKey:@"Track Count"];
   }
   [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.year] forKey:@"Year"];
   if (trackItem.beatsPerMinute > 0) {
-    [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.beatsPerMinute] forKey:@"BPM"]; // optional
+    [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.beatsPerMinute] forKey:@"BPM"];
   }
-  [trackDict setValue:trackItem.modifiedDate forKey:@"Date Modified"];
-  [trackDict setValue:trackItem.addedDate forKey:@"Date Added"];
+  if (trackItem.modifiedDate) {
+    [trackDict setValue:trackItem.modifiedDate forKey:@"Date Modified"];
+  }
+  if (trackItem.addedDate) {
+    [trackDict setValue:trackItem.addedDate forKey:@"Date Added"];
+  }
   [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.bitrate] forKey:@"Bit Rate"];
   [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.sampleRate] forKey:@"Sample Rate"];
-  [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.sampleRate] forKey:@"Sample Rate"];
-  if (trackItem.playCount > 0) {
-    [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.playCount] forKey:@"Play Count"]; // optional
+  if (trackItem.volumeAdjustment != 0) {
+    [trackDict setValue:[NSNumber numberWithInteger:trackItem.volumeAdjustment] forKey:@"Volume Adjustment"];
   }
-  //[trackDict setValue:trackItem.lastPlayedDate forKey:@"Play Date"]; convert to epoch
-  [trackDict setValue:trackItem.lastPlayedDate forKey:@"Play Date UTC"];
+  if (trackItem.album.gapless) {
+    [trackDict setValue:[NSNumber numberWithBool:YES] forKey:@"Part Of Gapless Album"];
+  }
+  if (trackItem.rating != 0) {
+    [trackDict setValue:[NSNumber numberWithInteger:trackItem.rating] forKey:@"Rating"];
+  }
+  if (trackItem.ratingComputed) {
+    [trackDict setValue:[NSNumber numberWithBool:YES] forKey:@"Rating Computed"];
+  }
+  if (trackItem.album.rating != 0) {
+    [trackDict setValue:[NSNumber numberWithInteger:trackItem.album.rating] forKey:@"Album Rating"];
+  }
+  if (trackItem.album.ratingComputed) {
+    [trackDict setValue:[NSNumber numberWithBool:YES] forKey:@"Album Rating Computed"];
+  }
+  if (trackItem.playCount > 0) {
+    [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.playCount] forKey:@"Play Count"];
+  }
+  if (trackItem.lastPlayedDate) {
+//    [trackDict setValue:[NSNumber numberWithLongLong:trackItem.lastPlayedDate.timeIntervalSince1970+2082844800] forKey:@"Play Date"]; //convert to epoch
+    [trackDict setValue:trackItem.lastPlayedDate forKey:@"Play Date UTC"];
+  }
   if (trackItem.skipCount > 0) {
-    [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.skipCount] forKey:@"Skip Count"]; // optional
+    [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.skipCount] forKey:@"Skip Count"];
+  }
+  if (trackItem.skipDate) {
     [trackDict setValue:trackItem.skipDate forKey:@"Skip Date"];
   }
-  [trackDict setValue:trackItem.releaseDate forKey:@"Release Date"];
+  if (trackItem.releaseDate) {
+    [trackDict setValue:trackItem.releaseDate forKey:@"Release Date"];
+  }
   if (trackItem.volumeNormalizationEnergy > 0) {
-    [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.volumeNormalizationEnergy] forKey:@"Normalization"]; // optional
+    [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.volumeNormalizationEnergy] forKey:@"Normalization"];
   }
-  if (trackItem.hasArtworkAvailable) {
-    [trackDict setValue:[NSNumber numberWithUnsignedInteger:1] forKey:@"Artwork Count"]; //optional
+  if (trackItem.album.compilation) {
+    [trackDict setValue:[NSNumber numberWithBool:YES] forKey:@"Compilation"];
   }
-  [trackDict setValue:trackItem.album.sortTitle forKey:@"Sort Album"];
-  [trackDict setValue:trackItem.album.sortAlbumArtist forKey:@"Sort Album Artist"];
-  [trackDict setValue:trackItem.artist.sortName forKey:@"Sort Artist"];
-  [trackDict setValue:trackItem.sortTitle forKey:@"Sort Name"];
+//  if (trackItem.hasArtworkAvailable) {
+//    [trackDict setValue:[NSNumber numberWithUnsignedInteger:1] forKey:@"Artwork Count"]; //optional - buggy
+//  }
+  if (trackItem.album.sortTitle) {
+    [trackDict setValue:trackItem.album.sortTitle forKey:@"Sort Album"];
+  }
+  if (trackItem.album.sortAlbumArtist) {
+    [trackDict setValue:trackItem.album.sortAlbumArtist forKey:@"Sort Album Artist"];
+  }
+  if (trackItem.artist.sortName) {
+    [trackDict setValue:trackItem.artist.sortName forKey:@"Sort Artist"];
+  }
+  if (trackItem.sortComposer) {
+    [trackDict setValue:trackItem.sortComposer forKey:@"Sort Composer"];
+  }
+  if (trackItem.sortTitle) {
+    [trackDict setValue:trackItem.sortTitle forKey:@"Sort Name"];
+  }
+  if (trackItem.isUserDisabled) {
+    [trackDict setValue:[NSNumber numberWithBool:YES] forKey:@"Disabled"];
+  }
+
   [trackDict setValue:[LibrarySerializer getHexadecimalPersistentId:trackItem.persistentID] forKey:@"Persistent ID"];
 //  [trackDict setValue:trackItem.title forKey:@"Track Type"];
-//  [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.fileType] forKey:@"File Type"]; // optional - deprecated
-  [trackDict setValue:[trackItem.location absoluteString] forKey:@"Location"];
+
+//  [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.fileType] forKey:@"File Type"]; - deprecated
+//  if (trackItem.cloud) {
+//    [trackDict setValue:[NSNumber numberWithBool:YES] forKey:@"Matched"];
+//  }
+//  if (trackItem.purchased) {
+//    [trackDict setValue:[NSNumber numberWithBool:YES] forKey:@"Purchased"];
+//  }
+  if (trackItem.location) {
+    [trackDict setValue:[trackItem.location absoluteString] forKey:@"Location"];
+  }
 
   return trackDict;
 }
