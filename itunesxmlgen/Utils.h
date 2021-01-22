@@ -27,6 +27,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void) compareTrack:(NSDictionary*)track1Dict withTrack:(NSDictionary*)track2Dict;
 
++ (NSDictionary*) createPersistentIdDictionaryForItems:(NSArray<NSDictionary*>*)itemsArray withPersistentIdKey:(NSString*)persistentIdKey;
++ (NSDictionary*) createPersistentIdDictionaryForTracks:(NSArray<NSDictionary*>*)tracksArray;
++ (NSDictionary*) createPersistentIdDictionaryForPlaylists:(NSArray<NSDictionary*>*)playlistsArray;
+
 @end
 
 NS_ASSUME_NONNULL_END
