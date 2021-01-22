@@ -69,7 +69,7 @@
   [_libraryDict setValue:[NSNumber numberWithUnsignedInteger:library.features] forKey:@"Features"];
   [_libraryDict setValue:@(library.showContentRating) forKey:@"Show Content Ratings"];
   [_libraryDict setValue:library.mediaFolderLocation.absoluteString forKey:@"Music Folder"];
-  //[dictionary setValue:library.persistentID forKey:@"Library Persistent ID"]; // Not available
+//  [dictionary setValue:library.persistentID forKey:@"Library Persistent ID"]; - unavailable
 
   // add tracks dictionary to library dictionary
   NSMutableDictionary* tracksDict = [self serializeTracks:library.allMediaItems];
@@ -113,7 +113,7 @@
   NSMutableDictionary* playlistDict = [NSMutableDictionary dictionary];
 
   [playlistDict setValue:playlistItem.name forKey:@"Name"];
-  /*[playlistDict setValue:playlistItem. forKey:@"Description"];*/ // unavailable
+//  [playlistDict setValue:playlistItem. forKey:@"Description"]; - unavailable
   if (playlistItem.master) {
     [playlistDict setValue:[NSNumber numberWithBool:YES] forKey:@"Master"];
   }
@@ -186,7 +186,6 @@
 
       // store track + id in trackIds dict
       NSString* trackPersistentIdHex = [LibrarySerializer getHexadecimalPersistentId:trackItem.persistentID];
-//      NSNumber* trackIdString = [NSNumber numberWithUnsignedInteger:trackId];
       NSString* trackIdString = [@(trackId) stringValue];
       [trackIdsDict setValue:trackIdString forKey:trackPersistentIdHex];
 
@@ -282,7 +281,7 @@
     [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.playCount] forKey:@"Play Count"];
   }
   if (trackItem.lastPlayedDate) {
-//    [trackDict setValue:[NSNumber numberWithLongLong:trackItem.lastPlayedDate.timeIntervalSince1970+2082844800] forKey:@"Play Date"]; //convert to epoch
+//    [trackDict setValue:[NSNumber numberWithLongLong:trackItem.lastPlayedDate.timeIntervalSince1970+2082844800] forKey:@"Play Date"]; - invalid
     [trackDict setValue:trackItem.lastPlayedDate forKey:@"Play Date UTC"];
   }
   if (trackItem.skipCount > 0) {
@@ -301,7 +300,7 @@
     [trackDict setValue:[NSNumber numberWithBool:YES] forKey:@"Compilation"];
   }
 //  if (trackItem.hasArtworkAvailable) {
-//    [trackDict setValue:[NSNumber numberWithUnsignedInteger:1] forKey:@"Artwork Count"]; //optional - buggy
+//    [trackDict setValue:[NSNumber numberWithUnsignedInteger:1] forKey:@"Artwork Count"]; - unavailable
 //  }
   if (trackItem.album.sortTitle) {
     [trackDict setValue:trackItem.album.sortTitle forKey:@"Sort Album"];
@@ -323,14 +322,14 @@
   }
 
   [trackDict setValue:[LibrarySerializer getHexadecimalPersistentId:trackItem.persistentID] forKey:@"Persistent ID"];
-//  [trackDict setValue:trackItem.title forKey:@"Track Type"];
+//  [trackDict setValue:trackItem.title forKey:@"Track Type"]; - invalid
 
 //  [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.fileType] forKey:@"File Type"]; - deprecated
 //  if (trackItem.cloud) {
-//    [trackDict setValue:[NSNumber numberWithBool:YES] forKey:@"Matched"];
+//    [trackDict setValue:[NSNumber numberWithBool:YES] forKey:@"Matched"]; - unavailable
 //  }
 //  if (trackItem.purchased) {
-//    [trackDict setValue:[NSNumber numberWithBool:YES] forKey:@"Purchased"];
+//    [trackDict setValue:[NSNumber numberWithBool:YES] forKey:@"Purchased"]; - invalid
 //  }
   if (trackItem.location) {
     [trackDict setValue:[trackItem.location absoluteString] forKey:@"Location"];
