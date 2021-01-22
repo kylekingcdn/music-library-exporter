@@ -14,11 +14,6 @@
 
 @implementation Utils
 
-+ (NSDictionary*) readPropertyListFromFile:(NSString*)plistFilePath {
-
-  return [NSDictionary dictionaryWithContentsOfFile:plistFilePath];
-}
-
 + (NSSet<NSString*>*) getAllKeysForDictionary:(NSDictionary*)dict1 andDictionary:(NSDictionary*)dict2 {
 
   NSMutableSet<NSString*>* keys = [NSMutableSet setWithArray:dict1.allKeys];
