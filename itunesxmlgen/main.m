@@ -65,6 +65,7 @@ int main(int argc, const char * argv[]) {
       // specify playlist options
       [serializer setIncludeInternalPlaylists:YES];
       [serializer setFlattenPlaylistHierarchy:NO];
+      [serializer setIncludeFoldersWhenFlattened:NO];
 
       // specify track path re-mapping options
       [serializer setRemapRootDirectory:NO];

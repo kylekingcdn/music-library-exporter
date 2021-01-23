@@ -100,18 +100,25 @@
       // ignore playlists when whitelist is enabled and their id is not included
       if (!hasPlaylistIdWhitelist || [_includedPlaylistPersistentIds containsObject:playlistPersistentIdHex]) {
 
-        // generate playlist id
-        NSUInteger playlistId = ++currentEntityId;
+        // ignore folders when flattened if specified
+        if (playlistItem.kind != ITLibPlaylistKindFolder || !_flattenPlaylistHierarchy || _includeFoldersWhenFlattened) {
 
-        // store playlist + id in playlistIds dict
-        NSNumber* playlistIdNumber = [NSNumber numberWithUnsignedInteger:playlistId];
-        [entityIdsDicts setValue:playlistIdNumber forKey:playlistPersistentIdHex];
+          // generate playlist id
+          NSUInteger playlistId = ++currentEntityId;
 
-        // serialize playlist
-        NSMutableDictionary* playlistDict = [self serializePlaylist:playlistItem withId:playlistId];
+          // store playlist + id in playlistIds dict
+          NSNumber* playlistIdNumber = [NSNumber numberWithUnsignedInteger:playlistId];
+          [entityIdsDicts setValue:playlistIdNumber forKey:playlistPersistentIdHex];
 
-        // add playlist dictionary object to playlistsArray
-        [playlistsArray addObject:playlistDict];
+          // serialize playlist
+          NSMutableDictionary* playlistDict = [self serializePlaylist:playlistItem withId:playlistId];
+
+          // add playlist dictionary object to playlistsArray
+          [playlistsArray addObject:playlistDict];
+        }
+        else {
+          NSLog(@"excluding folder due to folders disabled w/ flat hierarchy : %@ - %@", playlistItem.name, playlistItem.persistentID);
+        }
       }
       else {
         NSLog(@"excluding playlist since it is not on the whitelist: %@ - %@", playlistItem.name, playlistItem.persistentID);
