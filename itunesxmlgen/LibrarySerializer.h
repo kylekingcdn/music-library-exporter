@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
   NSMutableDictionary* entityIdsDicts;
 
   // returns constant value based on initial parameters - generated during run-time for optimized performance
+  BOOL hasPlaylistIdWhitelist;
   BOOL shouldRemapTrackLocations;
 }
 
@@ -34,6 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 // key filters
 @property BOOL includeInternalPlaylists;
+@property NSArray<NSString*>* includedPlaylistPersistentIds;
 
 
 + (NSString*) getHexadecimalPersistentId:(NSNumber*)decimalPersistentId;

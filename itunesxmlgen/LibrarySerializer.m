@@ -86,6 +86,8 @@
 
 - (NSMutableArray<NSMutableDictionary*>*) serializePlaylists:(NSArray<ITLibPlaylist*>*) playlists {
 
+  hasPlaylistIdWhitelist = (_includedPlaylistPersistentIds.count >= 1);
+
   NSMutableArray<NSMutableDictionary*>* playlistsArray = [NSMutableArray array];
 
   for (ITLibPlaylist* playlistItem in playlists) {
@@ -95,18 +97,25 @@
     // ignore internal playlists if specified
     if (_includeInternalPlaylists || (playlistItem.distinguishedKind == ITLibDistinguishedPlaylistKindNone && !playlistItem.master)) {
 
-      // generate playlist id
-      NSUInteger playlistId = ++currentEntityId;
+      // ignore playlists when whitelist is enabled and their id is not included
+      if (!hasPlaylistIdWhitelist || [_includedPlaylistPersistentIds containsObject:playlistPersistentIdHex]) {
 
-      // store playlist + id in playlistIds dict
-      NSNumber* playlistIdNumber = [NSNumber numberWithUnsignedInteger:playlistId];
-      [entityIdsDicts setValue:playlistIdNumber forKey:playlistPersistentIdHex];
+        // generate playlist id
+        NSUInteger playlistId = ++currentEntityId;
 
-      // serialize playlist
-      NSMutableDictionary* playlistDict = [self serializePlaylist:playlistItem withId:playlistId];
+        // store playlist + id in playlistIds dict
+        NSNumber* playlistIdNumber = [NSNumber numberWithUnsignedInteger:playlistId];
+        [entityIdsDicts setValue:playlistIdNumber forKey:playlistPersistentIdHex];
 
-      // add playlist dictionary object to playlistsArray
-      [playlistsArray addObject:playlistDict];
+        // serialize playlist
+        NSMutableDictionary* playlistDict = [self serializePlaylist:playlistItem withId:playlistId];
+
+        // add playlist dictionary object to playlistsArray
+        [playlistsArray addObject:playlistDict];
+      }
+      else {
+        NSLog(@"excluding playlist since it is not on the whitelist: %@ - %@", playlistItem.name, playlistItem.persistentID);
+      }
     }
     else {
       NSLog(@"excluding internal playlist: %@ - %@", playlistItem.name, playlistItem.persistentID);
