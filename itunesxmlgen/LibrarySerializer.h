@@ -32,6 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property BOOL remapRootDirectory;
 @property NSString* originalRootDirectory;
 @property NSString* mappedRootDirectory;
+@property BOOL flattenPlaylistHierarchy;
 
 // key filters
 @property BOOL includeInternalPlaylists;

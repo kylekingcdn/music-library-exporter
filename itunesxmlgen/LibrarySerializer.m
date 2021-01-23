@@ -136,7 +136,8 @@
   }
   [playlistDict setValue:[NSNumber numberWithInteger:playlistId] forKey:@"Playlist ID"];
   [playlistDict setValue:[LibrarySerializer getHexadecimalPersistentId:playlistItem.persistentID] forKey:@"Playlist Persistent ID"];
-  if (playlistItem.parentID > 0) {
+
+  if (playlistItem.parentID > 0 && !_flattenPlaylistHierarchy) {
     [playlistDict setValue:[LibrarySerializer getHexadecimalPersistentId:playlistItem.parentID] forKey:@"Parent Persistent ID"];
   }
   if (playlistItem.distinguishedKind > ITLibDistinguishedPlaylistKindNone) {
