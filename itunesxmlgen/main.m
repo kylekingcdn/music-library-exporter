@@ -43,9 +43,9 @@ int main(int argc, const char * argv[]) {
     }
 
     // temporary run-time flags
-    BOOL generateNewLibrary = NO;
-    BOOL comparePlaylistDicts = NO;
-    BOOL compareTrackDicts = NO;
+    BOOL generateNewLibrary = YES;
+    BOOL comparePlaylistDicts = YES;
+    BOOL compareTrackDicts = YES;
 
     // initialize library handler
     NSError *error = nil;
