@@ -17,11 +17,28 @@ int main(int argc, const char * argv[]) {
 
   @autoreleasepool {
 
-    NSError *error = nil;
-    ITLibrary *library = [ITLibrary libraryWithAPIVersion:@"1.1" error:&error];
+    if (argc != 3) {
+      NSLog(@"usage: itunesxmlgen [output_xml_path] [itunes_generated_xml_path]");
+      return -1;
+    }
 
-    if (!library) {
-      NSLog(@"error - failed to init ITLibrary. error: %@", error.localizedDescription);
+    /* parse args */
+    NSString* exportedLibraryFilePath = [NSString stringWithUTF8String:argv[1]];
+    NSString* exportedLibraryDir = [exportedLibraryFilePath stringByDeletingLastPathComponent];
+    NSString* sourceLibraryFilePath = [NSString stringWithUTF8String:argv[2]];
+
+    /* validate args */
+    BOOL exportedLibraryDirIsDir;
+    BOOL exportedLibraryDirExists = [[NSFileManager defaultManager] fileExistsAtPath:exportedLibraryDir isDirectory:&exportedLibraryDirIsDir];
+    BOOL sourceLibraryFileExists = [[NSFileManager defaultManager] fileExistsAtPath:sourceLibraryFilePath];
+
+    /* log errors */
+    if (!exportedLibraryDirExists || !exportedLibraryDirIsDir) {
+      NSLog(@"error - directory for generated xml doesn't exist: '%@'", exportedLibraryDir);
+      return -1;
+    }
+    if (!sourceLibraryFileExists) {
+      NSLog(@"error - library xml from iTunes not found at path: '%@'", sourceLibraryFilePath);
       return -1;
     }
 
@@ -30,10 +47,13 @@ int main(int argc, const char * argv[]) {
     BOOL comparePlaylistDicts = NO;
     BOOL compareTrackDicts = NO;
 
-    NSString* desktopFilePath = [NSSearchPathForDirectoriesInDomains (NSDesktopDirectory, NSUserDomainMask, YES) firstObject];
-    NSString* exportedLibraryFileName = @"exportedLibrary.xml";
-    NSString* exportedLibraryFilePath = [[desktopFilePath stringByAppendingString:@"/"] stringByAppendingString:exportedLibraryFileName];
-
+    // initialize library handler
+    NSError *error = nil;
+    ITLibrary *library = [ITLibrary libraryWithAPIVersion:@"1.1" error:&error];
+    if (!library) {
+      NSLog(@"error - failed to init ITLibrary. error: %@", error.localizedDescription);
+      return -1;
+    }
 
     /* -- generated library serialization/parsing -- */
 
@@ -52,10 +72,6 @@ int main(int argc, const char * argv[]) {
     [generatedLibraryParser setLibraryDictionaryWithPropertyList:exportedLibraryFilePath];
 
     /* -- source dictionary parsing -- */
-
-    // get dictionary for officially generated library
-    NSString* sourceLibraryFileName = @"sourceLibrary.xml";
-    NSString* sourceLibraryFilePath = [[desktopFilePath stringByAppendingString:@"/"] stringByAppendingString:sourceLibraryFileName];
 
     LibraryParser* sourceLibraryParser = [LibraryParser alloc];
     [sourceLibraryParser setLibraryDictionaryWithPropertyList:sourceLibraryFilePath];
