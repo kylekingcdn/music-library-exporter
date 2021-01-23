@@ -68,8 +68,8 @@ int main(int argc, const char * argv[]) {
 
       // specify track path re-mapping options
       [serializer setRemapRootDirectory:NO];
-      [serializer setOriginalRootDirectory:@"/Users/Kyle/Music/Music/Media.localized/Music"];
-      [serializer setMappedRootDirectory:@"/data/music"];
+      //[serializer setOriginalRootDirectory:@"/Users/Kyle/Music/Music/Media.localized/Music"];
+      //[serializer setMappedRootDirectory:@"/data/music"];
 
       // generate
       [serializer serializeLibrary:library];
