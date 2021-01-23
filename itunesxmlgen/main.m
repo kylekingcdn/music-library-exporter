@@ -62,6 +62,9 @@ int main(int argc, const char * argv[]) {
 
       LibrarySerializer* serializer = [LibrarySerializer alloc];
 
+      // specify playlist options
+      [serializer setIncludeInternalPlaylists:YES];
+
       // specify track path re-mapping options
       [serializer setRemapRootDirectory:NO];
       [serializer setOriginalRootDirectory:@"/Users/Kyle/Music/Music/Media.localized/Music"];

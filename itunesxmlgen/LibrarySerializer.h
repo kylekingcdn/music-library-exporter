@@ -31,6 +31,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property BOOL remapRootDirectory;
 @property NSString* originalRootDirectory;
 @property NSString* mappedRootDirectory;
+
+// key filters
+@property BOOL includeInternalPlaylists;
+
+
 + (NSString*) getHexadecimalPersistentId:(NSNumber*)decimalPersistentId;
 
 + (void) dumpPropertiesForEntity: (ITLibMediaEntity*) entity;

@@ -90,19 +90,27 @@
 
   for (ITLibPlaylist* playlistItem in playlists) {
 
-    // generate playlist id
-    NSUInteger playlistId = ++currentEntityId;
-
-    // store playlist + id in playlistIds dict
     NSString* playlistPersistentIdHex = [LibrarySerializer getHexadecimalPersistentId:playlistItem.persistentID];
-    NSNumber* playlistIdNumber = [NSNumber numberWithUnsignedInteger:playlistId];
-    [entityIdsDicts setValue:playlistIdNumber forKey:playlistPersistentIdHex];
 
-    // serialize playlist
-    NSMutableDictionary* playlistDict = [self serializePlaylist:playlistItem withId:playlistId];
+    // ignore internal playlists if specified
+    if (_includeInternalPlaylists || (playlistItem.distinguishedKind == ITLibDistinguishedPlaylistKindNone && !playlistItem.master)) {
 
-    // add playlist dictionary object to playlistsArray
-    [playlistsArray addObject:playlistDict];
+      // generate playlist id
+      NSUInteger playlistId = ++currentEntityId;
+
+      // store playlist + id in playlistIds dict
+      NSNumber* playlistIdNumber = [NSNumber numberWithUnsignedInteger:playlistId];
+      [entityIdsDicts setValue:playlistIdNumber forKey:playlistPersistentIdHex];
+
+      // serialize playlist
+      NSMutableDictionary* playlistDict = [self serializePlaylist:playlistItem withId:playlistId];
+
+      // add playlist dictionary object to playlistsArray
+      [playlistsArray addObject:playlistDict];
+    }
+    else {
+      NSLog(@"excluding internal playlist: %@ - %@", playlistItem.name, playlistItem.persistentID);
+    }
   }
 
   return playlistsArray;
