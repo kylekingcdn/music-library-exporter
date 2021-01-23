@@ -17,9 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LibrarySerializer : NSObject {
 
-  NSMutableDictionary* trackIdsDict;
-  NSMutableDictionary* playlistIdsDict;
-  NSUInteger lastId;
+  NSUInteger currentEntityId;
+  NSMutableDictionary* entityIdsDicts;
 }
 
 @property (readonly) NSMutableDictionary* libraryDict;
