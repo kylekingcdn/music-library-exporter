@@ -26,9 +26,9 @@ int main(int argc, const char * argv[]) {
     }
 
     // temporary run-time flags
-    bool generateNewLibrary = NO;
-    bool comparePlaylistDicts = NO;
-    bool compareTrackDicts = NO;
+    BOOL generateNewLibrary = NO;
+    BOOL comparePlaylistDicts = NO;
+    BOOL compareTrackDicts = NO;
 
     NSString* desktopFilePath = [NSSearchPathForDirectoriesInDomains (NSDesktopDirectory, NSUserDomainMask, YES) firstObject];
     NSString* exportedLibraryFileName = @"exportedLibrary.xml";
@@ -51,7 +51,6 @@ int main(int argc, const char * argv[]) {
     LibraryParser* generatedLibraryParser = [LibraryParser alloc];
     [generatedLibraryParser setLibraryDictionaryWithPropertyList:exportedLibraryFilePath];
 
-
     /* -- source dictionary parsing -- */
 
     // get dictionary for officially generated library
@@ -61,7 +60,6 @@ int main(int argc, const char * argv[]) {
     LibraryParser* sourceLibraryParser = [LibraryParser alloc];
     [sourceLibraryParser setLibraryDictionaryWithPropertyList:sourceLibraryFilePath];
 
-
     /* -- library comparison/validation -- */
 
     if (compareTrackDicts) {
@@ -69,8 +67,8 @@ int main(int argc, const char * argv[]) {
       NSArray<NSString*>* excludedTrackKeys = @[
         @"Track Type", @"File Type", // invalid values
         @"Purchased", @"Matched", @"Apple Music", @"Disabled", @"Playlist Only", // invalid values
-        @"Date Modified", @"Date Added", @"Play Date UTC", @"Play Date", @"Skip Date", // invalid values
-        @"Track ID", // unavailable
+        @"Date Modified", @"Date Added", @"Play Date UTC", @"Play Date", @"Skip Date", // FIXME: invalid values? offset by 1hr?
+        @"Track ID", // unavailable, custom ID generated
         @"File Folder Count", @"Library Folder Count", @"Artwork Count", // unavailable
         @"Work", @"Movement Number", @"Movement Count", @"Movement Name", // unavailable
         @"Loved", @"Disliked", @"Album Loved",  @"Album Disliked", // unavailable
@@ -84,7 +82,7 @@ int main(int argc, const char * argv[]) {
 
     if (comparePlaylistDicts) {
 
-      NSArray<NSString*>* excludedPlaylistKeys = @[ @"Description", @"Smart Info", @"Smart Criteria", @"Playlist ID" ];
+      NSArray<NSString*>* excludedPlaylistKeys = @[ @"Description", @"Smart Info", @"Smart Criteria", @"Playlist ID" ]; // unavailable
       NSDictionary* sourceLibraryPlaylistIdsDict = [sourceLibraryParser libraryPlaylistsPersistentIdDictionary];
       NSDictionary* generatedLibraryPlaylistIdsDict = [generatedLibraryParser libraryPlaylistsPersistentIdDictionary];
 
