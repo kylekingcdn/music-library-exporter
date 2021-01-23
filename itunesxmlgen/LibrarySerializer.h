@@ -19,11 +19,18 @@ NS_ASSUME_NONNULL_BEGIN
 
   NSUInteger currentEntityId;
   NSMutableDictionary* entityIdsDicts;
+
+  // returns constant value based on initial parameters - generated during run-time for optimized performance
+  BOOL shouldRemapTrackLocations;
 }
 
 @property (readonly) NSMutableDictionary* libraryDict;
 @property NSString* filePath;
 
+// dict value modifiers
+@property BOOL remapRootDirectory;
+@property NSString* originalRootDirectory;
+@property NSString* mappedRootDirectory;
 + (NSString*) getHexadecimalPersistentId:(NSNumber*)decimalPersistentId;
 
 + (void) dumpPropertiesForEntity: (ITLibMediaEntity*) entity;
@@ -31,6 +38,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void) dumpLibraryPlaylists: (ITLibrary*) library;
 + (void) dumpLibraryTracks: (ITLibrary*) library;
+
+- (NSURL*) remapRootMusicDirForFileUrl:(NSURL*)fileUrl;
 
 - (void) serializeLibrary: (ITLibrary*) library;
 

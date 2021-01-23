@@ -171,6 +171,8 @@
 
 - (NSMutableDictionary*) serializeTracks:(NSArray<ITLibMediaItem*>*) tracks {
 
+  shouldRemapTrackLocations = (_remapRootDirectory && _originalRootDirectory.length > 0 && _mappedRootDirectory.length > 0);
+
   NSMutableDictionary* tracksDict = [NSMutableDictionary dictionary];
 
   for (ITLibMediaItem* trackItem in tracks) {
@@ -328,10 +330,23 @@
 //    [trackDict setValue:[NSNumber numberWithBool:YES] forKey:@"Purchased"]; - invalid
 //  }
   if (trackItem.location) {
-    [trackDict setValue:[trackItem.location absoluteString] forKey:@"Location"];
+    if (shouldRemapTrackLocations) {
+      [trackDict setValue:[[self remapRootMusicDirForFileUrl:trackItem.location] absoluteString] forKey:@"Location"];
+    }
+    else {
+      [trackDict setValue:[trackItem.location absoluteString] forKey:@"Location"];
+    }
   }
 
   return trackDict;
+}
+
+- (NSURL*) remapRootMusicDirForFileUrl:(NSURL*)fileUrl {
+
+  NSString* originalFilePath = [[fileUrl absoluteURL] path];
+  NSString* mappedFilePath = [originalFilePath stringByReplacingOccurrencesOfString:_originalRootDirectory withString:_mappedRootDirectory];
+
+  return [NSURL fileURLWithPath:mappedFilePath];
 }
 
 - (void) writeDictionary {

@@ -61,6 +61,13 @@ int main(int argc, const char * argv[]) {
     if (generateNewLibrary) {
 
       LibrarySerializer* serializer = [LibrarySerializer alloc];
+
+      // specify track path re-mapping options
+      [serializer setRemapRootDirectory:NO];
+      [serializer setOriginalRootDirectory:@"/Users/Kyle/Music/Music/Media.localized/Music"];
+      [serializer setMappedRootDirectory:@"/data/music"];
+
+      // generate
       [serializer serializeLibrary:library];
 
       [serializer setFilePath:exportedLibraryFilePath];
