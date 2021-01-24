@@ -7,6 +7,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import "OrderedDictionary.h"
+
 @class ITLibrary;
 @class ITLibMediaEntity;
 @class ITLibMediaItem;
@@ -18,14 +20,14 @@ NS_ASSUME_NONNULL_BEGIN
 @interface LibrarySerializer : NSObject {
 
   NSUInteger currentEntityId;
-  NSMutableDictionary* entityIdsDicts;
+  MutableOrderedDictionary* entityIdsDicts;
 
   // returns constant value based on initial parameters - generated during run-time for optimized performance
   BOOL hasPlaylistIdWhitelist;
   BOOL shouldRemapTrackLocations;
 }
 
-@property (readonly) NSMutableDictionary* libraryDict;
+@property (readonly) MutableOrderedDictionary* libraryDict;
 @property NSString* filePath;
 
 // dict value modifiers
@@ -52,12 +54,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) serializeLibrary: (ITLibrary*) library;
 
-- (NSMutableArray<NSMutableDictionary*>*) serializePlaylists: (NSArray<ITLibPlaylist*>*) playlists;
-- (NSMutableDictionary*) serializePlaylist: (ITLibPlaylist*) playlistItem withId: (NSUInteger) playlistId;
-- (NSMutableArray<NSMutableDictionary*>*) serializePlaylistItems: (NSArray<ITLibMediaItem*>*) trackItems;
+- (NSMutableArray<OrderedDictionary*>*) serializePlaylists: (NSArray<ITLibPlaylist*>*) playlists;
+- (OrderedDictionary*) serializePlaylist: (ITLibPlaylist*) playlistItem withId: (NSUInteger) playlistId;
+- (NSMutableArray<OrderedDictionary*>*) serializePlaylistItems: (NSArray<ITLibMediaItem*>*) trackItems;
 
-- (NSMutableDictionary*) serializeTracks: (NSArray<ITLibMediaItem*>*) tracks;
-- (NSMutableDictionary*) serializeTrack: (ITLibMediaItem*) trackItem withId: (NSUInteger) trackId;
+- (OrderedDictionary*) serializeTracks: (NSArray<ITLibMediaItem*>*) tracks;
+- (OrderedDictionary*) serializeTrack: (ITLibMediaItem*) trackItem withId: (NSUInteger) trackId;
 
 - (void) writeDictionary;
 
