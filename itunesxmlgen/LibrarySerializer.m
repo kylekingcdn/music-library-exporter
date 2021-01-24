@@ -389,21 +389,7 @@
 
   NSLog(@"[LibrarySerializer writeDictionary]");
 
-  NSError* serializeError = nil;
-  NSData* data = [NSPropertyListSerialization dataWithPropertyList:_libraryDict format:NSPropertyListXMLFormat_v1_0 options:0 error:&serializeError];
-  if (serializeError) {
-      NSLog(@"[LibrarySerializer writeDictionary] error serializing dictionary: %@", serializeError);
-      return;
-  }
-
-  NSError* writeError = nil;
-  BOOL writeSuccessful = [data writeToFile:_filePath
-                                   options:NSDataWritingAtomic
-                                     error:&writeError];
-  if (!writeSuccessful) {
-      NSLog (@"[LibrarySerializer writeDictionary] error writing dictionary: %@", writeError);
-      return;
-  }
+  [_libraryDict writeToFile:_filePath atomically:YES];
 }
 
 @end
