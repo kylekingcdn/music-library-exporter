@@ -72,7 +72,7 @@
   [_libraryDict setValue:library.applicationVersion forKey:@"Application Version"];
   [_libraryDict setValue:[NSNumber numberWithUnsignedInteger:library.features] forKey:@"Features"];
   [_libraryDict setValue:@(library.showContentRating) forKey:@"Show Content Ratings"];
-  [_libraryDict setValue:library.mediaFolderLocation.absoluteString forKey:@"Music Folder"];
+//  [_libraryDict setValue:library.mediaFolderLocation.absoluteString forKey:@"Music Folder"]; - invalid
 //  [dictionary setValue:library.persistentID forKey:@"Library Persistent ID"]; - unavailable
 
   // add tracks dictionary to library dictionary
