@@ -355,23 +355,23 @@
 //    [trackDict setValue:[NSNumber numberWithBool:YES] forKey:@"Purchased"]; - invalid
 //  }
   if (trackItem.location) {
+
+    NSString* trackFilePath = trackItem.location.path;
+
     if (shouldRemapTrackLocations) {
-      [trackDict setValue:[[self remapRootMusicDirForFileUrl:trackItem.location] absoluteString] forKey:@"Location"];
+      trackFilePath = [trackFilePath stringByReplacingOccurrencesOfString:_originalRootDirectory withString:_mappedRootDirectory];
     }
-    else {
-      [trackDict setValue:[trackItem.location absoluteString] forKey:@"Location"];
-    }
+
+    NSString* encodedTrackPath = [@"file://" stringByAppendingString:trackFilePath];
+    [trackDict setValue:encodedTrackPath forKey:@"Location"];
   }
 
   return trackDict;
 }
 
-- (NSURL*) remapRootMusicDirForFileUrl:(NSURL*)fileUrl {
+- (NSString*) remapRootMusicDirForFilePath:(NSString*)filePath {
 
-  NSString* originalFilePath = [[fileUrl absoluteURL] path];
-  NSString* mappedFilePath = [originalFilePath stringByReplacingOccurrencesOfString:_originalRootDirectory withString:_mappedRootDirectory];
-
-  return [NSURL fileURLWithPath:mappedFilePath];
+  return [filePath stringByReplacingOccurrencesOfString:_originalRootDirectory withString:_mappedRootDirectory];
 }
 
 - (void) writeDictionary {

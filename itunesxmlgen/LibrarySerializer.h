@@ -48,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void) dumpLibraryPlaylists: (ITLibrary*) library;
 + (void) dumpLibraryTracks: (ITLibrary*) library;
 
-- (NSURL*) remapRootMusicDirForFileUrl:(NSURL*)fileUrl;
+- (NSString*) remapRootMusicDirForFilePath:(NSString*)filePath;
 
 - (void) serializeLibrary: (ITLibrary*) library;
 
