@@ -39,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSArray<NSString*>* includedPlaylistPersistentIds;
 @property BOOL includeFoldersWhenFlattened;
 
-
++ (NSString*) getHexadecimalPersistentIdForEntity:(ITLibMediaEntity*)entity;
 + (NSString*) getHexadecimalPersistentId:(NSNumber*)decimalPersistentId;
 
 + (void) dumpPropertiesForEntity: (ITLibMediaEntity*) entity;

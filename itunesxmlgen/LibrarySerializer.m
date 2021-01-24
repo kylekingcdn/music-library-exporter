@@ -17,6 +17,11 @@
 
 @implementation LibrarySerializer
 
++ (NSString*) getHexadecimalPersistentIdForEntity:(ITLibMediaEntity*)entity {
+
+  return [LibrarySerializer getHexadecimalPersistentId:entity.persistentID];
+}
+
 + (NSString*) getHexadecimalPersistentId:(NSNumber*)decimalPersistentId {
 
   return [[NSString stringWithFormat:@"%016lx", decimalPersistentId.unsignedIntegerValue] uppercaseString];
