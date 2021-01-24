@@ -110,6 +110,9 @@
 
           // generate playlist id
           NSUInteger playlistId = ++currentEntityId;
+          if ((playlistId-1) % 1000 == 0) {
+            NSLog(@"[serializePlaylists] serializing playlist - entity #%lu", playlistId-1);
+          }
 
           // store playlist + id in playlistIds dict
           NSNumber* playlistIdNumber = [NSNumber numberWithUnsignedInteger:playlistId];
@@ -211,6 +214,9 @@
 
       // generate track id
       NSUInteger trackId = ++currentEntityId;
+      if ((trackId-1) % 100 == 0) {
+        NSLog(@"[serializeTracks] serializing track %lu", trackId-1);
+      }
 
       // store track + id in trackIds dict
       NSString* trackPersistentIdHex = [LibrarySerializer getHexadecimalPersistentId:trackItem.persistentID];
