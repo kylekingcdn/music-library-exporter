@@ -77,7 +77,7 @@
 
 + (NSDictionary*) createPersistentIdDictionaryForItems:(NSArray<NSDictionary*>*)itemsArray withPersistentIdKey:(NSString*)persistentIdKey {
 
-  NSDictionary* persistentIdDict = [NSMutableDictionary dictionary];
+  NSMutableDictionary* persistentIdDict = [NSMutableDictionary dictionary];
 
   for (NSDictionary* itemDict in itemsArray) {
 
