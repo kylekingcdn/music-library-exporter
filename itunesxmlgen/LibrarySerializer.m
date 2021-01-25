@@ -373,7 +373,7 @@
       trackFilePath = [trackFilePath stringByReplacingOccurrencesOfString:_originalRootDirectory withString:_mappedRootDirectory];
     }
 
-    NSString* encodedTrackPath = [@"file://" stringByAppendingString:trackFilePath];
+    NSString* encodedTrackPath = [[NSURL fileURLWithPath:trackFilePath] absoluteString];
     [trackDict setValue:encodedTrackPath forKey:@"Location"];
   }
 
