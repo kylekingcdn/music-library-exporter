@@ -369,6 +369,48 @@
   }
 
   [trackDict setValue:[LibrarySerializer getHexadecimalPersistentId:trackItem.persistentID] forKey:@"Persistent ID"];
+
+  // add boolean attributes for media kind
+  switch (trackItem.mediaKind) {
+    case ITLibMediaItemMediaKindSong: {
+      break;
+    }
+    case ITLibMediaItemMediaKindAlertTone: {
+      [trackDict setValue:[NSNumber numberWithBool:YES] forKey:@"Tone"];
+      break;
+    }
+    case ITLibMediaItemMediaKindAudiobook: {
+      [trackDict setValue:[NSNumber numberWithBool:YES] forKey:@"Audiobook"];
+      break;
+    }
+    case ITLibMediaItemMediaKindBook: {
+      [trackDict setValue:[NSNumber numberWithBool:YES] forKey:@"Book"];
+      break;
+    }
+    case ITLibMediaItemMediaKindMovie: {
+      [trackDict setValue:[NSNumber numberWithBool:YES] forKey:@"Movie"];
+      break;
+    }
+    case ITLibMediaItemMediaKindMusicVideo: {
+      [trackDict setValue:[NSNumber numberWithBool:YES] forKey:@"Music Video"];
+      break;
+    }
+    case ITLibMediaItemMediaKindPodcast: {
+      [trackDict setValue:[NSNumber numberWithBool:YES] forKey:@"Podcast"];
+      break;
+    }
+    case ITLibMediaItemMediaKindTVShow: {
+      [trackDict setValue:[NSNumber numberWithBool:YES] forKey:@"TV Show"];
+      break;
+    }
+    case ITLibMediaItemMediaKindRingtone: {
+      [trackDict setValue:[NSNumber numberWithBool:YES] forKey:@"Ringtone"];
+      break;
+    }
+    default: {
+      break;
+    }
+  }
 //  [trackDict setValue:trackItem.title forKey:@"Track Type"]; - invalid
 
 //  [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.fileType] forKey:@"File Type"]; - deprecated
