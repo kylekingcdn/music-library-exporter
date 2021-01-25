@@ -56,6 +56,7 @@
 		2705443C25B66A0A00FE6D65 = {
 			isa = PBXGroup;
 			children = (
+				27EF9A5E25BF21FE0051CE7B /* 3rd */,
 				27EF9A3D25BF20C60051CE7B /* library-generator */,
 				2705444725B66A0A00FE6D65 /* Music Library Exporter */,
 				2705444625B66A0A00FE6D65 /* Products */,
@@ -96,10 +97,17 @@
 				27CDC90C25BADAFC0032BF79 /* LibraryParser.m */,
 				2705445725B670E700FE6D65 /* LibrarySerializer.h */,
 				2705445825B670E700FE6D65 /* LibrarySerializer.m */,
+			);
+			path = "library-generator";
+			sourceTree = "<group>";
+		};
+		27EF9A5E25BF21FE0051CE7B /* 3rd */ = {
+			isa = PBXGroup;
+			children = (
 				276442A025BD3F7600EE217C /* OrderedDictionary.h */,
 				276442A125BD3F7600EE217C /* OrderedDictionary.m */,
 			);
-			path = "library-generator";
+			path = 3rd;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
