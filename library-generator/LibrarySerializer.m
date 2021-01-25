@@ -158,9 +158,9 @@
   }
   if (playlistItem.distinguishedKind > ITLibDistinguishedPlaylistKindNone) {
     [playlistDict setValue:[NSNumber numberWithUnsignedInteger:playlistItem.distinguishedKind] forKey:@"Distinguished Kind"];
-  }
-  if (playlistItem.distinguishedKind == ITLibDistinguishedPlaylistKindMusic) {
-    [playlistDict setValue:[NSNumber numberWithBool:YES] forKey:@"Music"];
+    if (playlistItem.distinguishedKind == ITLibDistinguishedPlaylistKindMusic) {
+      [playlistDict setValue:[NSNumber numberWithBool:YES] forKey:@"Music"];
+    }
   }
   if (!playlistItem.visible) {
     [playlistDict setValue:[NSNumber numberWithBool:NO] forKey:@"Visible"];
@@ -249,21 +249,27 @@
   if (trackItem.composer.length > 0) {
     [trackDict setValue:trackItem.composer forKey:@"Composer"];
   }
-  if (trackItem.album.title) {
+  if (trackItem.album.title.length > 0) {
     [trackDict setValue:trackItem.album.title forKey:@"Album"];
   }
   if (trackItem.grouping) {
     [trackDict setValue:trackItem.grouping forKey:@"Grouping"];
   }
-  [trackDict setValue:trackItem.genre forKey:@"Genre"];
+  if (trackItem.genre.length > 0) {
+    [trackDict setValue:trackItem.genre forKey:@"Genre"];
+  }
   if (trackItem.kind) {
     [trackDict setValue:trackItem.kind forKey:@"Kind"];
   }
   if (trackItem.comments) {
     [trackDict setValue:trackItem.comments forKey:@"Comments"];
   }
-  [trackDict setValue:[NSNumber numberWithUnsignedLongLong:trackItem.fileSize] forKey:@"Size"];
-  [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.totalTime] forKey:@"Total Time"];
+  if (trackItem.fileSize > 0) {
+    [trackDict setValue:[NSNumber numberWithUnsignedLongLong:trackItem.fileSize] forKey:@"Size"];
+  }
+  if (trackItem.totalTime > 0) {
+    [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.totalTime] forKey:@"Total Time"];
+  }
   if (trackItem.startTime > 0) {
     [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.startTime] forKey:@"Start Time"];
   }
@@ -282,7 +288,9 @@
   if (trackItem.album.trackCount > 0) {
     [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.album.trackCount] forKey:@"Track Count"];
   }
-  [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.year] forKey:@"Year"];
+  if (trackItem.year > 0) {
+    [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.year] forKey:@"Year"];
+  }
   if (trackItem.beatsPerMinute > 0) {
     [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.beatsPerMinute] forKey:@"BPM"];
   }
@@ -292,8 +300,12 @@
   if (trackItem.addedDate) {
     [trackDict setValue:trackItem.addedDate forKey:@"Date Added"];
   }
-  [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.bitrate] forKey:@"Bit Rate"];
-  [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.sampleRate] forKey:@"Sample Rate"];
+  if (trackItem.bitrate > 0) {
+    [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.bitrate] forKey:@"Bit Rate"];
+  }
+  if (trackItem.sampleRate > 0) {
+    [trackDict setValue:[NSNumber numberWithUnsignedInteger:trackItem.sampleRate] forKey:@"Sample Rate"];
+  }
   if (trackItem.volumeAdjustment != 0) {
     [trackDict setValue:[NSNumber numberWithInteger:trackItem.volumeAdjustment] forKey:@"Volume Adjustment"];
   }
