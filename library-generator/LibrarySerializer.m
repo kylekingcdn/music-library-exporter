@@ -69,6 +69,9 @@
 
   hasPlaylistIdWhitelist = (_includedPlaylistPersistentIds.count >= 1);
   shouldRemapTrackLocations = (_remapRootDirectory && _originalRootDirectory.length > 0 && _mappedRootDirectory.length > 0);
+
+  [self initIncludedMediaKindsDict];
+  [self initIncludedPlaylistKindsDict];
 }
 
 - (void) initIncludedMediaKindsDict {
@@ -183,8 +186,8 @@
 
     NSString* playlistPersistentIdHex = [LibrarySerializer getHexadecimalPersistentId:playlistItem.persistentID];
 
-    // ignore internal playlists if specified
-    if (_includeInternalPlaylists || (playlistItem.distinguishedKind == ITLibDistinguishedPlaylistKindNone && !playlistItem.master)) {
+    // ignore excluded playlist kinds
+    if ([includedPlaylistKinds containsObject:[NSNumber numberWithUnsignedInteger:playlistItem.distinguishedKind]] && (!playlistItem.master || _includeInternalPlaylists)) {
 
       // ignore playlists when whitelist is enabled and their id is not included
       if (!hasPlaylistIdWhitelist || [_includedPlaylistPersistentIds containsObject:playlistPersistentIdHex]) {
@@ -267,7 +270,8 @@
 
   for (ITLibMediaItem* trackItem in trackItems) {
 
-    if (trackItem.mediaKind == ITLibMediaItemMediaKindSong) {
+    // ignore excluded media kinds
+    if ([includedMediaKinds containsObject:[NSNumber numberWithUnsignedInteger:trackItem.mediaKind]]) {
 
       MutableOrderedDictionary* playlistItemDict = [MutableOrderedDictionary dictionary];
 
@@ -294,7 +298,8 @@
 
   for (ITLibMediaItem* trackItem in tracks) {
 
-    if (trackItem.mediaKind == ITLibMediaItemMediaKindSong || !_musicOnly) {
+    // ignore excluded media kinds
+    if ([includedMediaKinds containsObject:[NSNumber numberWithUnsignedInteger:trackItem.mediaKind]]) {
 
       // generate track id
       NSUInteger trackId = ++currentEntityId;
