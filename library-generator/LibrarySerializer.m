@@ -148,6 +148,7 @@
 //  [playlistDict setValue:playlistItem. forKey:@"Description"]; - unavailable
   if (playlistItem.master) {
     [playlistDict setValue:[NSNumber numberWithBool:YES] forKey:@"Master"];
+    [playlistDict setValue:[NSNumber numberWithBool:NO] forKey:@"Visible"];
   }
   [playlistDict setValue:[NSNumber numberWithInteger:playlistId] forKey:@"Playlist ID"];
   [playlistDict setValue:[LibrarySerializer getHexadecimalPersistentId:playlistItem.persistentID] forKey:@"Playlist Persistent ID"];
