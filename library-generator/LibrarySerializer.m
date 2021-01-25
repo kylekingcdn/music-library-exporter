@@ -179,6 +179,7 @@
 
 - (NSMutableArray<OrderedDictionary*>*) serializePlaylists:(NSArray<ITLibPlaylist*>*) playlists {
 
+  NSLog(@"[LibrarySerializer serializePlaylists:(%lu)]", playlists.count);
 
   NSMutableArray<OrderedDictionary*>* playlistsArray = [NSMutableArray array];
 
@@ -229,6 +230,8 @@
 
 - (OrderedDictionary*) serializePlaylist:(ITLibPlaylist*) playlistItem withId: (NSUInteger) playlistId {
 
+  NSLog(@"[LibrarySerializer serializePlaylist:(%@ - %@)]", playlistItem.name, [LibrarySerializer getHexadecimalPersistentId:playlistItem.persistentID]);
+
   MutableOrderedDictionary* playlistDict = [MutableOrderedDictionary dictionary];
 
   [playlistDict setValue:playlistItem.name forKey:@"Name"];
@@ -277,6 +280,7 @@
 
       // get track id
       NSString* trackPersistentId = [LibrarySerializer getHexadecimalPersistentId:trackItem.persistentID];
+
       NSAssert([[entityIdsDicts allKeys] containsObject:trackPersistentId], @"trackIds doesn't contain persistent ID for track '%@'", trackPersistentId);
       NSUInteger trackId = [[entityIdsDicts objectForKey:trackPersistentId] integerValue];
       NSAssert(trackId > 0, @"trackIds dict returned an invalid value: %lu", trackId);
@@ -293,6 +297,7 @@
 
 - (OrderedDictionary*) serializeTracks:(NSArray<ITLibMediaItem*>*) tracks {
 
+  NSLog(@"[LibrarySerializer serializeTracks:(%lu)]", tracks.count);
 
   MutableOrderedDictionary* tracksDict = [MutableOrderedDictionary dictionary];
 
