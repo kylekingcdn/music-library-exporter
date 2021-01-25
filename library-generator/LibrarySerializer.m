@@ -211,7 +211,7 @@
 
   for (ITLibMediaItem* trackItem in tracks) {
 
-    if (trackItem.mediaKind == ITLibMediaItemMediaKindSong) {
+    if (trackItem.mediaKind == ITLibMediaItemMediaKindSong || !_musicOnly) {
 
       // generate track id
       NSUInteger trackId = ++currentEntityId;
