@@ -20,9 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface LibrarySerializer : NSObject {
 
   NSUInteger currentEntityId;
-  MutableOrderedDictionary* entityIdsDicts;
+  NSMutableDictionary* entityIdsDicts;
 
-  // returns constant value based on initial parameters - generated during run-time for optimized performance
+  // member variables stored at run-time to handle filtering content
   BOOL hasPlaylistIdWhitelist;
   BOOL shouldRemapTrackLocations;
 }
@@ -52,6 +52,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (void) dumpLibraryTracks: (ITLibrary*) library;
 
 - (NSString*) remapRootMusicDirForFilePath:(NSString*)filePath;
+
+- (void) initSerializeMembers;
 
 - (void) serializeLibrary: (ITLibrary*) library;
 

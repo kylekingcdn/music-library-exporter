@@ -60,6 +60,17 @@
   }
 }
 
+- (void) initSerializeMembers {
+
+  NSLog(@"[LibrarySerializer initSerializeMembers]");
+
+  currentEntityId = 0;
+  entityIdsDicts = [NSMutableDictionary dictionary];
+
+  hasPlaylistIdWhitelist = (_includedPlaylistPersistentIds.count >= 1);
+  shouldRemapTrackLocations = (_remapRootDirectory && _originalRootDirectory.length > 0 && _mappedRootDirectory.length > 0);
+}
+
 - (void) serializeLibrary:(ITLibrary*) library {
 
   NSLog(@"[LibrarySerializer serializeLibrary]");
@@ -67,9 +78,8 @@
   // clear generated library dictionary
   _libraryDict = [MutableOrderedDictionary dictionary];
 
-  // reset internal entity IDs
-  currentEntityId = 0;
-  entityIdsDicts = [MutableOrderedDictionary dictionary];
+  // reset serialize member variables
+  [self initSerializeMembers];
 
   [_libraryDict setValue:[NSNumber numberWithUnsignedInteger:library.apiMajorVersion] forKey:@"Major Version"];
   [_libraryDict setValue:[NSNumber numberWithUnsignedInteger:library.apiMinorVersion] forKey:@"Minor Version"];
@@ -91,7 +101,6 @@
 
 - (NSMutableArray<OrderedDictionary*>*) serializePlaylists:(NSArray<ITLibPlaylist*>*) playlists {
 
-  hasPlaylistIdWhitelist = (_includedPlaylistPersistentIds.count >= 1);
 
   NSMutableArray<OrderedDictionary*>* playlistsArray = [NSMutableArray array];
 
@@ -205,7 +214,6 @@
 
 - (OrderedDictionary*) serializeTracks:(NSArray<ITLibMediaItem*>*) tracks {
 
-  shouldRemapTrackLocations = (_remapRootDirectory && _originalRootDirectory.length > 0 && _mappedRootDirectory.length > 0);
 
   MutableOrderedDictionary* tracksDict = [MutableOrderedDictionary dictionary];
 
