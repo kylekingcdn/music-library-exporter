@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2705444425B66A0A00FE6D65"
-               BuildableName = "itunesxmlgen"
-               BlueprintName = "itunesxmlgen"
-               ReferencedContainer = "container:itunesxmlgen.xcodeproj">
+               BuildableName = "library-generator"
+               BlueprintName = "library-generator"
+               ReferencedContainer = "container:Music Library Exporter.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2705444425B66A0A00FE6D65"
-            BuildableName = "itunesxmlgen"
-            BlueprintName = "itunesxmlgen"
-            ReferencedContainer = "container:itunesxmlgen.xcodeproj">
+            BuildableName = "library-generator"
+            BlueprintName = "library-generator"
+            ReferencedContainer = "container:Music Library Exporter.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <CommandLineArguments>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2705444425B66A0A00FE6D65"
-            BuildableName = "itunesxmlgen"
-            BlueprintName = "itunesxmlgen"
-            ReferencedContainer = "container:itunesxmlgen.xcodeproj">
+            BuildableName = "library-generator"
+            BlueprintName = "library-generator"
+            ReferencedContainer = "container:Music Library Exporter.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

@@ -1,6 +1,6 @@
 //
 //  main.m
-//  itunesxmlgen
+//  Music Library Exporter
 //
 //  Created by Kyle King on 2021-01-18.
 //
@@ -18,7 +18,7 @@ int main(int argc, const char * argv[]) {
   @autoreleasepool {
 
     if (argc != 3) {
-      NSLog(@"usage: itunesxmlgen [output_xml_path] [itunes_generated_xml_path]");
+      NSLog(@"usage: library-generator [output_xml_path] [itunes_generated_xml_path]");
       return -1;
     }
 

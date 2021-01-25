@@ -28,7 +28,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		2705444525B66A0A00FE6D65 /* itunesxmlgen */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = itunesxmlgen; sourceTree = BUILT_PRODUCTS_DIR; };
+		2705444525B66A0A00FE6D65 /* library-generator */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "library-generator"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2705444825B66A0A00FE6D65 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2705445125B66B7A00FE6D65 /* iTunesLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTunesLibrary.framework; path = System/Library/Frameworks/iTunesLibrary.framework; sourceTree = SDKROOT; };
 		2705445725B670E700FE6D65 /* LibrarySerializer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LibrarySerializer.h; sourceTree = "<group>"; };
@@ -56,7 +56,7 @@
 		2705443C25B66A0A00FE6D65 = {
 			isa = PBXGroup;
 			children = (
-				2705444725B66A0A00FE6D65 /* itunesxmlgen */,
+				2705444725B66A0A00FE6D65 /* Music Library Exporter */,
 				2705444625B66A0A00FE6D65 /* Products */,
 				2705445025B66B7A00FE6D65 /* Frameworks */,
 			);
@@ -65,12 +65,12 @@
 		2705444625B66A0A00FE6D65 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2705444525B66A0A00FE6D65 /* itunesxmlgen */,
+				2705444525B66A0A00FE6D65 /* library-generator */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2705444725B66A0A00FE6D65 /* itunesxmlgen */ = {
+		2705444725B66A0A00FE6D65 /* Music Library Exporter */ = {
 			isa = PBXGroup;
 			children = (
 				2705444825B66A0A00FE6D65 /* main.m */,
@@ -83,7 +83,7 @@
 				276442A025BD3F7600EE217C /* OrderedDictionary.h */,
 				276442A125BD3F7600EE217C /* OrderedDictionary.m */,
 			);
-			path = itunesxmlgen;
+			path = "Music Library Exporter";
 			sourceTree = "<group>";
 		};
 		2705445025B66B7A00FE6D65 /* Frameworks */ = {
@@ -97,9 +97,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2705444425B66A0A00FE6D65 /* itunesxmlgen */ = {
+		2705444425B66A0A00FE6D65 /* library-generator */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2705444C25B66A0A00FE6D65 /* Build configuration list for PBXNativeTarget "itunesxmlgen" */;
+			buildConfigurationList = 2705444C25B66A0A00FE6D65 /* Build configuration list for PBXNativeTarget "library-generator" */;
 			buildPhases = (
 				2705444125B66A0A00FE6D65 /* Sources */,
 				2705444225B66A0A00FE6D65 /* Frameworks */,
@@ -109,9 +109,9 @@
 			);
 			dependencies = (
 			);
-			name = itunesxmlgen;
+			name = "library-generator";
 			productName = itunesxmlgen;
-			productReference = 2705444525B66A0A00FE6D65 /* itunesxmlgen */;
+			productReference = 2705444525B66A0A00FE6D65 /* library-generator */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -127,7 +127,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 2705444025B66A0A00FE6D65 /* Build configuration list for PBXProject "itunesxmlgen" */;
+			buildConfigurationList = 2705444025B66A0A00FE6D65 /* Build configuration list for PBXProject "Music Library Exporter" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -140,7 +140,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2705444425B66A0A00FE6D65 /* itunesxmlgen */,
+				2705444425B66A0A00FE6D65 /* library-generator */,
 			);
 		};
 /* End PBXProject section */
@@ -299,7 +299,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2705444025B66A0A00FE6D65 /* Build configuration list for PBXProject "itunesxmlgen" */ = {
+		2705444025B66A0A00FE6D65 /* Build configuration list for PBXProject "Music Library Exporter" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2705444A25B66A0A00FE6D65 /* Debug */,
@@ -308,7 +308,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2705444C25B66A0A00FE6D65 /* Build configuration list for PBXNativeTarget "itunesxmlgen" */ = {
+		2705444C25B66A0A00FE6D65 /* Build configuration list for PBXNativeTarget "library-generator" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2705444D25B66A0A00FE6D65 /* Debug */,
