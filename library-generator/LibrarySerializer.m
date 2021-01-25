@@ -71,6 +71,81 @@
   shouldRemapTrackLocations = (_remapRootDirectory && _originalRootDirectory.length > 0 && _mappedRootDirectory.length > 0);
 }
 
+- (void) initIncludedMediaKindsDict {
+
+  NSLog(@"[LibrarySerializer initIncludedMediaKindsDict]");
+
+  NSMutableSet<NSNumber*>* mediaKinds = [NSMutableSet set];
+
+  // add music media type
+  [mediaKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindSong]];
+
+  // add non-music media types
+  if (!_musicOnly) {
+    [mediaKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindMovie]];
+    [mediaKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindPodcast]];
+    [mediaKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindAudiobook]];
+    [mediaKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindPDFBooklet]];
+    [mediaKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindMusicVideo]];
+    [mediaKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindTVShow]];
+    [mediaKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindInteractiveBooklet]];
+    [mediaKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindHomeVideo]];
+    [mediaKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindRingtone]];
+    [mediaKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindDigitalBooklet]];
+    [mediaKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindIOSApplication]];
+    [mediaKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindVoiceMemo]];
+    [mediaKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindiTunesU]];
+    [mediaKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindBook]];
+    [mediaKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindPDFBook]];
+    [mediaKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindAlertTone]];
+  }
+
+  includedMediaKinds = [mediaKinds copy];
+}
+
+- (void) initIncludedPlaylistKindsDict {
+
+  NSLog(@"[LibrarySerializer initIncludedPlaylistKindsDict]");
+
+  NSMutableSet<NSNumber*>* playlistKinds = [NSMutableSet set];
+
+  // add non-distinguished playlist kind
+  [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindNone]];
+  [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindMusic]];
+
+  if (_includeInternalPlaylists) {
+
+    // and internal music playlists
+    [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindPurchases]];
+    [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKind90sMusic]];
+    [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindMyTopRated]];
+    [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindTop25MostPlayed]];
+    [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindRecentlyPlayed]];
+    [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindRecentlyAdded]];
+    [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindClassicalMusic]];
+    [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindLovedSongs]];
+
+    // add internal non-music playlists
+    if (!_musicOnly) {
+      [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindMovies]];
+      [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindTVShows]];
+      [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindAudiobooks]];
+      [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindBooks]];
+      [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindRingtones]];
+      [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindPodcasts]];
+      [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindVoiceMemos]];
+      [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindiTunesU]];
+      [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindMusicVideos]];
+      [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindLibraryMusicVideos]];
+      [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindHomeVideos]];
+      [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindApplications]];
+      [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindMusicShowsAndMovies]];
+    }
+  }
+
+  includedPlaylistKinds = [playlistKinds copy];
+}
+
 - (void) serializeLibrary:(ITLibrary*) library {
 
   NSLog(@"[LibrarySerializer serializeLibrary]");

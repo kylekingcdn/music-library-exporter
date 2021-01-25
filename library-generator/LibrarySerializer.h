@@ -23,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
   NSMutableDictionary* entityIdsDicts;
 
   // member variables stored at run-time to handle filtering content
+  NSSet<NSNumber*>* includedMediaKinds;
+  NSSet<NSNumber*>* includedPlaylistKinds;
   BOOL hasPlaylistIdWhitelist;
   BOOL shouldRemapTrackLocations;
 }
@@ -54,6 +56,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString*) remapRootMusicDirForFilePath:(NSString*)filePath;
 
 - (void) initSerializeMembers;
+- (void) initIncludedMediaKindsDict;
+- (void) initIncludedPlaylistKindsDict;
 
 - (void) serializeLibrary: (ITLibrary*) library;
 
