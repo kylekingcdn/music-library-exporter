@@ -1,6 +1,6 @@
 //
 //  LibraryParser.h
-//  Music Library Exporter
+//  library-generator
 //
 //  Created by Kyle King on 2021-01-22.
 //

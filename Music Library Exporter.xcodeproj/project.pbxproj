@@ -56,6 +56,7 @@
 		2705443C25B66A0A00FE6D65 = {
 			isa = PBXGroup;
 			children = (
+				27EF9A3D25BF20C60051CE7B /* library-generator */,
 				2705444725B66A0A00FE6D65 /* Music Library Exporter */,
 				2705444625B66A0A00FE6D65 /* Products */,
 				2705445025B66B7A00FE6D65 /* Frameworks */,
@@ -73,15 +74,6 @@
 		2705444725B66A0A00FE6D65 /* Music Library Exporter */ = {
 			isa = PBXGroup;
 			children = (
-				2705444825B66A0A00FE6D65 /* main.m */,
-				27C52A7225B69C4B00D829F3 /* Utils.h */,
-				27C52A7325B69C4B00D829F3 /* Utils.m */,
-				27CDC90B25BADAFC0032BF79 /* LibraryParser.h */,
-				27CDC90C25BADAFC0032BF79 /* LibraryParser.m */,
-				2705445725B670E700FE6D65 /* LibrarySerializer.h */,
-				2705445825B670E700FE6D65 /* LibrarySerializer.m */,
-				276442A025BD3F7600EE217C /* OrderedDictionary.h */,
-				276442A125BD3F7600EE217C /* OrderedDictionary.m */,
 			);
 			path = "Music Library Exporter";
 			sourceTree = "<group>";
@@ -92,6 +84,22 @@
 				2705445125B66B7A00FE6D65 /* iTunesLibrary.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		27EF9A3D25BF20C60051CE7B /* library-generator */ = {
+			isa = PBXGroup;
+			children = (
+				2705444825B66A0A00FE6D65 /* main.m */,
+				27C52A7225B69C4B00D829F3 /* Utils.h */,
+				27C52A7325B69C4B00D829F3 /* Utils.m */,
+				27CDC90B25BADAFC0032BF79 /* LibraryParser.h */,
+				27CDC90C25BADAFC0032BF79 /* LibraryParser.m */,
+				2705445725B670E700FE6D65 /* LibrarySerializer.h */,
+				2705445825B670E700FE6D65 /* LibrarySerializer.m */,
+				276442A025BD3F7600EE217C /* OrderedDictionary.h */,
+				276442A125BD3F7600EE217C /* OrderedDictionary.m */,
+			);
+			path = "library-generator";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
