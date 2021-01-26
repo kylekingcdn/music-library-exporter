@@ -22,6 +22,11 @@
 		27A2C05E25C0934B00AAD73C /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27A2C05C25C0934A00AAD73C /* MainMenu.xib */; };
 		27A2C06125C0934B00AAD73C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A2C06025C0934B00AAD73C /* main.m */; };
 		27A2C07225C0943C00AAD73C /* Music Library Exporter Helper.app in Copy Helper App */ = {isa = PBXBuildFile; fileRef = 27A2C05525C0934A00AAD73C /* Music Library Exporter Helper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		27A2C08725C097B600AAD73C /* OrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 276442A125BD3F7600EE217C /* OrderedDictionary.m */; };
+		27A2C08B25C097C000AAD73C /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C52A7325B69C4B00D829F3 /* Utils.m */; };
+		27A2C08C25C097C000AAD73C /* LibraryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CDC90C25BADAFC0032BF79 /* LibraryParser.m */; };
+		27A2C08D25C097C000AAD73C /* LibrarySerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2705445825B670E700FE6D65 /* LibrarySerializer.m */; };
+		27A2C09125C097DF00AAD73C /* iTunesLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2705445125B66B7A00FE6D65 /* iTunesLibrary.framework */; };
 		27C52A7425B69C4B00D829F3 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C52A7325B69C4B00D829F3 /* Utils.m */; };
 		27CDC90D25BADAFC0032BF79 /* LibraryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CDC90C25BADAFC0032BF79 /* LibraryParser.m */; };
 		27EF9A6825BF23910051CE7B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27EF9A6725BF23910051CE7B /* AppDelegate.m */; };
@@ -107,6 +112,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27A2C09125C097DF00AAD73C /* iTunesLibrary.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,6 +369,10 @@
 			files = (
 				27A2C06125C0934B00AAD73C /* main.m in Sources */,
 				27A2C05925C0934A00AAD73C /* AppDelegate.m in Sources */,
+				27A2C08725C097B600AAD73C /* OrderedDictionary.m in Sources */,
+				27A2C08B25C097C000AAD73C /* Utils.m in Sources */,
+				27A2C08C25C097C000AAD73C /* LibraryParser.m in Sources */,
+				27A2C08D25C097C000AAD73C /* LibrarySerializer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
