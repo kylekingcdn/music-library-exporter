@@ -16,6 +16,12 @@
 		27A2BFC525C085E400AAD73C /* LibrarySerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2705445825B670E700FE6D65 /* LibrarySerializer.m */; };
 		27A2BFC625C085E400AAD73C /* OrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 276442A125BD3F7600EE217C /* OrderedDictionary.m */; };
 		27A2BFC925C0860700AAD73C /* iTunesLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2705445125B66B7A00FE6D65 /* iTunesLibrary.framework */; };
+		27A2C02225C08FF700AAD73C /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27A2C02125C08FF700AAD73C /* ServiceManagement.framework */; };
+		27A2C05925C0934A00AAD73C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A2C05825C0934A00AAD73C /* AppDelegate.m */; };
+		27A2C05B25C0934A00AAD73C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27A2C05A25C0934A00AAD73C /* Assets.xcassets */; };
+		27A2C05E25C0934B00AAD73C /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27A2C05C25C0934A00AAD73C /* MainMenu.xib */; };
+		27A2C06125C0934B00AAD73C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A2C06025C0934B00AAD73C /* main.m */; };
+		27A2C07225C0943C00AAD73C /* Music Library Exporter Helper.app in Copy Helper App */ = {isa = PBXBuildFile; fileRef = 27A2C05525C0934A00AAD73C /* Music Library Exporter Helper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		27C52A7425B69C4B00D829F3 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C52A7325B69C4B00D829F3 /* Utils.m */; };
 		27CDC90D25BADAFC0032BF79 /* LibraryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CDC90C25BADAFC0032BF79 /* LibraryParser.m */; };
 		27EF9A6825BF23910051CE7B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27EF9A6725BF23910051CE7B /* AppDelegate.m */; };
@@ -23,6 +29,16 @@
 		27EF9A6D25BF23920051CE7B /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27EF9A6B25BF23920051CE7B /* MainMenu.xib */; };
 		27EF9A7025BF23920051CE7B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27EF9A6F25BF23920051CE7B /* main.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		27A2C07025C0943900AAD73C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2705443D25B66A0A00FE6D65 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 27A2C05425C0934A00AAD73C;
+			remoteInfo = "Music Library Exporter Helper";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		2705444325B66A0A00FE6D65 /* CopyFiles */ = {
@@ -34,6 +50,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
+		27A2C01025C08F6B00AAD73C /* Copy Helper App */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Library/LoginItems;
+			dstSubfolderSpec = 1;
+			files = (
+				27A2C07225C0943C00AAD73C /* Music Library Exporter Helper.app in Copy Helper App */,
+			);
+			name = "Copy Helper App";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +71,15 @@
 		2705445825B670E700FE6D65 /* LibrarySerializer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LibrarySerializer.m; sourceTree = "<group>"; };
 		276442A025BD3F7600EE217C /* OrderedDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderedDictionary.h; sourceTree = "<group>"; };
 		276442A125BD3F7600EE217C /* OrderedDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderedDictionary.m; sourceTree = "<group>"; };
+		27A2C02125C08FF700AAD73C /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
+		27A2C05525C0934A00AAD73C /* Music Library Exporter Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Music Library Exporter Helper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		27A2C05725C0934A00AAD73C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		27A2C05825C0934A00AAD73C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		27A2C05A25C0934A00AAD73C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		27A2C05D25C0934B00AAD73C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		27A2C05F25C0934B00AAD73C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		27A2C06025C0934B00AAD73C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		27A2C06225C0934B00AAD73C /* Music_Library_Exporter_Helper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Music_Library_Exporter_Helper.entitlements; sourceTree = "<group>"; };
 		27C52A7225B69C4B00D829F3 /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		27C52A7325B69C4B00D829F3 /* Utils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
 		27CDC90B25BADAFC0032BF79 /* LibraryParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LibraryParser.h; sourceTree = "<group>"; };
@@ -67,11 +103,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		27A2C05225C0934A00AAD73C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		27EF9A6125BF23910051CE7B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				27A2BFC925C0860700AAD73C /* iTunesLibrary.framework in Frameworks */,
+				27A2C02225C08FF700AAD73C /* ServiceManagement.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,6 +129,7 @@
 				27EF9A3D25BF20C60051CE7B /* library-generator */,
 				27EF9A6525BF23910051CE7B /* Music Library Exporter */,
 				27EF9A5E25BF21FE0051CE7B /* 3rd */,
+				27A2C05625C0934A00AAD73C /* Music Library Exporter Helper */,
 				2705445025B66B7A00FE6D65 /* Frameworks */,
 				2705444625B66A0A00FE6D65 /* Products */,
 			);
@@ -95,6 +140,7 @@
 			children = (
 				2705444525B66A0A00FE6D65 /* library-generator */,
 				27EF9A6425BF23910051CE7B /* Music Library Exporter.app */,
+				27A2C05525C0934A00AAD73C /* Music Library Exporter Helper.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -103,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				2705445125B66B7A00FE6D65 /* iTunesLibrary.framework */,
+				27A2C02125C08FF700AAD73C /* ServiceManagement.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -118,6 +165,28 @@
 				2705445825B670E700FE6D65 /* LibrarySerializer.m */,
 			);
 			path = common;
+			sourceTree = "<group>";
+		};
+		27A2C05625C0934A00AAD73C /* Music Library Exporter Helper */ = {
+			isa = PBXGroup;
+			children = (
+				27A2C06025C0934B00AAD73C /* main.m */,
+				27A2C05725C0934A00AAD73C /* AppDelegate.h */,
+				27A2C05825C0934A00AAD73C /* AppDelegate.m */,
+				27A2C06C25C093B400AAD73C /* Supporting Files */,
+			);
+			path = "Music Library Exporter Helper";
+			sourceTree = "<group>";
+		};
+		27A2C06C25C093B400AAD73C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				27A2C05A25C0934A00AAD73C /* Assets.xcassets */,
+				27A2C05C25C0934A00AAD73C /* MainMenu.xib */,
+				27A2C05F25C0934B00AAD73C /* Info.plist */,
+				27A2C06225C0934B00AAD73C /* Music_Library_Exporter_Helper.entitlements */,
+			);
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		27EF9A3D25BF20C60051CE7B /* library-generator */ = {
@@ -179,6 +248,23 @@
 			productReference = 2705444525B66A0A00FE6D65 /* library-generator */;
 			productType = "com.apple.product-type.tool";
 		};
+		27A2C05425C0934A00AAD73C /* Music Library Exporter Helper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 27A2C06325C0934B00AAD73C /* Build configuration list for PBXNativeTarget "Music Library Exporter Helper" */;
+			buildPhases = (
+				27A2C05125C0934A00AAD73C /* Sources */,
+				27A2C05225C0934A00AAD73C /* Frameworks */,
+				27A2C05325C0934A00AAD73C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Music Library Exporter Helper";
+			productName = "Music Library Exporter Helper";
+			productReference = 27A2C05525C0934A00AAD73C /* Music Library Exporter Helper.app */;
+			productType = "com.apple.product-type.application";
+		};
 		27EF9A6325BF23910051CE7B /* Music Library Exporter */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 27EF9A7225BF23920051CE7B /* Build configuration list for PBXNativeTarget "Music Library Exporter" */;
@@ -186,10 +272,12 @@
 				27EF9A6025BF23910051CE7B /* Sources */,
 				27EF9A6125BF23910051CE7B /* Frameworks */,
 				27EF9A6225BF23910051CE7B /* Resources */,
+				27A2C01025C08F6B00AAD73C /* Copy Helper App */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				27A2C07125C0943900AAD73C /* PBXTargetDependency */,
 			);
 			name = "Music Library Exporter";
 			productName = "Music Library Exporter";
@@ -205,6 +293,9 @@
 				LastUpgradeCheck = 1230;
 				TargetAttributes = {
 					2705444425B66A0A00FE6D65 = {
+						CreatedOnToolsVersion = 12.3;
+					};
+					27A2C05425C0934A00AAD73C = {
 						CreatedOnToolsVersion = 12.3;
 					};
 					27EF9A6325BF23910051CE7B = {
@@ -227,11 +318,21 @@
 			targets = (
 				2705444425B66A0A00FE6D65 /* library-generator */,
 				27EF9A6325BF23910051CE7B /* Music Library Exporter */,
+				27A2C05425C0934A00AAD73C /* Music Library Exporter Helper */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		27A2C05325C0934A00AAD73C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				27A2C05B25C0934A00AAD73C /* Assets.xcassets in Resources */,
+				27A2C05E25C0934B00AAD73C /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		27EF9A6225BF23910051CE7B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -256,6 +357,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		27A2C05125C0934A00AAD73C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				27A2C06125C0934B00AAD73C /* main.m in Sources */,
+				27A2C05925C0934A00AAD73C /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		27EF9A6025BF23910051CE7B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -271,7 +381,23 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		27A2C07125C0943900AAD73C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 27A2C05425C0934A00AAD73C /* Music Library Exporter Helper */;
+			targetProxy = 27A2C07025C0943900AAD73C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
+		27A2C05C25C0934A00AAD73C /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				27A2C05D25C0934B00AAD73C /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
 		27EF9A6B25BF23920051CE7B /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -418,6 +544,48 @@
 			};
 			name = Release;
 		};
+		27A2C06425C0934B00AAD73C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Music Library Exporter Helper/Supporting Files/Music_Library_Exporter_Helper.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 9YLM7HTV6V;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = "Music Library Exporter Helper/Supporting Files/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.kylekingcdn.Music-Library-Exporter.Music-Library-Exporter-Helper";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		27A2C06525C0934B00AAD73C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Music Library Exporter Helper/Supporting Files/Music_Library_Exporter_Helper.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 9YLM7HTV6V;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = "Music Library Exporter Helper/Supporting Files/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.kylekingcdn.Music-Library-Exporter.Music-Library-Exporter-Helper";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		27EF9A7325BF23920051CE7B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -475,6 +643,15 @@
 			buildConfigurations = (
 				2705444D25B66A0A00FE6D65 /* Debug */,
 				2705444E25B66A0A00FE6D65 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		27A2C06325C0934B00AAD73C /* Build configuration list for PBXNativeTarget "Music Library Exporter Helper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				27A2C06425C0934B00AAD73C /* Debug */,
+				27A2C06525C0934B00AAD73C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
