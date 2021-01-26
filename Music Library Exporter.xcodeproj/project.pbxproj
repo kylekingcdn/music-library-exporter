@@ -75,6 +75,7 @@
 		2705443C25B66A0A00FE6D65 = {
 			isa = PBXGroup;
 			children = (
+				27A2BFBE25C0851B00AAD73C /* common */,
 				27EF9A3D25BF20C60051CE7B /* library-generator */,
 				27EF9A6525BF23910051CE7B /* Music Library Exporter */,
 				27EF9A5E25BF21FE0051CE7B /* 3rd */,
@@ -100,16 +101,23 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		27EF9A3D25BF20C60051CE7B /* library-generator */ = {
+		27A2BFBE25C0851B00AAD73C /* common */ = {
 			isa = PBXGroup;
 			children = (
-				2705444825B66A0A00FE6D65 /* main.m */,
 				27C52A7225B69C4B00D829F3 /* Utils.h */,
 				27C52A7325B69C4B00D829F3 /* Utils.m */,
 				27CDC90B25BADAFC0032BF79 /* LibraryParser.h */,
 				27CDC90C25BADAFC0032BF79 /* LibraryParser.m */,
 				2705445725B670E700FE6D65 /* LibrarySerializer.h */,
 				2705445825B670E700FE6D65 /* LibrarySerializer.m */,
+			);
+			path = common;
+			sourceTree = "<group>";
+		};
+		27EF9A3D25BF20C60051CE7B /* library-generator */ = {
+			isa = PBXGroup;
+			children = (
+				2705444825B66A0A00FE6D65 /* main.m */,
 			);
 			path = "library-generator";
 			sourceTree = "<group>";
