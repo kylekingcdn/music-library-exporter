@@ -7,13 +7,13 @@
 
 #import <Foundation/Foundation.h>
 
-#import "OrderedDictionary.h"
-
 @class ITLibrary;
 @class ITLibMediaEntity;
 @class ITLibMediaItem;
 @class ITLibPlaylist;
 @class ITLibArtist;
+@class OrderedDictionary;
+@class MutableOrderedDictionary;
 
 NS_ASSUME_NONNULL_BEGIN
 

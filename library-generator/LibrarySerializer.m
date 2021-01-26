@@ -7,6 +7,7 @@
 
 #import "LibrarySerializer.h"
 
+#import "OrderedDictionary.h"
 #import "Utils.h"
 
 #import <iTunesLibrary/ITLibrary.h>
