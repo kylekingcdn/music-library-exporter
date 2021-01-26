@@ -7,8 +7,24 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface AppDelegate : NSObject <NSApplicationDelegate>
+@interface AppDelegate : NSObject <NSApplicationDelegate> {
 
+  BOOL _scheduleEnabled;
+}
+
+
+@property (assign) IBOutlet NSSegmentedControl *launchAtLoginButton;
+
+
+-(NSString*)bundleIdentifierForHelper;
+-(NSString*)errorForSchedulerRegistration:(BOOL)registerFlag;
+
+-(BOOL)isScheduled;
+-(void)setScheduleEnabled:(BOOL)flag;
+
+-(BOOL)registerSchedulerWithSystem:(BOOL)flag;
+
+-(IBAction)toggleScheduler:(id)sender;
 
 @end
 
