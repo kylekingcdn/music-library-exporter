@@ -322,9 +322,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2705444425B66A0A00FE6D65 /* library-generator */,
 				27EF9A6325BF23910051CE7B /* Music Library Exporter */,
 				27A2C05425C0934A00AAD73C /* Music Library Exporter Helper */,
+				2705444425B66A0A00FE6D65 /* library-generator */,
 			);
 		};
 /* End PBXProject section */
