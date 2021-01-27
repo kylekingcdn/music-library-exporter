@@ -30,7 +30,9 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 
   _scheduleEnabled = [self isScheduleRegisteredWithSystem];
-  
+
+  NSLog(@"[applicationDidFinishLaunching] isScheduleRegisteredWithSystem: %@", (_scheduleEnabled ? @"YES" : @"NO"));
+
   NSUserDefaults* groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:_appGroupIdentifier];
   NSAssert(groupDefaults, @"failed to init NSUSerDefaults for app group");
 
