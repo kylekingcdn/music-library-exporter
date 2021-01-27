@@ -20,6 +20,7 @@
 -(BOOL)isScheduled;
 -(void)setScheduleEnabled:(BOOL)flag;
 
+-(BOOL)isScheduleRegisteredWithSystem;
 -(BOOL)registerSchedulerWithSystem:(BOOL)flag;
 
 -(IBAction)toggleScheduler:(id)sender;
