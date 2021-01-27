@@ -13,8 +13,7 @@
 }
 
 
-@property (assign) IBOutlet NSSegmentedControl *launchAtLoginButton;
-
+@property (assign) IBOutlet NSButton *launchAtLoginButton;
 
 -(NSString*)errorForSchedulerRegistration:(BOOL)registerFlag;
 

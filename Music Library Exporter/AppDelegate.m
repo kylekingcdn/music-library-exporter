@@ -83,9 +83,9 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
 
 -(IBAction)toggleScheduler:(id)sender {
 
-  NSInteger clickedSegment = [sender selectedSegment];
+  NSControlStateValue buttonState = [sender state];
 
-  BOOL shouldSetSchedulerActive = (clickedSegment == 1);
+  BOOL shouldSetSchedulerActive = (buttonState == NSControlStateValueOn);
 
   NSLog(@"[toggleLaunchAtLogin:%@]", (shouldSetSchedulerActive ? @"YES" : @"NO"));
 
