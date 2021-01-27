@@ -35,7 +35,7 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
   NSAssert(groupDefaults, @"failed to init NSUSerDefaults for app group");
 
   if (groupDefaults) {
-
+    [launchAtLoginButton setState:(_scheduleEnabled ? NSControlStateValueOn : NSControlStateValueOff)];
   }
 }
 
