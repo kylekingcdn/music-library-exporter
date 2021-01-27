@@ -16,7 +16,6 @@
 @property (assign) IBOutlet NSSegmentedControl *launchAtLoginButton;
 
 
--(NSString*)bundleIdentifierForHelper;
 -(NSString*)errorForSchedulerRegistration:(BOOL)registerFlag;
 
 -(BOOL)isScheduled;

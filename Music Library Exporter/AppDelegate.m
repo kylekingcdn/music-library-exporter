@@ -10,10 +10,11 @@
 #import <ServiceManagement/ServiceManagement.h>
 
 
-@interface AppDelegate () {
+static NSString* const _appGroupIdentifier = @"group.9YLM7HTV6V.com.MusicLibraryExporter";
+static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryExporter.MusicLibraryExporterHelper";
 
-  NSString* _appGroupIdentifier;
-}
+
+@interface AppDelegate ()
 
 @property (strong) IBOutlet NSWindow *window;
 
@@ -28,8 +29,6 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 
-  _appGroupIdentifier = @"group.9YLM7HTV6V.com.MusicLibraryExporter";
-
   NSUserDefaults* groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:_appGroupIdentifier];
   NSAssert(groupDefaults, @"failed to init NSUSerDefaults for app group");
 
@@ -40,11 +39,6 @@
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
 
-}
-
--(NSString*)bundleIdentifierForHelper {
-
-  return @"com.kylekingcdn.MusicLibraryExporter.MusicLibraryExporterHelper";
 }
 
 -(NSString*)errorForSchedulerRegistration:(BOOL)registerFlag {
@@ -73,7 +67,7 @@
 
   NSLog(@"[registerSchedulerWithSystem:%@]", (flag ? @"YES" : @"NO"));
 
-  BOOL success = SMLoginItemSetEnabled ((__bridge CFStringRef)[self bundleIdentifierForHelper], flag);
+  BOOL success = SMLoginItemSetEnabled ((__bridge CFStringRef)_helperBundleIdentifier, flag);
 
   if (success) {
     NSLog(@"[registerSchedulerWithSystem] succesfully %@ scheduler", (flag ? @"registered" : @"unregistered"));
