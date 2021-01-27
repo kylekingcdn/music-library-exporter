@@ -566,6 +566,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.kylekingcdn.MusicLibraryExporter.MusicLibraryExporterHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Music Library Exporter Helper - Development";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -584,6 +585,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.kylekingcdn.MusicLibraryExporter.MusicLibraryExporterHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Music Library Exporter Helper";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -602,6 +604,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.kylekingcdn.MusicLibraryExporter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Music Library Exporter - Development";
 			};
 			name = Debug;
 		};
@@ -619,6 +622,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.kylekingcdn.MusicLibraryExporter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Music Library Exporter";
 			};
 			name = Release;
 		};
