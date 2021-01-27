@@ -7,12 +7,16 @@
 
 #import "AppDelegate.h"
 
+
 static NSString* const _appGroupIdentifier = @"group.9YLM7HTV6V.com.MusicLibraryExporter";
+
 
 @interface AppDelegate ()
 
 @property (strong) IBOutlet NSWindow *window;
+
 @end
+
 
 @implementation AppDelegate
 
