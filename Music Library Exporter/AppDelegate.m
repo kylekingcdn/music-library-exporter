@@ -33,7 +33,7 @@
 
 -(NSString*)bundleIdentifierForHelper {
 
-  return @"com.kylekingcdn.Music-Library-Exporter.Music-Library-Exporter-Helper";
+  return @"com.kylekingcdn.MusicLibraryExporter.MusicLibraryExporterHelper";
 }
 
 -(NSString*)errorForSchedulerRegistration:(BOOL)registerFlag {

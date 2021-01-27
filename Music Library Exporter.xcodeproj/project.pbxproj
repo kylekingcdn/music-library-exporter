@@ -564,7 +564,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kylekingcdn.Music-Library-Exporter.Music-Library-Exporter-Helper";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kylekingcdn.MusicLibraryExporter.MusicLibraryExporterHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -582,7 +582,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kylekingcdn.Music-Library-Exporter.Music-Library-Exporter-Helper";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kylekingcdn.MusicLibraryExporter.MusicLibraryExporterHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -600,7 +600,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kylekingcdn.Music-Library-Exporter";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kylekingcdn.MusicLibraryExporter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -617,7 +617,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kylekingcdn.Music-Library-Exporter";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kylekingcdn.MusicLibraryExporter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
