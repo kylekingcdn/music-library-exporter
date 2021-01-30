@@ -24,7 +24,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)registerSchedulerWithSystem:(BOOL)flag;
 
 - (IBAction)setScheduleEnabled:(id)sender;
+
 - (NSString*)errorForSchedulerRegistration:(BOOL)registerFlag;
+
+- (void)updateFromConfiguration;
 
 @end
 

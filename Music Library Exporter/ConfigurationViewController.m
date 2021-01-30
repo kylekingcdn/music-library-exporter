@@ -61,6 +61,27 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
   if (groupDefaults) {
     [_scheduleEnabledCheckBox setState:(_scheduleEnabled ? NSControlStateValueOn : NSControlStateValueOff)];
   }
+
+  [self updateFromConfiguration];
+}
+
+- (void)updateFromConfiguration {
+
+  [_libraryPathTextField setStringValue:_exportConfiguration.musicLibraryPath];
+  [_outputDirectoryTextField setStringValue:_exportConfiguration.outputDirectoryPath];
+  [_outputFileNameTextField setStringValue:_exportConfiguration.outputFileName];
+
+  [_remapRootDirectoryCheckBox setState:(_exportConfiguration.remapRootDirectory ? NSControlStateValueOn : NSControlStateValueOff)];
+  [_remapOriginalDirectoryTextField setStringValue:_exportConfiguration.remapRootDirectoryOriginalPath];
+  [_remapMappedDirectoryTextField setStringValue:_exportConfiguration.remapRootDirectoryMappedPath];
+
+  [_flattenPlaylistsCheckBox setState:(_exportConfiguration.flattenPlaylistHierarchy ? NSControlStateValueOn : NSControlStateValueOff)];
+  [_includeInternalPlaylistsCheckBox setState:(_exportConfiguration.includeInternalPlaylists ? NSControlStateValueOn : NSControlStateValueOff)];
+  //[_excludedPlaylistsTextField setStringValue:_exportConfiguration.excludedPlaylistPersistentIds];
+
+  // TODO: fix schedule state
+  [_scheduleEnabledCheckBox setState:(_scheduleEnabled ? NSControlStateValueOn : NSControlStateValueOff)];
+  [_scheduleIntervalTextField setIntegerValue:_exportConfiguration.scheduleInterval];
 }
 
 - (BOOL)isScheduleRegisteredWithSystem {
