@@ -9,6 +9,8 @@
 
 #import <ServiceManagement/ServiceManagement.h>
 
+#import "ExportConfiguration.h"
+
 
 static NSString* const _appGroupIdentifier = @"group.9YLM7HTV6V.com.MusicLibraryExporter";
 static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryExporter.MusicLibraryExporterHelper";
@@ -25,7 +27,11 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
 
 - (instancetype)init {
 
-  return (self = [super initWithNibName: @"ConfigurationView" bundle: nil]);
+  self = [super initWithNibName: @"ConfigurationView" bundle: nil];
+
+  _exportConfiguration = [[ExportConfiguration alloc] initWithUserDefaults];
+
+  return self;
 }
 
 - (void)viewDidLoad {

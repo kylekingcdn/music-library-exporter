@@ -9,9 +9,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class ExportConfiguration;
+
 @interface ConfigurationViewController : NSViewController {
 
   BOOL _scheduleEnabled;
+  
+  ExportConfiguration* _exportConfiguration;
 }
 
 - (instancetype)init;
