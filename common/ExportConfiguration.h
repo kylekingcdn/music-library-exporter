@@ -21,9 +21,15 @@ NS_ASSUME_NONNULL_BEGIN
   BOOL _scheduleEnabled;
 }
 
+
+#pragma mark - Constructors -
+
 - (instancetype)init;
 
 - (instancetype)initWithUserDefaults;
+
+
+#pragma mark - Accessors -
 
 - (NSString*)ouputDirectoryPath;
 - (NSString*)ouputFileName;
@@ -34,6 +40,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString*)remapRootDirectoryMappedPath;
 
 - (BOOL)scheduleEnabled;
+
+
+#pragma mark - Mutators -
 
 - (void)setOutputDirectoryPath:(NSString*)path;
 - (void)setOutputFileName:(NSString*)fileName;

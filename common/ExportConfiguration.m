@@ -16,6 +16,9 @@ static NSString* const _appGroupIdentifier = @"group.9YLM7HTV6V.com.MusicLibrary
   NSUserDefaults* _userDefaults;
 }
 
+
+#pragma mark - Constructors -
+
 - (instancetype)init {
 
   return [self initWithUserDefaults];
@@ -32,6 +35,9 @@ static NSString* const _appGroupIdentifier = @"group.9YLM7HTV6V.com.MusicLibrary
 
   return self;
 }
+
+
+#pragma mark - Accessors -
 
 - (NSString*)ouputDirectoryPath {
 
@@ -71,6 +77,9 @@ static NSString* const _appGroupIdentifier = @"group.9YLM7HTV6V.com.MusicLibrary
 
   return _scheduleEnabled;
 }
+
+
+#pragma mark - Mutators -
 
 - (void)setOutputDirectoryPath:(NSString*)path {
 
