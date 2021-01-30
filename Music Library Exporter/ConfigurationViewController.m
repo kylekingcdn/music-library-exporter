@@ -16,6 +16,8 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
 
 @interface ConfigurationViewController ()
 
+@property (weak) IBOutlet NSButton *scheduleEnabledCheckBox;
+
 @end
 
 
@@ -37,7 +39,7 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
   NSAssert(groupDefaults, @"failed to init NSUSerDefaults for app group");
 
   if (groupDefaults) {
-    [scheduleEnabledCheckBox setState:(_scheduleEnabled ? NSControlStateValueOn : NSControlStateValueOff)];
+    [_scheduleEnabledCheckBox setState:(_scheduleEnabled ? NSControlStateValueOn : NSControlStateValueOff)];
   }
 }
 

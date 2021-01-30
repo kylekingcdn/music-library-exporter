@@ -12,7 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ConfigurationViewController : NSViewController {
 
   BOOL _scheduleEnabled;
-  IBOutlet NSButton *scheduleEnabledCheckBox;
 }
 
 - (id)init;

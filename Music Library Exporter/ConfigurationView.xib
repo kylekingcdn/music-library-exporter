@@ -8,7 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="ConfigurationViewController">
             <connections>
-                <outlet property="scheduleEnabledCheckBox" destination="w6z-XH-YS0" id="MCs-WL-ihb"/>
+                <outlet property="scheduleEnabledCheckBox" destination="w6z-XH-YS0" id="pxm-MI-QKI"/>
                 <outlet property="view" destination="c22-O7-iKe" id="Gd9-wg-lgF"/>
             </connections>
         </customObject>
