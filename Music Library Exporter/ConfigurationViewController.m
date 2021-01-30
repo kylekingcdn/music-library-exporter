@@ -18,7 +18,20 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
 
 @interface ConfigurationViewController ()
 
+@property (weak) IBOutlet NSTextField *libraryPathTextField;
+@property (weak) IBOutlet NSTextField *outputDirectoryTextField;
+@property (weak) IBOutlet NSTextField *outputFileNameTextField;
+
+@property (weak) IBOutlet NSButton *remapRootDirectoryCheckBox;
+@property (weak) IBOutlet NSTextField *remapOriginalDirectoryTextField;
+@property (weak) IBOutlet NSTextField *remapMappedDirectoryTextField;
+
+@property (weak) IBOutlet NSButton *flattenPlaylistsCheckBox;
+@property (weak) IBOutlet NSButton *includeInternalPlaylistsCheckBox;
+@property (weak) IBOutlet NSTextField *excludedPlaylistsTextField;
+
 @property (weak) IBOutlet NSButton *scheduleEnabledCheckBox;
+@property (weak) IBOutlet NSTextField *scheduleIntervalTextField;
 
 @end
 
