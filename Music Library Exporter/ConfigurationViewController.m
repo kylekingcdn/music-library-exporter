@@ -23,8 +23,9 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
 
 @implementation ConfigurationViewController
 
-- (id)init {
-    return (self = [super initWithNibName: @"ConfigurationView" bundle: nil]);
+- (instancetype)init {
+
+  return (self = [super initWithNibName: @"ConfigurationView" bundle: nil]);
 }
 
 - (void)viewDidLoad {

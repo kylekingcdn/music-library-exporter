@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
   BOOL _scheduleEnabled;
 }
 
-- (id)init;
+- (instancetype)init;
 
 - (BOOL)isScheduleRegisteredWithSystem;
 - (BOOL)registerSchedulerWithSystem:(BOOL)flag;
