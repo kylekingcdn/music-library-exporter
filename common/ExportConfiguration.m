@@ -41,6 +41,25 @@ static NSString* const _appGroupIdentifier = @"group.9YLM7HTV6V.com.MusicLibrary
 
 #pragma mark - Accessors -
 
+- (NSDictionary*)defaultValues {
+
+  return [NSDictionary dictionaryWithObjectsAndKeys:
+    @"",             @"MusicLibraryPath",
+    @"",             @"OutputDirectoryPath",
+    @"Library.xml",  @"OutputFileName",
+    @NO,             @"RemapRootDirectory",
+    @"",             @"RemapRootDirectoryOriginalPath",
+    @"",             @"RemapRootDirectoryMappedPath",
+    @NO,             @"FlattenPlaylistHierarchy",
+    @YES,            @"IncludeInternalPlaylists",
+    @[],             @"ExcludedPlaylistPersistentIds",
+    @NO,             @"ScheduleEnabled",
+    @60,             @"ScheduleInterval",
+    @0,              @"LastExport",
+    nil
+  ];
+}
+
 - (NSString*)musicLibraryPath {
 
     return _musicLibraryPath;
@@ -230,6 +249,8 @@ static NSString* const _appGroupIdentifier = @"group.9YLM7HTV6V.com.MusicLibrary
 
   NSLog(@"[setValuesFromUserDefaults]");
 
+  [self registerDefaultValues];
+
   _musicLibraryPath = [_userDefaults valueForKey:@"MusicLibraryPath"];
 
   _outputDirectoryPath = [_userDefaults valueForKey:@"OutputDirectoryPath"];
@@ -247,6 +268,13 @@ static NSString* const _appGroupIdentifier = @"group.9YLM7HTV6V.com.MusicLibrary
   _scheduleInterval = [_userDefaults integerForKey:@"ScheduleInterval"];
 
   _lastExport = [_userDefaults valueForKey:@"LastExport"];
+}
+
+- (void)registerDefaultValues {
+
+  NSLog(@"[registerDefaultValues]");
+
+  [_userDefaults registerDefaults:[self defaultValues]];
 }
 
 @end

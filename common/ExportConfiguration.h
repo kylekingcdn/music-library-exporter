@@ -40,6 +40,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Accessors -
 
+- (NSDictionary*)defaultValues;
+
 - (NSString*)musicLibraryPath;
 
 - (NSString*)ouputDirectoryPath;
@@ -83,6 +85,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setLastExport:(NSDate*)lastExport;
 
 - (void)setValuesFromUserDefaults;
+- (void)registerDefaultValues;
 
 @end
 
