@@ -44,8 +44,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString*)musicLibraryPath;
 
-- (NSString*)ouputDirectoryPath;
-- (NSString*)ouputFileName;
+- (NSString*)outputDirectoryPath;
+- (NSString*)outputFileName;
 - (nullable NSString*)outputFilePath;
 
 - (BOOL)remapRootDirectory;

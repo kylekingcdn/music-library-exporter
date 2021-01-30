@@ -65,12 +65,12 @@ static NSString* const _appGroupIdentifier = @"group.9YLM7HTV6V.com.MusicLibrary
     return _musicLibraryPath;
 }
 
-- (NSString*)ouputDirectoryPath {
+- (NSString*)outputDirectoryPath {
 
   return _outputDirectoryPath;
 }
 
-- (NSString*)ouputFileName {
+- (NSString*)outputFileName {
 
   return _outputFileName;
 }
