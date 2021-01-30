@@ -75,6 +75,7 @@
   [self initIncludedPlaylistKindsDict];
 }
 
+// TODO: remove non-music
 - (void) initIncludedMediaKindsDict {
 
   NSLog(@"[LibrarySerializer initIncludedMediaKindsDict]");
@@ -107,6 +108,7 @@
   includedMediaKinds = [mediaKinds copy];
 }
 
+// TODO: remove non-music
 - (void) initIncludedPlaylistKindsDict {
 
   NSLog(@"[LibrarySerializer initIncludedPlaylistKindsDict]");
