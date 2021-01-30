@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ExportConfiguration : NSObject {
 
+  NSString* _musicLibraryPath;
+
   NSString* _outputDirectoryPath;
   NSString* _outputFileName;
 
@@ -18,7 +20,14 @@ NS_ASSUME_NONNULL_BEGIN
   NSString* _remapRootDirectoryOriginalPath;
   NSString* _remapRootDirectoryMappedPath;
 
+  BOOL _flattenPlaylistHierarchy;
+  BOOL _includeInternalPlaylists;
+  NSArray<NSString*>* _excludedPlaylistPersistentIds;
+
   BOOL _scheduleEnabled;
+  NSInteger _scheduleInterval;
+
+  NSDate* _lastExport;
 }
 
 
@@ -31,6 +40,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Accessors -
 
+- (NSString*)musicLibraryPath;
+
 - (NSString*)ouputDirectoryPath;
 - (NSString*)ouputFileName;
 - (nullable NSString*)outputFilePath;
@@ -39,10 +50,19 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString*)remapRootDirectoryOriginalPath;
 - (NSString*)remapRootDirectoryMappedPath;
 
+- (BOOL)flattenPlaylistHierarchy;
+- (BOOL)includeInternalPlaylists;
+- (NSArray<NSString*>*)excludedPlaylistPersistentIds;
+
 - (BOOL)scheduleEnabled;
+- (NSInteger)scheduleInterval;
+
+- (NSDate*)lastExport;
 
 
 #pragma mark - Mutators -
+
+- (void)setMusicLibraryPath:(NSString*)musicLibraryPath;
 
 - (void)setOutputDirectoryPath:(NSString*)path;
 - (void)setOutputFileName:(NSString*)fileName;
@@ -51,7 +71,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setRemapRootDirectoryOriginalPath:(NSString*)originalPath;
 - (void)setRemapRootDirectoryMappedPath:(NSString*)mappedPath;
 
+- (void)setFlattenPlaylistHierarchy:(BOOL)flag;
+- (void)setIncludeInternalPlaylists:(BOOL)flag;
+- (void)setExcludedPlaylistPersistentIds:(NSArray<NSString*>*)excludedIds;
+
 - (void)setScheduleEnabled:(BOOL)flag;
+- (void)setScheduleInterval:(NSInteger)interval;
+
+- (void)setLastExport:(NSDate*)lastExport;
 
 - (void)setValuesFromUserDefaults;
 

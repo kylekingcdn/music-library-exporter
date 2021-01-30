@@ -39,6 +39,11 @@ static NSString* const _appGroupIdentifier = @"group.9YLM7HTV6V.com.MusicLibrary
 
 #pragma mark - Accessors -
 
+- (NSString*)musicLibraryPath {
+
+    return _musicLibraryPath;
+}
+
 - (NSString*)ouputDirectoryPath {
 
   return _outputDirectoryPath;
@@ -73,13 +78,46 @@ static NSString* const _appGroupIdentifier = @"group.9YLM7HTV6V.com.MusicLibrary
   return _remapRootDirectoryMappedPath;
 }
 
+- (BOOL)flattenPlaylistHierarchy {
+
+    return _flattenPlaylistHierarchy;
+}
+
+- (BOOL)includeInternalPlaylists {
+
+    return _includeInternalPlaylists;
+}
+
+- (NSArray<NSString*>*)excludedPlaylistPersistentIds {
+
+    return _excludedPlaylistPersistentIds;
+}
+
 - (BOOL)scheduleEnabled {
 
   return _scheduleEnabled;
 }
 
+- (NSInteger)scheduleInterval {
+
+    return _scheduleInterval;
+}
+
+- (NSDate*)lastExport {
+
+    return _lastExport;
+}
+
 
 #pragma mark - Mutators -
+
+- (void)setMusicLibraryPath:(NSString*)musicLibraryPath {
+
+  NSLog(@"[setMusicLibraryPath %@]", musicLibraryPath);
+
+  _musicLibraryPath = musicLibraryPath;
+  [_userDefaults setValue:_musicLibraryPath forKey:@"MusicLibraryPath"];
+}
 
 - (void)setOutputDirectoryPath:(NSString*)path {
 
@@ -121,6 +159,30 @@ static NSString* const _appGroupIdentifier = @"group.9YLM7HTV6V.com.MusicLibrary
   [_userDefaults setValue:_remapRootDirectoryMappedPath forKey:@"RemapRootDirectoryMappedPath"];
 }
 
+- (void)setFlattenPlaylistHierarchy:(BOOL)flag {
+
+  NSLog(@"[setFlattenPlaylistHierarchy %@]", (flag ? @"YES" : @"NO"));
+
+  _flattenPlaylistHierarchy = flag;
+  [_userDefaults setBool:_flattenPlaylistHierarchy forKey:@"FlattenPlaylistHierarchy"];
+}
+
+- (void)setIncludeInternalPlaylists:(BOOL)flag {
+
+  NSLog(@"[setIncludeInternalPlaylists %@]", (flag ? @"YES" : @"NO"));
+
+  _includeInternalPlaylists = flag;
+  [_userDefaults setBool:_includeInternalPlaylists forKey:@"IncludeInternalPlaylists"];
+}
+
+- (void)setExcludedPlaylistPersistentIds:(NSArray<NSString*>*)excludedIds {
+
+  NSLog(@"[setExcludedPlaylistPersistentIds %lu]", (unsigned long)excludedIds.count);
+
+  _excludedPlaylistPersistentIds = excludedIds;
+  [_userDefaults setValue:_excludedPlaylistPersistentIds forKey:@"ExcludedPlaylistPersistentIds"];
+}
+
 - (void)setScheduleEnabled:(BOOL)flag {
 
   NSLog(@"[setScheduleEnabled %@]", (flag ? @"YES" : @"NO"));
@@ -129,9 +191,27 @@ static NSString* const _appGroupIdentifier = @"group.9YLM7HTV6V.com.MusicLibrary
   [_userDefaults setBool:_scheduleEnabled forKey:@"ScheduleEnabled"];
 }
 
+- (void)setScheduleInterval:(NSInteger)interval {
+
+  NSLog(@"[setScheduleInterval %ld]", (long)interval);
+
+  _scheduleInterval = interval;
+  [_userDefaults setInteger:_scheduleInterval forKey:@"ScheduleInterval"];
+}
+
+- (void)setLastExport:(NSDate*)lastExport {
+
+  NSLog(@"[setLastExport %@]", lastExport);
+
+  _lastExport = lastExport;
+  [_userDefaults setValue:_lastExport forKey:@"LastExport"];
+}
+
 - (void)setValuesFromUserDefaults {
 
   NSLog(@"[setValuesFromUserDefaults]");
+
+  _musicLibraryPath = [_userDefaults valueForKey:@"MusicLibraryPath"];
 
   _outputDirectoryPath = [_userDefaults valueForKey:@"OutputDirectoryPath"];
   _outputFileName = [_userDefaults valueForKey:@"OutputFileName"];
@@ -139,6 +219,15 @@ static NSString* const _appGroupIdentifier = @"group.9YLM7HTV6V.com.MusicLibrary
   _remapRootDirectory = [_userDefaults boolForKey:@"RemapRootDirectory"];
   _remapRootDirectoryOriginalPath = [_userDefaults valueForKey:@"RemapRootDirectoryOriginalPath"];
   _remapRootDirectoryMappedPath = [_userDefaults valueForKey:@"RemapRootDirectoryMappedPath"];
+
+  _flattenPlaylistHierarchy = [_userDefaults boolForKey:@"FlattenPlaylistHierarchy"];
+  _includeInternalPlaylists = [_userDefaults boolForKey:@"IncludeInternalPlaylists"];
+  _excludedPlaylistPersistentIds = [_userDefaults valueForKey:@"ExcludedPlaylistPersistentIds"];
+
+  _scheduleEnabled = [_userDefaults boolForKey:@"ScheduleEnabled"];
+  _scheduleInterval = [_userDefaults integerForKey:@"ScheduleInterval"];
+
+  _lastExport = [_userDefaults valueForKey:@"LastExport"];
 }
 
 @end
