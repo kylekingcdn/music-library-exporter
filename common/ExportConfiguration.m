@@ -33,6 +33,8 @@ static NSString* const _appGroupIdentifier = @"group.9YLM7HTV6V.com.MusicLibrary
 
   [self setValuesFromUserDefaults];
 
+  [self dumpConfiguration];
+
   return self;
 }
 
@@ -106,6 +108,23 @@ static NSString* const _appGroupIdentifier = @"group.9YLM7HTV6V.com.MusicLibrary
 - (NSDate*)lastExport {
 
     return _lastExport;
+}
+
+- (void)dumpConfiguration {
+
+  NSLog(@"[dumpConfiguration]");
+  NSLog(@"  MusicLibraryPath:                '%@'", _musicLibraryPath);
+  NSLog(@"  OutputDirectoryPath:             '%@'", _outputDirectoryPath);
+  NSLog(@"  OutputFileName:                  '%@'", _outputFileName);
+  NSLog(@"  RemapRootDirectory:              '%@'", (_remapRootDirectory ? @"YES" : @"NO"));
+  NSLog(@"  RemapRootDirectoryOriginalPath:  '%@'", _remapRootDirectoryOriginalPath);
+  NSLog(@"  RemapRootDirectoryMappedPath:    '%@'", _remapRootDirectoryMappedPath);
+  NSLog(@"  FlattenPlaylistHierarchy:        '%@'", (_flattenPlaylistHierarchy ? @"YES" : @"NO"));
+  NSLog(@"  IncludeInternalPlaylists:        '%@'", (_includeInternalPlaylists ? @"YES" : @"NO"));
+  NSLog(@"  ExcludedPlaylistPersistentIds:   '%@'", _excludedPlaylistPersistentIds);
+  NSLog(@"  ScheduleEnabled:                 '%@'", (_scheduleEnabled ? @"YES" : @"NO"));
+  NSLog(@"  ScheduleInterval:                '%ld'",_scheduleInterval);
+  NSLog(@"  LastExport:                      '%@'", _lastExport);
 }
 
 
