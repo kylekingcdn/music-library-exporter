@@ -15,7 +15,6 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate">
             <connections>
-                <outlet property="launchAtLoginButton" destination="EXI-rC-HlO" id="cZ0-Tq-qo4"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="gIp-Ho-8D9"/>
             </connections>
         </customObject>
@@ -680,31 +679,18 @@
                     </menu>
                 </menuItem>
             </items>
-            <point key="canvasLocation" x="-166" y="271"/>
+            <point key="canvasLocation" x="-806" y="-159"/>
         </menu>
         <window title="Music Library Exporter" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="335" y="390" width="480" height="360"/>
+            <rect key="contentRect" x="335" y="390" width="633" height="406"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2048" height="1255"/>
             <view key="contentView" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="480" height="360"/>
+                <rect key="frame" x="0.0" y="0.0" width="633" height="406"/>
                 <autoresizingMask key="autoresizingMask"/>
-                <subviews>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EXI-rC-HlO">
-                        <rect key="frame" x="47" y="109" width="290" height="18"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="check" title="Export library automatically with a schedule" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="CXW-bv-MnI">
-                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="toggleScheduler:" target="Voe-Tx-rLC" id="1LX-E8-2Ln"/>
-                        </connections>
-                    </button>
-                </subviews>
             </view>
-            <point key="canvasLocation" x="-818" y="172"/>
+            <point key="canvasLocation" x="-741.5" y="202"/>
         </window>
     </objects>
 </document>
