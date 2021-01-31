@@ -46,7 +46,7 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
   self = [super initWithNibName: @"ConfigurationView" bundle: nil];
 
   _exportConfiguration = [[ExportConfiguration alloc] initWithUserDefaults];
-
+  _librarySerializer = [[LibrarySerializer alloc] init];
   return self;
 }
 

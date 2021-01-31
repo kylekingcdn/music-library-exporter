@@ -7,6 +7,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+#import "LibrarySerializer.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @class ExportConfiguration;
@@ -16,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
   BOOL _scheduleEnabled;
   
   ExportConfiguration* _exportConfiguration;
+  LibrarySerializer* _librarySerializer;
 }
 
 - (instancetype)init;
