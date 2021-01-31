@@ -35,6 +35,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)setScheduleInterval:(id)sender;
 - (IBAction)incrementScheduleInterval:(id)sender;
 
+- (IBAction)exportLibrary:(id)sender;
+
 - (NSString*)errorForSchedulerRegistration:(BOOL)registerFlag;
 
 - (void)updateFromConfiguration;

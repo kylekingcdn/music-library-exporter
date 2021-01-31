@@ -34,6 +34,8 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
 @property (weak) IBOutlet NSTextField *scheduleIntervalTextField;
 @property (weak) IBOutlet NSStepper *scheduleIntervalStepper;
 
+@property (weak) IBOutlet NSButton *exportLibraryButton;
+
 @end
 
 
@@ -279,6 +281,11 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
 
   [_scheduleIntervalTextField setIntegerValue:scheduleInterval];
   [_exportConfiguration setScheduleInterval:scheduleInterval];
+}
+
+- (IBAction)exportLibrary:(id)sender {
+
+  
 }
 
 @end
