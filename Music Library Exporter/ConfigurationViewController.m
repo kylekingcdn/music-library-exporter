@@ -20,6 +20,7 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
 
 @property (weak) IBOutlet NSTextField *libraryPathTextField;
 @property (weak) IBOutlet NSTextField *outputDirectoryTextField;
+@property (weak) IBOutlet NSButton *outputDirectoryBrowseButton;
 @property (weak) IBOutlet NSTextField *outputFileNameTextField;
 
 @property (weak) IBOutlet NSButton *remapRootDirectoryCheckBox;
@@ -28,10 +29,10 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
 
 @property (weak) IBOutlet NSButton *flattenPlaylistsCheckBox;
 @property (weak) IBOutlet NSButton *includeInternalPlaylistsCheckBox;
-@property (weak) IBOutlet NSTextField *excludedPlaylistsTextField;
 
 @property (weak) IBOutlet NSButton *scheduleEnabledCheckBox;
 @property (weak) IBOutlet NSTextField *scheduleIntervalTextField;
+@property (weak) IBOutlet NSStepper *scheduleIntervalStepper;
 
 @end
 
