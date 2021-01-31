@@ -8,7 +8,7 @@
 	<array>
 		<string>group.9YLM7HTV6V.com.MusicLibraryExporter</string>
 	</array>
-	<key>com.apple.security.files.user-selected.read-only</key>
+	<key>com.apple.security.files.user-selected.read-write</key>
 	<true/>
 </dict>
 </plist>
