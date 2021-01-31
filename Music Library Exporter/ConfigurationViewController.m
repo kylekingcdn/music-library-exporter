@@ -81,8 +81,9 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
   //[_excludedPlaylistsTextField setStringValue:_exportConfiguration.excludedPlaylistPersistentIds];
 
   // TODO: fix schedule state
-  [_scheduleEnabledCheckBox setState:(_scheduleEnabled ? NSControlStateValueOn : NSControlStateValueOff)];
-//  [_scheduleIntervalTextField setIntegerValue:_exportConfiguration.scheduleInterval];
+  [_scheduleEnabledCheckBox setState:_exportConfiguration.scheduleEnabled];
+  [_scheduleIntervalTextField setIntegerValue:_exportConfiguration.scheduleInterval];
+  [_scheduleIntervalStepper setIntegerValue:_exportConfiguration.scheduleInterval];
 }
 
 - (BOOL)isScheduleRegisteredWithSystem {
