@@ -150,6 +150,36 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
 - (IBAction)broweOutputDirectory:(id)sender {
 
   NSLog(@"[broweOutputDirectory]");
+
+  NSOpenPanel* openPanel = [NSOpenPanel openPanel];
+  [openPanel setCanChooseDirectories:YES];
+  [openPanel setCanChooseFiles:NO];
+  [openPanel setAllowsMultipleSelection:NO];
+  [openPanel setMessage:@"Select a location to save the generated library."];
+
+  NSWindow* window = [[self view] window];
+
+  [openPanel beginSheetModalForWindow:window completionHandler:^(NSInteger result) {
+
+    if (result == NSFileHandlingPanelOKButton) {
+
+      NSArray* urls = [openPanel URLs];
+
+      if (urls.count == 1) {
+
+        NSURL* directoryUrl = urls.firstObject;
+        NSString* directoryPath = directoryUrl.path;
+
+        if (directoryPath) {
+
+          NSLog(@"[broweOutputDirectory directory: %@]", directoryPath);
+
+          [self->_exportConfiguration setOutputDirectoryPath:directoryPath];
+          [self->_outputDirectoryTextField setStringValue:directoryPath];
+        }
+      }
+    }
+  }];
 }
 
 - (IBAction)setOutputFileName:(id)sender {
