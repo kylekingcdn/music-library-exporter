@@ -23,7 +23,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)isScheduleRegisteredWithSystem;
 - (BOOL)registerSchedulerWithSystem:(BOOL)flag;
 
+- (IBAction)setMediaFolderLocation:(id)sender;
+- (IBAction)broweOutputDirectory:(id)sender;
+- (IBAction)setOutputFileName:(id)sender;
+- (IBAction)setRemapRootDirectory:(id)sender;
+- (IBAction)setRemapOriginalText:(id)sender;
+- (IBAction)setRemapReplacementText:(id)sender;
+- (IBAction)setFlattenPlaylistHierarchy:(id)sender;
+- (IBAction)setIncludeInternalPlaylists:(id)sender;
 - (IBAction)setScheduleEnabled:(id)sender;
+- (IBAction)setScheduleInterval:(id)sender;
+- (IBAction)incrementScheduleInterval:(id)sender;
 
 - (NSString*)errorForSchedulerRegistration:(BOOL)registerFlag;
 

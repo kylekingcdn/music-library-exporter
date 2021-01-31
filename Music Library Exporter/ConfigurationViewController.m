@@ -129,24 +129,6 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
   return success;
 }
 
-- (IBAction)setScheduleEnabled:(id)sender {
-
-  NSControlStateValue buttonState = [sender state];
-  BOOL shouldSetSchedulerActive = (buttonState == NSControlStateValueOn);
-
-  NSLog(@"[setScheduleEnabled:%@]", (shouldSetSchedulerActive ? @"YES" : @"NO"));
-
-  if (![self registerSchedulerWithSystem:shouldSetSchedulerActive]) {
-
-    NSAlert *alert = [[NSAlert alloc] init];
-    [alert setMessageText:@"An error ocurred"];
-    [alert addButtonWithTitle:@"OK"];
-    [alert setInformativeText:[self errorForSchedulerRegistration:shouldSetSchedulerActive]];
-
-    [alert runModal];
-  }
-}
-
 - (NSString*)errorForSchedulerRegistration:(BOOL)registerFlag {
 
   if (registerFlag) {
@@ -155,6 +137,118 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
   else {
     return @"Couldn't remove Music Library Exporter Helper from launch at login item list.";
   }
+}
+
+- (IBAction)setMediaFolderLocation:(id)sender {
+
+  NSString* mediaFolder = [sender stringValue];
+  NSLog(@"[setMediaFolderLocation: %@]", mediaFolder);
+
+  [_exportConfiguration setMusicLibraryPath:mediaFolder];
+}
+
+- (IBAction)broweOutputDirectory:(id)sender {
+
+  NSLog(@"[broweOutputDirectory]");
+}
+
+- (IBAction)setOutputFileName:(id)sender {
+
+  NSString* outputFileName = [sender stringValue];
+
+  NSLog(@"[setOutputFileName: %@]", outputFileName);
+
+  [_exportConfiguration setOutputFileName:outputFileName];
+}
+
+- (IBAction)setRemapRootDirectory:(id)sender {
+
+  NSControlStateValue flagState = [sender state];
+  BOOL flag = (flagState == NSControlStateValueOn);
+
+  NSLog(@"[setRemapRootDirectory: %@]", (flag ? @"YES" : @"NO"));
+
+  [_exportConfiguration setRemapRootDirectory:flag];
+}
+
+- (IBAction)setRemapOriginalText:(id)sender {
+
+  NSString* remapOriginalText = [sender stringValue];
+
+  NSLog(@"[setRemapOriginalText: %@]", remapOriginalText);
+
+  [_exportConfiguration setRemapRootDirectoryOriginalPath:remapOriginalText];
+}
+
+- (IBAction)setRemapReplacementText:(id)sender {
+
+  NSString* remapReplacementText = [sender stringValue];
+
+  NSLog(@"[setRemapReplacementText: %@]", remapReplacementText);
+
+  [_exportConfiguration setRemapRootDirectoryMappedPath:remapReplacementText];
+}
+
+- (IBAction)setFlattenPlaylistHierarchy:(id)sender {
+
+  NSControlStateValue flagState = [sender state];
+  BOOL flag = (flagState == NSControlStateValueOn);
+
+  NSLog(@"[setFlattenPlaylistHierarchy: %@]", (flag ? @"YES" : @"NO"));
+
+  [_exportConfiguration setFlattenPlaylistHierarchy:flag];
+}
+
+- (IBAction)setIncludeInternalPlaylists:(id)sender {
+
+  NSControlStateValue flagState = [sender state];
+  BOOL flag = (flagState == NSControlStateValueOn);
+
+  NSLog(@"[setIncludeInternalPlaylists: %@]", (flag ? @"YES" : @"NO"));
+
+  [_exportConfiguration setIncludeInternalPlaylists:flag];
+}
+
+- (IBAction)setScheduleEnabled:(id)sender {
+
+  NSControlStateValue flagState = [sender state];
+  BOOL flag = (flagState == NSControlStateValueOn);
+
+  NSLog(@"[setScheduleEnabled: %@]", (flag ? @"YES" : @"NO"));
+
+  [_exportConfiguration setScheduleEnabled:flag];
+
+//  if (![self registerSchedulerWithSystem:flag]) {
+//
+//    NSAlert *alert = [[NSAlert alloc] init];
+//    [alert setMessageText:@"An error ocurred"];
+//    [alert addButtonWithTitle:@"OK"];
+//    [alert setInformativeText:[self errorForSchedulerRegistration:flag]];
+//
+//    [alert runModal];
+//  }
+}
+
+- (IBAction)setScheduleInterval:(id)sender {
+
+//  NSTextField* textField = (NSTextField*)sender;
+  NSInteger scheduleInterval = [sender integerValue];
+
+  NSLog(@"[setScheduleInterval: %ld]", scheduleInterval);
+
+  [_scheduleIntervalStepper setIntegerValue:scheduleInterval];
+  [_exportConfiguration setScheduleInterval:scheduleInterval];
+}
+
+- (IBAction)incrementScheduleInterval:(id)sender {
+
+//  NSStepper* stepper = (NSStepper*)sender;
+  NSInteger scheduleInterval = [sender integerValue];
+
+  NSLog(@"[incrementScheduleInterval: %ld]", scheduleInterval);
+
+  [_scheduleIntervalTextField setIntegerValue:scheduleInterval];
+  [_exportConfiguration setScheduleInterval:scheduleInterval];
 }
 
 @end
