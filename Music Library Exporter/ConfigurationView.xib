@@ -11,12 +11,15 @@
                 <outlet property="flattenPlaylistsCheckBox" destination="wlp-MI-WwG" id="SF0-2k-RDi"/>
                 <outlet property="includeInternalPlaylistsCheckBox" destination="4At-1b-40C" id="YmB-YI-1hu"/>
                 <outlet property="libraryPathTextField" destination="aQn-IB-K3Q" id="Vyt-TY-aCI"/>
+                <outlet property="outputDirectoryBrowseButton" destination="QoD-Q7-Epr" id="KCN-0H-dtg"/>
                 <outlet property="outputDirectoryTextField" destination="AMO-i9-8k7" id="rMm-kV-end"/>
                 <outlet property="outputFileNameTextField" destination="2Pg-dB-pIn" id="E7F-vt-FMj"/>
                 <outlet property="remapMappedDirectoryTextField" destination="JJM-n9-YVb" id="3Zo-Gz-GfQ"/>
                 <outlet property="remapOriginalDirectoryTextField" destination="BjE-vG-HTd" id="bIr-yS-U2I"/>
                 <outlet property="remapRootDirectoryCheckBox" destination="dWM-bR-tNA" id="zIj-3b-Adw"/>
                 <outlet property="scheduleEnabledCheckBox" destination="w6z-XH-YS0" id="pxm-MI-QKI"/>
+                <outlet property="scheduleIntervalStepper" destination="cPD-R5-ghn" id="GCl-I6-LQ2"/>
+                <outlet property="scheduleIntervalTextField" destination="cGM-Xy-cVO" id="Vgh-aD-e4t"/>
                 <outlet property="view" destination="c22-O7-iKe" id="Gd9-wg-lgF"/>
             </connections>
         </customObject>
@@ -35,6 +38,9 @@
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="setIncludeInternalPlaylists:" target="-2" id="Egm-Ot-JC6"/>
+                    </connections>
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LFz-NA-f4P" userLabel="Library path label">
                     <rect key="frame" x="18" y="368" width="175" height="16"/>
@@ -51,6 +57,9 @@
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
+                    <connections>
+                        <action selector="setMediaFolderLocation:" target="-2" id="m4a-Lm-6I8"/>
+                    </connections>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2ur-tq-GOh" userLabel="Library path description">
                     <rect key="frame" x="199" y="347" width="371" height="14"/>
@@ -99,6 +108,9 @@
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
+                    <connections>
+                        <action selector="setOutputFileName:" target="-2" id="HfB-fL-Vz8"/>
+                    </connections>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jEV-Wb-pGb" userLabel="Path mapping label">
                     <rect key="frame" x="18" y="233" width="175" height="16"/>
@@ -114,6 +126,9 @@
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="setRemapRootDirectory:" target="-2" id="RRg-j6-cUe"/>
+                    </connections>
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ych-C4-ky6" userLabel="Path mapping description">
                     <rect key="frame" x="217" y="215" width="353" height="14"/>
@@ -138,6 +153,9 @@
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
+                    <connections>
+                        <action selector="setRemapOriginalText:" target="-2" id="Ydo-pW-SW4"/>
+                    </connections>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ssc-9C-hAE" userLabel="Path mapping mapped label">
                     <rect key="frame" x="217" y="158" width="112" height="16"/>
@@ -154,6 +172,9 @@
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
+                    <connections>
+                        <action selector="setRemapReplacementText:" target="-2" id="r6u-EX-vWO"/>
+                    </connections>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="u8n-GV-iLz" userLabel="Playlists Label">
                     <rect key="frame" x="18" y="119" width="175" height="16"/>
@@ -169,6 +190,9 @@
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="setFlattenPlaylistHierarchy:" target="-2" id="wQi-rZ-ZgW"/>
+                    </connections>
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ZLw-GQ-A1D" userLabel="Flatten playlists description">
                     <rect key="frame" x="219" y="101" width="351" height="14"/>
@@ -201,7 +225,7 @@
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <action selector="setScheduleEnabled:" target="-2" id="AgS-hR-sAq"/>
+                        <action selector="setScheduleEnabled:" target="-2" id="h8r-k4-hMZ"/>
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cGM-Xy-cVO" userLabel="Schedule interval field">
@@ -211,14 +235,20 @@
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
+                    <connections>
+                        <action selector="setScheduleInterval:" target="-2" id="EnH-an-fUv"/>
+                    </connections>
                 </textField>
                 <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cPD-R5-ghn" userLabel="Schedule interval stepper">
                     <rect key="frame" x="450" y="17" width="19" height="28"/>
                     <stepperCell key="cell" scrollable="YES" lineBreakMode="clipping" continuous="YES" alignment="left" minValue="1" maxValue="24" doubleValue="1" valueWraps="YES" id="1Hw-VP-AZe"/>
+                    <connections>
+                        <action selector="incrementScheduleInterval:" target="-2" id="oh8-Bh-8uB"/>
+                    </connections>
                 </stepper>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uJF-MD-TTH" userLabel="Schedule interval label">
-                    <rect key="frame" x="472" y="23" width="39" height="16"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" title="hours" id="I6s-9R-ols">
+                    <rect key="frame" x="472" y="23" width="49" height="16"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" title="hour(s)" id="I6s-9R-ols">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -230,6 +260,9 @@
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="broweOutputDirectory:" target="-2" id="twa-9u-vjc"/>
+                    </connections>
                 </button>
             </subviews>
             <constraints>
@@ -310,5 +343,6 @@
             </constraints>
             <point key="canvasLocation" x="100" y="187"/>
         </customView>
+        <userDefaultsController representsSharedInstance="YES" id="vFw-z8-2oN"/>
     </objects>
 </document>
