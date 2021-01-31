@@ -32,8 +32,7 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 
   configurationViewController = [[ConfigurationViewController alloc] init];
-  NSView * contentView = [_window contentView];
-  [contentView addSubview: [configurationViewController view]];
+  [_window setContentView:[configurationViewController view]];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
