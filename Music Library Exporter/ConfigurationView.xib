@@ -8,7 +8,6 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="ConfigurationViewController">
             <connections>
-                <outlet property="excludedPlaylistsTextField" destination="Cuo-DT-GW0" id="Lae-iB-mBy"/>
                 <outlet property="flattenPlaylistsCheckBox" destination="wlp-MI-WwG" id="SF0-2k-RDi"/>
                 <outlet property="includeInternalPlaylistsCheckBox" destination="4At-1b-40C" id="YmB-YI-1hu"/>
                 <outlet property="libraryPathTextField" destination="aQn-IB-K3Q" id="Vyt-TY-aCI"/>
@@ -18,152 +17,186 @@
                 <outlet property="remapOriginalDirectoryTextField" destination="BjE-vG-HTd" id="bIr-yS-U2I"/>
                 <outlet property="remapRootDirectoryCheckBox" destination="dWM-bR-tNA" id="zIj-3b-Adw"/>
                 <outlet property="scheduleEnabledCheckBox" destination="w6z-XH-YS0" id="pxm-MI-QKI"/>
-                <outlet property="scheduleIntervalTextField" destination="org-dH-ym9" id="hHs-nt-lJM"/>
                 <outlet property="view" destination="c22-O7-iKe" id="Gd9-wg-lgF"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="c22-O7-iKe" userLabel="Configuration View">
-            <rect key="frame" x="0.0" y="0.0" width="527" height="370"/>
+            <rect key="frame" x="0.0" y="0.0" width="590" height="444"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <userGuides>
+                <userLayoutGuide location="185" affinity="minX"/>
+            </userGuides>
             <subviews>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LFz-NA-f4P" userLabel="Library path Label">
-                    <rect key="frame" x="41" y="334" width="113" height="16"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" title="Music library path" id="blh-gS-x1N">
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4At-1b-40C" userLabel="Internal playlists checkbox">
+                    <rect key="frame" x="197" y="116" width="373" height="18"/>
+                    <buttonCell key="cell" type="check" title="Include internal playlists" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="LaZ-wG-55e">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                </button>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LFz-NA-f4P" userLabel="Library path label">
+                    <rect key="frame" x="18" y="408" width="175" height="16"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Music Media folder location:" usesSingleLineMode="YES" id="blh-gS-x1N">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aQn-IB-K3Q" userLabel="Library path TextField">
-                    <rect key="frame" x="279" y="331" width="203" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aQn-IB-K3Q" userLabel="Library path field">
+                    <rect key="frame" x="199" y="405" width="371" height="21"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="dvK-UI-lgH">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="saa-Bu-NOq" userLabel="Output directory Label">
-                    <rect key="frame" x="41" y="308" width="105" height="16"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" title="Output directory" id="VRR-p0-9h4">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2ur-tq-GOh" userLabel="Library path description">
+                    <rect key="frame" x="199" y="387" width="373" height="14"/>
+                    <textFieldCell key="cell" controlSize="small" alignment="left" title="Copy from the 'Files' tab in Music app's preferences" id="aJy-mB-IpW">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="saa-Bu-NOq" userLabel="Output directory label">
+                    <rect key="frame" x="18" y="359" width="175" height="16"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Output directory:" id="VRR-p0-9h4">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AMO-i9-8k7" userLabel="Output directory TextField">
-                    <rect key="frame" x="279" y="305" width="203" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AMO-i9-8k7" userLabel="Output directory field">
+                    <rect key="frame" x="199" y="356" width="298" height="21"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="Osp-g9-xGJ">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F7U-ae-SaO" userLabel="Output filename Label">
-                    <rect key="frame" x="41" y="282" width="102" height="16"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" title="Output filename" id="95a-Uq-nus">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aNt-y7-Osz" userLabel="Output directory description">
+                    <rect key="frame" x="199" y="338" width="373" height="14"/>
+                    <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="left" title="The generated library will be saved in this directory" id="Dzx-Ox-qav">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="F7U-ae-SaO" userLabel="Output filename label">
+                    <rect key="frame" x="18" y="312" width="175" height="16"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Output filename:" id="95a-Uq-nus">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Pg-dB-pIn" userLabel="Output filename TextField">
-                    <rect key="frame" x="279" y="279" width="203" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="fyF-0S-rnN">
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2Pg-dB-pIn" userLabel="Output filename field">
+                    <rect key="frame" x="199" y="309" width="186" height="21"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="Library.xml" drawsBackground="YES" id="fyF-0S-rnN">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dWM-bR-tNA" userLabel="Remap CheckBox">
-                    <rect key="frame" x="41" y="237" width="154" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Remap root directory" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="8wE-Bs-Aj7">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jEV-Wb-pGb" userLabel="Path mapping label">
+                    <rect key="frame" x="18" y="273" width="175" height="16"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Path mapping:" id="YLu-e3-9gv">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dWM-bR-tNA" userLabel="Path mapping checkbox">
+                    <rect key="frame" x="197" y="272" width="373" height="18"/>
+                    <buttonCell key="cell" type="check" title="Remap music root directory" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="8wE-Bs-Aj7">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                 </button>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fE4-HV-NKL" userLabel="Remap original Label">
-                    <rect key="frame" x="61" y="214" width="109" height="16"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ych-C4-ky6" userLabel="Path mapping description">
+                    <rect key="frame" x="217" y="255" width="355" height="14"/>
+                    <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="left" title="The location value will be updated for each track" id="QRL-7p-Prq">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fE4-HV-NKL" userLabel="Path mapping original label">
+                    <rect key="frame" x="217" y="229" width="112" height="16"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Original directory" id="3jw-ey-cAf">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BjE-vG-HTd" userLabel="Remap original TextField">
-                    <rect key="frame" x="279" y="211" width="203" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="0do-Lr-cX6">
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BjE-vG-HTd" userLabel="Path mapping original field">
+                    <rect key="frame" x="335" y="226" width="235" height="21"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="Text to find" drawsBackground="YES" id="0do-Lr-cX6">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ssc-9C-hAE" userLabel="Remap mapped Label">
-                    <rect key="frame" x="61" y="190" width="112" height="16"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ssc-9C-hAE" userLabel="Path mapping mapped label">
+                    <rect key="frame" x="217" y="198" width="112" height="16"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Mapped directory" id="Wvx-gi-IEK">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JJM-n9-YVb" userLabel="Remap mapped TextField">
-                    <rect key="frame" x="279" y="187" width="203" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="g4y-t2-Rgo">
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JJM-n9-YVb" userLabel="Path mapping mapped field">
+                    <rect key="frame" x="335" y="195" width="235" height="21"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="Replacement text" drawsBackground="YES" id="g4y-t2-Rgo">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wlp-MI-WwG" userLabel="Flatten playlists CheckBox">
-                    <rect key="frame" x="41" y="152" width="174" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Flatten playlist hierarchy" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="H8E-nU-UjH">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                </button>
-                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4At-1b-40C" userLabel="Include internal CheckBox">
-                    <rect key="frame" x="41" y="130" width="172" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Include internal playlists" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="LaZ-wG-55e">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                </button>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="T7g-5m-smY" userLabel="Excluded playlists Label">
-                    <rect key="frame" x="61" y="107" width="112" height="16"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" title="Excluded playlists" id="Wha-X6-8Vo">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="u8n-GV-iLz" userLabel="Playlists Label">
+                    <rect key="frame" x="18" y="159" width="175" height="16"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Playlists:" id="DaD-3a-dud">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cuo-DT-GW0" userLabel="Excluded playlists TextField">
-                    <rect key="frame" x="279" y="104" width="203" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="5c6-Og-7Fs">
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wlp-MI-WwG" userLabel="Flatten playlists checkbox">
+                    <rect key="frame" x="197" y="158" width="373" height="18"/>
+                    <buttonCell key="cell" type="check" title="Flatten playlist hierarchy" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="H8E-nU-UjH">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                    </buttonCell>
+                </button>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ZLw-GQ-A1D" userLabel="Flatten playlists description">
+                    <rect key="frame" x="219" y="141" width="353" height="14"/>
+                    <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="left" title="All playlists will be exported as top-level. Folders will be excluded." id="gap-Rz-DVx">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w6z-XH-YS0" userLabel="Schedule CheckBox">
-                    <rect key="frame" x="41" y="61" width="290" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Export library automatically with a schedule" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="7n5-7E-GkX">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sDk-wE-Yki" userLabel="Internal playlists description">
+                    <rect key="frame" x="219" y="99" width="353" height="14"/>
+                    <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="left" title="Internal playlists include 'Library', 'Music', 'Downloaded', etc." id="pu8-RC-9DR">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sQ1-Ni-Bcn" userLabel="Schedule label">
+                    <rect key="frame" x="18" y="63" width="175" height="16"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Schedule:" id="AZD-rD-K89">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="w6z-XH-YS0" userLabel="Schedule checkbox">
+                    <rect key="frame" x="197" y="62" width="230" height="18"/>
+                    <buttonCell key="cell" type="check" title="Automatically export library every" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="7n5-7E-GkX">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -171,26 +204,111 @@
                         <action selector="setScheduleEnabled:" target="-2" id="AgS-hR-sAq"/>
                     </connections>
                 </button>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RZp-VV-Uhx" userLabel="Schedule interval Label">
-                    <rect key="frame" x="61" y="36" width="109" height="16"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" title="Schedule interval" id="WwM-gD-v7k">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="org-dH-ym9" userLabel="Schedule interval TextField">
-                    <rect key="frame" x="279" y="33" width="203" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="ZIm-XK-0wt">
+                <textField verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cGM-Xy-cVO" userLabel="Schedule interval field">
+                    <rect key="frame" x="431" y="60" width="18" height="21"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="center" placeholderString="1" drawsBackground="YES" id="HG6-Nl-PbA">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cPD-R5-ghn" userLabel="Schedule interval stepper">
+                    <rect key="frame" x="450" y="57" width="19" height="28"/>
+                    <stepperCell key="cell" scrollable="YES" lineBreakMode="clipping" continuous="YES" alignment="left" minValue="1" maxValue="24" doubleValue="1" valueWraps="YES" id="1Hw-VP-AZe"/>
+                </stepper>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uJF-MD-TTH" userLabel="Schedule interval label">
+                    <rect key="frame" x="472" y="63" width="39" height="16"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" title="hours" id="I6s-9R-ols">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QoD-Q7-Epr">
+                    <rect key="frame" x="498" y="349" width="79" height="32"/>
+                    <buttonCell key="cell" type="push" title="Browse" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="fqK-RZ-UrK">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                </button>
             </subviews>
-            <point key="canvasLocation" x="75.5" y="170"/>
+            <constraints>
+                <constraint firstItem="ssc-9C-hAE" firstAttribute="leading" secondItem="ych-C4-ky6" secondAttribute="leading" id="01n-kq-26e"/>
+                <constraint firstItem="w6z-XH-YS0" firstAttribute="top" secondItem="sDk-wE-Yki" secondAttribute="bottom" constant="20" id="1Km-hC-GEs"/>
+                <constraint firstItem="uJF-MD-TTH" firstAttribute="firstBaseline" secondItem="w6z-XH-YS0" secondAttribute="firstBaseline" id="3Vt-qp-Z75"/>
+                <constraint firstAttribute="trailing" secondItem="aQn-IB-K3Q" secondAttribute="trailing" constant="20" symbolic="YES" id="3hp-vI-tcm"/>
+                <constraint firstItem="ych-C4-ky6" firstAttribute="leading" secondItem="dWM-bR-tNA" secondAttribute="leading" constant="20" id="522-UB-HOj"/>
+                <constraint firstItem="sQ1-Ni-Bcn" firstAttribute="width" secondItem="LFz-NA-f4P" secondAttribute="width" id="7cW-iA-xju"/>
+                <constraint firstItem="2Pg-dB-pIn" firstAttribute="top" secondItem="aNt-y7-Osz" secondAttribute="bottom" constant="8" symbolic="YES" id="8az-JW-PaT"/>
+                <constraint firstItem="QoD-Q7-Epr" firstAttribute="firstBaseline" secondItem="AMO-i9-8k7" secondAttribute="firstBaseline" id="8h9-1E-g5a"/>
+                <constraint firstAttribute="trailing" secondItem="JJM-n9-YVb" secondAttribute="trailing" constant="20" symbolic="YES" id="ANG-BU-eII"/>
+                <constraint firstItem="wlp-MI-WwG" firstAttribute="firstBaseline" secondItem="u8n-GV-iLz" secondAttribute="firstBaseline" id="AmG-UG-297"/>
+                <constraint firstItem="BjE-vG-HTd" firstAttribute="firstBaseline" secondItem="fE4-HV-NKL" secondAttribute="firstBaseline" id="BWS-6x-Bhm"/>
+                <constraint firstItem="jEV-Wb-pGb" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" symbolic="YES" id="Doy-vi-KhO"/>
+                <constraint firstItem="dWM-bR-tNA" firstAttribute="leading" secondItem="2Pg-dB-pIn" secondAttribute="leading" id="EaL-7P-BNl"/>
+                <constraint firstItem="sQ1-Ni-Bcn" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" symbolic="YES" id="FjJ-ga-Rqr"/>
+                <constraint firstItem="sDk-wE-Yki" firstAttribute="leading" secondItem="4At-1b-40C" secondAttribute="leading" constant="22" id="GQz-MO-1iV"/>
+                <constraint firstItem="BjE-vG-HTd" firstAttribute="top" secondItem="ych-C4-ky6" secondAttribute="bottom" constant="8" symbolic="YES" id="GTV-sB-kcn"/>
+                <constraint firstItem="wlp-MI-WwG" firstAttribute="top" secondItem="JJM-n9-YVb" secondAttribute="bottom" constant="20" id="GzW-G4-ZX3"/>
+                <constraint firstAttribute="trailing" secondItem="wlp-MI-WwG" secondAttribute="trailing" constant="20" symbolic="YES" id="HGf-ra-k1g"/>
+                <constraint firstItem="ssc-9C-hAE" firstAttribute="width" secondItem="fE4-HV-NKL" secondAttribute="width" id="IHv-Ny-zTe"/>
+                <constraint firstItem="u8n-GV-iLz" firstAttribute="width" secondItem="LFz-NA-f4P" secondAttribute="width" id="JJL-5B-Zgu"/>
+                <constraint firstItem="w6z-XH-YS0" firstAttribute="firstBaseline" secondItem="sQ1-Ni-Bcn" secondAttribute="firstBaseline" id="JjL-u9-izr"/>
+                <constraint firstItem="aQn-IB-K3Q" firstAttribute="leading" secondItem="LFz-NA-f4P" secondAttribute="trailing" constant="8" symbolic="YES" id="K3I-bq-hah"/>
+                <constraint firstAttribute="trailing" secondItem="BjE-vG-HTd" secondAttribute="trailing" constant="20" symbolic="YES" id="Led-Ko-CeF"/>
+                <constraint firstItem="2ur-tq-GOh" firstAttribute="top" secondItem="aQn-IB-K3Q" secondAttribute="bottom" constant="4" id="MrO-ag-lXW"/>
+                <constraint firstItem="ZLw-GQ-A1D" firstAttribute="top" secondItem="wlp-MI-WwG" secondAttribute="bottom" constant="4" id="NeT-Lc-m5C"/>
+                <constraint firstItem="wlp-MI-WwG" firstAttribute="leading" secondItem="dWM-bR-tNA" secondAttribute="leading" id="Og7-eb-UDa"/>
+                <constraint firstItem="aNt-y7-Osz" firstAttribute="leading" secondItem="AMO-i9-8k7" secondAttribute="leading" constant="2" id="Pph-vu-Prp"/>
+                <constraint firstItem="fE4-HV-NKL" firstAttribute="leading" secondItem="ych-C4-ky6" secondAttribute="leading" id="RzH-Bd-cQP"/>
+                <constraint firstItem="JJM-n9-YVb" firstAttribute="firstBaseline" secondItem="ssc-9C-hAE" secondAttribute="firstBaseline" id="Sjt-sz-KNy"/>
+                <constraint firstItem="JJM-n9-YVb" firstAttribute="leading" secondItem="ssc-9C-hAE" secondAttribute="trailing" constant="8" symbolic="YES" id="T2s-NO-gPq"/>
+                <constraint firstItem="dWM-bR-tNA" firstAttribute="top" secondItem="2Pg-dB-pIn" secondAttribute="bottom" constant="20" id="UWg-vx-eMw"/>
+                <constraint firstAttribute="trailing" secondItem="ych-C4-ky6" secondAttribute="trailing" constant="20" symbolic="YES" id="UsS-ti-cS2"/>
+                <constraint firstItem="w6z-XH-YS0" firstAttribute="leading" secondItem="wlp-MI-WwG" secondAttribute="leading" id="Vc3-kZ-aaQ"/>
+                <constraint firstItem="ssc-9C-hAE" firstAttribute="leading" secondItem="fE4-HV-NKL" secondAttribute="leading" id="VhC-JX-5X3"/>
+                <constraint firstItem="saa-Bu-NOq" firstAttribute="width" secondItem="LFz-NA-f4P" secondAttribute="width" id="Wt0-6b-hUe"/>
+                <constraint firstAttribute="trailing" secondItem="4At-1b-40C" secondAttribute="trailing" constant="20" symbolic="YES" id="Wwx-1C-dtX"/>
+                <constraint firstItem="4At-1b-40C" firstAttribute="leading" secondItem="wlp-MI-WwG" secondAttribute="leading" id="ZPg-7x-bzO"/>
+                <constraint firstItem="cPD-R5-ghn" firstAttribute="firstBaseline" secondItem="w6z-XH-YS0" secondAttribute="firstBaseline" id="ZZK-En-tO3"/>
+                <constraint firstItem="wlp-MI-WwG" firstAttribute="leading" secondItem="u8n-GV-iLz" secondAttribute="trailing" constant="8" symbolic="YES" id="ZcB-bx-CJg"/>
+                <constraint firstItem="JJM-n9-YVb" firstAttribute="top" secondItem="BjE-vG-HTd" secondAttribute="bottom" constant="10" symbolic="YES" id="btc-NA-a4r"/>
+                <constraint firstItem="2Pg-dB-pIn" firstAttribute="leading" secondItem="AMO-i9-8k7" secondAttribute="leading" id="c0j-B9-8Ex"/>
+                <constraint firstItem="2ur-tq-GOh" firstAttribute="leading" secondItem="aQn-IB-K3Q" secondAttribute="leading" constant="2" id="ceA-vA-VMT"/>
+                <constraint firstItem="aQn-IB-K3Q" firstAttribute="firstBaseline" secondItem="LFz-NA-f4P" secondAttribute="firstBaseline" id="d1t-oD-QfK"/>
+                <constraint firstItem="uJF-MD-TTH" firstAttribute="leading" secondItem="cPD-R5-ghn" secondAttribute="trailing" constant="8" symbolic="YES" id="dRp-X2-Rd2"/>
+                <constraint firstItem="BjE-vG-HTd" firstAttribute="leading" secondItem="fE4-HV-NKL" secondAttribute="trailing" constant="8" symbolic="YES" id="dW3-Yn-qEx"/>
+                <constraint firstItem="F7U-ae-SaO" firstAttribute="width" secondItem="LFz-NA-f4P" secondAttribute="width" id="dbb-s8-oNV"/>
+                <constraint firstItem="AMO-i9-8k7" firstAttribute="leading" secondItem="aQn-IB-K3Q" secondAttribute="leading" id="dcg-Ns-UWd"/>
+                <constraint firstItem="LFz-NA-f4P" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" symbolic="YES" id="eYR-Gc-Qyq"/>
+                <constraint firstAttribute="trailing" secondItem="2ur-tq-GOh" secondAttribute="trailing" constant="20" symbolic="YES" id="eiW-FS-UQz"/>
+                <constraint firstItem="2Pg-dB-pIn" firstAttribute="firstBaseline" secondItem="F7U-ae-SaO" secondAttribute="firstBaseline" id="fvb-Nk-y02"/>
+                <constraint firstItem="jEV-Wb-pGb" firstAttribute="width" secondItem="LFz-NA-f4P" secondAttribute="width" id="gLq-dP-QNo"/>
+                <constraint firstItem="aNt-y7-Osz" firstAttribute="top" secondItem="AMO-i9-8k7" secondAttribute="bottom" constant="4" id="hP0-Mx-fuf"/>
+                <constraint firstItem="cGM-Xy-cVO" firstAttribute="firstBaseline" secondItem="w6z-XH-YS0" secondAttribute="firstBaseline" id="hVH-hh-fTj"/>
+                <constraint firstAttribute="trailing" secondItem="QoD-Q7-Epr" secondAttribute="trailing" constant="20" symbolic="YES" id="ix7-r2-4gS"/>
+                <constraint firstItem="JJM-n9-YVb" firstAttribute="top" secondItem="BjE-vG-HTd" secondAttribute="bottom" constant="10" symbolic="YES" id="j8Y-dZ-OyT"/>
+                <constraint firstAttribute="trailing" secondItem="aNt-y7-Osz" secondAttribute="trailing" constant="20" symbolic="YES" id="kLg-za-RqH"/>
+                <constraint firstItem="2Pg-dB-pIn" firstAttribute="width" secondItem="aQn-IB-K3Q" secondAttribute="width" multiplier="0.5" id="lLy-HR-ciE"/>
+                <constraint firstItem="ych-C4-ky6" firstAttribute="top" secondItem="dWM-bR-tNA" secondAttribute="bottom" constant="4" id="lUB-nv-DmY"/>
+                <constraint firstItem="4At-1b-40C" firstAttribute="top" secondItem="ZLw-GQ-A1D" secondAttribute="bottom" constant="8" symbolic="YES" id="lfx-XK-bff"/>
+                <constraint firstAttribute="trailing" secondItem="sDk-wE-Yki" secondAttribute="trailing" constant="20" symbolic="YES" id="oOG-oi-I1q"/>
+                <constraint firstItem="ZLw-GQ-A1D" firstAttribute="leading" secondItem="wlp-MI-WwG" secondAttribute="leading" constant="22" id="peW-Ru-aPA"/>
+                <constraint firstItem="F7U-ae-SaO" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" symbolic="YES" id="pfH-1a-39B"/>
+                <constraint firstAttribute="trailing" secondItem="ZLw-GQ-A1D" secondAttribute="trailing" constant="20" symbolic="YES" id="phY-2j-Wbs"/>
+                <constraint firstItem="QoD-Q7-Epr" firstAttribute="leading" secondItem="AMO-i9-8k7" secondAttribute="trailing" constant="8" symbolic="YES" id="pvt-J4-B66"/>
+                <constraint firstAttribute="trailing" secondItem="dWM-bR-tNA" secondAttribute="trailing" constant="20" symbolic="YES" id="q7A-kY-7g8"/>
+                <constraint firstItem="cGM-Xy-cVO" firstAttribute="leading" secondItem="w6z-XH-YS0" secondAttribute="trailing" constant="4" id="qli-6O-Knl"/>
+                <constraint firstItem="cPD-R5-ghn" firstAttribute="leading" secondItem="cGM-Xy-cVO" secondAttribute="trailing" constant="4" id="sRI-Gy-g5a"/>
+                <constraint firstItem="saa-Bu-NOq" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" symbolic="YES" id="vMX-8n-hbC"/>
+                <constraint firstItem="AMO-i9-8k7" firstAttribute="top" secondItem="2ur-tq-GOh" secondAttribute="bottom" constant="10" id="vqN-vY-4ca"/>
+                <constraint firstItem="LFz-NA-f4P" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="20" symbolic="YES" id="wHD-9m-GtV"/>
+                <constraint firstItem="u8n-GV-iLz" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" symbolic="YES" id="xUb-oh-cCB"/>
+                <constraint firstItem="dWM-bR-tNA" firstAttribute="firstBaseline" secondItem="jEV-Wb-pGb" secondAttribute="firstBaseline" id="yxO-xT-Vrp"/>
+                <constraint firstItem="AMO-i9-8k7" firstAttribute="firstBaseline" secondItem="saa-Bu-NOq" secondAttribute="firstBaseline" id="zHS-zg-fBe"/>
+                <constraint firstItem="sDk-wE-Yki" firstAttribute="top" secondItem="4At-1b-40C" secondAttribute="bottom" constant="4" id="zwk-Uf-rSC"/>
+            </constraints>
+            <point key="canvasLocation" x="101" y="207"/>
         </customView>
     </objects>
 </document>

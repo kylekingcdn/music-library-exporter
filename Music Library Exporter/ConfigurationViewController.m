@@ -81,7 +81,7 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
 
   // TODO: fix schedule state
   [_scheduleEnabledCheckBox setState:(_scheduleEnabled ? NSControlStateValueOn : NSControlStateValueOff)];
-  [_scheduleIntervalTextField setIntegerValue:_exportConfiguration.scheduleInterval];
+//  [_scheduleIntervalTextField setIntegerValue:_exportConfiguration.scheduleInterval];
 }
 
 - (BOOL)isScheduleRegisteredWithSystem {
