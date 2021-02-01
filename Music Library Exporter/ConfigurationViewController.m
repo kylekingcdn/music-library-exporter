@@ -301,7 +301,6 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
     return NO;
   }
 
-  [_librarySerializer setMusicOnly:YES];
   [_librarySerializer setIncludeFoldersWhenFlattened:NO];
 
   [_librarySerializer setRemapRootDirectory:_exportConfiguration.remapRootDirectory];

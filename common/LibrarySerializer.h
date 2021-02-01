@@ -45,7 +45,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property BOOL flattenPlaylistHierarchy;
 
 // key filters
-@property BOOL musicOnly;
 @property BOOL includeInternalPlaylists;
 @property NSArray<NSString*>* includedPlaylistPersistentIds;
 @property BOOL includeFoldersWhenFlattened;
