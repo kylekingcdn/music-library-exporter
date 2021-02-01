@@ -10,7 +10,7 @@
 #import <iTunesLibrary/ITLibrary.h>
 #import <ServiceManagement/ServiceManagement.h>
 
-#import "ExportConfiguration.h"
+#import "UserDefaultsExportConfiguration.h"
 
 
 static NSString* const _appGroupIdentifier = @"group.9YLM7HTV6V.com.MusicLibraryExporter";
@@ -46,7 +46,7 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
 
   self = [super initWithNibName: @"ConfigurationView" bundle: nil];
 
-  _exportConfiguration = [[ExportConfiguration alloc] initWithUserDefaults];
+  _exportConfiguration = [[UserDefaultsExportConfiguration alloc] initWithUserDefaultsSuiteName:_appGroupIdentifier];
   _librarySerializer = [[LibrarySerializer alloc] init];
   
   return self;

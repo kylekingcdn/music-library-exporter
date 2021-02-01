@@ -11,13 +11,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ExportConfiguration;
+@class UserDefaultsExportConfiguration;
 
 @interface ConfigurationViewController : NSViewController {
 
   BOOL _scheduleEnabled;
   
-  ExportConfiguration* _exportConfiguration;
+  UserDefaultsExportConfiguration* _exportConfiguration;
   LibrarySerializer* _librarySerializer;
 }
 
