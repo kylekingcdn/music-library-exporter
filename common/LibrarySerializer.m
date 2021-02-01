@@ -19,6 +19,17 @@
 @implementation LibrarySerializer
 
 
+#pragma mark - Initializers -
+
+- (instancetype)initWithConfiguration:(ExportConfiguration*)exportConfig {
+
+  self = [super init];
+  [self setConfiguration:exportConfig];
+  
+  return self;
+}
+
+
 #pragma mark - Utils -
 
 + (NSString*) getHexadecimalPersistentIdForEntity:(ITLibMediaEntity*)entity {

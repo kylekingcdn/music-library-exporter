@@ -14,6 +14,7 @@
 @class ITLibArtist;
 @class OrderedDictionary;
 @class MutableOrderedDictionary;
+@class ExportConfiguration;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -31,6 +32,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 #pragma mark - Properties -
+
+@property ExportConfiguration* configuration;
+
 @property (readonly) MutableOrderedDictionary* libraryDict;
 @property NSString* filePath;
 
@@ -45,6 +49,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property BOOL includeInternalPlaylists;
 @property NSArray<NSString*>* includedPlaylistPersistentIds;
 @property BOOL includeFoldersWhenFlattened;
+
+
+#pragma mark - Initializers -
+
+- (instancetype)initWithConfiguration:(ExportConfiguration*)exportConfig;
 
 
 #pragma mark - Utils -
