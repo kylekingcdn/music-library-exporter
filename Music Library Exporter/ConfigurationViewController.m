@@ -280,7 +280,11 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
 
 - (IBAction)exportLibraryAction:(id)sender {
 
-  
+  BOOL exportSuccessful = [self exportLibrary];
+
+  if (!exportSuccessful) {
+    NSLog(@"[exportLibraryAction] library export has failed");
+  }
 }
 
 - (BOOL)exportLibrary {
