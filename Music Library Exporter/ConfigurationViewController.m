@@ -165,20 +165,14 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
 
     if (result == NSFileHandlingPanelOKButton) {
 
-      NSArray* urls = [openPanel URLs];
+      NSURL* outputDirUrl = [openPanel URL];
+      if (outputDirUrl) {
 
-      if (urls.count == 1) {
+        NSString* outputDirPath = outputDirUrl.path;
+        [self->_exportConfiguration setOutputDirectoryPath:outputDirPath];
+        [self->_outputDirectoryTextField setStringValue:outputDirPath];
 
-        NSURL* directoryUrl = urls.firstObject;
-        NSString* directoryPath = directoryUrl.path;
-
-        if (directoryPath) {
-
-          NSLog(@"[broweOutputDirectory directory: %@]", directoryPath);
-
-          [self->_exportConfiguration setOutputDirectoryPath:directoryPath];
-          [self->_outputDirectoryTextField setStringValue:directoryPath];
-        }
+        [self saveBookmarkForOutputDirectoryUrl:outputDirUrl];
       }
     }
   }];
