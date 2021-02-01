@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)registerSchedulerWithSystem:(BOOL)flag;
 
 - (IBAction)setMediaFolderLocation:(id)sender;
-- (IBAction)broweOutputDirectory:(id)sender;
+- (IBAction)browseOutputDirectory:(id)sender;
 - (IBAction)setOutputFileName:(id)sender;
 
 - (IBAction)setRemapRootDirectory:(id)sender;

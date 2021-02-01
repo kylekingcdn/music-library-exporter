@@ -262,7 +262,7 @@
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <action selector="broweOutputDirectory:" target="-2" id="twa-9u-vjc"/>
+                        <action selector="browseOutputDirectory:" target="-2" id="9Su-Tp-RsA"/>
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="U62-bq-Z4J">

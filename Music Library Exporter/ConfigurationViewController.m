@@ -149,9 +149,9 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
   [_exportConfiguration setMusicLibraryPath:mediaFolder];
 }
 
-- (IBAction)broweOutputDirectory:(id)sender {
+- (IBAction)browseOutputDirectory:(id)sender {
 
-  NSLog(@"[broweOutputDirectory]");
+  NSLog(@"[browseOutputDirectory]");
 
   NSOpenPanel* openPanel = [NSOpenPanel openPanel];
   [openPanel setCanChooseDirectories:YES];
