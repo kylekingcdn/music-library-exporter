@@ -23,11 +23,6 @@ NS_ASSUME_NONNULL_BEGIN
   BOOL _flattenPlaylistHierarchy;
   BOOL _includeInternalPlaylists;
   NSArray<NSString*>* _excludedPlaylistPersistentIds;
-
-  BOOL _scheduleEnabled;
-  NSInteger _scheduleInterval;
-
-  NSDate* _lastExport;
 }
 
 
@@ -56,11 +51,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)includeInternalPlaylists;
 - (NSArray<NSString*>*)excludedPlaylistPersistentIds;
 
-- (BOOL)scheduleEnabled;
-- (NSInteger)scheduleInterval;
-
-- (NSDate*)lastExport;
-
 - (void)dumpConfiguration;
 
 
@@ -78,11 +68,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setFlattenPlaylistHierarchy:(BOOL)flag;
 - (void)setIncludeInternalPlaylists:(BOOL)flag;
 - (void)setExcludedPlaylistPersistentIds:(NSArray<NSString*>*)excludedIds;
-
-- (void)setScheduleEnabled:(BOOL)flag;
-- (void)setScheduleInterval:(NSInteger)interval;
-
-- (void)setLastExport:(NSDate*)lastExport;
 
 - (void)setValuesFromUserDefaults;
 - (void)registerDefaultValues;

@@ -53,9 +53,6 @@ static NSString* const _appGroupIdentifier = @"group.9YLM7HTV6V.com.MusicLibrary
     @NO,             @"FlattenPlaylistHierarchy",
     @YES,            @"IncludeInternalPlaylists",
     @[],             @"ExcludedPlaylistPersistentIds",
-    @NO,             @"ScheduleEnabled",
-    @60,             @"ScheduleInterval",
-    @0,              @"LastExport",
     nil
   ];
 }
@@ -114,21 +111,6 @@ static NSString* const _appGroupIdentifier = @"group.9YLM7HTV6V.com.MusicLibrary
     return _excludedPlaylistPersistentIds;
 }
 
-- (BOOL)scheduleEnabled {
-
-  return _scheduleEnabled;
-}
-
-- (NSInteger)scheduleInterval {
-
-    return _scheduleInterval;
-}
-
-- (NSDate*)lastExport {
-
-    return _lastExport;
-}
-
 - (void)dumpConfiguration {
 
   NSLog(@"[dumpConfiguration]");
@@ -141,9 +123,6 @@ static NSString* const _appGroupIdentifier = @"group.9YLM7HTV6V.com.MusicLibrary
   NSLog(@"  FlattenPlaylistHierarchy:        '%@'", (_flattenPlaylistHierarchy ? @"YES" : @"NO"));
   NSLog(@"  IncludeInternalPlaylists:        '%@'", (_includeInternalPlaylists ? @"YES" : @"NO"));
   NSLog(@"  ExcludedPlaylistPersistentIds:   '%@'", _excludedPlaylistPersistentIds);
-  NSLog(@"  ScheduleEnabled:                 '%@'", (_scheduleEnabled ? @"YES" : @"NO"));
-  NSLog(@"  ScheduleInterval:                '%ld'",_scheduleInterval);
-  NSLog(@"  LastExport:                      '%@'", _lastExport);
 }
 
 
@@ -221,30 +200,6 @@ static NSString* const _appGroupIdentifier = @"group.9YLM7HTV6V.com.MusicLibrary
   [_userDefaults setValue:_excludedPlaylistPersistentIds forKey:@"ExcludedPlaylistPersistentIds"];
 }
 
-- (void)setScheduleEnabled:(BOOL)flag {
-
-  NSLog(@"[setScheduleEnabled %@]", (flag ? @"YES" : @"NO"));
-
-  _scheduleEnabled = flag;
-  [_userDefaults setBool:_scheduleEnabled forKey:@"ScheduleEnabled"];
-}
-
-- (void)setScheduleInterval:(NSInteger)interval {
-
-  NSLog(@"[setScheduleInterval %ld]", (long)interval);
-
-  _scheduleInterval = interval;
-  [_userDefaults setInteger:_scheduleInterval forKey:@"ScheduleInterval"];
-}
-
-- (void)setLastExport:(NSDate*)lastExport {
-
-  NSLog(@"[setLastExport %@]", lastExport);
-
-  _lastExport = lastExport;
-  [_userDefaults setValue:_lastExport forKey:@"LastExport"];
-}
-
 - (void)setValuesFromUserDefaults {
 
   NSLog(@"[setValuesFromUserDefaults]");
@@ -263,11 +218,6 @@ static NSString* const _appGroupIdentifier = @"group.9YLM7HTV6V.com.MusicLibrary
   _flattenPlaylistHierarchy = [_userDefaults boolForKey:@"FlattenPlaylistHierarchy"];
   _includeInternalPlaylists = [_userDefaults boolForKey:@"IncludeInternalPlaylists"];
   _excludedPlaylistPersistentIds = [_userDefaults valueForKey:@"ExcludedPlaylistPersistentIds"];
-
-  _scheduleEnabled = [_userDefaults boolForKey:@"ScheduleEnabled"];
-  _scheduleInterval = [_userDefaults integerForKey:@"ScheduleInterval"];
-
-  _lastExport = [_userDefaults valueForKey:@"LastExport"];
 }
 
 - (void)registerDefaultValues {

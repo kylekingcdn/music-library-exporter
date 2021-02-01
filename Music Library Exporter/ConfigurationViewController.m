@@ -85,9 +85,9 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
   //[_excludedPlaylistsTextField setStringValue:_exportConfiguration.excludedPlaylistPersistentIds];
 
   // TODO: fix schedule state
-  [_scheduleEnabledCheckBox setState:_exportConfiguration.scheduleEnabled];
-  [_scheduleIntervalTextField setIntegerValue:_exportConfiguration.scheduleInterval];
-  [_scheduleIntervalStepper setIntegerValue:_exportConfiguration.scheduleInterval];
+//  [_scheduleEnabledCheckBox setState:_exportConfiguration.scheduleEnabled];
+//  [_scheduleIntervalTextField setIntegerValue:_exportConfiguration.scheduleInterval];
+//  [_scheduleIntervalStepper setIntegerValue:_exportConfiguration.scheduleInterval];
 }
 
 - (BOOL)isScheduleRegisteredWithSystem {
@@ -244,7 +244,7 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
 
   NSLog(@"[setScheduleEnabled: %@]", (flag ? @"YES" : @"NO"));
 
-  [_exportConfiguration setScheduleEnabled:flag];
+//  [_exportConfiguration setScheduleEnabled:flag];
 
 //  if (![self registerSchedulerWithSystem:flag]) {
 //
@@ -265,7 +265,7 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
   NSLog(@"[setScheduleInterval: %ld]", scheduleInterval);
 
   [_scheduleIntervalStepper setIntegerValue:scheduleInterval];
-  [_exportConfiguration setScheduleInterval:scheduleInterval];
+//  [_exportConfiguration setScheduleInterval:scheduleInterval];
 }
 
 - (IBAction)incrementScheduleInterval:(id)sender {
@@ -276,7 +276,7 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
   NSLog(@"[incrementScheduleInterval: %ld]", scheduleInterval);
 
   [_scheduleIntervalTextField setIntegerValue:scheduleInterval];
-  [_exportConfiguration setScheduleInterval:scheduleInterval];
+//  [_exportConfiguration setScheduleInterval:scheduleInterval];
 }
 
 - (IBAction)exportLibraryAction:(id)sender {
