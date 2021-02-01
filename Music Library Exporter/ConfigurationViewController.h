@@ -43,6 +43,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (IBAction)exportLibraryAction:(id)sender;
 
+- (NSData*)fetchOutputDirectoryBookmarkData;
+- (NSURL*)resolveAndAutoRenewOutputDirectoryUrl;
+- (BOOL)saveBookmarkForOutputDirectoryUrl:(NSURL*)outputDirUrl;
+
 - (NSString*)errorForSchedulerRegistration:(BOOL)registerFlag;
 
 - (void)updateFromConfiguration;
