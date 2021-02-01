@@ -29,6 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
   BOOL shouldRemapTrackLocations;
 }
 
+
+#pragma mark - Properties -
 @property (readonly) MutableOrderedDictionary* libraryDict;
 @property NSString* filePath;
 
@@ -44,6 +46,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSArray<NSString*>* includedPlaylistPersistentIds;
 @property BOOL includeFoldersWhenFlattened;
 
+
+#pragma mark - Utils -
+
 + (NSString*) getHexadecimalPersistentIdForEntity:(ITLibMediaEntity*)entity;
 + (NSString*) getHexadecimalPersistentId:(NSNumber*)decimalPersistentId;
 
@@ -53,7 +58,13 @@ NS_ASSUME_NONNULL_BEGIN
 + (void) dumpLibraryPlaylists: (ITLibrary*) library;
 + (void) dumpLibraryTracks: (ITLibrary*) library;
 
+
+#pragma mark - Accessors -
+
 - (NSString*) remapRootMusicDirForFilePath:(NSString*)filePath;
+
+
+#pragma mark - Mutators -
 
 - (void) initSerializeMembers;
 - (void) initIncludedMediaKindsDict;

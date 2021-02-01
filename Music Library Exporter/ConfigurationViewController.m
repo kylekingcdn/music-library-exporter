@@ -48,6 +48,7 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
 
   _exportConfiguration = [[ExportConfiguration alloc] initWithUserDefaults];
   _librarySerializer = [[LibrarySerializer alloc] init];
+  
   return self;
 }
 

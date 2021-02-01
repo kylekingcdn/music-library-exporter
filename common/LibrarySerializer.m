@@ -18,6 +18,9 @@
 
 @implementation LibrarySerializer
 
+
+#pragma mark - Utils -
+
 + (NSString*) getHexadecimalPersistentIdForEntity:(ITLibMediaEntity*)entity {
 
   return [LibrarySerializer getHexadecimalPersistentId:entity.persistentID];
@@ -60,6 +63,17 @@
       [LibrarySerializer dumpPropertiesForEntity:entity];
   }
 }
+
+
+#pragma mark - Accessors -
+
+- (NSString*) remapRootMusicDirForFilePath:(NSString*)filePath {
+
+  return [filePath stringByReplacingOccurrencesOfString:_originalRootDirectory withString:_mappedRootDirectory];
+}
+
+
+#pragma mark - Mutators -
 
 - (void) initSerializeMembers {
 
@@ -529,11 +543,6 @@
   }
 
   return trackDict;
-}
-
-- (NSString*) remapRootMusicDirForFilePath:(NSString*)filePath {
-
-  return [filePath stringByReplacingOccurrencesOfString:_originalRootDirectory withString:_mappedRootDirectory];
 }
 
 - (void) writeDictionary {
