@@ -221,8 +221,8 @@
       // ignore playlists when whitelist is enabled and their id is not included
       if (!hasPlaylistIdWhitelist || [_includedPlaylistPersistentIds containsObject:playlistPersistentIdHex]) {
 
-        // ignore folders when flattened if specified
-        if (playlistItem.kind != ITLibPlaylistKindFolder || !_flattenPlaylistHierarchy || _includeFoldersWhenFlattened) {
+        // ignore folders when flattened
+        if (playlistItem.kind != ITLibPlaylistKindFolder || !_flattenPlaylistHierarchy) {
 
           // generate playlist id
           NSUInteger playlistId = ++currentEntityId;
@@ -241,7 +241,7 @@
           [playlistsArray addObject:playlistDict];
         }
         else {
-          NSLog(@"excluding folder due to folders disabled w/ flat hierarchy : %@ - %@", playlistItem.name, playlistItem.persistentID);
+          NSLog(@"excluding folder due to flattened hierarchy : %@ - %@", playlistItem.name, playlistItem.persistentID);
         }
       }
       else {

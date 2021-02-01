@@ -47,7 +47,6 @@ NS_ASSUME_NONNULL_BEGIN
 // key filters
 @property BOOL includeInternalPlaylists;
 @property NSArray<NSString*>* includedPlaylistPersistentIds;
-@property BOOL includeFoldersWhenFlattened;
 
 
 #pragma mark - Initializers -
