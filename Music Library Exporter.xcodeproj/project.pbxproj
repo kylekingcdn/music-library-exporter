@@ -34,6 +34,8 @@
 		27A2C09125C097DF00AAD73C /* iTunesLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2705445125B66B7A00FE6D65 /* iTunesLibrary.framework */; };
 		27C52A7425B69C4B00D829F3 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C52A7325B69C4B00D829F3 /* Utils.m */; };
 		27CDC90D25BADAFC0032BF79 /* LibraryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CDC90C25BADAFC0032BF79 /* LibraryParser.m */; };
+		27EC7C6325C8C41300996E9E /* UserDefaultsExportConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 27EC7C6225C8C3E500996E9E /* UserDefaultsExportConfiguration.m */; };
+		27EC7C6725C8C41800996E9E /* UserDefaultsExportConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 27EC7C6225C8C3E500996E9E /* UserDefaultsExportConfiguration.m */; };
 		27EF9A6825BF23910051CE7B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27EF9A6725BF23910051CE7B /* AppDelegate.m */; };
 		27EF9A6A25BF23920051CE7B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27EF9A6925BF23920051CE7B /* Assets.xcassets */; };
 		27EF9A6D25BF23920051CE7B /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27EF9A6B25BF23920051CE7B /* MainMenu.xib */; };
@@ -98,6 +100,8 @@
 		27C52A7325B69C4B00D829F3 /* Utils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
 		27CDC90B25BADAFC0032BF79 /* LibraryParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LibraryParser.h; sourceTree = "<group>"; };
 		27CDC90C25BADAFC0032BF79 /* LibraryParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LibraryParser.m; sourceTree = "<group>"; };
+		27EC7C6125C8C3E500996E9E /* UserDefaultsExportConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserDefaultsExportConfiguration.h; sourceTree = "<group>"; };
+		27EC7C6225C8C3E500996E9E /* UserDefaultsExportConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserDefaultsExportConfiguration.m; sourceTree = "<group>"; };
 		27EF9A6425BF23910051CE7B /* Music Library Exporter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Music Library Exporter.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		27EF9A6625BF23910051CE7B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		27EF9A6725BF23910051CE7B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -180,6 +184,8 @@
 				2705445825B670E700FE6D65 /* LibrarySerializer.m */,
 				2783C76525C518CC002ED7B7 /* ExportConfiguration.h */,
 				2783C76625C518CC002ED7B7 /* ExportConfiguration.m */,
+				27EC7C6125C8C3E500996E9E /* UserDefaultsExportConfiguration.h */,
+				27EC7C6225C8C3E500996E9E /* UserDefaultsExportConfiguration.m */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -384,10 +390,11 @@
 			files = (
 				27A2C06125C0934B00AAD73C /* main.m in Sources */,
 				27A2C05925C0934A00AAD73C /* AppDelegate.m in Sources */,
+				2783C76825C518CC002ED7B7 /* ExportConfiguration.m in Sources */,
+				27EC7C6725C8C41800996E9E /* UserDefaultsExportConfiguration.m in Sources */,
 				27A2C08725C097B600AAD73C /* OrderedDictionary.m in Sources */,
 				27A2C08B25C097C000AAD73C /* Utils.m in Sources */,
 				27A2C08C25C097C000AAD73C /* LibraryParser.m in Sources */,
-				2783C76825C518CC002ED7B7 /* ExportConfiguration.m in Sources */,
 				27A2C08D25C097C000AAD73C /* LibrarySerializer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -399,6 +406,7 @@
 				27EF9A7025BF23920051CE7B /* main.m in Sources */,
 				27EF9A6825BF23910051CE7B /* AppDelegate.m in Sources */,
 				2783C76725C518CC002ED7B7 /* ExportConfiguration.m in Sources */,
+				27EC7C6325C8C41300996E9E /* UserDefaultsExportConfiguration.m in Sources */,
 				27A2BFC625C085E400AAD73C /* OrderedDictionary.m in Sources */,
 				27A2BFC325C085E400AAD73C /* Utils.m in Sources */,
 				27A2BFC425C085E400AAD73C /* LibraryParser.m in Sources */,
