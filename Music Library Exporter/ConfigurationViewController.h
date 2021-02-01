@@ -43,6 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (IBAction)exportLibraryAction:(id)sender;
 
+- (BOOL)exportLibrary;
 - (NSData*)fetchOutputDirectoryBookmarkData;
 - (NSURL*)resolveAndAutoRenewOutputDirectoryUrl;
 - (BOOL)saveBookmarkForOutputDirectoryUrl:(NSURL*)outputDirUrl;

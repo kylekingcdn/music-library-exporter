@@ -7,6 +7,7 @@
 
 #import "ConfigurationViewController.h"
 
+#import <iTunesLibrary/ITLibrary.h>
 #import <ServiceManagement/ServiceManagement.h>
 
 #import "ExportConfiguration.h"
@@ -280,6 +281,61 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
 - (IBAction)exportLibraryAction:(id)sender {
 
   
+}
+
+- (BOOL)exportLibrary {
+
+  // FIXME: use bookmarked output dir
+  if (!_exportConfiguration.outputDirectoryPath || _exportConfiguration.outputDirectoryPath.length == 0) {
+    NSLog(@"[exportLibrary] error - invalid output directory");
+    return NO;
+  }
+
+  if (!_exportConfiguration.outputFileName || _exportConfiguration.outputFileName.length == 0) {
+    NSLog(@"[exportLibrary] error - invalid output filename");
+    return NO;
+  }
+
+  [_librarySerializer setMusicOnly:YES];
+  [_librarySerializer setIncludeFoldersWhenFlattened:NO];
+
+  [_librarySerializer setRemapRootDirectory:_exportConfiguration.remapRootDirectory];
+  [_librarySerializer setOriginalRootDirectory:_exportConfiguration.remapRootDirectoryOriginalPath];
+  [_librarySerializer setMappedRootDirectory:_exportConfiguration.remapRootDirectoryMappedPath];
+
+  [_librarySerializer setFlattenPlaylistHierarchy:_exportConfiguration.flattenPlaylistHierarchy];
+  [_librarySerializer setIncludeInternalPlaylists:_exportConfiguration.includeInternalPlaylists];
+
+  NSError *initLibraryError = nil;
+  ITLibrary *itLibrary = [ITLibrary libraryWithAPIVersion:@"1.1" error:&initLibraryError];
+  if (!itLibrary) {
+    NSLog(@"[exportLibrary]  error - failed to init ITLibrary. error: %@", initLibraryError.localizedDescription);
+    return NO;
+  }
+
+  NSURL* outputDirectoryUrl = [self resolveAndAutoRenewOutputDirectoryUrl];
+  if (!outputDirectoryUrl) {
+    NSLog(@"[exportLibrary] unable to retrieve output directory - a directory must be selected to obtain write permission");
+    return NO;
+  }
+
+  NSLog(@"[exportLibrary] output directory url: %@", outputDirectoryUrl);
+
+  // generate full output path
+  NSString* outputFilePath = [outputDirectoryUrl.path stringByAppendingPathComponent:_exportConfiguration.outputFileName];
+  [_librarySerializer setFilePath:outputFilePath];
+
+  // serialize library
+  NSLog(@"[exportLibrary] serializing library");
+  [_librarySerializer serializeLibrary:itLibrary];
+
+  // write library
+  NSLog(@"[exportLibrary] saving to path: %@", outputFilePath);
+  [outputDirectoryUrl startAccessingSecurityScopedResource];
+  [_librarySerializer writeDictionary];
+  [outputDirectoryUrl stopAccessingSecurityScopedResource];
+
+  return YES;
 }
 
 - (NSData*)fetchOutputDirectoryBookmarkData {
