@@ -283,7 +283,7 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
   [_exportConfiguration setScheduleInterval:scheduleInterval];
 }
 
-- (IBAction)exportLibrary:(id)sender {
+- (IBAction)exportLibraryAction:(id)sender {
 
   
 }
