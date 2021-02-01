@@ -30,12 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)init;
 
-- (instancetype)initWithUserDefaults;
-
 
 #pragma mark - Accessors -
-
-- (NSDictionary*)defaultValues;
 
 - (NSString*)musicLibraryPath;
 
@@ -68,9 +64,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setFlattenPlaylistHierarchy:(BOOL)flag;
 - (void)setIncludeInternalPlaylists:(BOOL)flag;
 - (void)setExcludedPlaylistPersistentIds:(NSArray<NSString*>*)excludedIds;
-
-- (void)setValuesFromUserDefaults;
-- (void)registerDefaultValues;
 
 @end
 
