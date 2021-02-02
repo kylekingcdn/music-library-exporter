@@ -93,7 +93,6 @@
   currentEntityId = 0;
   entityIdsDicts = [NSMutableDictionary dictionary];
 
-  hasPlaylistIdWhitelist = (_includedPlaylistPersistentIds.count >= 1);
   shouldRemapTrackLocations = (_remapRootDirectory && _originalRootDirectory.length > 0 && _mappedRootDirectory.length > 0);
 
   [self initIncludedMediaKindsDict];
@@ -218,8 +217,8 @@
     // ignore excluded playlist kinds
     if ([includedPlaylistKinds containsObject:[NSNumber numberWithUnsignedInteger:playlistItem.distinguishedKind]] && (!playlistItem.master || _includeInternalPlaylists)) {
 
-      // ignore playlists when whitelist is enabled and their id is not included
-      if (!hasPlaylistIdWhitelist || [_includedPlaylistPersistentIds containsObject:playlistPersistentIdHex]) {
+      // ignore playlists that have been manually marked for exclusion
+      if (![_excludedPlaylistPersistentIds containsObject:playlistPersistentIdHex]) {
 
         // ignore folders when flattened
         if (playlistItem.kind != ITLibPlaylistKindFolder || !_flattenPlaylistHierarchy) {

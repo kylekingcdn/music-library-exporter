@@ -66,7 +66,7 @@ int main(int argc, const char * argv[]) {
       [serializer setIncludeInternalPlaylists:YES];
       [serializer setFlattenPlaylistHierarchy:NO];
       [serializer setIncludeFoldersWhenFlattened:NO];
-      [serializer setIncludedPlaylistPersistentIds:@[ ]];
+      [serializer setExcludedPlaylistPersistentIds:@[ ]];
       [serializer setMusicOnly:YES];
 
       // specify track path re-mapping options

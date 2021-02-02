@@ -26,7 +26,6 @@ NS_ASSUME_NONNULL_BEGIN
   // member variables stored at run-time to handle filtering content
   NSSet<NSNumber*>* includedMediaKinds;
   NSSet<NSNumber*>* includedPlaylistKinds;
-  BOOL hasPlaylistIdWhitelist;
   BOOL shouldRemapTrackLocations;
 }
 
@@ -46,7 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 // key filters
 @property BOOL includeInternalPlaylists;
-@property NSArray<NSString*>* includedPlaylistPersistentIds;
+@property NSArray<NSString*>* excludedPlaylistPersistentIds;
 
 
 #pragma mark - Initializers -
