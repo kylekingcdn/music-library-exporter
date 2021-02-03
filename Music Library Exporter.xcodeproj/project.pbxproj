@@ -40,6 +40,7 @@
 		27A2C09125C097DF00AAD73C /* iTunesLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2705445125B66B7A00FE6D65 /* iTunesLibrary.framework */; };
 		27C0A0F125CB046500EDDE22 /* ScheduleConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C0A0EF25CB045C00EDDE22 /* ScheduleConfiguration.m */; };
 		27C0A0F525CB046A00EDDE22 /* ScheduleConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C0A0EF25CB045C00EDDE22 /* ScheduleConfiguration.m */; };
+		27C0A10425CB0BF100EDDE22 /* HelperDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C0A10325CB0BF100EDDE22 /* HelperDelegate.m */; };
 		27C52A7425B69C4B00D829F3 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C52A7325B69C4B00D829F3 /* Utils.m */; };
 		27CDC90D25BADAFC0032BF79 /* LibraryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CDC90C25BADAFC0032BF79 /* LibraryParser.m */; };
 		27EC7C6325C8C41300996E9E /* UserDefaultsExportConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 27EC7C6225C8C3E500996E9E /* UserDefaultsExportConfiguration.m */; };
@@ -112,6 +113,8 @@
 		27A2C06225C0934B00AAD73C /* Music_Library_Exporter_Helper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Music_Library_Exporter_Helper.entitlements; sourceTree = "<group>"; };
 		27C0A0EF25CB045C00EDDE22 /* ScheduleConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScheduleConfiguration.m; sourceTree = "<group>"; };
 		27C0A0F025CB045C00EDDE22 /* ScheduleConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScheduleConfiguration.h; sourceTree = "<group>"; };
+		27C0A10225CB0BF100EDDE22 /* HelperDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HelperDelegate.h; path = "Music Library Exporter/HelperDelegate.h"; sourceTree = SOURCE_ROOT; };
+		27C0A10325CB0BF100EDDE22 /* HelperDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HelperDelegate.m; path = "Music Library Exporter/HelperDelegate.m"; sourceTree = SOURCE_ROOT; };
 		27C52A7225B69C4B00D829F3 /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		27C52A7325B69C4B00D829F3 /* Utils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
 		27CDC90B25BADAFC0032BF79 /* LibraryParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LibraryParser.h; sourceTree = "<group>"; };
@@ -258,6 +261,8 @@
 				27EF9A6F25BF23920051CE7B /* main.m */,
 				27EF9A6625BF23910051CE7B /* AppDelegate.h */,
 				27EF9A6725BF23910051CE7B /* AppDelegate.m */,
+				27C0A10225CB0BF100EDDE22 /* HelperDelegate.h */,
+				27C0A10325CB0BF100EDDE22 /* HelperDelegate.m */,
 				2783C75625C4FB60002ED7B7 /* ConfigurationViewController.h */,
 				2783C75725C4FB60002ED7B7 /* ConfigurationViewController.m */,
 				2783C74825C4FAF2002ED7B7 /* ConfigurationView.xib */,
@@ -443,6 +448,7 @@
 				27A2BFC325C085E400AAD73C /* Utils.m in Sources */,
 				27A2BFC425C085E400AAD73C /* LibraryParser.m in Sources */,
 				27A2BFC525C085E400AAD73C /* LibrarySerializer.m in Sources */,
+				27C0A10425CB0BF100EDDE22 /* HelperDelegate.m in Sources */,
 				2783C75825C4FB60002ED7B7 /* ConfigurationViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

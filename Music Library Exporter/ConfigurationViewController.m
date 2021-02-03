@@ -12,6 +12,7 @@
 #import "ExportDelegate.h"
 #import "ScheduleConfiguration.h"
 #import "ScheduleDelegate.h"
+#import "HelperDelegate.h"
 
 
 @interface ConfigurationViewController ()
@@ -45,6 +46,8 @@
 
   ScheduleConfiguration* _scheduleConfiguration;
   ScheduleDelegate* _scheduleDelegate;
+
+  HelperDelegate* _helperDelegate;
 }
 
 
@@ -59,6 +62,8 @@
 
   _scheduleConfiguration = [[ScheduleConfiguration alloc] init];
   _scheduleDelegate = [[ScheduleDelegate alloc] initWithConfiguration:_scheduleConfiguration andExportDelegate:_exportDelegate];
+
+  _helperDelegate = [[HelperDelegate alloc] initWithConfiguration:_scheduleConfiguration];
 
   [_exportConfiguration dumpProperties];
   [_scheduleConfiguration dumpProperties];

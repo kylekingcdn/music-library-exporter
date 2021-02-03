@@ -1,5 +1,5 @@
 //
-//  ScheduleDelegate.h
+//  HelperDelegate.h
 //  Music Library Exporter
 //
 //  Created by Kyle King on 2021-02-02.
@@ -7,32 +7,34 @@
 
 #import <Foundation/Foundation.h>
 
-@class ExportDelegate;
 @class ScheduleConfiguration;
 
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ScheduleDelegate : NSObject
+@interface HelperDelegate : NSObject
 
 
 #pragma mark - Properties -
 
 @property ScheduleConfiguration* configuration;
-@property ExportDelegate* exportDelegate;
 
 
 #pragma mark - Initializers -
 
-- (instancetype)initWithConfiguration:(ScheduleConfiguration*)config andExportDelegate:(ExportDelegate*)exportDelegate;
+- (instancetype)initWithConfiguration:(ScheduleConfiguration*)config;
 
 
 #pragma mark - Accessors -
 
+- (BOOL)isHelperRegisteredWithSystem;
+- (NSString*)errorForHelperRegistration:(BOOL)registerFlag;
+
+
 #pragma mark - Mutators -
 
-- (void)activateScheduler;
-- (void)deactivateScheduler;
+- (BOOL)registerHelperWithSystem:(BOOL)flag;
+- (void)updateHelperRegistrationIfRequired;
 
 
 @end
