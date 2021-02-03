@@ -21,7 +21,7 @@
 
   BOOL _flattenPlaylistHierarchy;
   BOOL _includeInternalPlaylists;
-  NSArray<NSString*>* _excludedPlaylistPersistentIds;
+  NSArray<NSNumber*>* _excludedPlaylistPersistentIds;
 }
 
 
@@ -129,7 +129,7 @@
     return _includeInternalPlaylists;
 }
 
-- (NSArray<NSString*>*)excludedPlaylistPersistentIds {
+- (NSArray<NSNumber*>*)excludedPlaylistPersistentIds {
 
     return _excludedPlaylistPersistentIds;
 }
@@ -211,7 +211,7 @@
   _includeInternalPlaylists = flag;
 }
 
-- (void)setExcludedPlaylistPersistentIds:(NSArray<NSString*>*)excludedIds {
+- (void)setExcludedPlaylistPersistentIds:(NSArray<NSNumber*>*)excludedIds {
 
   NSLog(@"[setExcludedPlaylistPersistentIds %lu]", (unsigned long)excludedIds.count);
 

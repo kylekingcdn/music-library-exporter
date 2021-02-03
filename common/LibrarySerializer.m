@@ -24,7 +24,6 @@
   NSMutableDictionary* entityIdsDicts;
 
   // member variables stored at run-time to handle filtering content
-  NSSet<NSNumber*>* includedMediaKinds;
   NSSet<NSNumber*>* includedPlaylistKinds;
   BOOL shouldRemapTrackLocations;
 }
@@ -83,8 +82,66 @@
   return [filePath stringByReplacingOccurrencesOfString:_configuration.remapRootDirectoryOriginalPath withString:_configuration.remapRootDirectoryMappedPath];
 }
 
+- (NSArray<ITLibPlaylist*>*)includedPlaylists {
+
+  NSMutableArray<ITLibPlaylist*>* includedPlaylists = [NSMutableArray array];
+
+  for (ITLibPlaylist* playlist in _library.allPlaylists) {
+
+    // ignore excluded playlist kinds
+    if ([includedPlaylistKinds containsObject:[NSNumber numberWithUnsignedInteger:playlist.distinguishedKind]] && (!playlist.master || _configuration.includeInternalPlaylists)) {
+
+      // ignore folders when flattened
+      if (playlist.kind != ITLibPlaylistKindFolder || !_configuration.flattenPlaylistHierarchy) {
+
+        // ignore playlists that have been manually marked for exclusion
+        if (![_configuration.excludedPlaylistPersistentIds containsObject:playlist.persistentID]) {
+
+          [includedPlaylists addObject:playlist];
+        }
+        else {
+          NSLog(@"playlist was manually excluded by id: %@ - %@", playlist.name, playlist.persistentID);
+        }
+      }
+      else {
+        NSLog(@"excluding folder due to flattened hierarchy : %@ - %@", playlist.name, playlist.persistentID);
+      }
+    }
+    else {
+     NSLog(@"excluding internal playlist: %@ - %@", playlist.name, playlist.persistentID);
+    }
+  }
+
+  return includedPlaylists;
+}
+
+- (NSArray<ITLibMediaItem*>*)includedTracks {
+
+  NSMutableArray<ITLibMediaItem*>* includedTracks = [NSMutableArray array];
+
+  for (ITLibMediaItem* track in _library.allMediaItems) {
+
+    // ignore excluded media kinds
+    if (track.mediaKind == ITLibMediaItemMediaKindSong) {
+
+      [includedTracks addObject:track];
+    }
+  }
+
+  return includedTracks;
+}
 
 #pragma mark - Mutators -
+
+- (NSNumber*)addEntityToIdDict:(ITLibMediaEntity*)mediaEntity {
+
+  NSUInteger entityId = ++currentEntityId;
+  NSNumber* entityIdNum = [NSNumber numberWithUnsignedInteger:entityId];
+
+  [entityIdsDicts setValue:entityIdNum forKey:[mediaEntity.persistentID stringValue]];
+
+  return entityIdNum;
+}
 
 - (void)initSerializeMembers {
 
@@ -95,41 +152,7 @@
 
   shouldRemapTrackLocations = (_configuration.remapRootDirectory && _configuration.remapRootDirectoryOriginalPath.length > 0 && _configuration.remapRootDirectoryMappedPath.length > 0);
 
-  [self initIncludedMediaKindsDict];
   [self initIncludedPlaylistKindsDict];
-}
-
-// TODO: remove non-music
-- (void)initIncludedMediaKindsDict {
-
-  NSLog(@"[LibrarySerializer initIncludedMediaKindsDict]");
-
-  NSMutableSet<NSNumber*>* mediaKinds = [NSMutableSet set];
-
-  // add music media type
-  [mediaKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindSong]];
-
-//  // add non-music media types
-//  if (!_musicOnly) {
-//    [mediaKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindMovie]];
-//    [mediaKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindPodcast]];
-//    [mediaKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindAudiobook]];
-//    [mediaKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindPDFBooklet]];
-//    [mediaKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindMusicVideo]];
-//    [mediaKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindTVShow]];
-//    [mediaKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindInteractiveBooklet]];
-//    [mediaKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindHomeVideo]];
-//    [mediaKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindRingtone]];
-//    [mediaKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindDigitalBooklet]];
-//    [mediaKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindIOSApplication]];
-//    [mediaKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindVoiceMemo]];
-//    [mediaKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindiTunesU]];
-//    [mediaKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindBook]];
-//    [mediaKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindPDFBook]];
-//    [mediaKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindAlertTone]];
-//  }
-
-  includedMediaKinds = [mediaKinds copy];
 }
 
 // TODO: remove non-music
@@ -208,11 +231,13 @@
 //  [dictionary setValue:library.persistentID forKey:@"Library Persistent ID"]; - unavailable
 
   // add tracks dictionary to library dictionary
-  OrderedDictionary* tracksDict = [self serializeTracks:_library.allMediaItems];
+  NSArray<ITLibMediaItem*>* includedTracks = [self includedTracks];
+  OrderedDictionary* tracksDict = [self serializeTracks:includedTracks];
   [_libraryDict setObject:tracksDict forKey:@"Tracks"];
 
   // add playlists array to library dictionary
-  NSMutableArray<OrderedDictionary*>* playlistsArray = [self serializePlaylists:_library.allPlaylists];
+  NSArray<ITLibPlaylist*>* includedPlaylists = [self includedPlaylists];
+  NSMutableArray<OrderedDictionary*>* playlistsArray = [self serializePlaylists:includedPlaylists];
   [_libraryDict setObject:playlistsArray forKey:@"Playlists"];
 
   return YES;
@@ -224,52 +249,21 @@
 
   NSMutableArray<OrderedDictionary*>* playlistsArray = [NSMutableArray array];
 
-  for (ITLibPlaylist* playlistItem in playlists) {
+  for (ITLibPlaylist* playlist in playlists) {
 
-    NSString* playlistPersistentIdHex = [LibrarySerializer getHexadecimalPersistentId:playlistItem.persistentID];
+    NSNumber* playlistId = [self addEntityToIdDict:playlist];
 
-    // ignore excluded playlist kinds
-    if ([includedPlaylistKinds containsObject:[NSNumber numberWithUnsignedInteger:playlistItem.distinguishedKind]] && (!playlistItem.master || _configuration.includeInternalPlaylists)) {
+    // serialize playlist
+    OrderedDictionary* playlistDict = [self serializePlaylist:playlist withId:playlistId];
 
-      // ignore playlists that have been manually marked for exclusion
-      if (![_configuration.excludedPlaylistPersistentIds containsObject:playlistPersistentIdHex]) {
-
-        // ignore folders when flattened
-        if (playlistItem.kind != ITLibPlaylistKindFolder || !_configuration.flattenPlaylistHierarchy) {
-
-          // generate playlist id
-          NSUInteger playlistId = ++currentEntityId;
-          if ((playlistId-1) % 1000 == 0) {
-            NSLog(@"[serializePlaylists] serializing playlist - entity #%lu", playlistId-1);
-          }
-
-          // store playlist + id in playlistIds dict
-          NSNumber* playlistIdNumber = [NSNumber numberWithUnsignedInteger:playlistId];
-          [entityIdsDicts setValue:playlistIdNumber forKey:playlistPersistentIdHex];
-
-          // serialize playlist
-          OrderedDictionary* playlistDict = [self serializePlaylist:playlistItem withId:playlistId];
-
-          // add playlist dictionary object to playlistsArray
-          [playlistsArray addObject:playlistDict];
-        }
-        else {
-          NSLog(@"excluding folder due to flattened hierarchy : %@ - %@", playlistItem.name, playlistItem.persistentID);
-        }
-      }
-      else {
-        NSLog(@"excluding playlist since it is not on the whitelist: %@ - %@", playlistItem.name, playlistItem.persistentID);
-      }
-    }
-    else {
-      NSLog(@"excluding internal playlist: %@ - %@", playlistItem.name, playlistItem.persistentID);
-    }
+    // add playlist dictionary object to playlistsArray
+    [playlistsArray addObject:playlistDict];
   }
 
   return playlistsArray;
 }
 
-- (OrderedDictionary*)serializePlaylist:(ITLibPlaylist*)playlistItem withId:(NSUInteger)playlistId {
+- (OrderedDictionary*)serializePlaylist:(ITLibPlaylist*)playlistItem withId:(NSNumber*)playlistId {
 
   NSLog(@"[LibrarySerializer serializePlaylist:(%@ - %@)]", playlistItem.name, [LibrarySerializer getHexadecimalPersistentId:playlistItem.persistentID]);
 
@@ -281,7 +275,7 @@
     [playlistDict setValue:[NSNumber numberWithBool:YES] forKey:@"Master"];
     [playlistDict setValue:[NSNumber numberWithBool:NO] forKey:@"Visible"];
   }
-  [playlistDict setValue:[NSNumber numberWithInteger:playlistId] forKey:@"Playlist ID"];
+  [playlistDict setValue:playlistId forKey:@"Playlist ID"];
   [playlistDict setValue:[LibrarySerializer getHexadecimalPersistentId:playlistItem.persistentID] forKey:@"Playlist Persistent ID"];
 
   if (playlistItem.parentID > 0 && !_configuration.flattenPlaylistHierarchy) {
@@ -308,32 +302,29 @@
   return playlistDict;
 }
 
-- (NSMutableArray<OrderedDictionary*>*)serializePlaylistItems:(NSArray<ITLibMediaItem*>*)trackItems {
+- (NSMutableArray<OrderedDictionary*>*)serializePlaylistItems:(NSArray<ITLibMediaItem*>*)playlistItems {
 
-  NSMutableArray<OrderedDictionary*>* playlistItemsArray = [NSMutableArray array];
+  NSMutableArray<OrderedDictionary*>* playlistItemDictsArray = [NSMutableArray array];
 
-  for (ITLibMediaItem* trackItem in trackItems) {
+  for (ITLibMediaItem* playlistItem in playlistItems) {
 
     // ignore excluded media kinds
-    if ([includedMediaKinds containsObject:[NSNumber numberWithUnsignedInteger:trackItem.mediaKind]]) {
+    if (playlistItem.mediaKind == ITLibMediaItemMediaKindSong) {
 
       MutableOrderedDictionary* playlistItemDict = [MutableOrderedDictionary dictionary];
 
-      // get track id
-      NSString* trackPersistentId = [LibrarySerializer getHexadecimalPersistentId:trackItem.persistentID];
+      NSNumber* trackId = [entityIdsDicts valueForKey:[playlistItem.persistentID stringValue]];
+      
+      NSAssert(trackId, @"trackIds dict returned an invalid value for item: %@", playlistItem.persistentID.stringValue);
 
-      NSAssert([[entityIdsDicts allKeys] containsObject:trackPersistentId], @"trackIds doesn't contain persistent ID for track '%@'", trackPersistentId);
-      NSUInteger trackId = [[entityIdsDicts objectForKey:trackPersistentId] integerValue];
-      NSAssert(trackId > 0, @"trackIds dict returned an invalid value: %lu", trackId);
-
-      [playlistItemDict setValue:[NSNumber numberWithUnsignedInteger:trackId] forKey:@"Track ID"];
+      [playlistItemDict setValue:trackId forKey:@"Track ID"];
 
       // add item dict to playlist items array
-      [playlistItemsArray addObject:playlistItemDict];
+      [playlistItemDictsArray addObject:playlistItemDict];
     }
   }
 
-  return playlistItemsArray;
+  return playlistItemDictsArray;
 }
 
 - (OrderedDictionary*)serializeTracks:(NSArray<ITLibMediaItem*>*)tracks {
@@ -342,37 +333,24 @@
 
   MutableOrderedDictionary* tracksDict = [MutableOrderedDictionary dictionary];
 
-  for (ITLibMediaItem* trackItem in tracks) {
+  for (ITLibMediaItem* track in tracks) {
 
-    // ignore excluded media kinds
-    if ([includedMediaKinds containsObject:[NSNumber numberWithUnsignedInteger:trackItem.mediaKind]]) {
+    NSNumber* trackId = [self addEntityToIdDict:track];
 
-      // generate track id
-      NSUInteger trackId = ++currentEntityId;
-      if ((trackId-1) % 100 == 0) {
-        NSLog(@"[serializeTracks] serializing track %lu", trackId-1);
-      }
+    OrderedDictionary* trackDict = [self serializeTrack:track withId:trackId];
 
-      // store track + id in trackIds dict
-      NSString* trackPersistentIdHex = [LibrarySerializer getHexadecimalPersistentId:trackItem.persistentID];
-      NSString* trackIdString = [@(trackId) stringValue];
-      [entityIdsDicts setValue:trackIdString forKey:trackPersistentIdHex];
-
-      OrderedDictionary* trackDict = [self serializeTrack:trackItem withId:trackId];
-
-      // add track dictionary object to root tracks dictionary
-      [tracksDict setObject:trackDict forKey:[@(trackId) stringValue]];
-    }
+    // add track dictionary object to root tracks dictionary
+    [tracksDict setObject:trackDict forKey:[trackId stringValue]];
   }
 
   return tracksDict;
 }
 
-- (OrderedDictionary*)serializeTrack:(ITLibMediaItem*)trackItem withId:(NSUInteger)trackId {
+- (OrderedDictionary*)serializeTrack:(ITLibMediaItem*)trackItem withId:(NSNumber*)trackId {
 
   MutableOrderedDictionary* trackDict = [MutableOrderedDictionary dictionary];
 
-  [trackDict setValue:[NSNumber numberWithInteger: trackId] forKey:@"Track ID"];
+  [trackDict setValue:trackId forKey:@"Track ID"];
   [trackDict setValue:trackItem.title forKey:@"Name"];
   if (trackItem.artist.name) {
     [trackDict setValue:trackItem.artist.name forKey:@"Artist"];

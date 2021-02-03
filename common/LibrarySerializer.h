@@ -45,21 +45,25 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString*)remapRootMusicDirForFilePath:(NSString*)filePath;
 
+- (NSArray<ITLibPlaylist*>*)includedPlaylists;
+- (NSArray<ITLibMediaItem*>*)includedTracks;
+
 
 #pragma mark - Mutators -
 
+- (NSNumber*)addEntityToIdDict:(ITLibMediaEntity*)mediaEntity;
+
 - (void)initSerializeMembers;
-- (void)initIncludedMediaKindsDict;
 - (void)initIncludedPlaylistKindsDict;
 
 - (BOOL)serializeLibrary;
 
 - (NSMutableArray<OrderedDictionary*>*)serializePlaylists:(NSArray<ITLibPlaylist*>*)playlists;
-- (OrderedDictionary*)serializePlaylist:(ITLibPlaylist*)playlistItem withId:(NSUInteger)playlistId;
+- (OrderedDictionary*)serializePlaylist:(ITLibPlaylist*)playlistItem withId:(NSNumber*)playlistId;
 - (NSMutableArray<OrderedDictionary*>*)serializePlaylistItems:(NSArray<ITLibMediaItem*>*)trackItems;
 
 - (OrderedDictionary*)serializeTracks:(NSArray<ITLibMediaItem*>*)tracks;
-- (OrderedDictionary*)serializeTrack:(ITLibMediaItem*)trackItem withId:(NSUInteger)trackId;
+- (OrderedDictionary*)serializeTrack:(ITLibMediaItem*)trackItem withId:(NSNumber*)trackId;
 
 - (BOOL)writeDictionary;
 

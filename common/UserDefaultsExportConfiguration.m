@@ -121,7 +121,7 @@
   [_userDefaults setBool:flag forKey:@"IncludeInternalPlaylists"];
 }
 
-- (void)setExcludedPlaylistPersistentIds:(NSArray<NSString*>*)excludedIds {
+- (void)setExcludedPlaylistPersistentIds:(NSArray<NSNumber*>*)excludedIds {
 
   [super setExcludedPlaylistPersistentIds:excludedIds];
 
@@ -143,7 +143,7 @@
 
   [super setFlattenPlaylistHierarchy:[_userDefaults boolForKey:@"FlattenPlaylistHierarchy"]];
   [super setIncludeInternalPlaylists:[_userDefaults boolForKey:@"IncludeInternalPlaylists"]];
-  [super setExcludedPlaylistPersistentIds:[_userDefaults valueForKey:@"ExcludedPlaylistPersistentIds"]];
+  [super setExcludedPlaylistPersistentIds:[_userDefaults arrayForKey:@"ExcludedPlaylistPersistentIds"]];
 }
 
 - (void)registerDefaultValues {
