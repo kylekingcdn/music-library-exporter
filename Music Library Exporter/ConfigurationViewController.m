@@ -172,8 +172,6 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
 
         [self->_exportConfiguration setOutputDirectoryUrl:outputDirUrl];
         [self->_outputDirectoryTextField setStringValue:outputDirUrl.path];
-
-        [self saveBookmarkForOutputDirectoryUrl:outputDirUrl];
       }
     }
   }];
@@ -310,7 +308,7 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
   }
 
   // ensure url renewal status is current
-  NSURL* outputDirectoryUrl = [self resolveAndAutoRenewOutputDirectoryUrl];
+  NSURL* outputDirectoryUrl = _exportConfiguration.resolveAndAutoRenewOutputDirectoryUrl;
   if (!outputDirectoryUrl) {
     NSLog(@"[exportLibrary] unable to retrieve output directory - a directory must be selected to obtain write permission");
     return NO;
@@ -333,82 +331,6 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
   [outputDirectoryUrl stopAccessingSecurityScopedResource];
 
   return YES;
-}
-
-- (NSData*)fetchOutputDirectoryBookmarkData {
-
-  // fetch save url bookmark
-  NSUserDefaults* appGroupDefaults = [[NSUserDefaults alloc] initWithSuiteName:_appGroupIdentifier];
-  NSData* outputDirBookmarkData = [appGroupDefaults dataForKey:@"OutputDirectoryBookmark"];
-
-  return outputDirBookmarkData;
-}
-
-- (NSURL*)resolveAndAutoRenewOutputDirectoryUrl {
-
-  // fetch output directory bookmark data
-  NSData* outputDirBookmarkData = [self fetchOutputDirectoryBookmarkData];
-
-  // no bookmark has been saved yet
-  if (!outputDirBookmarkData) {
-    return nil;
-  }
-
-  // resolve output directory URL for bookmark data
-  BOOL outputDirBookmarkIsStale;
-  NSError* outputDirBookmarkResolutionError;
-  NSURL* outputDirBookmarkUrl = [NSURL URLByResolvingBookmarkData:outputDirBookmarkData options:NSURLBookmarkResolutionWithSecurityScope relativeToURL:nil bookmarkDataIsStale:&outputDirBookmarkIsStale error:&outputDirBookmarkResolutionError];
-
-  // error resolving bookmark data
-  if (outputDirBookmarkResolutionError) {
-    NSLog(@"[fetchAndAutoRenewOutputDirectoryUrl] error resolving output dir bookmark: %@", outputDirBookmarkResolutionError.localizedDescription);
-    return nil;
-  }
-
-  NSAssert(outputDirBookmarkUrl != nil, @"NSURL retreived from bookmark is nil");
-  NSLog(@"[fetchAndAutoRenewOutputDirectoryUrl] bookmarked output directory: %@", outputDirBookmarkUrl.path);
-
-  // bookmark data is stale, attempt to renew
-  if (outputDirBookmarkIsStale) {
-
-    NSError* outputDirBookmarkRenewError;
-    NSLog(@"[fetchAndAutoRenewOutputDirectoryUrl] bookmark is stale, attempting renewal");
-
-    [outputDirBookmarkUrl startAccessingSecurityScopedResource];
-    outputDirBookmarkData = [outputDirBookmarkUrl bookmarkDataWithOptions:NSURLBookmarkCreationWithSecurityScope includingResourceValuesForKeys:nil relativeToURL:nil error:&outputDirBookmarkRenewError];
-    [outputDirBookmarkUrl stopAccessingSecurityScopedResource];
-
-    if (outputDirBookmarkRenewError) {
-      NSLog(@"[fetchAndAutoRenewOutputDirectoryUrl] error renewing bookmark: %@", outputDirBookmarkRenewError.localizedDescription);
-      return nil;
-    }
-  }
-  else {
-    NSLog(@"[fetchAndAutoRenewOutputDirectoryUrl] bookmarked output directory is valid");
-  }
-
-  return outputDirBookmarkUrl;
-}
-
-- (BOOL)saveBookmarkForOutputDirectoryUrl:(NSURL*)outputDirUrl {
-
-  NSLog(@"[saveBookmarkForOutputDirectoryUrl: %@]", outputDirUrl);
-
-  NSError* outputDirBookmarkError;
-  NSData* outputDirBookmarkData = [outputDirUrl bookmarkDataWithOptions:NSURLBookmarkCreationWithSecurityScope includingResourceValuesForKeys:nil relativeToURL:nil error:&outputDirBookmarkError];
-
-  // error generating bookmark
-  if (outputDirBookmarkError) {
-    NSLog(@"[saveBookmarkForOutputDirectoryUrl] error generating output directory bookmark data: %@", outputDirBookmarkError.localizedDescription);
-    return NO;
-  }
-
-  // save bookmark data to user defaults
-  else {
-    NSUserDefaults* appGroupDefaults = [[NSUserDefaults alloc] initWithSuiteName:_appGroupIdentifier];
-    [appGroupDefaults setValue:outputDirBookmarkData forKey:@"OutputDirectoryBookmark"];
-    return YES;
-  }
 }
 
 @end

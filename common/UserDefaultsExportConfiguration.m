@@ -43,7 +43,7 @@
   return [NSDictionary dictionaryWithObjectsAndKeys:
     @"",             @"MusicLibraryPath",
 
-    @"",             @"OutputDirectoryUrl",
+    @"",             @"OutputDirectoryBookmark",
     @"Library.xml",  @"OutputFileName",
 
     @NO,             @"RemapRootDirectory",
@@ -72,7 +72,7 @@
 
   [super setOutputDirectoryUrl:dirUrl];
 
-  [_userDefaults setURL:dirUrl forKey:@"OutputDirectoryUrl"];
+  [self saveBookmarkForOutputDirectoryUrl:dirUrl];
 }
 
 - (void)setOutputFileName:(NSString*)fileName {
@@ -130,7 +130,7 @@
 
   [super setMusicLibraryPath:[_userDefaults valueForKey:@"MusicLibraryPath"]];
 
-  [super setOutputDirectoryUrl:[_userDefaults URLForKey:@"OutputDirectoryUrl"]];
+  [super setOutputDirectoryUrl:[self resolveAndAutoRenewOutputDirectoryUrl]];
   [super setOutputFileName:[_userDefaults valueForKey:@"OutputFileName"]];
 
   [super setRemapRootDirectory:[_userDefaults boolForKey:@"RemapRootDirectory"]];
@@ -147,6 +147,82 @@
   NSLog(@"[registerDefaultValues]");
 
   [_userDefaults registerDefaults:[self defaultValues]];
+}
+
+- (nullable NSData*)fetchOutputDirectoryBookmarkData {
+
+  return [_userDefaults dataForKey:@"OutputDirectoryBookmark"];
+}
+
+- (nullable NSURL*)resolveAndAutoRenewOutputDirectoryUrl {
+
+  // fetch output directory bookmark data
+  NSData* outputDirBookmarkData = [self fetchOutputDirectoryBookmarkData];
+
+  // no bookmark has been saved yet
+  if (!outputDirBookmarkData) {
+    return nil;
+  }
+
+  // resolve output directory URL for bookmark data
+  BOOL outputDirBookmarkIsStale;
+  NSError* outputDirBookmarkResolutionError;
+  NSURL* outputDirBookmarkUrl = [NSURL URLByResolvingBookmarkData:outputDirBookmarkData options:NSURLBookmarkResolutionWithSecurityScope relativeToURL:nil bookmarkDataIsStale:&outputDirBookmarkIsStale error:&outputDirBookmarkResolutionError];
+
+  // error resolving bookmark data
+  if (outputDirBookmarkResolutionError) {
+    NSLog(@"UserDefaultsExportConfiguration [fetchAndAutoRenewOutputDirectoryUrl] error resolving output dir bookmark: %@", outputDirBookmarkResolutionError.localizedDescription);
+    return nil;
+  }
+
+  NSAssert(outputDirBookmarkUrl != nil, @"NSURL retreived from bookmark is nil");
+  NSLog(@"UserDefaultsExportConfiguration [fetchAndAutoRenewOutputDirectoryUrl] bookmarked output directory: %@", outputDirBookmarkUrl.path);
+
+  // bookmark data is stale, attempt to renew
+  if (outputDirBookmarkIsStale) {
+
+    NSError* outputDirBookmarkRenewError;
+    NSLog(@"UserDefaultsExportConfiguration [fetchAndAutoRenewOutputDirectoryUrl] bookmark is stale, attempting renewal");
+
+    [outputDirBookmarkUrl startAccessingSecurityScopedResource];
+    outputDirBookmarkData = [outputDirBookmarkUrl bookmarkDataWithOptions:NSURLBookmarkCreationWithSecurityScope includingResourceValuesForKeys:nil relativeToURL:nil error:&outputDirBookmarkRenewError];
+    [outputDirBookmarkUrl stopAccessingSecurityScopedResource];
+
+    [self saveBookmarkForOutputDirectoryUrl:outputDirBookmarkUrl];
+
+    if (outputDirBookmarkRenewError) {
+      NSLog(@"UserDefaultsExportConfiguration [fetchAndAutoRenewOutputDirectoryUrl] error renewing bookmark: %@", outputDirBookmarkRenewError.localizedDescription);
+      return nil;
+    }
+  }
+  else {
+    NSLog(@"UserDefaultsExportConfiguration [fetchAndAutoRenewOutputDirectoryUrl] bookmarked output directory is valid");
+  }
+
+  return outputDirBookmarkUrl;
+}
+
+- (BOOL)saveBookmarkForOutputDirectoryUrl:(NSURL*)outputDirUrl {
+
+  NSLog(@"UserDefaultsExportConfiguration [saveBookmarkForOutputDirectoryUrl: %@]", outputDirUrl);
+
+  NSError* outputDirBookmarkError;
+  NSData* outputDirBookmarkData = [outputDirUrl bookmarkDataWithOptions:NSURLBookmarkCreationWithSecurityScope includingResourceValuesForKeys:nil relativeToURL:nil error:&outputDirBookmarkError];
+
+  // error generating bookmark
+  if (outputDirBookmarkError) {
+    NSLog(@"UserDefaultsExportConfiguration [saveBookmarkForOutputDirectoryUrl] error generating output directory bookmark data: %@", outputDirBookmarkError.localizedDescription);
+    return NO;
+  }
+
+  // save bookmark data to user defaults
+  else {
+
+    [_userDefaults setValue:outputDirBookmarkData forKey:@"OutputDirectoryBookmark"];
+    [super setOutputDirectoryUrl:outputDirUrl];
+
+    return YES;
+  }
 }
 
 @end
