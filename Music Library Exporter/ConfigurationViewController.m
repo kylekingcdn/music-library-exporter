@@ -322,24 +322,19 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
     NSLog(@"[exportLibrary] unable to retrieve output directory - a directory must be selected to obtain write permission");
     return NO;
   }
-
-  NSLog(@"[exportLibrary] output directory url: %@", outputDirectoryUrl);
-
-  // generate full output path
-  NSURL* outputFileUrl = _exportConfiguration.outputFileUrl;
-  [_librarySerializer setOutputFileUrl:outputFileUrl];
+  NSLog(@"[exportLibrary] saving to: %@", outputDirectoryUrl);
 
   // serialize library
   NSLog(@"[exportLibrary] serializing library");
   [_librarySerializer serializeLibrary:itLibrary];
 
   // write library
-  NSLog(@"[exportLibrary] saving to path: %@", outputFileUrl.path);
+  NSLog(@"[exportLibrary] writing library to file");
   [outputDirectoryUrl startAccessingSecurityScopedResource];
-  [_librarySerializer writeDictionary];
+  BOOL writeSuccess = [_librarySerializer writeDictionary];
   [outputDirectoryUrl stopAccessingSecurityScopedResource];
 
-  return YES;
+  return writeSuccess;
 }
 
 @end

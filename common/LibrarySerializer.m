@@ -557,16 +557,27 @@
   return trackDict;
 }
 
-- (void) writeDictionary {
+- (BOOL) writeDictionary {
 
   NSLog(@"[LibrarySerializer writeDictionary]");
 
+  if (!_configuration.isOutputFilePathValid) {
+    NSLog(@"[LibrarySerializer writeDictionary] error - invalid output dir/filename");
+    return NO;
+  }
+
+  NSLog(@"[LibrarySerializer writeDictionary]");
+  NSLog(@"[LibrarySerializer writeDictionary] saving dictionary to: %@", _configuration.outputFileUrl);
+
   NSError* writeError;
-  [_libraryDict writeToURL:_outputFileUrl error:&writeError];
+  [_libraryDict writeToURL:_configuration.outputFileUrl error:&writeError];
 
   if (writeError) {
     NSLog(@"[LibrarySerializer writeDictionary] error writing dictionary: %@", writeError.localizedDescription);
+    return NO;
   }
+
+  return YES;
 }
 
 @end

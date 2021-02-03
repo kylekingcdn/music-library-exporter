@@ -35,7 +35,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property ExportConfiguration* configuration;
 
 @property (readonly) MutableOrderedDictionary* libraryDict;
-@property NSURL* outputFileUrl;
 
 
 #pragma mark - Initializers -
@@ -75,7 +74,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (OrderedDictionary*) serializeTracks: (NSArray<ITLibMediaItem*>*) tracks;
 - (OrderedDictionary*) serializeTrack: (ITLibMediaItem*) trackItem withId: (NSUInteger) trackId;
 
-- (void) writeDictionary;
+- (BOOL) writeDictionary;
 
 @end
 
