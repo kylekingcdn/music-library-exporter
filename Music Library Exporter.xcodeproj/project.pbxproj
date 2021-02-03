@@ -13,6 +13,8 @@
 		272C8E9825C0E59C003CBF47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27EF9A6925BF23920051CE7B /* Assets.xcassets */; };
 		273B523325CA672300421B14 /* Defines.m in Sources */ = {isa = PBXBuildFile; fileRef = 273B522F25CA666000421B14 /* Defines.m */; };
 		273B523725CA672700421B14 /* Defines.m in Sources */ = {isa = PBXBuildFile; fileRef = 273B522F25CA666000421B14 /* Defines.m */; };
+		273B523B25CA6AC700421B14 /* ExportScheduleDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 273B522925CA5F3E00421B14 /* ExportScheduleDelegate.m */; };
+		273B523F25CA6ACB00421B14 /* ExportScheduleDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 273B522925CA5F3E00421B14 /* ExportScheduleDelegate.m */; };
 		276442A225BD3F7600EE217C /* OrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 276442A125BD3F7600EE217C /* OrderedDictionary.m */; };
 		2783C74925C4FAF2002ED7B7 /* ConfigurationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2783C74825C4FAF2002ED7B7 /* ConfigurationView.xib */; };
 		2783C75825C4FB60002ED7B7 /* ConfigurationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2783C75725C4FB60002ED7B7 /* ConfigurationViewController.m */; };
@@ -83,6 +85,8 @@
 		2705445125B66B7A00FE6D65 /* iTunesLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTunesLibrary.framework; path = System/Library/Frameworks/iTunesLibrary.framework; sourceTree = SDKROOT; };
 		2705445725B670E700FE6D65 /* LibrarySerializer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LibrarySerializer.h; sourceTree = "<group>"; };
 		2705445825B670E700FE6D65 /* LibrarySerializer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LibrarySerializer.m; sourceTree = "<group>"; };
+		273B522825CA5F3E00421B14 /* ExportScheduleDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ExportScheduleDelegate.h; path = common/ExportScheduleDelegate.h; sourceTree = SOURCE_ROOT; };
+		273B522925CA5F3E00421B14 /* ExportScheduleDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ExportScheduleDelegate.m; path = common/ExportScheduleDelegate.m; sourceTree = SOURCE_ROOT; };
 		273B522E25CA666000421B14 /* Defines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Defines.h; sourceTree = "<group>"; };
 		273B522F25CA666000421B14 /* Defines.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Defines.m; sourceTree = "<group>"; };
 		276442A025BD3F7600EE217C /* OrderedDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderedDictionary.h; sourceTree = "<group>"; };
@@ -192,6 +196,8 @@
 				2783C76625C518CC002ED7B7 /* ExportConfiguration.m */,
 				27EC7C6125C8C3E500996E9E /* UserDefaultsExportConfiguration.h */,
 				27EC7C6225C8C3E500996E9E /* UserDefaultsExportConfiguration.m */,
+				273B522825CA5F3E00421B14 /* ExportScheduleDelegate.h */,
+				273B522925CA5F3E00421B14 /* ExportScheduleDelegate.m */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -399,6 +405,7 @@
 				27A2C05925C0934A00AAD73C /* AppDelegate.m in Sources */,
 				2783C76825C518CC002ED7B7 /* ExportConfiguration.m in Sources */,
 				27EC7C6725C8C41800996E9E /* UserDefaultsExportConfiguration.m in Sources */,
+				273B523B25CA6AC700421B14 /* ExportScheduleDelegate.m in Sources */,
 				27A2C08725C097B600AAD73C /* OrderedDictionary.m in Sources */,
 				27A2C08B25C097C000AAD73C /* Utils.m in Sources */,
 				27A2C08C25C097C000AAD73C /* LibraryParser.m in Sources */,
@@ -415,6 +422,7 @@
 				27EF9A6825BF23910051CE7B /* AppDelegate.m in Sources */,
 				2783C76725C518CC002ED7B7 /* ExportConfiguration.m in Sources */,
 				27EC7C6325C8C41300996E9E /* UserDefaultsExportConfiguration.m in Sources */,
+				273B523F25CA6ACB00421B14 /* ExportScheduleDelegate.m in Sources */,
 				27A2BFC625C085E400AAD73C /* OrderedDictionary.m in Sources */,
 				27A2BFC325C085E400AAD73C /* Utils.m in Sources */,
 				27A2BFC425C085E400AAD73C /* LibraryParser.m in Sources */,
