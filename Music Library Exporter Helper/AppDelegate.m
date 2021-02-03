@@ -7,8 +7,7 @@
 
 #import "AppDelegate.h"
 
-
-static NSString* const _appGroupIdentifier = @"group.9YLM7HTV6V.com.MusicLibraryExporter";
+#import "Defines.h"
 
 
 @interface AppDelegate ()
@@ -22,7 +21,7 @@ static NSString* const _appGroupIdentifier = @"group.9YLM7HTV6V.com.MusicLibrary
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 
-  NSUserDefaults* groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:_appGroupIdentifier];
+  NSUserDefaults* groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
   NSAssert(groupDefaults, @"failed to init NSUSerDefaults for app group");
 
   if (groupDefaults) {

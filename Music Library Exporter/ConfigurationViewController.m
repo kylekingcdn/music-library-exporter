@@ -10,11 +10,8 @@
 #import <iTunesLibrary/ITLibrary.h>
 #import <ServiceManagement/ServiceManagement.h>
 
+#import "Defines.h"
 #import "UserDefaultsExportConfiguration.h"
-
-
-static NSString* const _appGroupIdentifier = @"group.9YLM7HTV6V.com.MusicLibraryExporter";
-static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryExporter.MusicLibraryExporterHelper";
 
 
 @interface ConfigurationViewController ()
@@ -49,7 +46,7 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
 
   self = [super initWithNibName: @"ConfigurationView" bundle: nil];
 
-  _exportConfiguration = [[UserDefaultsExportConfiguration alloc] initWithUserDefaultsSuiteName:_appGroupIdentifier];
+  _exportConfiguration = [[UserDefaultsExportConfiguration alloc] initWithUserDefaultsSuiteName:__MLE__AppGroupIdentifier];
   _librarySerializer = [[LibrarySerializer alloc] init];
   
   return self;
@@ -74,7 +71,7 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
 
     for (NSDictionary* jobDict in jobDictsArr) {
 
-      if ([_helperBundleIdentifier isEqualToString:[jobDict objectForKey:@"Label"]]) {
+      if ([__MLE__HelperBundleIdentifier isEqualToString:[jobDict objectForKey:@"Label"]]) {
         return [[jobDict objectForKey:@"OnDemand"] boolValue];
       }
     }
@@ -104,7 +101,7 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
 
   NSLog(@"[viewDidLoad] isScheduleRegisteredWithSystem: %@", (_scheduleEnabled ? @"YES" : @"NO"));
 
-  NSUserDefaults* groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:_appGroupIdentifier];
+  NSUserDefaults* groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
   NSAssert(groupDefaults, @"failed to init NSUSerDefaults for app group");
 
   if (groupDefaults) {
@@ -138,7 +135,7 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
 
   NSLog(@"[registerSchedulerWithSystem:%@]", (flag ? @"YES" : @"NO"));
 
-  BOOL success = SMLoginItemSetEnabled ((__bridge CFStringRef)_helperBundleIdentifier, flag);
+  BOOL success = SMLoginItemSetEnabled ((__bridge CFStringRef)__MLE__HelperBundleIdentifier, flag);
 
   if (success) {
     NSLog(@"[registerSchedulerWithSystem] succesfully %@ scheduler", (flag ? @"registered" : @"unregistered"));

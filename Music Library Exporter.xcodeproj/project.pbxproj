@@ -11,6 +11,8 @@
 		2705445225B66B7A00FE6D65 /* iTunesLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2705445125B66B7A00FE6D65 /* iTunesLibrary.framework */; };
 		2705445925B670E700FE6D65 /* LibrarySerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2705445825B670E700FE6D65 /* LibrarySerializer.m */; };
 		272C8E9825C0E59C003CBF47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27EF9A6925BF23920051CE7B /* Assets.xcassets */; };
+		273B523325CA672300421B14 /* Defines.m in Sources */ = {isa = PBXBuildFile; fileRef = 273B522F25CA666000421B14 /* Defines.m */; };
+		273B523725CA672700421B14 /* Defines.m in Sources */ = {isa = PBXBuildFile; fileRef = 273B522F25CA666000421B14 /* Defines.m */; };
 		276442A225BD3F7600EE217C /* OrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 276442A125BD3F7600EE217C /* OrderedDictionary.m */; };
 		2783C74925C4FAF2002ED7B7 /* ConfigurationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2783C74825C4FAF2002ED7B7 /* ConfigurationView.xib */; };
 		2783C75825C4FB60002ED7B7 /* ConfigurationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2783C75725C4FB60002ED7B7 /* ConfigurationViewController.m */; };
@@ -81,6 +83,8 @@
 		2705445125B66B7A00FE6D65 /* iTunesLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTunesLibrary.framework; path = System/Library/Frameworks/iTunesLibrary.framework; sourceTree = SDKROOT; };
 		2705445725B670E700FE6D65 /* LibrarySerializer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LibrarySerializer.h; sourceTree = "<group>"; };
 		2705445825B670E700FE6D65 /* LibrarySerializer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LibrarySerializer.m; sourceTree = "<group>"; };
+		273B522E25CA666000421B14 /* Defines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Defines.h; sourceTree = "<group>"; };
+		273B522F25CA666000421B14 /* Defines.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Defines.m; sourceTree = "<group>"; };
 		276442A025BD3F7600EE217C /* OrderedDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderedDictionary.h; sourceTree = "<group>"; };
 		276442A125BD3F7600EE217C /* OrderedDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderedDictionary.m; sourceTree = "<group>"; };
 		2783C74825C4FAF2002ED7B7 /* ConfigurationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfigurationView.xib; sourceTree = "<group>"; };
@@ -176,6 +180,8 @@
 		27A2BFBE25C0851B00AAD73C /* common */ = {
 			isa = PBXGroup;
 			children = (
+				273B522E25CA666000421B14 /* Defines.h */,
+				273B522F25CA666000421B14 /* Defines.m */,
 				27C52A7225B69C4B00D829F3 /* Utils.h */,
 				27C52A7325B69C4B00D829F3 /* Utils.m */,
 				27CDC90B25BADAFC0032BF79 /* LibraryParser.h */,
@@ -388,6 +394,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				273B523325CA672300421B14 /* Defines.m in Sources */,
 				27A2C06125C0934B00AAD73C /* main.m in Sources */,
 				27A2C05925C0934A00AAD73C /* AppDelegate.m in Sources */,
 				2783C76825C518CC002ED7B7 /* ExportConfiguration.m in Sources */,
@@ -403,6 +410,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				273B523725CA672700421B14 /* Defines.m in Sources */,
 				27EF9A7025BF23920051CE7B /* main.m in Sources */,
 				27EF9A6825BF23910051CE7B /* AppDelegate.m in Sources */,
 				2783C76725C518CC002ED7B7 /* ExportConfiguration.m in Sources */,

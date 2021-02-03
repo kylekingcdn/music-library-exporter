@@ -11,9 +11,6 @@
 
 #import "ConfigurationViewController.h"
 
-static NSString* const _appGroupIdentifier = @"group.9YLM7HTV6V.com.MusicLibraryExporter";
-static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryExporter.MusicLibraryExporterHelper";
-
 
 @interface AppDelegate ()
 
