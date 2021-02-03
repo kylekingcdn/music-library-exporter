@@ -34,12 +34,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString*)getHexadecimalPersistentIdForEntity:(ITLibMediaEntity*)entity;
 + (NSString*)getHexadecimalPersistentId:(NSNumber*)decimalPersistentId;
 
-+ (void)dumpPropertiesForEntity:(ITLibMediaEntity*)entity;
-+ (void)dumpPropertiesForEntity:(ITLibMediaEntity*)entity withoutProperties:(NSSet<NSString *> * _Nullable)excludedProperties;
-
-+ (void)dumpLibraryPlaylists:(ITLibrary*)library;
-+ (void)dumpLibraryTracks:(ITLibrary*)library;
-
 
 #pragma mark - Accessors -
 

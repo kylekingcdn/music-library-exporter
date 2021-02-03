@@ -41,39 +41,6 @@
   return [[NSString stringWithFormat:@"%016lx", decimalPersistentId.unsignedIntegerValue] uppercaseString];
 }
 
-+ (void)dumpPropertiesForEntity:(ITLibMediaEntity*)entity {
-
-  return [LibrarySerializer dumpPropertiesForEntity:entity withoutProperties:nil];
-}
-
-+ (void)dumpPropertiesForEntity:(ITLibMediaEntity*)entity withoutProperties:(NSSet<NSString *> * _Nullable)excludedProperties {
-
-  if (entity) {
-    NSLog(@"\n");
-    [entity enumerateValuesExceptForProperties:excludedProperties usingBlock:^(NSString * _Nonnull property, id  _Nonnull value, BOOL * _Nonnull stop) {
-      NSLog(@"%@: %@", property, value);
-    }];
-  }
-}
-
-+ (void)dumpLibraryPlaylists:(ITLibrary*)library {
-
-  for (ITLibPlaylist* item in library.allPlaylists) {
-
-    ITLibMediaEntity* entity = item;
-    [LibrarySerializer dumpPropertiesForEntity:entity withoutProperties:[NSSet setWithObject:ITLibPlaylistPropertyItems]];
-  }
-}
-
-+ (void)dumpLibraryTracks:(ITLibrary*)library {
-
-  for (ITLibMediaItem* item in library.allMediaItems) {
-
-      ITLibMediaEntity* entity = item;
-      [LibrarySerializer dumpPropertiesForEntity:entity];
-  }
-}
-
 
 #pragma mark - Accessors -
 
@@ -177,23 +144,6 @@
     [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindRecentlyAdded]];
     [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindClassicalMusic]];
     [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindLovedSongs]];
-
-//    // add internal non-music playlists
-//    if (!_musicOnly) {
-//      [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindMovies]];
-//      [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindTVShows]];
-//      [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindAudiobooks]];
-//      [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindBooks]];
-//      [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindRingtones]];
-//      [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindPodcasts]];
-//      [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindVoiceMemos]];
-//      [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindiTunesU]];
-//      [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindMusicVideos]];
-//      [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindLibraryMusicVideos]];
-//      [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindHomeVideos]];
-//      [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindApplications]];
-//      [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindMusicShowsAndMovies]];
-//    }
   }
 
   includedPlaylistKinds = [playlistKinds copy];
