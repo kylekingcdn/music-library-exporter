@@ -49,7 +49,7 @@
   _exportConfiguration = [[UserDefaultsExportConfiguration alloc] initWithUserDefaultsSuiteName:__MLE__AppGroupIdentifier];
 
   _exportDelegate = [[ExportDelegate alloc] initWithConfiguration:_exportConfiguration];
-  _scheduleDelegate = [[ExportScheduleDelegate alloc] init];
+  _scheduleDelegate = [[ExportScheduleDelegate alloc] initWithExportDelegate:_exportDelegate];
 
   [_exportConfiguration dumpProperties];
   [_exportDelegate dumpProperties];

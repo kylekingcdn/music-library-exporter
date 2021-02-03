@@ -9,6 +9,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class ExportDelegate;
+
+
 @interface ExportScheduleDelegate : NSObject {
 
   BOOL _scheduleEnabled;
@@ -18,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Initializers -
 
-- (instancetype)init;
+- (instancetype)initWithExportDelegate:(ExportDelegate*)exportDelegate;
 
 
 #pragma mark - Accessors -

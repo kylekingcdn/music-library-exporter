@@ -10,22 +10,27 @@
 #import <ServiceManagement/ServiceManagement.h>
 
 #import "Defines.h"
+#import "ExportDelegate.h"
 
 
 @implementation ExportScheduleDelegate {
 
   NSUserDefaults* _userDefaults;
+
+  ExportDelegate* _exportDelegate;
 }
 
 
 #pragma mark - Initializers -
 
-- (instancetype)init {
+- (instancetype)initWithExportDelegate:(ExportDelegate*)exportDelegate {
 
   self = [super init];
 
   _userDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
 
+  _exportDelegate = exportDelegate;
+  
   [self loadPropertiesFromUserDefaults];
   [self updateHelperRegistrationIfRequired];
 
