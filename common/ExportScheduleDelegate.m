@@ -139,11 +139,9 @@
 
   if (success) {
     NSLog(@"[registerHelperWithSystem] succesfully %@ helper", (flag ? @"registered" : @"unregistered"));
-    _scheduleEnabled = YES;
   }
   else {
     NSLog(@"[registerHelperWithSystem] failed to %@ helper", (flag ? @"register" : @"unregister"));
-    _scheduleEnabled = YES;
   }
 
   return success;
