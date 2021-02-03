@@ -44,37 +44,37 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Utils -
 
-+ (NSString*) getHexadecimalPersistentIdForEntity:(ITLibMediaEntity*)entity;
-+ (NSString*) getHexadecimalPersistentId:(NSNumber*)decimalPersistentId;
++ (NSString*)getHexadecimalPersistentIdForEntity:(ITLibMediaEntity*)entity;
++ (NSString*)getHexadecimalPersistentId:(NSNumber*)decimalPersistentId;
 
-+ (void) dumpPropertiesForEntity: (ITLibMediaEntity*) entity;
-+ (void) dumpPropertiesForEntity: (ITLibMediaEntity*) entity withoutProperties: (NSSet<NSString *> * _Nullable) excludedProperties;
++ (void)dumpPropertiesForEntity:(ITLibMediaEntity*)entity;
++ (void)dumpPropertiesForEntity:(ITLibMediaEntity*)entity withoutProperties:(NSSet<NSString *> * _Nullable)excludedProperties;
 
-+ (void) dumpLibraryPlaylists: (ITLibrary*) library;
-+ (void) dumpLibraryTracks: (ITLibrary*) library;
++ (void)dumpLibraryPlaylists:(ITLibrary*)library;
++ (void)dumpLibraryTracks:(ITLibrary*)library;
 
 
 #pragma mark - Accessors -
 
-- (NSString*) remapRootMusicDirForFilePath:(NSString*)filePath;
+- (NSString*)remapRootMusicDirForFilePath:(NSString*)filePath;
 
 
 #pragma mark - Mutators -
 
-- (void) initSerializeMembers;
-- (void) initIncludedMediaKindsDict;
-- (void) initIncludedPlaylistKindsDict;
+- (void)initSerializeMembers;
+- (void)initIncludedMediaKindsDict;
+- (void)initIncludedPlaylistKindsDict;
 
-- (void) serializeLibrary: (ITLibrary*) library;
+- (void)serializeLibrary:(ITLibrary*)library;
 
-- (NSMutableArray<OrderedDictionary*>*) serializePlaylists: (NSArray<ITLibPlaylist*>*) playlists;
-- (OrderedDictionary*) serializePlaylist: (ITLibPlaylist*) playlistItem withId: (NSUInteger) playlistId;
-- (NSMutableArray<OrderedDictionary*>*) serializePlaylistItems: (NSArray<ITLibMediaItem*>*) trackItems;
+- (NSMutableArray<OrderedDictionary*>*)serializePlaylists:(NSArray<ITLibPlaylist*>*)playlists;
+- (OrderedDictionary*)serializePlaylist:(ITLibPlaylist*)playlistItem withId:(NSUInteger)playlistId;
+- (NSMutableArray<OrderedDictionary*>*)serializePlaylistItems:(NSArray<ITLibMediaItem*>*)trackItems;
 
-- (OrderedDictionary*) serializeTracks: (NSArray<ITLibMediaItem*>*) tracks;
-- (OrderedDictionary*) serializeTrack: (ITLibMediaItem*) trackItem withId: (NSUInteger) trackId;
+- (OrderedDictionary*)serializeTracks:(NSArray<ITLibMediaItem*>*)tracks;
+- (OrderedDictionary*)serializeTrack:(ITLibMediaItem*)trackItem withId:(NSUInteger)trackId;
 
-- (BOOL) writeDictionary;
+- (BOOL)writeDictionary;
 
 @end
 

@@ -14,7 +14,7 @@
 
 @implementation Utils
 
-+ (NSSet<NSString*>*) getAllKeysForDictionary:(NSDictionary*)dict1 andDictionary:(NSDictionary*)dict2 {
++ (NSSet<NSString*>*)getAllKeysForDictionary:(NSDictionary*)dict1 andDictionary:(NSDictionary*)dict2 {
 
   NSMutableSet<NSString*>* keys = [NSMutableSet setWithArray:dict1.allKeys];
   [keys addObjectsFromArray:dict2.allKeys];
@@ -23,7 +23,7 @@
   return immutableKeys;
 }
 
-+ (void) recursivelyCompareDictionary:(NSDictionary*)dict1 withDictionary:(NSDictionary*)dict2 exceptForKeys:(nullable NSArray<NSString*>*)ignoredKeys {
++ (void)recursivelyCompareDictionary:(NSDictionary*)dict1 withDictionary:(NSDictionary*)dict2 exceptForKeys:(nullable NSArray<NSString*>*)ignoredKeys {
 
   NSSet<NSString*>* allKeys = [Utils getAllKeysForDictionary:dict1 andDictionary:dict2];
 
@@ -75,7 +75,7 @@
   }
 }
 
-+ (NSDictionary*) createPersistentIdDictionaryForItems:(NSArray<NSDictionary*>*)itemsArray withPersistentIdKey:(NSString*)persistentIdKey {
++ (NSDictionary*)createPersistentIdDictionaryForItems:(NSArray<NSDictionary*>*)itemsArray withPersistentIdKey:(NSString*)persistentIdKey {
 
   NSMutableDictionary* persistentIdDict = [NSMutableDictionary dictionary];
 
@@ -92,12 +92,12 @@
   return persistentIdDict;
 }
 
-+ (NSDictionary*) createPersistentIdDictionaryForTracks:(NSArray<NSDictionary*>*)tracksArray {
++ (NSDictionary*)createPersistentIdDictionaryForTracks:(NSArray<NSDictionary*>*)tracksArray {
 
   return [Utils createPersistentIdDictionaryForItems:tracksArray withPersistentIdKey:@"Persistent ID"];
 }
 
-+ (NSDictionary*) createPersistentIdDictionaryForPlaylists:(NSArray<NSDictionary*>*)playlistsArray {
++ (NSDictionary*)createPersistentIdDictionaryForPlaylists:(NSArray<NSDictionary*>*)playlistsArray {
 
   return [Utils createPersistentIdDictionaryForItems:playlistsArray withPersistentIdKey:@"Playlist Persistent ID"];
 }

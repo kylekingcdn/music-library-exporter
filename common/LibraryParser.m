@@ -15,22 +15,22 @@
 
 #pragma mark - Accessors -
 
-- (NSArray<NSDictionary*>*) libraryTracks {
+- (NSArray<NSDictionary*>*)libraryTracks {
 
   return [[_libraryDictionary valueForKey:@"Tracks"] allValues];
 }
 
-- (NSArray<NSDictionary*>*) libraryPlaylists {
+- (NSArray<NSDictionary*>*)libraryPlaylists {
 
   return [_libraryDictionary valueForKey:@"Playlists"];
 }
 
-- (NSDictionary*) libraryTracksPersistentIdDictionary {
+- (NSDictionary*)libraryTracksPersistentIdDictionary {
 
   return [Utils createPersistentIdDictionaryForItems:[self libraryTracks] withPersistentIdKey:@"Persistent ID"];
 }
 
-- (NSDictionary*) libraryPlaylistsPersistentIdDictionary {
+- (NSDictionary*)libraryPlaylistsPersistentIdDictionary {
 
   return [Utils createPersistentIdDictionaryForItems:[self libraryPlaylists] withPersistentIdKey:@"Playlist Persistent ID"];
 }
@@ -38,7 +38,7 @@
 
 #pragma mark - Mutators -
 
-- (void) setLibraryDictionaryWithPropertyList:(NSString * _Nonnull)plistFilePath {
+- (void)setLibraryDictionaryWithPropertyList:(NSString * _Nonnull)plistFilePath {
 
   [self setLibraryDictionary:[NSDictionary dictionaryWithContentsOfFile:plistFilePath]];
 }

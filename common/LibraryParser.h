@@ -19,16 +19,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Accessors -
 
-- (NSArray<NSDictionary*>*) libraryTracks;
-- (NSArray<NSDictionary*>*) libraryPlaylists;
+- (NSArray<NSDictionary*>*)libraryTracks;
+- (NSArray<NSDictionary*>*)libraryPlaylists;
 
-- (NSDictionary*) libraryTracksPersistentIdDictionary;
-- (NSDictionary*) libraryPlaylistsPersistentIdDictionary;
+- (NSDictionary*)libraryTracksPersistentIdDictionary;
+- (NSDictionary*)libraryPlaylistsPersistentIdDictionary;
 
 
 #pragma mark - Mutators -
 
-- (void) setLibraryDictionaryWithPropertyList:(NSString * _Nonnull)plistFilePath;
+- (void)setLibraryDictionaryWithPropertyList:(NSString * _Nonnull)plistFilePath;
 
 
 @end

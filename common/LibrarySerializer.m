@@ -34,22 +34,22 @@
 
 #pragma mark - Utils -
 
-+ (NSString*) getHexadecimalPersistentIdForEntity:(ITLibMediaEntity*)entity {
++ (NSString*)getHexadecimalPersistentIdForEntity:(ITLibMediaEntity*)entity {
 
   return [LibrarySerializer getHexadecimalPersistentId:entity.persistentID];
 }
 
-+ (NSString*) getHexadecimalPersistentId:(NSNumber*)decimalPersistentId {
++ (NSString*)getHexadecimalPersistentId:(NSNumber*)decimalPersistentId {
 
   return [[NSString stringWithFormat:@"%016lx", decimalPersistentId.unsignedIntegerValue] uppercaseString];
 }
 
-+ (void) dumpPropertiesForEntity:(ITLibMediaEntity*) entity {
++ (void)dumpPropertiesForEntity:(ITLibMediaEntity*)entity {
 
   return [LibrarySerializer dumpPropertiesForEntity:entity withoutProperties:nil];
 }
 
-+ (void) dumpPropertiesForEntity:(ITLibMediaEntity*) entity withoutProperties:(NSSet<NSString *> * _Nullable) excludedProperties {
++ (void)dumpPropertiesForEntity:(ITLibMediaEntity*)entity withoutProperties:(NSSet<NSString *> * _Nullable)excludedProperties {
 
   if (entity) {
     NSLog(@"\n");
@@ -59,7 +59,7 @@
   }
 }
 
-+ (void) dumpLibraryPlaylists:(ITLibrary*) library {
++ (void)dumpLibraryPlaylists:(ITLibrary*)library {
 
   for (ITLibPlaylist* item in library.allPlaylists) {
 
@@ -68,7 +68,7 @@
   }
 }
 
-+ (void) dumpLibraryTracks:(ITLibrary*) library {
++ (void)dumpLibraryTracks:(ITLibrary*)library {
 
   for (ITLibMediaItem* item in library.allMediaItems) {
 
@@ -80,7 +80,7 @@
 
 #pragma mark - Accessors -
 
-- (NSString*) remapRootMusicDirForFilePath:(NSString*)filePath {
+- (NSString*)remapRootMusicDirForFilePath:(NSString*)filePath {
 
   return [filePath stringByReplacingOccurrencesOfString:_configuration.remapRootDirectoryOriginalPath withString:_configuration.remapRootDirectoryMappedPath];
 }
@@ -88,7 +88,7 @@
 
 #pragma mark - Mutators -
 
-- (void) initSerializeMembers {
+- (void)initSerializeMembers {
 
   NSLog(@"[LibrarySerializer initSerializeMembers]");
 
@@ -102,7 +102,7 @@
 }
 
 // TODO: remove non-music
-- (void) initIncludedMediaKindsDict {
+- (void)initIncludedMediaKindsDict {
 
   NSLog(@"[LibrarySerializer initIncludedMediaKindsDict]");
 
@@ -135,7 +135,7 @@
 }
 
 // TODO: remove non-music
-- (void) initIncludedPlaylistKindsDict {
+- (void)initIncludedPlaylistKindsDict {
 
   NSLog(@"[LibrarySerializer initIncludedPlaylistKindsDict]");
 
@@ -178,7 +178,7 @@
   includedPlaylistKinds = [playlistKinds copy];
 }
 
-- (void) serializeLibrary:(ITLibrary*) library {
+- (void)serializeLibrary:(ITLibrary*)library {
 
   NSLog(@"[LibrarySerializer serializeLibrary]");
 
@@ -206,7 +206,7 @@
   [_libraryDict setObject:playlistsArray forKey:@"Playlists"];
 }
 
-- (NSMutableArray<OrderedDictionary*>*) serializePlaylists:(NSArray<ITLibPlaylist*>*) playlists {
+- (NSMutableArray<OrderedDictionary*>*)serializePlaylists:(NSArray<ITLibPlaylist*>*)playlists {
 
   NSLog(@"[LibrarySerializer serializePlaylists:(%lu)]", playlists.count);
 
@@ -257,7 +257,7 @@
   return playlistsArray;
 }
 
-- (OrderedDictionary*) serializePlaylist:(ITLibPlaylist*) playlistItem withId: (NSUInteger) playlistId {
+- (OrderedDictionary*)serializePlaylist:(ITLibPlaylist*)playlistItem withId:(NSUInteger)playlistId {
 
   NSLog(@"[LibrarySerializer serializePlaylist:(%@ - %@)]", playlistItem.name, [LibrarySerializer getHexadecimalPersistentId:playlistItem.persistentID]);
 
@@ -296,7 +296,7 @@
   return playlistDict;
 }
 
-- (NSMutableArray<OrderedDictionary*>*) serializePlaylistItems: (NSArray<ITLibMediaItem*>*) trackItems {
+- (NSMutableArray<OrderedDictionary*>*)serializePlaylistItems:(NSArray<ITLibMediaItem*>*)trackItems {
 
   NSMutableArray<OrderedDictionary*>* playlistItemsArray = [NSMutableArray array];
 
@@ -324,7 +324,7 @@
   return playlistItemsArray;
 }
 
-- (OrderedDictionary*) serializeTracks:(NSArray<ITLibMediaItem*>*) tracks {
+- (OrderedDictionary*)serializeTracks:(NSArray<ITLibMediaItem*>*)tracks {
 
   NSLog(@"[LibrarySerializer serializeTracks:(%lu)]", tracks.count);
 
@@ -356,7 +356,7 @@
   return tracksDict;
 }
 
-- (OrderedDictionary*) serializeTrack:(ITLibMediaItem*) trackItem withId: (NSUInteger) trackId {
+- (OrderedDictionary*)serializeTrack:(ITLibMediaItem*)trackItem withId:(NSUInteger)trackId {
 
   MutableOrderedDictionary* trackDict = [MutableOrderedDictionary dictionary];
 
@@ -557,7 +557,7 @@
   return trackDict;
 }
 
-- (BOOL) writeDictionary {
+- (BOOL)writeDictionary {
 
   NSLog(@"[LibrarySerializer writeDictionary]");
 
