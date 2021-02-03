@@ -43,7 +43,7 @@
   return [NSDictionary dictionaryWithObjectsAndKeys:
     @"",             @"MusicLibraryPath",
 
-    @"",             @"OutputDirectoryBookmark",
+//  @"",             @"OutputDirectoryBookmark", /* we want this to be nil if it doesn't exist */
     @"Library.xml",  @"OutputFileName",
 
     @NO,             @"RemapRootDirectory",

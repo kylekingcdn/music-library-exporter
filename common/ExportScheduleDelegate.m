@@ -43,8 +43,10 @@
   NSUserDefaults* groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
   NSAssert(groupDefaults, @"failed to init NSUSerDefaults for app group");
 
+  // register default values for properties
   [groupDefaults registerDefaults:[self defaultValues]];
 
+  // read user defaults
   [self setScheduleEnabled:[groupDefaults boolForKey:@"ScheduleEnabled"]];
   [self setScheduleInterval:[groupDefaults integerForKey:@"ScheduleInterval"]];
 

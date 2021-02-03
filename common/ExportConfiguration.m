@@ -128,7 +128,6 @@
 
   NSLog(@"  OutputDirectoryUrl:              '%@'", _outputDirectoryUrl);
   NSLog(@"  OutputFileName:                  '%@'", _outputFileName);
-  NSLog(@"  OutputFilePath:                  '%@'", [self outputFilePath]);
 
   NSLog(@"  RemapRootDirectory:              '%@'", (_remapRootDirectory ? @"YES" : @"NO"));
   NSLog(@"  RemapRootDirectoryOriginalPath:  '%@'", _remapRootDirectoryOriginalPath);
