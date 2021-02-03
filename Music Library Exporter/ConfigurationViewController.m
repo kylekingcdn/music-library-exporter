@@ -11,6 +11,7 @@
 
 #import "Defines.h"
 #import "UserDefaultsExportConfiguration.h"
+#import "ExportDelegate.h"
 #import "ExportScheduleDelegate.h"
 
 
@@ -47,6 +48,8 @@
   self = [super initWithNibName: @"ConfigurationView" bundle: nil];
 
   _exportConfiguration = [[UserDefaultsExportConfiguration alloc] initWithUserDefaultsSuiteName:__MLE__AppGroupIdentifier];
+
+  _exportDelegate = [[ExportDelegate alloc] init];
   _scheduleDelegate = [[ExportScheduleDelegate alloc] init];
 
   _librarySerializer = [[LibrarySerializer alloc] init];
