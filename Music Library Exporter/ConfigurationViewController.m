@@ -191,12 +191,12 @@
   [_scheduleDelegate setScheduleInterval:scheduleInterval];
 }
 
-- (IBAction)exportLibraryAction:(id)sender {
+- (IBAction)exportLibrary:(id)sender {
 
   BOOL exportSuccessful = [_exportDelegate exportLibrary];
 
   if (!exportSuccessful) {
-    NSLog(@"[exportLibraryAction] library export has failed");
+    NSLog(@"[exportLibrary] library export has failed");
   }
 }
 

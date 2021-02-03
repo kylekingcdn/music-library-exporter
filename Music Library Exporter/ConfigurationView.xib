@@ -272,7 +272,7 @@
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <action selector="exportLibraryAction:" target="-2" id="uDZ-XN-mgg"/>
+                        <action selector="exportLibrary:" target="-2" id="i5i-R2-FhP"/>
                     </connections>
                 </button>
             </subviews>
