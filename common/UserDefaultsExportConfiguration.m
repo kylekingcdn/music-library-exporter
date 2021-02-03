@@ -23,7 +23,7 @@
   _userDefaults = userDefaults;
 
   [self loadPropertiesFromUserDefaults];
-  [self dumpConfiguration];
+  [self dumpProperties];
 
   return self;
 }

@@ -58,7 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable NSDate*)lastExportedAt;
 
-- (void)dumpConfiguration;
+- (void)dumpProperties;
 
 
 #pragma mark - Mutators -

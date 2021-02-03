@@ -125,9 +125,9 @@
   return _lastExportedAt;
 }
 
-- (void)dumpConfiguration {
+- (void)dumpProperties {
 
-  NSLog(@"[dumpConfiguration]");
+  NSLog(@"[dumpProperties]");
 
   NSLog(@"  MusicLibraryPath:                '%@'", _musicLibraryPath);
 
