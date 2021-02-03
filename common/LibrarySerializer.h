@@ -37,16 +37,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) MutableOrderedDictionary* libraryDict;
 @property NSURL* outputFileUrl;
 
-// dict value modifiers
-@property BOOL remapRootDirectory;
-@property NSString* originalRootDirectory;
-@property NSString* mappedRootDirectory;
-@property BOOL flattenPlaylistHierarchy;
-
-// key filters
-@property BOOL includeInternalPlaylists;
-@property NSArray<NSString*>* excludedPlaylistPersistentIds;
-
 
 #pragma mark - Initializers -
 

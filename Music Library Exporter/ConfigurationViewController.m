@@ -300,12 +300,7 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
     return NO;
   }
 
-  [_librarySerializer setRemapRootDirectory:_exportConfiguration.remapRootDirectory];
-  [_librarySerializer setOriginalRootDirectory:_exportConfiguration.remapRootDirectoryOriginalPath];
-  [_librarySerializer setMappedRootDirectory:_exportConfiguration.remapRootDirectoryMappedPath];
-
-  [_librarySerializer setFlattenPlaylistHierarchy:_exportConfiguration.flattenPlaylistHierarchy];
-  [_librarySerializer setIncludeInternalPlaylists:_exportConfiguration.includeInternalPlaylists];
+  [_librarySerializer setConfiguration:_exportConfiguration];
 
   NSError *initLibraryError = nil;
   ITLibrary *itLibrary = [ITLibrary libraryWithAPIVersion:@"1.1" error:&initLibraryError];
@@ -314,6 +309,7 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
     return NO;
   }
 
+  // ensure url renewal status is current
   NSURL* outputDirectoryUrl = [self resolveAndAutoRenewOutputDirectoryUrl];
   if (!outputDirectoryUrl) {
     NSLog(@"[exportLibrary] unable to retrieve output directory - a directory must be selected to obtain write permission");

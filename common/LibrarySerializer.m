@@ -15,6 +15,7 @@
 
 #import "OrderedDictionary.h"
 #import "Utils.h"
+#import "ExportConfiguration.h"
 
 
 @implementation LibrarySerializer
@@ -81,7 +82,7 @@
 
 - (NSString*) remapRootMusicDirForFilePath:(NSString*)filePath {
 
-  return [filePath stringByReplacingOccurrencesOfString:_originalRootDirectory withString:_mappedRootDirectory];
+  return [filePath stringByReplacingOccurrencesOfString:_configuration.remapRootDirectoryOriginalPath withString:_configuration.remapRootDirectoryMappedPath];
 }
 
 
@@ -94,7 +95,7 @@
   currentEntityId = 0;
   entityIdsDicts = [NSMutableDictionary dictionary];
 
-  shouldRemapTrackLocations = (_remapRootDirectory && _originalRootDirectory.length > 0 && _mappedRootDirectory.length > 0);
+  shouldRemapTrackLocations = (_configuration.remapRootDirectory && _configuration.remapRootDirectoryOriginalPath.length > 0 && _configuration.remapRootDirectoryMappedPath.length > 0);
 
   [self initIncludedMediaKindsDict];
   [self initIncludedPlaylistKindsDict];
@@ -144,7 +145,7 @@
   [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindNone]];
   [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindMusic]];
 
-  if (_includeInternalPlaylists) {
+  if (_configuration.includeInternalPlaylists) {
 
     // and internal music playlists
     [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindPurchases]];
@@ -216,13 +217,13 @@
     NSString* playlistPersistentIdHex = [LibrarySerializer getHexadecimalPersistentId:playlistItem.persistentID];
 
     // ignore excluded playlist kinds
-    if ([includedPlaylistKinds containsObject:[NSNumber numberWithUnsignedInteger:playlistItem.distinguishedKind]] && (!playlistItem.master || _includeInternalPlaylists)) {
+    if ([includedPlaylistKinds containsObject:[NSNumber numberWithUnsignedInteger:playlistItem.distinguishedKind]] && (!playlistItem.master || _configuration.includeInternalPlaylists)) {
 
       // ignore playlists that have been manually marked for exclusion
-      if (![_excludedPlaylistPersistentIds containsObject:playlistPersistentIdHex]) {
+      if (![_configuration.excludedPlaylistPersistentIds containsObject:playlistPersistentIdHex]) {
 
         // ignore folders when flattened
-        if (playlistItem.kind != ITLibPlaylistKindFolder || !_flattenPlaylistHierarchy) {
+        if (playlistItem.kind != ITLibPlaylistKindFolder || !_configuration.flattenPlaylistHierarchy) {
 
           // generate playlist id
           NSUInteger playlistId = ++currentEntityId;
@@ -271,7 +272,7 @@
   [playlistDict setValue:[NSNumber numberWithInteger:playlistId] forKey:@"Playlist ID"];
   [playlistDict setValue:[LibrarySerializer getHexadecimalPersistentId:playlistItem.persistentID] forKey:@"Playlist Persistent ID"];
 
-  if (playlistItem.parentID > 0 && !_flattenPlaylistHierarchy) {
+  if (playlistItem.parentID > 0 && !_configuration.flattenPlaylistHierarchy) {
     [playlistDict setValue:[LibrarySerializer getHexadecimalPersistentId:playlistItem.parentID] forKey:@"Parent Persistent ID"];
   }
   if (playlistItem.distinguishedKind > ITLibDistinguishedPlaylistKindNone) {
@@ -546,7 +547,7 @@
     NSString* trackFilePath = trackItem.location.path;
 
     if (shouldRemapTrackLocations) {
-      trackFilePath = [trackFilePath stringByReplacingOccurrencesOfString:_originalRootDirectory withString:_mappedRootDirectory];
+      trackFilePath = [trackFilePath stringByReplacingOccurrencesOfString:_configuration.remapRootDirectoryOriginalPath withString:_configuration.remapRootDirectoryMappedPath];
     }
 
     NSString* encodedTrackPath = [[NSURL fileURLWithPath:trackFilePath] absoluteString];
