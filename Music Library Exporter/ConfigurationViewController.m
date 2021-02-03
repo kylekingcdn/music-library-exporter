@@ -8,10 +8,10 @@
 #import "ConfigurationViewController.h"
 
 #import <iTunesLibrary/ITLibrary.h>
-#import <ServiceManagement/ServiceManagement.h>
 
 #import "Defines.h"
 #import "UserDefaultsExportConfiguration.h"
+#import "ExportScheduleDelegate.h"
 
 
 @interface ConfigurationViewController ()
@@ -47,6 +47,8 @@
   self = [super initWithNibName: @"ConfigurationView" bundle: nil];
 
   _exportConfiguration = [[UserDefaultsExportConfiguration alloc] initWithUserDefaultsSuiteName:__MLE__AppGroupIdentifier];
+  _scheduleDelegate = [[ExportScheduleDelegate alloc] init];
+
   _librarySerializer = [[LibrarySerializer alloc] init];
   
   return self;
@@ -55,41 +57,6 @@
 
 #pragma mark - Accessors -
 
-- (BOOL)isScheduleRegisteredWithSystem {
-
-  // source: http://blog.mcohen.me/2012/01/12/login-items-in-the-sandbox/
-  // > As of WWDC 2017, Apple engineers have stated that [SMCopyAllJobDictionaries] is still the preferred API to use.
-  //     ref: https://github.com/alexzielenski/StartAtLoginController/issues/12#issuecomment-307525807
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-  CFArrayRef cfJobDictsArr = SMCopyAllJobDictionaries(kSMDomainUserLaunchd);
-#pragma pop
-  NSArray* jobDictsArr = CFBridgingRelease(cfJobDictsArr);
-
-  if (jobDictsArr && jobDictsArr.count > 0) {
-
-    for (NSDictionary* jobDict in jobDictsArr) {
-
-      if ([__MLE__HelperBundleIdentifier isEqualToString:[jobDict objectForKey:@"Label"]]) {
-        return [[jobDict objectForKey:@"OnDemand"] boolValue];
-      }
-    }
-  }
-
-  return NO;
-}
-
-- (NSString*)errorForSchedulerRegistration:(BOOL)registerFlag {
-
-  if (registerFlag) {
-    return @"Couldn't add Music Library Exporter Helper to launch at login item list.";
-  }
-  else {
-    return @"Couldn't remove Music Library Exporter Helper from launch at login item list.";
-  }
-}
-
 
 #pragma mark - Mutators -
 
@@ -97,16 +64,10 @@
 
   [super viewDidLoad];
 
-  _scheduleEnabled = [self isScheduleRegisteredWithSystem];
-
-  NSLog(@"[viewDidLoad] isScheduleRegisteredWithSystem: %@", (_scheduleEnabled ? @"YES" : @"NO"));
+  NSLog(@"[viewDidLoad] isSchedulerRegisteredWithSystem: %@", (_scheduleDelegate.isSchedulerRegisteredWithSystem ? @"YES" : @"NO"));
 
   NSUserDefaults* groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
   NSAssert(groupDefaults, @"failed to init NSUSerDefaults for app group");
-
-  if (groupDefaults) {
-    [_scheduleEnabledCheckBox setState:(_scheduleEnabled ? NSControlStateValueOn : NSControlStateValueOff)];
-  }
 
   [self updateFromConfiguration];
 }
@@ -125,34 +86,14 @@
   [_includeInternalPlaylistsCheckBox setState:(_exportConfiguration.includeInternalPlaylists ? NSControlStateValueOn : NSControlStateValueOff)];
   //[_excludedPlaylistsTextField setStringValue:_exportConfiguration.excludedPlaylistPersistentIds];
 
-  // TODO: fix schedule state
-//  [_scheduleEnabledCheckBox setState:_exportConfiguration.scheduleEnabled];
-//  [_scheduleIntervalTextField setIntegerValue:_exportConfiguration.scheduleInterval];
-//  [_scheduleIntervalStepper setIntegerValue:_exportConfiguration.scheduleInterval];
-}
-
-- (BOOL)registerSchedulerWithSystem:(BOOL)flag {
-
-  NSLog(@"[registerSchedulerWithSystem:%@]", (flag ? @"YES" : @"NO"));
-
-  BOOL success = SMLoginItemSetEnabled ((__bridge CFStringRef)__MLE__HelperBundleIdentifier, flag);
-
-  if (success) {
-    NSLog(@"[registerSchedulerWithSystem] succesfully %@ scheduler", (flag ? @"registered" : @"unregistered"));
-    _scheduleEnabled = YES;
-  }
-  else {
-    NSLog(@"[registerSchedulerWithSystem] failed to %@ scheduler", (flag ? @"register" : @"unregister"));
-    _scheduleEnabled = YES;
-  }
-
-  return success;
+  [_scheduleEnabledCheckBox setState:_scheduleDelegate.scheduleEnabled];
+  [_scheduleIntervalTextField setIntegerValue:_scheduleDelegate.scheduleInterval];
+  [_scheduleIntervalStepper setIntegerValue:_scheduleDelegate.scheduleInterval];
 }
 
 - (IBAction)setMediaFolderLocation:(id)sender {
 
   NSString* mediaFolder = [sender stringValue];
-  NSLog(@"[setMediaFolderLocation: %@]", mediaFolder);
 
   [_exportConfiguration setMusicLibraryPath:mediaFolder];
 }
@@ -171,7 +112,7 @@
 
   [openPanel beginSheetModalForWindow:window completionHandler:^(NSInteger result) {
 
-    if (result == NSFileHandlingPanelOKButton) {
+    if (result == NSModalResponseOK) {
 
       NSURL* outputDirUrl = [openPanel URL];
       if (outputDirUrl) {
@@ -187,8 +128,6 @@
 
   NSString* outputFileName = [sender stringValue];
 
-  NSLog(@"[setOutputFileName: %@]", outputFileName);
-
   [_exportConfiguration setOutputFileName:outputFileName];
 }
 
@@ -197,8 +136,6 @@
   NSControlStateValue flagState = [sender state];
   BOOL flag = (flagState == NSControlStateValueOn);
 
-  NSLog(@"[setRemapRootDirectory: %@]", (flag ? @"YES" : @"NO"));
-
   [_exportConfiguration setRemapRootDirectory:flag];
 }
 
@@ -206,16 +143,12 @@
 
   NSString* remapOriginalText = [sender stringValue];
 
-  NSLog(@"[setRemapOriginalText: %@]", remapOriginalText);
-
   [_exportConfiguration setRemapRootDirectoryOriginalPath:remapOriginalText];
 }
 
 - (IBAction)setRemapReplacementText:(id)sender {
 
   NSString* remapReplacementText = [sender stringValue];
-
-  NSLog(@"[setRemapReplacementText: %@]", remapReplacementText);
 
   [_exportConfiguration setRemapRootDirectoryMappedPath:remapReplacementText];
 }
@@ -225,8 +158,6 @@
   NSControlStateValue flagState = [sender state];
   BOOL flag = (flagState == NSControlStateValueOn);
 
-  NSLog(@"[setFlattenPlaylistHierarchy: %@]", (flag ? @"YES" : @"NO"));
-
   [_exportConfiguration setFlattenPlaylistHierarchy:flag];
 }
 
@@ -234,8 +165,6 @@
 
   NSControlStateValue flagState = [sender state];
   BOOL flag = (flagState == NSControlStateValueOn);
-
-  NSLog(@"[setIncludeInternalPlaylists: %@]", (flag ? @"YES" : @"NO"));
 
   [_exportConfiguration setIncludeInternalPlaylists:flag];
 }
@@ -245,41 +174,23 @@
   NSControlStateValue flagState = [sender state];
   BOOL flag = (flagState == NSControlStateValueOn);
 
-  NSLog(@"[setScheduleEnabled: %@]", (flag ? @"YES" : @"NO"));
-
-//  [_exportConfiguration setScheduleEnabled:flag];
-
-//  if (![self registerSchedulerWithSystem:flag]) {
-//
-//    NSAlert *alert = [[NSAlert alloc] init];
-//    [alert setMessageText:@"An error ocurred"];
-//    [alert addButtonWithTitle:@"OK"];
-//    [alert setInformativeText:[self errorForSchedulerRegistration:flag]];
-//
-//    [alert runModal];
-//  }
+  [_scheduleDelegate setScheduleEnabled:flag];
 }
 
 - (IBAction)setScheduleInterval:(id)sender {
 
-//  NSTextField* textField = (NSTextField*)sender;
   NSInteger scheduleInterval = [sender integerValue];
 
-  NSLog(@"[setScheduleInterval: %ld]", scheduleInterval);
-
   [_scheduleIntervalStepper setIntegerValue:scheduleInterval];
-//  [_exportConfiguration setScheduleInterval:scheduleInterval];
+  [_scheduleDelegate setScheduleInterval:scheduleInterval];
 }
 
 - (IBAction)incrementScheduleInterval:(id)sender {
 
-//  NSStepper* stepper = (NSStepper*)sender;
   NSInteger scheduleInterval = [sender integerValue];
 
-  NSLog(@"[incrementScheduleInterval: %ld]", scheduleInterval);
-
   [_scheduleIntervalTextField setIntegerValue:scheduleInterval];
-//  [_exportConfiguration setScheduleInterval:scheduleInterval];
+  [_scheduleDelegate setScheduleInterval:scheduleInterval];
 }
 
 - (IBAction)exportLibraryAction:(id)sender {

@@ -12,13 +12,13 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class UserDefaultsExportConfiguration;
+@class ExportScheduleDelegate;
 
 @interface ConfigurationViewController : NSViewController {
-
-  BOOL _scheduleEnabled;
   
   UserDefaultsExportConfiguration* _exportConfiguration;
   LibrarySerializer* _librarySerializer;
+  ExportScheduleDelegate* _scheduleDelegate;
 }
 
 
@@ -27,18 +27,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init;
 
 
-#pragma mark - Accessors -
-
-- (BOOL)isScheduleRegisteredWithSystem;
-
-- (NSString*)errorForSchedulerRegistration:(BOOL)registerFlag;
-
-
 #pragma mark - Mutators -
 
 - (void)updateFromConfiguration;
-
-- (BOOL)registerSchedulerWithSystem:(BOOL)flag;
 
 - (IBAction)setMediaFolderLocation:(id)sender;
 - (IBAction)browseOutputDirectory:(id)sender;

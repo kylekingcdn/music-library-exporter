@@ -9,13 +9,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ExportScheduleDelegate : NSObject
+@interface ExportScheduleDelegate : NSObject {
+
+  BOOL _scheduleEnabled;
+  NSInteger _scheduleInterval;
+}
 
 
 #pragma mark - Properties -
-
-@property BOOL scheduleEnabled;
-@property NSInteger scheduleInterval;
 
 
 #pragma mark - Initializers -
@@ -27,10 +28,22 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSDictionary*)defaultValues;
 
+- (BOOL)scheduleEnabled;
+- (NSInteger)scheduleInterval;
+
+- (BOOL)isSchedulerRegisteredWithSystem;
+- (NSString*)errorForSchedulerRegistration:(BOOL)registerFlag;
+
 
 #pragma mark - Mutators -
 
 - (void)loadPropertiesFromUserDefaults;
+
+- (void)setScheduleEnabled:(BOOL)flag;
+- (void)setScheduleInterval:(NSInteger)interval;
+
+- (BOOL)registerSchedulerWithSystem:(BOOL)flag;
+- (void)updateSchedulerRegistrationIfRequired;
 
 
 @end
