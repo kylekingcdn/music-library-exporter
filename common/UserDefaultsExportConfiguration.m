@@ -22,7 +22,7 @@
 
   _userDefaults = userDefaults;
 
-  [self initPropertiesFromDefaults];
+  [self loadPropertiesFromUserDefaults];
   [self dumpConfiguration];
 
   return self;
@@ -124,7 +124,7 @@
   [_userDefaults setValue:excludedIds forKey:@"ExcludedPlaylistPersistentIds"];
 }
 
-- (void)initPropertiesFromDefaults {
+- (void)loadPropertiesFromUserDefaults {
 
   [self registerDefaultValues];
 
