@@ -7,8 +7,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "LibrarySerializer.h"
-
 NS_ASSUME_NONNULL_BEGIN
 
 @class UserDefaultsExportConfiguration;
@@ -21,8 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 
   ExportDelegate* _exportDelegate;
   ExportScheduleDelegate* _scheduleDelegate;
-
-  LibrarySerializer* _librarySerializer;
 }
 
 
@@ -51,8 +47,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)incrementScheduleInterval:(id)sender;
 
 - (IBAction)exportLibraryAction:(id)sender;
-
-- (BOOL)exportLibrary;
 
 
 @end

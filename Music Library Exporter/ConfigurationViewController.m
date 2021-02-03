@@ -7,8 +7,6 @@
 
 #import "ConfigurationViewController.h"
 
-#import <iTunesLibrary/ITLibrary.h>
-
 #import "Defines.h"
 #import "UserDefaultsExportConfiguration.h"
 #import "ExportDelegate.h"
@@ -49,10 +47,8 @@
 
   _exportConfiguration = [[UserDefaultsExportConfiguration alloc] initWithUserDefaultsSuiteName:__MLE__AppGroupIdentifier];
 
-  _exportDelegate = [[ExportDelegate alloc] init];
+  _exportDelegate = [[ExportDelegate alloc] initWithConfiguration:_exportConfiguration];
   _scheduleDelegate = [[ExportScheduleDelegate alloc] init];
-
-  _librarySerializer = [[LibrarySerializer alloc] init];
 
   [_exportConfiguration dumpProperties];
   [_exportDelegate dumpProperties];
@@ -202,61 +198,11 @@
 
 - (IBAction)exportLibraryAction:(id)sender {
 
-  BOOL exportSuccessful = [self exportLibrary];
+  BOOL exportSuccessful = [_exportDelegate exportLibrary];
 
   if (!exportSuccessful) {
     NSLog(@"[exportLibraryAction] library export has failed");
   }
-}
-
-- (BOOL)exportLibrary {
-
-  // FIXME: use bookmarked output dir
-  if (!_exportConfiguration.isOutputDirectoryValid) {
-    NSLog(@"[exportLibrary] error - invalid output directory url");
-    return NO;
-  }
-
-  if (!_exportConfiguration.isOutputFileNameValid) {
-    NSLog(@"[exportLibrary] error - invalid output filename");
-    return NO;
-  }
-
-  [_librarySerializer setConfiguration:_exportConfiguration];
-
-  NSError *initLibraryError = nil;
-  ITLibrary *itLibrary = [ITLibrary libraryWithAPIVersion:@"1.1" error:&initLibraryError];
-  if (!itLibrary) {
-    NSLog(@"[exportLibrary]  error - failed to init ITLibrary. error: %@", initLibraryError.localizedDescription);
-    return NO;
-  }
-
-  // ensure url renewal status is current
-  NSURL* outputDirectoryUrl = _exportConfiguration.resolveAndAutoRenewOutputDirectoryUrl;
-  if (!outputDirectoryUrl) {
-    NSLog(@"[exportLibrary] unable to retrieve output directory - a directory must be selected to obtain write permission");
-    return NO;
-  }
-  NSLog(@"[exportLibrary] saving to: %@", outputDirectoryUrl);
-
-  // serialize library
-  NSLog(@"[exportLibrary] serializing library");
-  [_librarySerializer serializeLibrary:itLibrary];
-
-  // write library
-  NSLog(@"[exportLibrary] writing library to file");
-  [outputDirectoryUrl startAccessingSecurityScopedResource];
-  BOOL writeSuccess = [_librarySerializer writeDictionary];
-  [outputDirectoryUrl stopAccessingSecurityScopedResource];
-
-  if (writeSuccess) {
-    [_exportDelegate setLastExportedAt:[NSDate date]];
-    return YES;
-  }
-  else {
-    return NO;
-  }
-
 }
 
 @end
