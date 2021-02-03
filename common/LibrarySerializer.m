@@ -287,7 +287,7 @@
   if (!playlistItem.visible) {
     [playlistDict setValue:[NSNumber numberWithBool:NO] forKey:@"Visible"];
   }
-  [playlistDict setValue:[NSNumber numberWithBool:playlistItem.allItemsPlaylist] forKey:@"All Items"];
+  [playlistDict setValue:[NSNumber numberWithBool:YES] forKey:@"All Items"];
   if (playlistItem.kind == ITLibPlaylistKindFolder) {
     [playlistDict setValue:[NSNumber numberWithBool:YES] forKey:@"Folder"];
   }
