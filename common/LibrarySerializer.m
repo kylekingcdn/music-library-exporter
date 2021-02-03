@@ -569,14 +569,11 @@
     return NO;
   }
 
-  NSLog(@"[LibrarySerializer writeDictionary]");
   NSLog(@"[LibrarySerializer writeDictionary] saving dictionary to: %@", _configuration.outputFileUrl);
+  BOOL writeSuccess = [_libraryDict writeToURL:_configuration.outputFileUrl atomically:YES];
 
-  NSError* writeError;
-  [_libraryDict writeToURL:_configuration.outputFileUrl error:&writeError];
-
-  if (writeError) {
-    NSLog(@"[LibrarySerializer writeDictionary] error writing dictionary: %@", writeError.localizedDescription);
+  if (!writeSuccess) {
+    NSLog(@"[LibrarySerializer writeDictionary] error writing dictionary");
     return NO;
   }
 
