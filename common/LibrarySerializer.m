@@ -67,15 +67,15 @@
           [includedPlaylists addObject:playlist];
         }
         else {
-          NSLog(@"playlist was manually excluded by id: %@ - %@", playlist.name, playlist.persistentID);
+          NSLog(@"LibrarySerializer [includedPlaylists] playlist was manually excluded by id: %@ - %@", playlist.name, playlist.persistentID);
         }
       }
       else {
-        NSLog(@"excluding folder due to flattened hierarchy : %@ - %@", playlist.name, playlist.persistentID);
+        NSLog(@"LibrarySerializer [includedPlaylists] excluding folder due to flattened hierarchy : %@ - %@", playlist.name, playlist.persistentID);
       }
     }
     else {
-     NSLog(@"excluding internal playlist: %@ - %@", playlist.name, playlist.persistentID);
+     NSLog(@"LibrarySerializer [includedPlaylists] excluding internal playlist: %@ - %@", playlist.name, playlist.persistentID);
     }
   }
 
@@ -112,7 +112,7 @@
 
 - (void)initSerializeMembers {
 
-  NSLog(@"[LibrarySerializer initSerializeMembers]");
+  NSLog(@"LibrarySerializer [initSerializeMembers]");
 
   currentEntityId = 0;
   entityIdsDicts = [NSMutableDictionary dictionary];
@@ -125,7 +125,7 @@
 // TODO: remove non-music
 - (void)initIncludedPlaylistKindsDict {
 
-  NSLog(@"[LibrarySerializer initIncludedPlaylistKindsDict]");
+  NSLog(@"LibrarySerializer [initIncludedPlaylistKindsDict]");
 
   NSMutableSet<NSNumber*>* playlistKinds = [NSMutableSet set];
 
@@ -160,7 +160,7 @@
     return NO;
   }
 
-  NSLog(@"[serializeLibrary]");
+  NSLog(@"LibrarySerializer [serializeLibrary]");
 
   // clear generated library dictionary
   _libraryDict = [MutableOrderedDictionary dictionary];
@@ -195,7 +195,7 @@
 
 - (NSMutableArray<OrderedDictionary*>*)serializePlaylists:(NSArray<ITLibPlaylist*>*)playlists {
 
-  NSLog(@"[LibrarySerializer serializePlaylists:(%lu)]", playlists.count);
+  NSLog(@"LibrarySerializer [serializePlaylists:(%lu)]", playlists.count);
 
   NSMutableArray<OrderedDictionary*>* playlistsArray = [NSMutableArray array];
 
@@ -215,7 +215,7 @@
 
 - (OrderedDictionary*)serializePlaylist:(ITLibPlaylist*)playlistItem withId:(NSNumber*)playlistId {
 
-  NSLog(@"[LibrarySerializer serializePlaylist:(%@ - %@)]", playlistItem.name, [LibrarySerializer getHexadecimalPersistentId:playlistItem.persistentID]);
+  NSLog(@"LibrarySerializer [serializePlaylist:(%@ - %@)]", playlistItem.name, [LibrarySerializer getHexadecimalPersistentId:playlistItem.persistentID]);
 
   MutableOrderedDictionary* playlistDict = [MutableOrderedDictionary dictionary];
 
@@ -279,7 +279,7 @@
 
 - (OrderedDictionary*)serializeTracks:(NSArray<ITLibMediaItem*>*)tracks {
 
-  NSLog(@"[LibrarySerializer serializeTracks:(%lu)]", tracks.count);
+  NSLog(@"LibrarySerializer [serializeTracks:(%lu)]", tracks.count);
 
   MutableOrderedDictionary* tracksDict = [MutableOrderedDictionary dictionary];
 
@@ -499,18 +499,18 @@
 
 - (BOOL)writeDictionary {
 
-  NSLog(@"[LibrarySerializer writeDictionary]");
+  NSLog(@"LibrarySerializer [writeDictionary]");
 
   if (!_configuration.isOutputFilePathValid) {
-    NSLog(@"[LibrarySerializer writeDictionary] error - invalid output dir/filename");
+    NSLog(@"LibrarySerializer [writeDictionary] error - invalid output dir/filename");
     return NO;
   }
 
-  NSLog(@"[LibrarySerializer writeDictionary] saving dictionary to: %@", _configuration.outputFileUrl);
+  NSLog(@"LibrarySerializer [writeDictionary] saving dictionary to: %@", _configuration.outputFileUrl);
   BOOL writeSuccess = [_libraryDict writeToURL:_configuration.outputFileUrl atomically:YES];
 
   if (!writeSuccess) {
-    NSLog(@"[LibrarySerializer writeDictionary] error writing dictionary");
+    NSLog(@"LibrarySerializer [writeDictionary] error writing dictionary");
     return NO;
   }
 
