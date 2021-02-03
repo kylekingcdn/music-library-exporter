@@ -8,59 +8,68 @@
 #import "ScheduleDelegate.h"
 
 #import "Defines.h"
-#import "ScheduleConfiguration.h"
 #import "ExportDelegate.h"
 
 @implementation ScheduleDelegate {
 
-  NSBackgroundActivityScheduler* _scheduler;
+  NSTimer* _timer;
+  NSTimeInterval _interval;
 }
 
 
 #pragma mark - Initializers -
 
-- (instancetype)initWithConfiguration:(ScheduleConfiguration*)config andExportDelegate:(ExportDelegate*)exportDelegate {
+- (instancetype)initWithExportDelegate:(ExportDelegate*)exportDelegate {
 
   self = [super init];
 
-  [self setConfiguration:config];
+
   [self setExportDelegate:exportDelegate];
 
   return self;
 }
 
 
-#pragma mark - Accessors -
-
-
 #pragma mark - Mutators -
+
+- (void)setInterval:(NSTimeInterval)val {
+
+  NSLog(@"ScheduleDelegate [setInterval:%f]", val);
+
+  _interval = val;
+
+  if (_timer) {
+    [self activateScheduler];
+  }
+}
 
 - (void)activateScheduler {
 
   NSLog(@"ScheduleDelegate [activateScheduler]");
 
-  _scheduler = [[NSBackgroundActivityScheduler alloc] initWithIdentifier:[__MLE__HelperBundleIdentifier stringByAppendingString:@".scheduler"]];
+  if (_timer) {
+    [_timer invalidate];
+    _timer = nil;
+  }
 
-  [_scheduler setRepeats:YES];
-  [_scheduler setTolerance:60];
-  [_scheduler setInterval:(_configuration.scheduleInterval * 60 * 60)];
-  [_scheduler setQualityOfService:NSQualityOfServiceUtility];
-
-  [_scheduler scheduleWithBlock:^(NSBackgroundActivityCompletionHandler completion) {
-
-    NSLog(@"ScheduleDelegate [activateScheduler] starting task (%@)", [[NSDate date] description]);
-
-    [self->_exportDelegate exportLibrary];
-    
-    completion(NSBackgroundActivityResultFinished);
-  }];
+  _timer = [NSTimer scheduledTimerWithTimeInterval:_interval*60*60 target:self selector:@selector(onTimerFinished) userInfo:nil repeats:YES];
 }
 
 - (void)deactivateScheduler {
 
   NSLog(@"ScheduleDelegate [deactivateScheduler]");
 
-  [_scheduler invalidate];
+  if (_timer) {
+    [_timer invalidate];
+    _timer = nil;
+  }
+}
+
+- (void)onTimerFinished {
+
+  NSLog(@"ScheduleDelegate [onTimerFinished]");
+
+  [_exportDelegate exportLibrary];
 }
 
 @end
