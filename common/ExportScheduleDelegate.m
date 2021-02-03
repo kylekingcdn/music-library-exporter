@@ -18,6 +18,7 @@
   NSUserDefaults* _userDefaults;
 
   ExportDelegate* _exportDelegate;
+  NSBackgroundActivityScheduler* _scheduler;
 }
 
 
@@ -163,5 +164,32 @@
   }
 }
 
+- (void)activateScheduler {
+
+  NSLog(@"ExportScheduleDelegate [activateScheduler]");
+
+  _scheduler = [[NSBackgroundActivityScheduler alloc] initWithIdentifier:[__MLE__HelperBundleIdentifier stringByAppendingString:@".scheduler"]];
+
+  [_scheduler setRepeats:YES];
+  [_scheduler setTolerance:60];
+  [_scheduler setInterval:(_scheduleInterval * 60 * 60)];
+  [_scheduler setQualityOfService:NSQualityOfServiceUtility];
+
+  [_scheduler scheduleWithBlock:^(NSBackgroundActivityCompletionHandler completion) {
+
+    NSLog(@"ExportScheduleDelegate [activateScheduler] starting task (%@)", [[NSDate date] description]);
+
+    [self->_exportDelegate exportLibrary];
+    
+    completion(NSBackgroundActivityResultFinished);
+  }];
+}
+
+- (void)deactivateScheduler {
+
+  NSLog(@"ExportScheduleDelegate [deactivateScheduler]");
+
+  [_scheduler invalidate];
+}
 
 @end

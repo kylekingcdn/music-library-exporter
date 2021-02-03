@@ -7,10 +7,18 @@
 
 #import "AppDelegate.h"
 
+#import "Defines.h"
+#import "UserDefaultsExportConfiguration.h"
+#import "ExportDelegate.h"
+#import "ExportScheduleDelegate.h"
 
-@interface AppDelegate ()
+@interface AppDelegate () {
 
-@property (strong) IBOutlet NSWindow *window;
+  UserDefaultsExportConfiguration* _exportConfiguration;
+
+  ExportDelegate* _exportDelegate;
+  ExportScheduleDelegate* _scheduleDelegate;
+}
 
 @end
 
@@ -19,6 +27,17 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 
+  _exportConfiguration = [[UserDefaultsExportConfiguration alloc] initWithUserDefaultsSuiteName:__MLE__AppGroupIdentifier];
+
+  _exportDelegate = [[ExportDelegate alloc] initWithConfiguration:_exportConfiguration];
+  _scheduleDelegate = [[ExportScheduleDelegate alloc] initWithExportDelegate:_exportDelegate];
+
+  if (!_exportConfiguration.isOutputDirectoryValid) {
+    //[self getDirectoryWritePermissions];
+  }
+  else {
+    [_scheduleDelegate activateScheduler];
+  }
 }
 
 

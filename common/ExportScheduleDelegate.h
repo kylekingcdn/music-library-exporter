@@ -47,6 +47,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)registerHelperWithSystem:(BOOL)flag;
 - (void)updateHelperRegistrationIfRequired;
 
+- (void)activateScheduler;
+- (void)deactivateScheduler;
+
+
 
 @end
 
