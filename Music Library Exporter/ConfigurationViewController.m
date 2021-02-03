@@ -8,11 +8,11 @@
 #import "ConfigurationViewController.h"
 
 #import "Defines.h"
+#import "HelperDelegate.h"
 #import "UserDefaultsExportConfiguration.h"
 #import "ExportDelegate.h"
 #import "ScheduleConfiguration.h"
 #import "ScheduleDelegate.h"
-#import "HelperDelegate.h"
 
 
 @interface ConfigurationViewController ()
@@ -41,13 +41,13 @@
 
 @implementation ConfigurationViewController {
 
+  HelperDelegate* _helperDelegate;
+
   UserDefaultsExportConfiguration* _exportConfiguration;
   ExportDelegate* _exportDelegate;
 
   ScheduleConfiguration* _scheduleConfiguration;
   ScheduleDelegate* _scheduleDelegate;
-
-  HelperDelegate* _helperDelegate;
 }
 
 
@@ -57,18 +57,21 @@
 
   self = [super initWithNibName: @"ConfigurationView" bundle: nil];
 
+  _helperDelegate = [[HelperDelegate alloc] init];
+
   _exportConfiguration = [[UserDefaultsExportConfiguration alloc] initWithUserDefaultsSuiteName:__MLE__AppGroupIdentifier];
   _exportDelegate = [[ExportDelegate alloc] initWithConfiguration:_exportConfiguration];
 
   _scheduleConfiguration = [[ScheduleConfiguration alloc] init];
   _scheduleDelegate = [[ScheduleDelegate alloc] initWithConfiguration:_scheduleConfiguration andExportDelegate:_exportDelegate];
 
-  _helperDelegate = [[HelperDelegate alloc] initWithConfiguration:_scheduleConfiguration];
-
   [_exportConfiguration dumpProperties];
   [_scheduleConfiguration dumpProperties];
 
   [_exportDelegate dumpProperties];
+
+  // ensure helper registration status matches configuration value for scheduleEnabled
+  [_helperDelegate updateHelperRegistrationWithScheduleEnabled:_scheduleConfiguration.scheduleEnabled];
   
   return self;
 }

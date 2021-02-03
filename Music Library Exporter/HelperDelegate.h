@@ -7,22 +7,15 @@
 
 #import <Foundation/Foundation.h>
 
-@class ScheduleConfiguration;
-
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface HelperDelegate : NSObject
 
 
-#pragma mark - Properties -
-
-@property ScheduleConfiguration* configuration;
-
-
 #pragma mark - Initializers -
 
-- (instancetype)initWithConfiguration:(ScheduleConfiguration*)config;
+- (instancetype)init;
 
 
 #pragma mark - Accessors -
@@ -34,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Mutators -
 
 - (BOOL)registerHelperWithSystem:(BOOL)flag;
-- (void)updateHelperRegistrationIfRequired;
+- (void)updateHelperRegistrationWithScheduleEnabled:(BOOL)scheduleEnabled;
 
 
 @end

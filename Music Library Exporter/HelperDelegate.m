@@ -10,7 +10,6 @@
 #import <ServiceManagement/ServiceManagement.h>
 
 #import "Defines.h"
-#import "ScheduleConfiguration.h"
 
 
 @implementation HelperDelegate
@@ -18,13 +17,9 @@
 
 #pragma mark - Initializers -
 
-- (instancetype)initWithConfiguration:(ScheduleConfiguration*)config {
+- (instancetype)init {
 
   self = [super init];
-
-  [self setConfiguration:config];
-
-  [self updateHelperRegistrationIfRequired];
 
   return self;
 }
@@ -86,14 +81,14 @@
   return success;
 }
 
-- (void)updateHelperRegistrationIfRequired {
+- (void)updateHelperRegistrationWithScheduleEnabled:(BOOL)scheduleEnabled {
 
-  NSLog(@"[updateHelperRegistrationIfRequired]");
+  NSLog(@"[updateHelperRegistrationWithScheduleEnabled:%@]", (scheduleEnabled ? @"YES" : @"NO"));
 
-  BOOL shouldUpdate = (_configuration.scheduleEnabled != [self isHelperRegisteredWithSystem]);
+  BOOL shouldUpdate = (scheduleEnabled != [self isHelperRegisteredWithSystem]);
   if (shouldUpdate) {
-    NSLog(@"[updateHelperRegistrationIfRequired] updating registration to: %@", (_configuration.scheduleEnabled ? @"registered" : @"unregistered"));
-    [self registerHelperWithSystem:_configuration.scheduleEnabled];
+    NSLog(@"[updateHelperRegistrationIfRequired] updating registration to: %@", (scheduleEnabled ? @"registered" : @"unregistered"));
+    [self registerHelperWithSystem:scheduleEnabled];
   }
 }
 
