@@ -194,7 +194,10 @@
   [_libraryDict setValue:library.applicationVersion forKey:@"Application Version"];
   [_libraryDict setValue:[NSNumber numberWithUnsignedInteger:library.features] forKey:@"Features"];
   [_libraryDict setValue:@(library.showContentRating) forKey:@"Show Content Ratings"];
-//  [_libraryDict setValue:library.mediaFolderLocation.absoluteString forKey:@"Music Folder"]; - invalid
+  // FIXME: should remap root library apply to this path as well..?
+  if (_configuration.musicLibraryPath.length > 0) {
+    [_libraryDict setValue:_configuration.musicLibraryPath forKey:@"Music Folder"];
+  }
 //  [dictionary setValue:library.persistentID forKey:@"Library Persistent ID"]; - unavailable
 
   // add tracks dictionary to library dictionary
