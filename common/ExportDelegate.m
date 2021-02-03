@@ -13,7 +13,10 @@
 #import "UserDefaultsExportConfiguration.h"
 #import "LibrarySerializer.h"
 
-@implementation ExportDelegate
+@implementation ExportDelegate {
+
+  NSUserDefaults* _userDefaults;
+}
 
 
 #pragma mark - Initializers -
@@ -22,6 +25,7 @@
 
   self = [super init];
 
+  _userDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
   _librarySerializer = [[LibrarySerializer alloc] init];
 
   [self loadPropertiesFromUserDefaults];
@@ -58,10 +62,7 @@
 
 - (void)loadPropertiesFromUserDefaults {
 
-  NSUserDefaults* groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
-
-  // read user defaults
-  _lastExportedAt = [groupDefaults valueForKey:@"LastExportedAt"];
+  _lastExportedAt = [_userDefaults valueForKey:@"LastExportedAt"];
 }
 
 - (void)setLastExportedAt:(nullable NSDate*)timestamp {
@@ -70,8 +71,7 @@
 
   _lastExportedAt = timestamp;
 
-  NSUserDefaults* groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
-  [groupDefaults setValue:_lastExportedAt forKey:@"LastExportedAt"];
+  [_userDefaults setValue:_lastExportedAt forKey:@"LastExportedAt"];
 }
 
 - (BOOL)exportLibrary {

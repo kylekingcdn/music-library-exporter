@@ -12,7 +12,10 @@
 #import "Defines.h"
 
 
-@implementation ExportScheduleDelegate
+@implementation ExportScheduleDelegate {
+
+  NSUserDefaults* _userDefaults;
+}
 
 
 #pragma mark - Initializers -
@@ -20,6 +23,8 @@
 - (instancetype)init {
 
   self = [super init];
+
+  _userDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
 
   [self loadPropertiesFromUserDefaults];
   [self updateSchedulerRegistrationIfRequired];
@@ -97,15 +102,12 @@
 
 - (void)loadPropertiesFromUserDefaults {
 
-  NSUserDefaults* groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
-  NSAssert(groupDefaults, @"failed to init NSUSerDefaults for app group");
-
   // register default values for properties
-  [groupDefaults registerDefaults:[self defaultValues]];
+  [_userDefaults registerDefaults:[self defaultValues]];
 
   // read user defaults
-  _scheduleEnabled = [groupDefaults boolForKey:@"ScheduleEnabled"];
-  _scheduleInterval = [groupDefaults integerForKey:@"ScheduleInterval"];
+  _scheduleEnabled = [_userDefaults boolForKey:@"ScheduleEnabled"];
+  _scheduleInterval = [_userDefaults integerForKey:@"ScheduleInterval"];
 }
 
 - (void)setScheduleEnabled:(BOOL)flag {
@@ -114,11 +116,7 @@
 
   _scheduleEnabled = flag;
 
-  // FIXME: should defaults be a member var?
-  NSUserDefaults* groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
-  NSAssert(groupDefaults, @"failed to init NSUSerDefaults for app group");
-
-  [groupDefaults setBool:_scheduleEnabled forKey:@"ScheduleEnabled"];
+  [_userDefaults setBool:_scheduleEnabled forKey:@"ScheduleEnabled"];
 
   // update scheduler registration
   [self registerSchedulerWithSystem:_scheduleEnabled];
@@ -130,11 +128,7 @@
 
   _scheduleInterval = interval;
 
-  // FIXME: should defaults be a member var?
-  NSUserDefaults* groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
-  NSAssert(groupDefaults, @"failed to init NSUSerDefaults for app group");
-
-  [groupDefaults setInteger:_scheduleInterval forKey:@"ScheduleInterval"];
+  [_userDefaults setInteger:_scheduleInterval forKey:@"ScheduleInterval"];
 }
 
 - (BOOL)registerSchedulerWithSystem:(BOOL)flag {
