@@ -11,6 +11,7 @@
 
 #import "Defines.h"
 
+
 @implementation ExportScheduleDelegate
 
 
@@ -81,6 +82,14 @@
   else {
     return @"Couldn't remove Music Library Exporter Helper from launch at login item list.";
   }
+}
+
+- (void)dumpProperties {
+
+  NSLog(@"ExportScheduleDelegate [dumpProperties]");
+
+  NSLog(@"  ScheduleEnabled:       '%@'", (_scheduleEnabled ? @"YES" : @"NO"));
+  NSLog(@"  ScheduleInterval:      '%ld'", (long)_scheduleInterval);
 }
 
 

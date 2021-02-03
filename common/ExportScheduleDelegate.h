@@ -16,9 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 
-#pragma mark - Properties -
-
-
 #pragma mark - Initializers -
 
 - (instancetype)init;
@@ -33,6 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)isSchedulerRegisteredWithSystem;
 - (NSString*)errorForSchedulerRegistration:(BOOL)registerFlag;
+
+- (void)dumpProperties;
 
 
 #pragma mark - Mutators -

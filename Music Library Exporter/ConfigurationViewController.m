@@ -53,6 +53,10 @@
   _scheduleDelegate = [[ExportScheduleDelegate alloc] init];
 
   _librarySerializer = [[LibrarySerializer alloc] init];
+
+  [_exportConfiguration dumpProperties];
+  [_exportDelegate dumpProperties];
+  [_scheduleDelegate dumpProperties];
   
   return self;
 }
