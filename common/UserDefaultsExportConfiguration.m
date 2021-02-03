@@ -54,6 +54,8 @@
     @YES,            @"IncludeInternalPlaylists",
     @[],             @"ExcludedPlaylistPersistentIds",
 
+//  @"",             @"LastExportedAt", /* we want this to be nil if it doesn't exist */
+
     nil
   ];
 }
@@ -129,6 +131,13 @@
   [_userDefaults setValue:excludedIds forKey:@"ExcludedPlaylistPersistentIds"];
 }
 
+- (void)setLastExportedAt:(nullable NSDate*)timestamp {
+
+  [super setLastExportedAt:timestamp];
+
+  [_userDefaults setValue:timestamp forKey:@"LastExportedAt"];
+}
+
 - (void)loadPropertiesFromUserDefaults {
 
   [self registerDefaultValues];
@@ -145,6 +154,8 @@
   [super setFlattenPlaylistHierarchy:[_userDefaults boolForKey:@"FlattenPlaylistHierarchy"]];
   [super setIncludeInternalPlaylists:[_userDefaults boolForKey:@"IncludeInternalPlaylists"]];
   [super setExcludedPlaylistPersistentIds:[_userDefaults valueForKey:@"ExcludedPlaylistPersistentIds"]];
+
+  [super setLastExportedAt:[_userDefaults valueForKey:@"LastExportedAt"]];
 }
 
 - (void)registerDefaultValues {

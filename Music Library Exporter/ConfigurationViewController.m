@@ -331,7 +331,14 @@
   BOOL writeSuccess = [_librarySerializer writeDictionary];
   [outputDirectoryUrl stopAccessingSecurityScopedResource];
 
-  return writeSuccess;
+  if (!writeSuccess) {
+    [_exportConfiguration setLastExportedAt:[NSDate date]];
+    return YES;
+  }
+  else {
+    return NO;
+  }
+
 }
 
 @end

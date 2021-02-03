@@ -42,6 +42,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setIncludeInternalPlaylists:(BOOL)flag;
 - (void)setExcludedPlaylistPersistentIds:(NSArray<NSString*>*)excludedIds;
 
+- (void)setLastExportedAt:(nullable NSDate*)timestamp;
+
 - (void)loadPropertiesFromUserDefaults;
 - (void)registerDefaultValues;
 
