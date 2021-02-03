@@ -250,7 +250,7 @@
   [outputDirectoryUrl stopAccessingSecurityScopedResource];
 
   if (writeSuccess) {
-    [_exportConfiguration setLastExportedAt:[NSDate date]];
+    [_exportDelegate setLastExportedAt:[NSDate date]];
     return YES;
   }
   else {

@@ -120,11 +120,6 @@
     return _excludedPlaylistPersistentIds;
 }
 
-- (NSDate*)lastExportedAt {
-
-  return _lastExportedAt;
-}
-
 - (void)dumpProperties {
 
   NSLog(@"[dumpProperties]");
@@ -141,8 +136,6 @@
   NSLog(@"  FlattenPlaylistHierarchy:        '%@'", (_flattenPlaylistHierarchy ? @"YES" : @"NO"));
   NSLog(@"  IncludeInternalPlaylists:        '%@'", (_includeInternalPlaylists ? @"YES" : @"NO"));
   NSLog(@"  ExcludedPlaylistPersistentIds:   '%@'", _excludedPlaylistPersistentIds);
-
-  NSLog(@"  LastExportedAt:                  '%@'", _lastExportedAt);
 }
 
 
@@ -209,13 +202,6 @@
   NSLog(@"[setExcludedPlaylistPersistentIds %lu]", (unsigned long)excludedIds.count);
 
   _excludedPlaylistPersistentIds = excludedIds;
-}
-
-- (void)setLastExportedAt:(nullable NSDate*)timestamp {
-
-  NSLog(@"[setLastExportedAt %@]", timestamp.description);
-
-  _lastExportedAt = timestamp;
 }
 
 @end
