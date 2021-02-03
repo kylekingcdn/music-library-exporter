@@ -191,6 +191,12 @@
 
   [_scheduleIntervalStepper setIntegerValue:scheduleInterval];
   [_scheduleDelegate setScheduleInterval:scheduleInterval];
+
+  // re-register helper to update values
+  if (_scheduleDelegate.scheduleEnabled) {
+    [_scheduleDelegate registerHelperWithSystem:NO];
+    [_scheduleDelegate registerHelperWithSystem:YES];
+  }
 }
 
 - (IBAction)incrementScheduleInterval:(id)sender {
@@ -199,6 +205,12 @@
 
   [_scheduleIntervalTextField setIntegerValue:scheduleInterval];
   [_scheduleDelegate setScheduleInterval:scheduleInterval];
+
+  // re-register helper to update values
+  if (_scheduleDelegate.scheduleEnabled) {
+    [_scheduleDelegate registerHelperWithSystem:NO];
+    [_scheduleDelegate registerHelperWithSystem:YES];
+  }
 }
 
 - (IBAction)exportLibrary:(id)sender {
