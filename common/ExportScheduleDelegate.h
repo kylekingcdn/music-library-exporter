@@ -28,8 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)scheduleEnabled;
 - (NSInteger)scheduleInterval;
 
-- (BOOL)isSchedulerRegisteredWithSystem;
-- (NSString*)errorForSchedulerRegistration:(BOOL)registerFlag;
+- (BOOL)isHelperRegisteredWithSystem;
+- (NSString*)errorForHelperRegistration:(BOOL)registerFlag;
 
 - (void)dumpProperties;
 
@@ -41,8 +41,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setScheduleEnabled:(BOOL)flag;
 - (void)setScheduleInterval:(NSInteger)interval;
 
-- (BOOL)registerSchedulerWithSystem:(BOOL)flag;
-- (void)updateSchedulerRegistrationIfRequired;
+- (BOOL)registerHelperWithSystem:(BOOL)flag;
+- (void)updateHelperRegistrationIfRequired;
 
 
 @end

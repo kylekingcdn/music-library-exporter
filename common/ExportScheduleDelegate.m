@@ -27,7 +27,7 @@
   _userDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
 
   [self loadPropertiesFromUserDefaults];
-  [self updateSchedulerRegistrationIfRequired];
+  [self updateHelperRegistrationIfRequired];
 
   return self;
 }
@@ -54,7 +54,7 @@
   return _scheduleInterval;
 }
 
-- (BOOL)isSchedulerRegisteredWithSystem {
+- (BOOL)isHelperRegisteredWithSystem {
 
   // source: http://blog.mcohen.me/2012/01/12/login-items-in-the-sandbox/
   // > As of WWDC 2017, Apple engineers have stated that [SMCopyAllJobDictionaries] is still the preferred API to use.
@@ -79,7 +79,7 @@
   return NO;
 }
 
-- (NSString*)errorForSchedulerRegistration:(BOOL)registerFlag {
+- (NSString*)errorForHelperRegistration:(BOOL)registerFlag {
 
   if (registerFlag) {
     return @"Couldn't add Music Library Exporter Helper to launch at login item list.";
@@ -119,7 +119,7 @@
   [_userDefaults setBool:_scheduleEnabled forKey:@"ScheduleEnabled"];
 
   // update scheduler registration
-  [self registerSchedulerWithSystem:_scheduleEnabled];
+  [self registerHelperWithSystem:_scheduleEnabled];
 }
 
 - (void)setScheduleInterval:(NSInteger)interval {
@@ -131,32 +131,32 @@
   [_userDefaults setInteger:_scheduleInterval forKey:@"ScheduleInterval"];
 }
 
-- (BOOL)registerSchedulerWithSystem:(BOOL)flag {
+- (BOOL)registerHelperWithSystem:(BOOL)flag {
 
-  NSLog(@"[registerSchedulerWithSystem:%@]", (flag ? @"YES" : @"NO"));
+  NSLog(@"[registerHelperWithSystem:%@]", (flag ? @"YES" : @"NO"));
 
   BOOL success = SMLoginItemSetEnabled ((__bridge CFStringRef)__MLE__HelperBundleIdentifier, flag);
 
   if (success) {
-    NSLog(@"[registerSchedulerWithSystem] succesfully %@ scheduler", (flag ? @"registered" : @"unregistered"));
+    NSLog(@"[registerHelperWithSystem] succesfully %@ helper", (flag ? @"registered" : @"unregistered"));
     _scheduleEnabled = YES;
   }
   else {
-    NSLog(@"[registerSchedulerWithSystem] failed to %@ scheduler", (flag ? @"register" : @"unregister"));
+    NSLog(@"[registerHelperWithSystem] failed to %@ helper", (flag ? @"register" : @"unregister"));
     _scheduleEnabled = YES;
   }
 
   return success;
 }
 
-- (void)updateSchedulerRegistrationIfRequired {
+- (void)updateHelperRegistrationIfRequired {
 
-  NSLog(@"[updateSchedulerRegistrationIfRequired]");
+  NSLog(@"[updateHelperRegistrationIfRequired]");
 
-  BOOL shouldUpdate = (_scheduleEnabled != [self isSchedulerRegisteredWithSystem]);
+  BOOL shouldUpdate = (_scheduleEnabled != [self isHelperRegisteredWithSystem]);
   if (shouldUpdate) {
-    NSLog(@"[updateSchedulerRegistrationIfRequired] updating registration to: %@", (_scheduleEnabled ? @"registered" : @"unregistered"));
-    [self registerSchedulerWithSystem:_scheduleEnabled];
+    NSLog(@"[updateHelperRegistrationIfRequired] updating registration to: %@", (_scheduleEnabled ? @"registered" : @"unregistered"));
+    [self registerHelperWithSystem:_scheduleEnabled];
   }
 }
 
