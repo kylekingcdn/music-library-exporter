@@ -23,14 +23,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Properties -
 
+@property ITLibrary* library;
 @property ExportConfiguration* configuration;
 
 @property (readonly) MutableOrderedDictionary* libraryDict;
-
-
-#pragma mark - Initializers -
-
-- (instancetype)initWithConfiguration:(ExportConfiguration*)config;
 
 
 #pragma mark - Utils -
@@ -56,7 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)initIncludedMediaKindsDict;
 - (void)initIncludedPlaylistKindsDict;
 
-- (void)serializeLibrary:(ITLibrary*)library;
+- (BOOL)serializeLibrary;
 
 - (NSMutableArray<OrderedDictionary*>*)serializePlaylists:(NSArray<ITLibPlaylist*>*)playlists;
 - (OrderedDictionary*)serializePlaylist:(ITLibPlaylist*)playlistItem withId:(NSUInteger)playlistId;

@@ -62,6 +62,7 @@ int main(int argc, const char * argv[]) {
     if (generateNewLibrary) {
 
       LibrarySerializer* serializer = [LibrarySerializer alloc];
+      [serializer setLibrary:library];
 
       // specify playlist options
       [serializer setIncludeInternalPlaylists:YES];
@@ -76,7 +77,7 @@ int main(int argc, const char * argv[]) {
       //[serializer setMappedRootDirectory:@"/data/music"];
 
       // generate
-      [serializer serializeLibrary:library];
+      [serializer serializeLibrary];
 
       [serializer setOutputFileUrl:exportedLibraryFileUrl];
       [serializer writeDictionary];

@@ -100,6 +100,8 @@
     return NO;
   }
 
+  [_librarySerializer setLibrary:itLibrary];
+
   // ensure url renewal status is current
   NSURL* outputDirectoryUrl = _configuration.resolveAndAutoRenewOutputDirectoryUrl;
   if (!outputDirectoryUrl) {
@@ -110,7 +112,7 @@
 
   // serialize library
   NSLog(@"[exportLibrary] serializing library");
-  [_librarySerializer serializeLibrary:itLibrary];
+  [_librarySerializer serializeLibrary];
 
   // write library
   NSLog(@"[exportLibrary] writing library to file");

@@ -30,18 +30,6 @@
 }
 
 
-#pragma mark - Initializers -
-
-- (instancetype)initWithConfiguration:(ExportConfiguration*)config {
-
-  self = [super init];
-
-  [self setConfiguration:config];
-  
-  return self;
-}
-
-
 #pragma mark - Utils -
 
 + (NSString*)getHexadecimalPersistentIdForEntity:(ITLibMediaEntity*)entity {
@@ -188,9 +176,18 @@
   includedPlaylistKinds = [playlistKinds copy];
 }
 
-- (void)serializeLibrary:(ITLibrary*)library {
+- (BOOL)serializeLibrary {
 
-  NSLog(@"[LibrarySerializer serializeLibrary]");
+  if (!_library) {
+    NSLog(@"LibrarySerializer [serializeLibrary] error - library is nil");
+    return NO;
+  }
+  if (!_configuration) {
+    NSLog(@"LibrarySerializer [serializeLibrary] error - configuration is nil");
+    return NO;
+  }
+
+  NSLog(@"[serializeLibrary]");
 
   // clear generated library dictionary
   _libraryDict = [MutableOrderedDictionary dictionary];
@@ -198,12 +195,12 @@
   // reset serialize member variables
   [self initSerializeMembers];
 
-  [_libraryDict setValue:[NSNumber numberWithUnsignedInteger:library.apiMajorVersion] forKey:@"Major Version"];
-  [_libraryDict setValue:[NSNumber numberWithUnsignedInteger:library.apiMinorVersion] forKey:@"Minor Version"];
+  [_libraryDict setValue:[NSNumber numberWithUnsignedInteger:_library.apiMajorVersion] forKey:@"Major Version"];
+  [_libraryDict setValue:[NSNumber numberWithUnsignedInteger:_library.apiMinorVersion] forKey:@"Minor Version"];
   [_libraryDict setValue:[NSDate date] forKey:@"Date"]; // TODO:finish me
-  [_libraryDict setValue:library.applicationVersion forKey:@"Application Version"];
-  [_libraryDict setValue:[NSNumber numberWithUnsignedInteger:library.features] forKey:@"Features"];
-  [_libraryDict setValue:@(library.showContentRating) forKey:@"Show Content Ratings"];
+  [_libraryDict setValue:_library.applicationVersion forKey:@"Application Version"];
+  [_libraryDict setValue:[NSNumber numberWithUnsignedInteger:_library.features] forKey:@"Features"];
+  [_libraryDict setValue:@(_library.showContentRating) forKey:@"Show Content Ratings"];
   // FIXME: should remap root library apply to this path as well..?
   if (_configuration.musicLibraryPath.length > 0) {
     [_libraryDict setValue:_configuration.musicLibraryPath forKey:@"Music Folder"];
@@ -211,12 +208,14 @@
 //  [dictionary setValue:library.persistentID forKey:@"Library Persistent ID"]; - unavailable
 
   // add tracks dictionary to library dictionary
-  OrderedDictionary* tracksDict = [self serializeTracks:library.allMediaItems];
+  OrderedDictionary* tracksDict = [self serializeTracks:_library.allMediaItems];
   [_libraryDict setObject:tracksDict forKey:@"Tracks"];
 
   // add playlists array to library dictionary
-  NSMutableArray<OrderedDictionary*>* playlistsArray = [self serializePlaylists:library.allPlaylists];
+  NSMutableArray<OrderedDictionary*>* playlistsArray = [self serializePlaylists:_library.allPlaylists];
   [_libraryDict setObject:playlistsArray forKey:@"Playlists"];
+
+  return YES;
 }
 
 - (NSMutableArray<OrderedDictionary*>*)serializePlaylists:(NSArray<ITLibPlaylist*>*)playlists {
