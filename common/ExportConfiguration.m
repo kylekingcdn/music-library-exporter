@@ -10,7 +10,8 @@
 
 @implementation ExportConfiguration
 
-#pragma mark - Constructors -
+
+#pragma mark - Initializers -
 
 - (instancetype)init {
 

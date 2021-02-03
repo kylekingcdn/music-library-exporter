@@ -14,7 +14,7 @@
 }
 
 
-#pragma mark - Constructors -
+#pragma mark - Initializers -
 
 - (instancetype)initWithUserDefaults:(NSUserDefaults*)userDefaults {
 
@@ -56,6 +56,11 @@
 
     nil
   ];
+}
+
+- (nullable NSData*)fetchOutputDirectoryBookmarkData {
+
+  return [_userDefaults dataForKey:@"OutputDirectoryBookmark"];
 }
 
 
@@ -147,11 +152,6 @@
   NSLog(@"[registerDefaultValues]");
 
   [_userDefaults registerDefaults:[self defaultValues]];
-}
-
-- (nullable NSData*)fetchOutputDirectoryBookmarkData {
-
-  return [_userDefaults dataForKey:@"OutputDirectoryBookmark"];
 }
 
 - (nullable NSURL*)resolveAndAutoRenewOutputDirectoryUrl {

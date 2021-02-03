@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 
-#pragma mark - Constructors -
+#pragma mark - Initializers -
 
 - (instancetype)init;
 

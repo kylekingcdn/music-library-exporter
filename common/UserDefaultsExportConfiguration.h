@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UserDefaultsExportConfiguration : ExportConfiguration
 
 
-#pragma mark - Constructors -
+#pragma mark - Initializers -
 
 - (instancetype)initWithUserDefaults:(NSUserDefaults*)userDefaults;
 - (instancetype)initWithUserDefaultsSuiteName:(NSString*)suiteName;
@@ -23,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Accessors -
 
 - (NSDictionary*)defaultValues;
+
+- (nullable NSData*)fetchOutputDirectoryBookmarkData;
 
 
 #pragma mark - Mutators -
@@ -43,7 +45,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)loadPropertiesFromUserDefaults;
 - (void)registerDefaultValues;
 
-- (nullable NSData*)fetchOutputDirectoryBookmarkData;
 - (nullable NSURL*)resolveAndAutoRenewOutputDirectoryUrl;
 - (BOOL)saveBookmarkForOutputDirectoryUrl:(NSURL*)outputDirUrl;
 

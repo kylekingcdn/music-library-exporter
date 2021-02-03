@@ -42,6 +42,9 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
 
 @implementation ConfigurationViewController
 
+
+#pragma mark - Initializers -
+
 - (instancetype)init {
 
   self = [super initWithNibName: @"ConfigurationView" bundle: nil];
@@ -51,6 +54,47 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
   
   return self;
 }
+
+
+#pragma mark - Accessors -
+
+- (BOOL)isScheduleRegisteredWithSystem {
+
+  // source: http://blog.mcohen.me/2012/01/12/login-items-in-the-sandbox/
+  // > As of WWDC 2017, Apple engineers have stated that [SMCopyAllJobDictionaries] is still the preferred API to use.
+  //     ref: https://github.com/alexzielenski/StartAtLoginController/issues/12#issuecomment-307525807
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+  CFArrayRef cfJobDictsArr = SMCopyAllJobDictionaries(kSMDomainUserLaunchd);
+#pragma pop
+  NSArray* jobDictsArr = CFBridgingRelease(cfJobDictsArr);
+
+  if (jobDictsArr && jobDictsArr.count > 0) {
+
+    for (NSDictionary* jobDict in jobDictsArr) {
+
+      if ([_helperBundleIdentifier isEqualToString:[jobDict objectForKey:@"Label"]]) {
+        return [[jobDict objectForKey:@"OnDemand"] boolValue];
+      }
+    }
+  }
+
+  return NO;
+}
+
+- (NSString*)errorForSchedulerRegistration:(BOOL)registerFlag {
+
+  if (registerFlag) {
+    return @"Couldn't add Music Library Exporter Helper to launch at login item list.";
+  }
+  else {
+    return @"Couldn't remove Music Library Exporter Helper from launch at login item list.";
+  }
+}
+
+
+#pragma mark - Mutators -
 
 - (void)viewDidLoad {
 
@@ -90,31 +134,6 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
 //  [_scheduleIntervalStepper setIntegerValue:_exportConfiguration.scheduleInterval];
 }
 
-- (BOOL)isScheduleRegisteredWithSystem {
-
-  // source: http://blog.mcohen.me/2012/01/12/login-items-in-the-sandbox/
-  // > As of WWDC 2017, Apple engineers have stated that [SMCopyAllJobDictionaries] is still the preferred API to use.
-  //     ref: https://github.com/alexzielenski/StartAtLoginController/issues/12#issuecomment-307525807
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-  CFArrayRef cfJobDictsArr = SMCopyAllJobDictionaries(kSMDomainUserLaunchd);
-#pragma pop
-  NSArray* jobDictsArr = CFBridgingRelease(cfJobDictsArr);
-
-  if (jobDictsArr && jobDictsArr.count > 0) {
-
-    for (NSDictionary* jobDict in jobDictsArr) {
-
-      if ([_helperBundleIdentifier isEqualToString:[jobDict objectForKey:@"Label"]]) {
-        return [[jobDict objectForKey:@"OnDemand"] boolValue];
-      }
-    }
-  }
-
-  return NO;
-}
-
 - (BOOL)registerSchedulerWithSystem:(BOOL)flag {
 
   NSLog(@"[registerSchedulerWithSystem:%@]", (flag ? @"YES" : @"NO"));
@@ -131,16 +150,6 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
   }
 
   return success;
-}
-
-- (NSString*)errorForSchedulerRegistration:(BOOL)registerFlag {
-
-  if (registerFlag) {
-    return @"Couldn't add Music Library Exporter Helper to launch at login item list.";
-  }
-  else {
-    return @"Couldn't remove Music Library Exporter Helper from launch at login item list.";
-  }
 }
 
 - (IBAction)setMediaFolderLocation:(id)sender {

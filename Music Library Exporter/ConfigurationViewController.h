@@ -21,9 +21,23 @@ NS_ASSUME_NONNULL_BEGIN
   LibrarySerializer* _librarySerializer;
 }
 
+
+#pragma mark - Initializers -
+
 - (instancetype)init;
 
+
+#pragma mark - Accessors -
+
 - (BOOL)isScheduleRegisteredWithSystem;
+
+- (NSString*)errorForSchedulerRegistration:(BOOL)registerFlag;
+
+
+#pragma mark - Mutators -
+
+- (void)updateFromConfiguration;
+
 - (BOOL)registerSchedulerWithSystem:(BOOL)flag;
 
 - (IBAction)setMediaFolderLocation:(id)sender;
@@ -45,9 +59,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)exportLibrary;
 
-- (NSString*)errorForSchedulerRegistration:(BOOL)registerFlag;
-
-- (void)updateFromConfiguration;
 
 @end
 

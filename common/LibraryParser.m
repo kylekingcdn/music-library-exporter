@@ -9,12 +9,11 @@
 
 #import "Utils.h"
 
+
 @implementation LibraryParser
 
-- (void) setLibraryDictionaryWithPropertyList:(NSString * _Nonnull)plistFilePath {
 
-  [self setLibraryDictionary:[NSDictionary dictionaryWithContentsOfFile:plistFilePath]];
-}
+#pragma mark - Accessors -
 
 - (NSArray<NSDictionary*>*) libraryTracks {
 
@@ -34,6 +33,14 @@
 - (NSDictionary*) libraryPlaylistsPersistentIdDictionary {
 
   return [Utils createPersistentIdDictionaryForItems:[self libraryPlaylists] withPersistentIdKey:@"Playlist Persistent ID"];
+}
+
+
+#pragma mark - Mutators -
+
+- (void) setLibraryDictionaryWithPropertyList:(NSString * _Nonnull)plistFilePath {
+
+  [self setLibraryDictionary:[NSDictionary dictionaryWithContentsOfFile:plistFilePath]];
 }
 
 @end
