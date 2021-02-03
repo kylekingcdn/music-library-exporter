@@ -37,11 +37,11 @@
   return self;
 }
 
-- (instancetype)initWithConfiguration:(UserDefaultsExportConfiguration*)exportConfig {
+- (instancetype)initWithConfiguration:(UserDefaultsExportConfiguration*)config {
 
   self = [self init];
 
-  [self setConfiguration:exportConfig];
+  [self setConfiguration:config];
 
   return self;
 }

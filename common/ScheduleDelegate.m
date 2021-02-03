@@ -15,8 +15,6 @@
 
 @implementation ScheduleDelegate {
 
-  ExportDelegate* _exportDelegate;
-
   NSBackgroundActivityScheduler* _scheduler;
 }
 
@@ -27,10 +25,10 @@
 
   self = [super init];
 
-  _configuration = config;
-  _exportDelegate = exportDelegate;
 
   [self updateHelperRegistrationIfRequired];
+  [self setConfiguration:config];
+  [self setExportDelegate:exportDelegate];
 
   return self;
 }

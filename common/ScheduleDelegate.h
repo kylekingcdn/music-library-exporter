@@ -7,11 +7,11 @@
 
 #import <Foundation/Foundation.h>
 
-NS_ASSUME_NONNULL_BEGIN
-
 @class ExportDelegate;
 @class ScheduleConfiguration;
 
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface ScheduleDelegate : NSObject
 
@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Properties -
 
 @property ScheduleConfiguration* configuration;
+@property ExportDelegate* exportDelegate;
 
 
 #pragma mark - Initializers -

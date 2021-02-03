@@ -12,11 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Defines : NSObject
 
-
 extern NSString *const __MLE__AppGroupIdentifier;
 
 extern NSString *const __MLE__HelperBundleIdentifier;
-
 
 @end
 

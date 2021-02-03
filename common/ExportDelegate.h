@@ -7,10 +7,10 @@
 
 #import <Foundation/Foundation.h>
 
-NS_ASSUME_NONNULL_BEGIN
-
 @class UserDefaultsExportConfiguration;
 
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface ExportDelegate : NSObject
 
@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)init;
 
-- (instancetype)initWithConfiguration:(UserDefaultsExportConfiguration*)exportConfig;
+- (instancetype)initWithConfiguration:(UserDefaultsExportConfiguration*)config;
 
 
 #pragma mark - Accessors -

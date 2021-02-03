@@ -15,8 +15,8 @@
 @class MutableOrderedDictionary;
 @class ExportConfiguration;
 
-NS_ASSUME_NONNULL_BEGIN
 
+NS_ASSUME_NONNULL_BEGIN
 
 @interface LibrarySerializer : NSObject
 
@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Initializers -
 
-- (instancetype)initWithConfiguration:(ExportConfiguration*)exportConfig;
+- (instancetype)initWithConfiguration:(ExportConfiguration*)config;
 
 
 #pragma mark - Utils -

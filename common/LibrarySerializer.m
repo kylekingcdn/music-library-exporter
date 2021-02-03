@@ -32,10 +32,11 @@
 
 #pragma mark - Initializers -
 
-- (instancetype)initWithConfiguration:(ExportConfiguration*)exportConfig {
+- (instancetype)initWithConfiguration:(ExportConfiguration*)config {
 
   self = [super init];
-  [self setConfiguration:exportConfig];
+
+  [self setConfiguration:config];
   
   return self;
 }
