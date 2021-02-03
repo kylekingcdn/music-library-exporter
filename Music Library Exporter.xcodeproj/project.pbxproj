@@ -13,8 +13,6 @@
 		272C8E9825C0E59C003CBF47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27EF9A6925BF23920051CE7B /* Assets.xcassets */; };
 		273B523325CA672300421B14 /* Defines.m in Sources */ = {isa = PBXBuildFile; fileRef = 273B522F25CA666000421B14 /* Defines.m */; };
 		273B523725CA672700421B14 /* Defines.m in Sources */ = {isa = PBXBuildFile; fileRef = 273B522F25CA666000421B14 /* Defines.m */; };
-		273B523B25CA6AC700421B14 /* ScheduleDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 273B522925CA5F3E00421B14 /* ScheduleDelegate.m */; };
-		273B523F25CA6ACB00421B14 /* ScheduleDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 273B522925CA5F3E00421B14 /* ScheduleDelegate.m */; };
 		27533C2A25CAA21300A3B4D9 /* ExportDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27533C2325CAA03C00A3B4D9 /* ExportDelegate.m */; };
 		27533C2E25CAA21600A3B4D9 /* ExportDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27533C2325CAA03C00A3B4D9 /* ExportDelegate.m */; };
 		276442A225BD3F7600EE217C /* OrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 276442A125BD3F7600EE217C /* OrderedDictionary.m */; };
@@ -23,6 +21,7 @@
 		2783C76725C518CC002ED7B7 /* ExportConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 2783C76625C518CC002ED7B7 /* ExportConfiguration.m */; };
 		2783C76825C518CC002ED7B7 /* ExportConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 2783C76625C518CC002ED7B7 /* ExportConfiguration.m */; };
 		2783C76925C518CC002ED7B7 /* ExportConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 2783C76625C518CC002ED7B7 /* ExportConfiguration.m */; };
+		27934B5925CB13D500488944 /* ScheduleDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 273B522925CA5F3E00421B14 /* ScheduleDelegate.m */; };
 		27A2BFC325C085E400AAD73C /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C52A7325B69C4B00D829F3 /* Utils.m */; };
 		27A2BFC425C085E400AAD73C /* LibraryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CDC90C25BADAFC0032BF79 /* LibraryParser.m */; };
 		27A2BFC525C085E400AAD73C /* LibrarySerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2705445825B670E700FE6D65 /* LibrarySerializer.m */; };
@@ -90,8 +89,8 @@
 		2705445125B66B7A00FE6D65 /* iTunesLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTunesLibrary.framework; path = System/Library/Frameworks/iTunesLibrary.framework; sourceTree = SDKROOT; };
 		2705445725B670E700FE6D65 /* LibrarySerializer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LibrarySerializer.h; sourceTree = "<group>"; };
 		2705445825B670E700FE6D65 /* LibrarySerializer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LibrarySerializer.m; sourceTree = "<group>"; };
-		273B522825CA5F3E00421B14 /* ScheduleDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScheduleDelegate.h; path = common/ScheduleDelegate.h; sourceTree = SOURCE_ROOT; };
-		273B522925CA5F3E00421B14 /* ScheduleDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ScheduleDelegate.m; path = common/ScheduleDelegate.m; sourceTree = SOURCE_ROOT; };
+		273B522825CA5F3E00421B14 /* ScheduleDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScheduleDelegate.h; path = "Music Library Exporter Helper/ScheduleDelegate.h"; sourceTree = SOURCE_ROOT; };
+		273B522925CA5F3E00421B14 /* ScheduleDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ScheduleDelegate.m; path = "Music Library Exporter Helper/ScheduleDelegate.m"; sourceTree = SOURCE_ROOT; };
 		273B522E25CA666000421B14 /* Defines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Defines.h; sourceTree = "<group>"; };
 		273B522F25CA666000421B14 /* Defines.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Defines.m; sourceTree = "<group>"; };
 		27533C2225CAA03C00A3B4D9 /* ExportDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExportDelegate.h; sourceTree = "<group>"; };
@@ -211,8 +210,6 @@
 				27533C2325CAA03C00A3B4D9 /* ExportDelegate.m */,
 				27C0A0F025CB045C00EDDE22 /* ScheduleConfiguration.h */,
 				27C0A0EF25CB045C00EDDE22 /* ScheduleConfiguration.m */,
-				273B522825CA5F3E00421B14 /* ScheduleDelegate.h */,
-				273B522925CA5F3E00421B14 /* ScheduleDelegate.m */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -223,6 +220,8 @@
 				27A2C06025C0934B00AAD73C /* main.m */,
 				27A2C05725C0934A00AAD73C /* AppDelegate.h */,
 				27A2C05825C0934A00AAD73C /* AppDelegate.m */,
+				273B522825CA5F3E00421B14 /* ScheduleDelegate.h */,
+				273B522925CA5F3E00421B14 /* ScheduleDelegate.m */,
 				27A2C06C25C093B400AAD73C /* Supporting Files */,
 			);
 			path = "Music Library Exporter Helper";
@@ -424,11 +423,11 @@
 				27EC7C6725C8C41800996E9E /* UserDefaultsExportConfiguration.m in Sources */,
 				27533C2E25CAA21600A3B4D9 /* ExportDelegate.m in Sources */,
 				27C0A0F125CB046500EDDE22 /* ScheduleConfiguration.m in Sources */,
-				273B523B25CA6AC700421B14 /* ScheduleDelegate.m in Sources */,
 				27A2C08725C097B600AAD73C /* OrderedDictionary.m in Sources */,
 				27A2C08B25C097C000AAD73C /* Utils.m in Sources */,
 				27A2C08C25C097C000AAD73C /* LibraryParser.m in Sources */,
 				27A2C08D25C097C000AAD73C /* LibrarySerializer.m in Sources */,
+				27934B5925CB13D500488944 /* ScheduleDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -443,7 +442,6 @@
 				27EC7C6325C8C41300996E9E /* UserDefaultsExportConfiguration.m in Sources */,
 				27533C2A25CAA21300A3B4D9 /* ExportDelegate.m in Sources */,
 				27C0A0F525CB046A00EDDE22 /* ScheduleConfiguration.m in Sources */,
-				273B523F25CA6ACB00421B14 /* ScheduleDelegate.m in Sources */,
 				27A2BFC625C085E400AAD73C /* OrderedDictionary.m in Sources */,
 				27A2BFC325C085E400AAD73C /* Utils.m in Sources */,
 				27A2BFC425C085E400AAD73C /* LibraryParser.m in Sources */,
