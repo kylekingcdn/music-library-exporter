@@ -195,6 +195,9 @@
   BOOL flag = (flagState == NSControlStateValueOn);
 
   [_scheduleConfiguration setScheduleEnabled:flag];
+
+  // register/unregister helper app
+  [_helperDelegate updateHelperRegistrationWithScheduleEnabled:flag];
 }
 
 - (IBAction)setScheduleInterval:(id)sender {
