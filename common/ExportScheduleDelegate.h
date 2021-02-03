@@ -10,39 +10,29 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class ExportDelegate;
+@class ScheduleConfiguration;
 
 
-@interface ExportScheduleDelegate : NSObject {
+@interface ExportScheduleDelegate : NSObject
 
-  BOOL _scheduleEnabled;
-  NSInteger _scheduleInterval;
-}
+
+#pragma mark - Properties -
+
+@property ScheduleConfiguration* configuration;
 
 
 #pragma mark - Initializers -
 
-- (instancetype)initWithExportDelegate:(ExportDelegate*)exportDelegate;
+- (instancetype)initWithConfiguration:(ScheduleConfiguration*)config andExportDelegate:(ExportDelegate*)exportDelegate;
 
 
 #pragma mark - Accessors -
 
-- (NSDictionary*)defaultValues;
-
-- (BOOL)scheduleEnabled;
-- (NSInteger)scheduleInterval;
-
 - (BOOL)isHelperRegisteredWithSystem;
 - (NSString*)errorForHelperRegistration:(BOOL)registerFlag;
 
-- (void)dumpProperties;
-
 
 #pragma mark - Mutators -
-
-- (void)loadPropertiesFromUserDefaults;
-
-- (void)setScheduleEnabled:(BOOL)flag;
-- (void)setScheduleInterval:(NSInteger)interval;
 
 - (BOOL)registerHelperWithSystem:(BOOL)flag;
 - (void)updateHelperRegistrationIfRequired;

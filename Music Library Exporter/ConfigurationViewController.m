@@ -10,6 +10,7 @@
 #import "Defines.h"
 #import "UserDefaultsExportConfiguration.h"
 #import "ExportDelegate.h"
+#import "ScheduleConfiguration.h"
 #import "ExportScheduleDelegate.h"
 
 
@@ -47,13 +48,15 @@
   self = [super initWithNibName: @"ConfigurationView" bundle: nil];
 
   _exportConfiguration = [[UserDefaultsExportConfiguration alloc] initWithUserDefaultsSuiteName:__MLE__AppGroupIdentifier];
-
   _exportDelegate = [[ExportDelegate alloc] initWithConfiguration:_exportConfiguration];
-  _scheduleDelegate = [[ExportScheduleDelegate alloc] initWithExportDelegate:_exportDelegate];
+
+  _scheduleConfiguration = [[ScheduleConfiguration alloc] init];
+  _scheduleDelegate = [[ExportScheduleDelegate alloc] initWithConfiguration:_scheduleConfiguration andExportDelegate:_exportDelegate];
 
   [_exportConfiguration dumpProperties];
+  [_scheduleConfiguration dumpProperties];
+
   [_exportDelegate dumpProperties];
-  [_scheduleDelegate dumpProperties];
   
   return self;
 }
@@ -85,9 +88,9 @@
   [_includeInternalPlaylistsCheckBox setState:(_exportConfiguration.includeInternalPlaylists ? NSControlStateValueOn : NSControlStateValueOff)];
   //[_excludedPlaylistsTextField setStringValue:_exportConfiguration.excludedPlaylistPersistentIds];
 
-  [_scheduleEnabledCheckBox setState:_scheduleDelegate.scheduleEnabled];
-  [_scheduleIntervalTextField setIntegerValue:_scheduleDelegate.scheduleInterval];
-  [_scheduleIntervalStepper setIntegerValue:_scheduleDelegate.scheduleInterval];
+  [_scheduleEnabledCheckBox setState:_scheduleConfiguration.scheduleEnabled];
+  [_scheduleIntervalTextField setIntegerValue:_scheduleConfiguration.scheduleInterval];
+  [_scheduleIntervalStepper setIntegerValue:_scheduleConfiguration.scheduleInterval];
 
   if (_exportDelegate.lastExportedAt) {
     [_lastExportLabel setStringValue:[@"Last export: " stringByAppendingString:_exportDelegate.lastExportedAt.description]];
@@ -182,7 +185,7 @@
   NSControlStateValue flagState = [sender state];
   BOOL flag = (flagState == NSControlStateValueOn);
 
-  [_scheduleDelegate setScheduleEnabled:flag];
+  [_scheduleConfiguration setScheduleEnabled:flag];
 }
 
 - (IBAction)setScheduleInterval:(id)sender {
@@ -190,13 +193,8 @@
   NSInteger scheduleInterval = [sender integerValue];
 
   [_scheduleIntervalStepper setIntegerValue:scheduleInterval];
-  [_scheduleDelegate setScheduleInterval:scheduleInterval];
 
-  // re-register helper to update values
-  if (_scheduleDelegate.scheduleEnabled) {
-    [_scheduleDelegate registerHelperWithSystem:NO];
-    [_scheduleDelegate registerHelperWithSystem:YES];
-  }
+  [_scheduleConfiguration setScheduleInterval:scheduleInterval];
 }
 
 - (IBAction)incrementScheduleInterval:(id)sender {
@@ -204,13 +202,8 @@
   NSInteger scheduleInterval = [sender integerValue];
 
   [_scheduleIntervalTextField setIntegerValue:scheduleInterval];
-  [_scheduleDelegate setScheduleInterval:scheduleInterval];
 
-  // re-register helper to update values
-  if (_scheduleDelegate.scheduleEnabled) {
-    [_scheduleDelegate registerHelperWithSystem:NO];
-    [_scheduleDelegate registerHelperWithSystem:YES];
-  }
+  [_scheduleConfiguration setScheduleInterval:scheduleInterval];
 }
 
 - (IBAction)exportLibrary:(id)sender {

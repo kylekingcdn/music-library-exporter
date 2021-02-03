@@ -10,29 +10,26 @@
 #import <ServiceManagement/ServiceManagement.h>
 
 #import "Defines.h"
+#import "ScheduleConfiguration.h"
 #import "ExportDelegate.h"
-
 
 @implementation ExportScheduleDelegate {
 
-  NSUserDefaults* _userDefaults;
-
   ExportDelegate* _exportDelegate;
+
   NSBackgroundActivityScheduler* _scheduler;
 }
 
 
 #pragma mark - Initializers -
 
-- (instancetype)initWithExportDelegate:(ExportDelegate*)exportDelegate {
+- (instancetype)initWithConfiguration:(ScheduleConfiguration*)config andExportDelegate:(ExportDelegate*)exportDelegate {
 
   self = [super init];
 
-  _userDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
-
+  _configuration = config;
   _exportDelegate = exportDelegate;
-  
-  [self loadPropertiesFromUserDefaults];
+
   [self updateHelperRegistrationIfRequired];
 
   return self;
@@ -40,25 +37,6 @@
 
 
 #pragma mark - Accessors -
-
-- (NSDictionary*)defaultValues {
-
-  return [NSDictionary dictionaryWithObjectsAndKeys:
-    @NO,             @"ScheduleEnabled",
-    @1,              @"ScheduleInterval",
-    nil
-  ];
-}
-
-- (BOOL)scheduleEnabled {
-
-  return _scheduleEnabled;
-}
-
-- (NSInteger)scheduleInterval {
-
-  return _scheduleInterval;
-}
 
 - (BOOL)isHelperRegisteredWithSystem {
 
@@ -95,47 +73,8 @@
   }
 }
 
-- (void)dumpProperties {
-
-  NSLog(@"ExportScheduleDelegate [dumpProperties]");
-
-  NSLog(@"  ScheduleEnabled:                 '%@'", (_scheduleEnabled ? @"YES" : @"NO"));
-  NSLog(@"  ScheduleInterval:                '%ld'", (long)_scheduleInterval);
-}
-
 
 #pragma mark - Mutators -
-
-- (void)loadPropertiesFromUserDefaults {
-
-  // register default values for properties
-  [_userDefaults registerDefaults:[self defaultValues]];
-
-  // read user defaults
-  _scheduleEnabled = [_userDefaults boolForKey:@"ScheduleEnabled"];
-  _scheduleInterval = [_userDefaults integerForKey:@"ScheduleInterval"];
-}
-
-- (void)setScheduleEnabled:(BOOL)flag {
-
-  NSLog(@"[setScheduleEnabled:%@]", (flag ? @"YES" : @"NO"));
-
-  _scheduleEnabled = flag;
-
-  [_userDefaults setBool:_scheduleEnabled forKey:@"ScheduleEnabled"];
-
-  // update scheduler registration
-  [self registerHelperWithSystem:_scheduleEnabled];
-}
-
-- (void)setScheduleInterval:(NSInteger)interval {
-
-  NSLog(@"[setScheduleInterval:%ld]", (long)interval);
-
-  _scheduleInterval = interval;
-
-  [_userDefaults setInteger:_scheduleInterval forKey:@"ScheduleInterval"];
-}
 
 - (BOOL)registerHelperWithSystem:(BOOL)flag {
 
@@ -157,10 +96,10 @@
 
   NSLog(@"[updateHelperRegistrationIfRequired]");
 
-  BOOL shouldUpdate = (_scheduleEnabled != [self isHelperRegisteredWithSystem]);
+  BOOL shouldUpdate = (_configuration.scheduleEnabled != [self isHelperRegisteredWithSystem]);
   if (shouldUpdate) {
-    NSLog(@"[updateHelperRegistrationIfRequired] updating registration to: %@", (_scheduleEnabled ? @"registered" : @"unregistered"));
-    [self registerHelperWithSystem:_scheduleEnabled];
+    NSLog(@"[updateHelperRegistrationIfRequired] updating registration to: %@", (_configuration.scheduleEnabled ? @"registered" : @"unregistered"));
+    [self registerHelperWithSystem:_configuration.scheduleEnabled];
   }
 }
 
@@ -172,7 +111,7 @@
 
   [_scheduler setRepeats:YES];
   [_scheduler setTolerance:60];
-  [_scheduler setInterval:(_scheduleInterval * 60 * 60)];
+  [_scheduler setInterval:(_configuration.scheduleInterval * 60 * 60)];
   [_scheduler setQualityOfService:NSQualityOfServiceUtility];
 
   [_scheduler scheduleWithBlock:^(NSBackgroundActivityCompletionHandler completion) {

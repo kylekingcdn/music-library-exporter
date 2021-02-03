@@ -11,13 +11,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class UserDefaultsExportConfiguration;
 @class ExportDelegate;
+@class ScheduleConfiguration;
 @class ExportScheduleDelegate;
 
 @interface ConfigurationViewController : NSViewController {
   
   UserDefaultsExportConfiguration* _exportConfiguration;
-
   ExportDelegate* _exportDelegate;
+
+  ScheduleConfiguration* _scheduleConfiguration;
   ExportScheduleDelegate* _scheduleDelegate;
 }
 
