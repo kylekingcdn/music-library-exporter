@@ -67,11 +67,6 @@
 
   [super viewDidLoad];
 
-  NSLog(@"[viewDidLoad] isSchedulerRegisteredWithSystem: %@", (_scheduleDelegate.isSchedulerRegisteredWithSystem ? @"YES" : @"NO"));
-
-  NSUserDefaults* groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
-  NSAssert(groupDefaults, @"failed to init NSUSerDefaults for app group");
-
   [self updateFromConfiguration];
 }
 

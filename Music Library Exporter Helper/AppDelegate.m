@@ -7,8 +7,6 @@
 
 #import "AppDelegate.h"
 
-#import "Defines.h"
-
 
 @interface AppDelegate ()
 
@@ -21,12 +19,6 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 
-  NSUserDefaults* groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
-  NSAssert(groupDefaults, @"failed to init NSUSerDefaults for app group");
-
-  if (groupDefaults) {
-
-  }
 }
 
 
