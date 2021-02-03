@@ -31,6 +31,7 @@
 @property (weak) IBOutlet NSTextField *scheduleIntervalTextField;
 @property (weak) IBOutlet NSStepper *scheduleIntervalStepper;
 
+@property (weak) IBOutlet NSTextField *lastExportLabel;
 @property (weak) IBOutlet NSButton *exportLibraryButton;
 
 @end
@@ -87,6 +88,15 @@
   [_scheduleEnabledCheckBox setState:_scheduleDelegate.scheduleEnabled];
   [_scheduleIntervalTextField setIntegerValue:_scheduleDelegate.scheduleInterval];
   [_scheduleIntervalStepper setIntegerValue:_scheduleDelegate.scheduleInterval];
+
+  if (_exportDelegate.lastExportedAt) {
+    [_lastExportLabel setStringValue:[@"Last export: " stringByAppendingString:_exportDelegate.lastExportedAt.description]];
+    [_lastExportLabel setHidden:NO];
+  }
+  else {
+    [_lastExportLabel setStringValue:@""];
+    [_lastExportLabel setHidden:YES];
+  }
 }
 
 - (IBAction)setMediaFolderLocation:(id)sender {
@@ -197,6 +207,16 @@
 
   if (!exportSuccessful) {
     NSLog(@"[exportLibrary] library export has failed");
+  }
+  else {
+    if (_exportDelegate.lastExportedAt) {
+      [_lastExportLabel setStringValue:[@"Last export: " stringByAppendingString:_exportDelegate.lastExportedAt.description]];
+      [_lastExportLabel setHidden:NO];
+    }
+    else {
+      [_lastExportLabel setStringValue:@""];
+      [_lastExportLabel setHidden:YES];
+    }
   }
 }
 
