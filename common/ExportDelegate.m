@@ -46,7 +46,7 @@
 
   NSLog(@"ExportDelegate [dumpProperties]");
 
-  NSLog(@"  LastExportedAt:        '%@'", _lastExportedAt.description);
+  NSLog(@"  LastExportedAt:                  '%@'", _lastExportedAt.description);
 }
 
 

@@ -88,8 +88,8 @@
 
   NSLog(@"ExportScheduleDelegate [dumpProperties]");
 
-  NSLog(@"  ScheduleEnabled:       '%@'", (_scheduleEnabled ? @"YES" : @"NO"));
-  NSLog(@"  ScheduleInterval:      '%ld'", (long)_scheduleInterval);
+  NSLog(@"  ScheduleEnabled:                 '%@'", (_scheduleEnabled ? @"YES" : @"NO"));
+  NSLog(@"  ScheduleInterval:                '%ld'", (long)_scheduleInterval);
 }
 
 
