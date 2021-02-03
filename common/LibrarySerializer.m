@@ -560,7 +560,12 @@
 
   NSLog(@"[LibrarySerializer writeDictionary]");
 
-  [_libraryDict writeToFile:_filePath atomically:YES];
+  NSError* writeError;
+  [_libraryDict writeToURL:_outputFileUrl error:&writeError];
+
+  if (writeError) {
+    NSLog(@"[LibrarySerializer writeDictionary] error writing dictionary: %@", writeError.localizedDescription);
+  }
 }
 
 @end

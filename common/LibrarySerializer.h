@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property ExportConfiguration* configuration;
 
 @property (readonly) MutableOrderedDictionary* libraryDict;
-@property NSString* filePath;
+@property NSURL* outputFileUrl;
 
 // dict value modifiers
 @property BOOL remapRootDirectory;

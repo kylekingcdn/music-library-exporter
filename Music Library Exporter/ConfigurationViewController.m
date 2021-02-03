@@ -170,9 +170,8 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
       NSURL* outputDirUrl = [openPanel URL];
       if (outputDirUrl) {
 
-        NSString* outputDirPath = outputDirUrl.path;
-        [self->_exportConfiguration setOutputDirectoryPath:outputDirPath];
-        [self->_outputDirectoryTextField setStringValue:outputDirPath];
+        [self->_exportConfiguration setOutputDirectoryUrl:outputDirUrl];
+        [self->_outputDirectoryTextField setStringValue:outputDirUrl.path];
 
         [self saveBookmarkForOutputDirectoryUrl:outputDirUrl];
       }
@@ -291,12 +290,12 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
 - (BOOL)exportLibrary {
 
   // FIXME: use bookmarked output dir
-  if (!_exportConfiguration.outputDirectoryPath || _exportConfiguration.outputDirectoryPath.length == 0) {
-    NSLog(@"[exportLibrary] error - invalid output directory");
+  if (!_exportConfiguration.isOutputDirectoryValid) {
+    NSLog(@"[exportLibrary] error - invalid output directory url");
     return NO;
   }
 
-  if (!_exportConfiguration.outputFileName || _exportConfiguration.outputFileName.length == 0) {
+  if (!_exportConfiguration.isOutputFileNameValid) {
     NSLog(@"[exportLibrary] error - invalid output filename");
     return NO;
   }
@@ -324,15 +323,15 @@ static NSString* const _helperBundleIdentifier = @"com.kylekingcdn.MusicLibraryE
   NSLog(@"[exportLibrary] output directory url: %@", outputDirectoryUrl);
 
   // generate full output path
-  NSString* outputFilePath = [outputDirectoryUrl.path stringByAppendingPathComponent:_exportConfiguration.outputFileName];
-  [_librarySerializer setFilePath:outputFilePath];
+  NSURL* outputFileUrl = _exportConfiguration.outputFileUrl;
+  [_librarySerializer setOutputFileUrl:outputFileUrl];
 
   // serialize library
   NSLog(@"[exportLibrary] serializing library");
   [_librarySerializer serializeLibrary:itLibrary];
 
   // write library
-  NSLog(@"[exportLibrary] saving to path: %@", outputFilePath);
+  NSLog(@"[exportLibrary] saving to path: %@", outputFileUrl.path);
   [outputDirectoryUrl startAccessingSecurityScopedResource];
   [_librarySerializer writeDictionary];
   [outputDirectoryUrl stopAccessingSecurityScopedResource];

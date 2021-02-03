@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setMusicLibraryPath:(NSString*)musicLibraryPath;
 
-- (void)setOutputDirectoryPath:(NSString*)path;
+- (void)setOutputDirectoryUrl:(nullable NSURL*)dirUrl;
 - (void)setOutputFileName:(NSString*)fileName;
 
 - (void)setRemapRootDirectory:(BOOL)flag;

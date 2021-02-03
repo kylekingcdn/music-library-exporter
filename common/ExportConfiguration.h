@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
   NSString* _musicLibraryPath;
 
-  NSString* _outputDirectoryPath;
+  NSURL* _outputDirectoryUrl;
   NSString* _outputFileName;
 
   BOOL _remapRootDirectory;
@@ -35,9 +35,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString*)musicLibraryPath;
 
+- (nullable NSURL*)outputDirectoryUrl;
 - (NSString*)outputDirectoryPath;
+- (BOOL)isOutputDirectoryValid;
+
 - (NSString*)outputFileName;
-- (nullable NSString*)outputFilePath;
+- (BOOL)isOutputFileNameValid;
+
+- (nullable NSURL*)outputFileUrl;
+- (NSString*)outputFilePath;
+- (BOOL)isOutputFilePathValid;
 
 - (BOOL)remapRootDirectory;
 - (NSString*)remapRootDirectoryOriginalPath;
@@ -54,7 +61,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setMusicLibraryPath:(NSString*)musicLibraryPath;
 
-- (void)setOutputDirectoryPath:(NSString*)path;
+- (void)setOutputDirectoryUrl:(nullable NSURL*)dirUrl;
 - (void)setOutputFileName:(NSString*)fileName;
 
 - (void)setRemapRootDirectory:(BOOL)flag;

@@ -25,6 +25,7 @@ int main(int argc, const char * argv[]) {
     /* parse args */
     NSString* exportedLibraryFilePath = [NSString stringWithUTF8String:argv[1]];
     NSString* exportedLibraryDir = [exportedLibraryFilePath stringByDeletingLastPathComponent];
+    NSURL* exportedLibraryFileUrl = [NSURL fileURLWithPath:exportedLibraryFilePath];
     NSString* sourceLibraryFilePath = [NSString stringWithUTF8String:argv[2]];
 
     /* validate args */
@@ -77,7 +78,7 @@ int main(int argc, const char * argv[]) {
       // generate
       [serializer serializeLibrary:library];
 
-      [serializer setFilePath:exportedLibraryFilePath];
+      [serializer setOutputFileUrl:exportedLibraryFileUrl];
       [serializer writeDictionary];
     }
 

@@ -27,9 +27,24 @@
     return _musicLibraryPath;
 }
 
+- (NSURL*)outputDirectoryUrl {
+
+  return _outputDirectoryUrl;
+}
+
 - (NSString*)outputDirectoryPath {
 
-  return _outputDirectoryPath;
+  if (_outputDirectoryUrl && _outputDirectoryUrl.isFileURL) {
+    return _outputDirectoryUrl.path;
+  }
+  else {
+    return [NSString string];
+  }
+}
+
+- (BOOL)isOutputDirectoryValid {
+
+  return _outputDirectoryUrl && _outputDirectoryUrl.isFileURL;
 }
 
 - (NSString*)outputFileName {
@@ -37,13 +52,41 @@
   return _outputFileName;
 }
 
-- (NSString*)outputFilePath {
+- (BOOL)isOutputFileNameValid {
 
-  if (_outputDirectoryPath.length == 0 || _outputFileName.length == 0) {
-    return nil;
+  return _outputFileName.length > 0;
+}
+
+- (NSURL*)outputFileUrl {
+
+  // check if output directory is valid path
+  if (_outputDirectoryUrl && _outputDirectoryUrl.isFileURL) {
+
+    // check if output file name has been set
+    if (_outputFileName.length > 0) {
+      return [_outputDirectoryUrl URLByAppendingPathComponent:_outputFileName];
+    }
   }
 
-  return [[_outputDirectoryPath stringByAppendingString:@"/"] stringByAppendingString:_outputFileName];
+  return nil;
+}
+
+- (NSString*)outputFilePath {
+
+  NSURL* outputFileUrl = [self outputFileUrl];
+
+  // check if output file url is valid
+  if (outputFileUrl) {
+    return outputFileUrl.path;
+  }
+  else {
+    return [NSString string];
+  }
+}
+
+- (BOOL)isOutputFilePathValid {
+
+  return [self isOutputDirectoryValid] && [self isOutputFileNameValid];
 }
 
 - (BOOL)remapRootDirectory {
@@ -82,8 +125,9 @@
 
   NSLog(@"  MusicLibraryPath:                '%@'", _musicLibraryPath);
 
-  NSLog(@"  OutputDirectoryPath:             '%@'", _outputDirectoryPath);
+  NSLog(@"  OutputDirectoryUrl:              '%@'", _outputDirectoryUrl);
   NSLog(@"  OutputFileName:                  '%@'", _outputFileName);
+  NSLog(@"  OutputFilePath:                  '%@'", [self outputFilePath]);
 
   NSLog(@"  RemapRootDirectory:              '%@'", (_remapRootDirectory ? @"YES" : @"NO"));
   NSLog(@"  RemapRootDirectoryOriginalPath:  '%@'", _remapRootDirectoryOriginalPath);
@@ -104,11 +148,11 @@
   _musicLibraryPath = musicLibraryPath;
 }
 
-- (void)setOutputDirectoryPath:(NSString*)path {
+- (void)setOutputDirectoryUrl:(nullable NSURL*)dirUrl {
 
-  NSLog(@"[setOutputDirectoryPath %@]", path);
+  NSLog(@"[setOutputDirectoryUrl %@]", dirUrl);
 
-  _outputDirectoryPath = path;
+  _outputDirectoryUrl = dirUrl;
 }
 
 - (void)setOutputFileName:(NSString*)fileName {

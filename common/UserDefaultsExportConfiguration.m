@@ -43,7 +43,7 @@
   return [NSDictionary dictionaryWithObjectsAndKeys:
     @"",             @"MusicLibraryPath",
 
-    @"",             @"OutputDirectoryPath",
+    @"",             @"OutputDirectoryUrl",
     @"Library.xml",  @"OutputFileName",
 
     @NO,             @"RemapRootDirectory",
@@ -68,11 +68,11 @@
   [_userDefaults setValue:musicLibraryPath forKey:@"MusicLibraryPath"];
 }
 
-- (void)setOutputDirectoryPath:(NSString*)path {
+- (void)setOutputDirectoryUrl:(nullable NSURL*)dirUrl {
 
-  [super setOutputDirectoryPath:path];
+  [super setOutputDirectoryUrl:dirUrl];
 
-  [_userDefaults setValue:path forKey:@"OutputDirectoryPath"];
+  [_userDefaults setURL:dirUrl forKey:@"OutputDirectoryUrl"];
 }
 
 - (void)setOutputFileName:(NSString*)fileName {
@@ -130,7 +130,7 @@
 
   [super setMusicLibraryPath:[_userDefaults valueForKey:@"MusicLibraryPath"]];
 
-  [super setOutputDirectoryPath:[_userDefaults valueForKey:@"OutputDirectoryPath"]];
+  [super setOutputDirectoryUrl:[_userDefaults URLForKey:@"OutputDirectoryUrl"]];
   [super setOutputFileName:[_userDefaults valueForKey:@"OutputFileName"]];
 
   [super setRemapRootDirectory:[_userDefaults boolForKey:@"RemapRootDirectory"]];
