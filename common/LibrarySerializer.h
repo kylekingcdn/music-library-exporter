@@ -11,23 +11,14 @@
 @class ITLibMediaEntity;
 @class ITLibMediaItem;
 @class ITLibPlaylist;
-@class ITLibArtist;
 @class OrderedDictionary;
 @class MutableOrderedDictionary;
 @class ExportConfiguration;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface LibrarySerializer : NSObject {
 
-  NSUInteger currentEntityId;
-  NSMutableDictionary* entityIdsDicts;
-
-  // member variables stored at run-time to handle filtering content
-  NSSet<NSNumber*>* includedMediaKinds;
-  NSSet<NSNumber*>* includedPlaylistKinds;
-  BOOL shouldRemapTrackLocations;
-}
+@interface LibrarySerializer : NSObject
 
 
 #pragma mark - Properties -

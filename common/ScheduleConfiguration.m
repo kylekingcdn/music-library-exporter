@@ -15,6 +15,9 @@
 @implementation ScheduleConfiguration {
 
   NSUserDefaults* _userDefaults;
+
+  BOOL _scheduleEnabled;
+  NSInteger _scheduleInterval;
 }
 
 

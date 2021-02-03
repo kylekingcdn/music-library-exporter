@@ -8,7 +8,21 @@
 #import "ExportConfiguration.h"
 
 
-@implementation ExportConfiguration
+@implementation ExportConfiguration {
+
+  NSString* _musicLibraryPath;
+
+  NSURL* _outputDirectoryUrl;
+  NSString* _outputFileName;
+
+  BOOL _remapRootDirectory;
+  NSString* _remapRootDirectoryOriginalPath;
+  NSString* _remapRootDirectoryMappedPath;
+
+  BOOL _flattenPlaylistHierarchy;
+  BOOL _includeInternalPlaylists;
+  NSArray<NSString*>* _excludedPlaylistPersistentIds;
+}
 
 
 #pragma mark - Initializers -

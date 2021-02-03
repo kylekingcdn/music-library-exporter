@@ -9,21 +9,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ExportConfiguration : NSObject {
 
-  NSString* _musicLibraryPath;
-
-  NSURL* _outputDirectoryUrl;
-  NSString* _outputFileName;
-
-  BOOL _remapRootDirectory;
-  NSString* _remapRootDirectoryOriginalPath;
-  NSString* _remapRootDirectoryMappedPath;
-
-  BOOL _flattenPlaylistHierarchy;
-  BOOL _includeInternalPlaylists;
-  NSArray<NSString*>* _excludedPlaylistPersistentIds;
-}
+@interface ExportConfiguration : NSObject
 
 
 #pragma mark - Initializers -

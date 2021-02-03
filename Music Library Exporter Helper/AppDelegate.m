@@ -13,7 +13,7 @@
 #import "ScheduleConfiguration.h"
 #import "ExportScheduleDelegate.h"
 
-@interface AppDelegate () {
+@implementation AppDelegate {
 
   UserDefaultsExportConfiguration* _exportConfiguration;
   ExportDelegate* _exportDelegate;
@@ -21,11 +21,6 @@
   ScheduleConfiguration* _scheduleConfiguration;
   ExportScheduleDelegate* _scheduleDelegate;
 }
-
-@end
-
-
-@implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 

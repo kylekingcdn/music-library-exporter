@@ -10,16 +10,12 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class UserDefaultsExportConfiguration;
-@class LibrarySerializer;
 
 
-@interface ExportDelegate : NSObject {
+@interface ExportDelegate : NSObject
 
-  NSDate* _lastExportedAt;
 
-  LibrarySerializer* _librarySerializer;
-}
-
+#pragma mark - Properties -
 
 @property UserDefaultsExportConfiguration* configuration;
 

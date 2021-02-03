@@ -16,6 +16,10 @@
 @implementation ExportDelegate {
 
   NSUserDefaults* _userDefaults;
+
+  NSDate* _lastExportedAt;
+
+  LibrarySerializer* _librarySerializer;
 }
 
 

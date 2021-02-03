@@ -10,11 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 
-@interface ScheduleConfiguration : NSObject {
-
-  BOOL _scheduleEnabled;
-  NSInteger _scheduleInterval;
-}
+@interface ScheduleConfiguration : NSObject
 
 
 #pragma mark - Initializers -

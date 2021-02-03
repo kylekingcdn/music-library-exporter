@@ -38,7 +38,14 @@
 @end
 
 
-@implementation ConfigurationViewController
+@implementation ConfigurationViewController {
+
+  UserDefaultsExportConfiguration* _exportConfiguration;
+  ExportDelegate* _exportDelegate;
+
+  ScheduleConfiguration* _scheduleConfiguration;
+  ExportScheduleDelegate* _scheduleDelegate;
+}
 
 
 #pragma mark - Initializers -
@@ -60,9 +67,6 @@
   
   return self;
 }
-
-
-#pragma mark - Accessors -
 
 
 #pragma mark - Mutators -

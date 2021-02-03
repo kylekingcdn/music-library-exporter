@@ -18,7 +18,16 @@
 #import "ExportConfiguration.h"
 
 
-@implementation LibrarySerializer
+@implementation LibrarySerializer {
+
+  NSUInteger currentEntityId;
+  NSMutableDictionary* entityIdsDicts;
+
+  // member variables stored at run-time to handle filtering content
+  NSSet<NSNumber*>* includedMediaKinds;
+  NSSet<NSNumber*>* includedPlaylistKinds;
+  BOOL shouldRemapTrackLocations;
+}
 
 
 #pragma mark - Initializers -
