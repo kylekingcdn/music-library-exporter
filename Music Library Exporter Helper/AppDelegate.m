@@ -11,7 +11,7 @@
 #import "UserDefaultsExportConfiguration.h"
 #import "ExportDelegate.h"
 #import "ScheduleConfiguration.h"
-#import "ExportScheduleDelegate.h"
+#import "ScheduleDelegate.h"
 
 @implementation AppDelegate {
 
@@ -19,7 +19,7 @@
   ExportDelegate* _exportDelegate;
 
   ScheduleConfiguration* _scheduleConfiguration;
-  ExportScheduleDelegate* _scheduleDelegate;
+  ScheduleDelegate* _scheduleDelegate;
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
@@ -28,7 +28,7 @@
   _exportDelegate = [[ExportDelegate alloc] initWithConfiguration:_exportConfiguration];
 
   _scheduleConfiguration = [[ScheduleConfiguration alloc] init];
-  _scheduleDelegate = [[ExportScheduleDelegate alloc] initWithConfiguration:_scheduleConfiguration andExportDelegate:_exportDelegate];
+  _scheduleDelegate = [[ScheduleDelegate alloc] initWithConfiguration:_scheduleConfiguration andExportDelegate:_exportDelegate];
 
   if (!_exportConfiguration.isOutputDirectoryValid) {
     //[self getDirectoryWritePermissions];

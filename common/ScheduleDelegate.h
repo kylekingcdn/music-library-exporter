@@ -1,5 +1,5 @@
 //
-//  ExportScheduleDelegate.h
+//  ScheduleDelegate.h
 //  Music Library Exporter
 //
 //  Created by Kyle King on 2021-02-02.
@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class ScheduleConfiguration;
 
 
-@interface ExportScheduleDelegate : NSObject
+@interface ScheduleDelegate : NSObject
 
 
 #pragma mark - Properties -

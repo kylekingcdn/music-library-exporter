@@ -1,11 +1,11 @@
 //
-//  ExportScheduleDelegate.m
+//  ScheduleDelegate.m
 //  Music Library Exporter
 //
 //  Created by Kyle King on 2021-02-02.
 //
 
-#import "ExportScheduleDelegate.h"
+#import "ScheduleDelegate.h"
 
 #import <ServiceManagement/ServiceManagement.h>
 
@@ -13,7 +13,7 @@
 #import "ScheduleConfiguration.h"
 #import "ExportDelegate.h"
 
-@implementation ExportScheduleDelegate {
+@implementation ScheduleDelegate {
 
   ExportDelegate* _exportDelegate;
 
@@ -105,7 +105,7 @@
 
 - (void)activateScheduler {
 
-  NSLog(@"ExportScheduleDelegate [activateScheduler]");
+  NSLog(@"ScheduleDelegate [activateScheduler]");
 
   _scheduler = [[NSBackgroundActivityScheduler alloc] initWithIdentifier:[__MLE__HelperBundleIdentifier stringByAppendingString:@".scheduler"]];
 
@@ -116,7 +116,7 @@
 
   [_scheduler scheduleWithBlock:^(NSBackgroundActivityCompletionHandler completion) {
 
-    NSLog(@"ExportScheduleDelegate [activateScheduler] starting task (%@)", [[NSDate date] description]);
+    NSLog(@"ScheduleDelegate [activateScheduler] starting task (%@)", [[NSDate date] description]);
 
     [self->_exportDelegate exportLibrary];
     
@@ -126,7 +126,7 @@
 
 - (void)deactivateScheduler {
 
-  NSLog(@"ExportScheduleDelegate [deactivateScheduler]");
+  NSLog(@"ScheduleDelegate [deactivateScheduler]");
 
   [_scheduler invalidate];
 }
