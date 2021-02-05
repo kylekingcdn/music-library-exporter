@@ -76,7 +76,7 @@
   NSLog(@"  ScheduleEnabled:                 '%@'", (_scheduleEnabled ? @"YES" : @"NO"));
   NSLog(@"  ScheduleInterval:                '%ld'", (long)_scheduleInterval);
   NSLog(@"  LastExportedAt:                  '%@'", _lastExportedAt.description);
-  NSLog(@"  NextExportedAt:                  '%@'", _nextExportAt.description);
+  NSLog(@"  NextExportAt:                    '%@'", _nextExportAt.description);
 }
 
 
