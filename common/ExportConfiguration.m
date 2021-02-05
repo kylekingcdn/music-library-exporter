@@ -136,7 +136,7 @@
 
 - (void)dumpProperties {
 
-  NSLog(@"[dumpProperties]");
+  NSLog(@"ExportConfiguration [dumpProperties]");
 
   NSLog(@"  MusicLibraryPath:                '%@'", _musicLibraryPath);
 
@@ -157,63 +157,63 @@
 
 - (void)setMusicLibraryPath:(NSString*)musicLibraryPath {
 
-  NSLog(@"[setMusicLibraryPath %@]", musicLibraryPath);
+  NSLog(@"ExportConfiguration [setMusicLibraryPath %@]", musicLibraryPath);
 
   _musicLibraryPath = musicLibraryPath;
 }
 
 - (void)setOutputDirectoryUrl:(nullable NSURL*)dirUrl {
 
-  NSLog(@"[setOutputDirectoryUrl %@]", dirUrl);
+  NSLog(@"ExportConfiguration [setOutputDirectoryUrl %@]", dirUrl);
 
   _outputDirectoryUrl = dirUrl;
 }
 
 - (void)setOutputFileName:(NSString*)fileName {
 
-  NSLog(@"[setOutputFileName %@]", fileName);
+  NSLog(@"ExportConfiguration [setOutputFileName %@]", fileName);
 
   _outputFileName = fileName;
 }
 
 - (void)setRemapRootDirectory:(BOOL)flag {
 
-  NSLog(@"[setRemapRootDirectory %@]", (flag ? @"YES" : @"NO"));
+  NSLog(@"ExportConfiguration [setRemapRootDirectory %@]", (flag ? @"YES" : @"NO"));
 
   _remapRootDirectory = flag;
 }
 
 - (void)setRemapRootDirectoryOriginalPath:(NSString*)originalPath {
 
-  NSLog(@"[setRemapRootDirectoryOriginalPath %@]", originalPath);
+  NSLog(@"ExportConfiguration [setRemapRootDirectoryOriginalPath %@]", originalPath);
 
   _remapRootDirectoryOriginalPath = originalPath;
 }
 
 - (void)setRemapRootDirectoryMappedPath:(NSString*)mappedPath {
 
-  NSLog(@"[setRemapRootDirectoryMappedPath %@]", mappedPath);
+  NSLog(@"ExportConfiguration [setRemapRootDirectoryMappedPath %@]", mappedPath);
 
   _remapRootDirectoryMappedPath = mappedPath;
 }
 
 - (void)setFlattenPlaylistHierarchy:(BOOL)flag {
 
-  NSLog(@"[setFlattenPlaylistHierarchy %@]", (flag ? @"YES" : @"NO"));
+  NSLog(@"ExportConfiguration [setFlattenPlaylistHierarchy %@]", (flag ? @"YES" : @"NO"));
 
   _flattenPlaylistHierarchy = flag;
 }
 
 - (void)setIncludeInternalPlaylists:(BOOL)flag {
 
-  NSLog(@"[setIncludeInternalPlaylists %@]", (flag ? @"YES" : @"NO"));
+  NSLog(@"ExportConfiguration [setIncludeInternalPlaylists %@]", (flag ? @"YES" : @"NO"));
 
   _includeInternalPlaylists = flag;
 }
 
 - (void)setExcludedPlaylistPersistentIds:(NSArray<NSNumber*>*)excludedIds {
 
-  NSLog(@"[setExcludedPlaylistPersistentIds %lu]", (unsigned long)excludedIds.count);
+  NSLog(@"ExportConfiguration [setExcludedPlaylistPersistentIds %lu]", (unsigned long)excludedIds.count);
 
   _excludedPlaylistPersistentIds = excludedIds;
 }

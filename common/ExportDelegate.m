@@ -98,12 +98,14 @@
 
 - (void)loadPropertiesFromUserDefaults {
 
+  NSLog(@"ExportDelegate [loadPropertiesFromUserDefaults]");
+
   _lastExportedAt = [_userDefaults valueForKey:@"LastExportedAt"];
 }
 
 - (void)setLastExportedAt:(nullable NSDate*)timestamp {
 
-  NSLog(@"[setLastExportedAt %@]", timestamp.description);
+  NSLog(@"ExportDelegate [setLastExportedAt %@]", timestamp.description);
 
   _lastExportedAt = timestamp;
 
@@ -112,16 +114,18 @@
 
 - (BOOL)prepareForExport {
 
+  NSLog(@"ExportDelegate [prepareForExport]");
+
   [self updateState:ExportPreparing];
 
   // set configuration
   if (!_configuration.isOutputDirectoryValid) {
-    NSLog(@"[exportLibrary] error - invalid output directory url");
+    NSLog(@"ExportDelegate [prepareForExport] error - invalid output directory url");
     [self updateState:ExportError];
     return NO;
   }
   if (!_configuration.isOutputFileNameValid) {
-    NSLog(@"[exportLibrary] error - invalid output filename");
+    NSLog(@"ExportDelegate [prepareForExport] error - invalid output filename");
     [self updateState:ExportError];
     return NO;
   }
@@ -131,7 +135,7 @@
   NSError *initLibraryError = nil;
   _itLibrary = [ITLibrary libraryWithAPIVersion:@"1.1" error:&initLibraryError];
   if (!_itLibrary) {
-    NSLog(@"[exportLibrary]  error - failed to init ITLibrary. error: %@", initLibraryError.localizedDescription);
+    NSLog(@"ExportDelegate [prepareForExport]  error - failed to init ITLibrary. error: %@", initLibraryError.localizedDescription);
     [self updateState:ExportError];
     return NO;
   }
@@ -147,8 +151,7 @@
 
 - (void)exportLibrary {
 
-  // generate IDs for all entities contained in the library
-//  [_librarySerializer generateEntityIdsDict];
+  NSLog(@"ExportDelegate [exportLibrary]");
 
   // serialize tracks
   NSLog(@"ExportDelegate [exportLibrary] serializing tracks");
@@ -183,7 +186,7 @@
 
   NSURL* outputDirectoryUrl = _configuration.resolveAndAutoRenewOutputDirectoryUrl;
   if (!outputDirectoryUrl) {
-    NSLog(@"[exportLibrary] unable to retrieve output directory - a directory must be selected to obtain write permission");
+    NSLog(@"ExportDelegate [writeDictionary] unable to retrieve output directory - a directory must be selected to obtain write permission");
     return NO;
   }
 

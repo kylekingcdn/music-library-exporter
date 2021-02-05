@@ -130,6 +130,8 @@
 
 - (void)loadPropertiesFromUserDefaults {
 
+  NSLog(@"UserDefaultsExportConfiguration [loadPropertiesFromUserDefaults]");
+
   [self registerDefaultValues];
 
   [super setMusicLibraryPath:[_userDefaults valueForKey:@"MusicLibraryPath"]];
@@ -148,7 +150,7 @@
 
 - (void)registerDefaultValues {
 
-  NSLog(@"[registerDefaultValues]");
+  NSLog(@"UserDefaultsExportConfiguration [registerDefaultValues]");
 
   [_userDefaults registerDefaults:[self defaultValues]];
 }

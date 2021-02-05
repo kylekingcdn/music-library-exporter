@@ -67,15 +67,15 @@
 
 - (BOOL)registerHelperWithSystem:(BOOL)flag {
 
-  NSLog(@"[registerHelperWithSystem:%@]", (flag ? @"YES" : @"NO"));
+  NSLog(@"HelperDelegate [registerHelperWithSystem:%@]", (flag ? @"YES" : @"NO"));
 
   BOOL success = SMLoginItemSetEnabled ((__bridge CFStringRef)__MLE__HelperBundleIdentifier, flag);
 
   if (success) {
-    NSLog(@"[registerHelperWithSystem] succesfully %@ helper", (flag ? @"registered" : @"unregistered"));
+    NSLog(@"HelperDelegate [registerHelperWithSystem] succesfully %@ helper", (flag ? @"registered" : @"unregistered"));
   }
   else {
-    NSLog(@"[registerHelperWithSystem] failed to %@ helper", (flag ? @"register" : @"unregister"));
+    NSLog(@"HelperDelegate [registerHelperWithSystem] failed to %@ helper", (flag ? @"register" : @"unregister"));
   }
 
   return success;
@@ -83,11 +83,11 @@
 
 - (void)updateHelperRegistrationWithScheduleEnabled:(BOOL)scheduleEnabled {
 
-  NSLog(@"[updateHelperRegistrationWithScheduleEnabled:%@]", (scheduleEnabled ? @"YES" : @"NO"));
+  NSLog(@"HelperDelegate [updateHelperRegistrationWithScheduleEnabled:%@]", (scheduleEnabled ? @"YES" : @"NO"));
 
   BOOL shouldUpdate = (scheduleEnabled != [self isHelperRegisteredWithSystem]);
   if (shouldUpdate) {
-    NSLog(@"[updateHelperRegistrationIfRequired] updating registration to: %@", (scheduleEnabled ? @"registered" : @"unregistered"));
+    NSLog(@"HelperDelegate [updateHelperRegistrationIfRequired] updating registration to: %@", (scheduleEnabled ? @"registered" : @"unregistered"));
     [self registerHelperWithSystem:scheduleEnabled];
   }
 }

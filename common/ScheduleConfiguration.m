@@ -79,7 +79,7 @@
 
 - (void)setScheduleEnabled:(BOOL)flag {
 
-  NSLog(@"[setScheduleEnabled:%@]", (flag ? @"YES" : @"NO"));
+  NSLog(@"ScheduleConfiguration [setScheduleEnabled:%@]", (flag ? @"YES" : @"NO"));
 
   _scheduleEnabled = flag;
 
@@ -88,7 +88,7 @@
 
 - (void)setScheduleInterval:(NSInteger)interval {
 
-  NSLog(@"[setScheduleInterval:%ld]", (long)interval);
+  NSLog(@"ScheduleConfiguration [setScheduleInterval:%ld]", (long)interval);
 
   _scheduleInterval = interval;
 
