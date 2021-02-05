@@ -156,7 +156,7 @@
   // serialize tracks
   NSLog(@"ExportDelegate [exportLibrary] serializing tracks");
   [self updateState:ExportGeneratingTracks];
-  OrderedDictionary* tracks = [_librarySerializer serializeIncludedTracksWithProgressCallback:_progressCallback];
+  OrderedDictionary* tracks = [_librarySerializer serializeIncludedTracksWithProgressCallback:_trackProgressCallback];
 
   // serialize playlists
   NSLog(@"ExportDelegate [exportLibrary] serializing playlists");

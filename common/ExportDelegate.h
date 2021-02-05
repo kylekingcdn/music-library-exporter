@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property UserDefaultsExportConfiguration* configuration;
 
-@property (copy) void (^progressCallback)(NSUInteger);
+@property (copy) void (^trackProgressCallback)(NSUInteger);
 @property (copy) void (^stateCallback)(NSInteger);
 
 
