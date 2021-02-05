@@ -11,12 +11,19 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class ExportDelegate;
+@class ExportConfiguration;
+@class HelperDelegate;
+@class ScheduleConfiguration;
+
 @interface ConfigurationViewController : NSViewController
 
 
 #pragma mark - Initializers -
 
-- (instancetype)init;
+- (instancetype)initWithExportDelegate:(ExportDelegate*)exportDelegate
+                     andScheduleConfig:(ScheduleConfiguration*)scheduleConfig
+                     forHelperDelegate:(HelperDelegate*)helperDelegate;
 
 
 #pragma mark - Mutators -

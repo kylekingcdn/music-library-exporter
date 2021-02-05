@@ -58,23 +58,23 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
 
 #pragma mark - Initializers -
 
-- (instancetype)init {
+- (instancetype)initWithExportDelegate:(ExportDelegate*)exportDelegate andScheduleConfig:(ScheduleConfiguration*)scheduleConfig forHelperDelegate:(HelperDelegate*)helperDelegate {
 
   self = [super initWithNibName: @"ConfigurationView" bundle: nil];
 
-  _helperDelegate = [[HelperDelegate alloc] init];
+  _helperDelegate = helperDelegate;
 
-  _exportConfiguration = [[UserDefaultsExportConfiguration alloc] initWithUserDefaultsSuiteName:__MLE__AppGroupIdentifier];
-  _exportDelegate = [[ExportDelegate alloc] initWithConfiguration:_exportConfiguration];
+  _exportConfiguration = exportDelegate.configuration;
+  _exportDelegate = exportDelegate;
 
-  _scheduleConfiguration = [[ScheduleConfiguration alloc] init];
+  _scheduleConfiguration = scheduleConfig;
 
   [_exportConfiguration dumpProperties];
   [_scheduleConfiguration dumpProperties];
 
   // ensure helper registration status matches configuration value for scheduleEnabled
   [_helperDelegate updateHelperRegistrationWithScheduleEnabled:_scheduleConfiguration.scheduleEnabled];
-  
+
   return self;
 }
 
