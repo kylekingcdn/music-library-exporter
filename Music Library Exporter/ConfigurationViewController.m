@@ -7,12 +7,13 @@
 
 #import "ConfigurationViewController.h"
 
-#import "Defines.h"
+#import "Utils.h"
 #import "HelperDelegate.h"
 #import "UserDefaultsExportConfiguration.h"
 #import "ExportDelegate.h"
 #import "ScheduleConfiguration.h"
 
+static void *MLEProgressObserverContext = &MLEProgressObserverContext;
 
 @interface ConfigurationViewController ()
 
@@ -32,8 +33,12 @@
 @property (weak) IBOutlet NSTextField *scheduleIntervalTextField;
 @property (weak) IBOutlet NSStepper *scheduleIntervalStepper;
 
+@property (weak) IBOutlet NSTextField *nextExportLabel;
 @property (weak) IBOutlet NSTextField *lastExportLabel;
+
 @property (weak) IBOutlet NSButton *exportLibraryButton;
+@property (weak) IBOutlet NSTextField *exportStateLabel;
+@property (weak) IBOutlet NSProgressIndicator *exportProgressBar;
 
 @end
 
@@ -80,10 +85,17 @@
 
   [super viewDidLoad];
 
+  [_exportProgressBar setIndeterminate:NO];
+  [_exportProgressBar setMinValue:0];
+  [_exportProgressBar setMaxValue:100];
+  [_exportProgressBar setDoubleValue:0];
+
   [self updateFromConfiguration];
 }
 
 - (void)updateFromConfiguration {
+
+  NSLog(@"ConfigurationViewController [updateFromConfiguration]");
 
   [_libraryPathTextField setStringValue:_exportConfiguration.musicLibraryPath];
   [_outputDirectoryTextField setStringValue:_exportConfiguration.outputDirectoryPath];
@@ -120,7 +132,7 @@
 
 - (IBAction)browseOutputDirectory:(id)sender {
 
-  NSLog(@"[browseOutputDirectory]");
+  NSLog(@"ConfigurationViewController [browseOutputDirectory]");
 
   NSOpenPanel* openPanel = [NSOpenPanel openPanel];
   [openPanel setCanChooseDirectories:YES];
@@ -220,21 +232,52 @@
 
 - (IBAction)exportLibrary:(id)sender {
 
-  BOOL exportSuccessful = [_exportDelegate exportLibrary];
+  dispatch_queue_attr_t queuePriorityAttr = dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_SERIAL, QOS_CLASS_BACKGROUND, 0);
+  dispatch_queue_t gcdQueue = dispatch_queue_create("ExportQueue", queuePriorityAttr);
 
-  if (!exportSuccessful) {
-    NSLog(@"[exportLibrary] library export has failed");
+  // prepare ExportDelegate members
+  BOOL delegateReady = [_exportDelegate prepareForExport];
+  if (!delegateReady) {
+    NSLog(@"ConfigurationViewController [exportLibrary] error - failed to prepare export delegate");
+    return;
   }
-  else {
-    if (_exportDelegate.lastExportedAt) {
-      [_lastExportLabel setStringValue:[@"Last export: " stringByAppendingString:_exportDelegate.lastExportedAt.description]];
-      [_lastExportLabel setHidden:NO];
-    }
-    else {
-      [_lastExportLabel setStringValue:@""];
-      [_lastExportLabel setHidden:YES];
-    }
-  }
+
+  NSUInteger trackCount = _exportDelegate.includedTracks.count;
+
+  [_exportProgressBar setDoubleValue:0];
+  [_exportProgressBar setMinValue:0];
+  [_exportProgressBar setMaxValue:trackCount];
+
+  dispatch_async(gcdQueue, ^{
+
+    void (^progressCallback)(NSUInteger) = ^(NSUInteger currentTrack){ [self handleTrackExportProgress:currentTrack withTotal:trackCount]; };
+    [self->_exportDelegate setProgressCallback:progressCallback];
+    
+    void (^stateCallback)(NSInteger) = ^(NSInteger state){ [self handleStateChange:state]; };
+    [self->_exportDelegate setStateCallback:stateCallback];
+
+    [self->_exportDelegate exportLibrary];
+  });
+}
+
+- (void)handleTrackExportProgress:(NSUInteger)currentTrack withTotal:(NSUInteger)trackCount {
+
+//  NSLog(@"ConfigurationViewController [handleTrackExportProgress %lu/%lu]", currentTrack, trackCount);
+  
+  dispatch_async(dispatch_get_main_queue(), ^{
+    
+    [self->_exportProgressBar setDoubleValue:currentTrack];
+    [self->_exportStateLabel setStringValue:[NSString stringWithFormat:@"Generating track %lu/%lu", currentTrack+1, trackCount]];
+  });
+}
+
+- (void)handleStateChange:(ExportState)serializerState {
+
+  NSString* stateDescription = [Utils descriptionForExportState:serializerState];
+  
+  NSLog(@"ConfigurationViewController [handleStateChange: %@]", stateDescription);
+
+  dispatch_async(dispatch_get_main_queue(), ^{ [self->_exportStateLabel setStringValue:stateDescription]; });
 }
 
 @end

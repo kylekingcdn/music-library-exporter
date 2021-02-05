@@ -7,6 +7,7 @@
 
 #import <Cocoa/Cocoa.h>
 
+#import "Defines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -39,6 +40,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (IBAction)exportLibrary:(id)sender;
 
+- (void)handleTrackExportProgress:(NSUInteger)currentTrack withTotal:(NSUInteger)trackCount;
+- (void)handleStateChange:(ExportState)serializerState;
 
 @end
 
