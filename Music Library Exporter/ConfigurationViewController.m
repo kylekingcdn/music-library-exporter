@@ -72,8 +72,6 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
   [_exportConfiguration dumpProperties];
   [_scheduleConfiguration dumpProperties];
 
-  [_exportDelegate dumpProperties];
-
   // ensure helper registration status matches configuration value for scheduleEnabled
   [_helperDelegate updateHelperRegistrationWithScheduleEnabled:_scheduleConfiguration.scheduleEnabled];
   
@@ -115,14 +113,8 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
   [_scheduleIntervalTextField setIntegerValue:_scheduleConfiguration.scheduleInterval];
   [_scheduleIntervalStepper setIntegerValue:_scheduleConfiguration.scheduleInterval];
 
-  if (_exportDelegate.lastExportedAt) {
-    [_lastExportLabel setStringValue:[@"Last export: " stringByAppendingString:_exportDelegate.lastExportedAt.description]];
-    [_lastExportLabel setHidden:NO];
-  }
-  else {
-    [_lastExportLabel setStringValue:@""];
-    [_lastExportLabel setHidden:YES];
-  }
+  [_lastExportLabel setStringValue:[NSString stringWithFormat:@"Last export:  %@", _scheduleConfiguration.lastExportedAt ? _scheduleConfiguration.lastExportedAt.description : @"n/a"]];
+  [_nextExportLabel setStringValue:[NSString stringWithFormat:@"Next export:  %@", _scheduleConfiguration.nextExportAt ? _scheduleConfiguration.nextExportAt.description : @"n/a"]];
 }
 
 - (IBAction)setMediaFolderLocation:(id)sender {
@@ -212,6 +204,8 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
 
   // register/unregister helper app
   [_helperDelegate updateHelperRegistrationWithScheduleEnabled:flag];
+
+  // TODO: update next export at
 }
 
 - (IBAction)setScheduleInterval:(id)sender {
@@ -230,6 +224,8 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
   [_scheduleIntervalTextField setIntegerValue:scheduleInterval];
 
   [_scheduleConfiguration setScheduleInterval:scheduleInterval];
+
+  // TODO: update next export at
 }
 
 - (IBAction)exportLibrary:(id)sender {
@@ -282,6 +278,12 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
     NSLog(@"ConfigurationViewController [handleStateChange: %@]", stateDescription);
 
     [self->_exportStateLabel setStringValue:stateDescription];
+
+    if (exportState == ExportFinished) {
+      [self->_scheduleConfiguration setLastExportedAt:[NSDate date]];
+      //[self->_scheduleConfiguration setNextExportedAt:/* next_export_at */];
+      [self updateFromConfiguration];
+    }
   });
 }
 

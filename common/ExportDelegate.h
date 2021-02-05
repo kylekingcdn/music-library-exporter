@@ -39,19 +39,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Accessors -
 
-- (nullable NSDate*)lastExportedAt;
-
 - (nullable NSArray<ITLibMediaItem*>*)includedTracks;
 - (nullable NSArray<ITLibPlaylist*>*)includedPlaylists;
 
-- (void)dumpProperties;
-
 
 #pragma mark - Mutators -
-
-- (void)loadPropertiesFromUserDefaults;
-
-- (void)setLastExportedAt:(nullable NSDate*)timestamp;
 
 - (BOOL)prepareForExport;
 - (void)exportLibrary;

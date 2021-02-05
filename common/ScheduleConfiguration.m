@@ -18,6 +18,9 @@
 
   BOOL _scheduleEnabled;
   NSInteger _scheduleInterval;
+
+  NSDate* _lastExportedAt;
+  NSDate* _nextExportAt;
 }
 
 
@@ -56,12 +59,24 @@
   return _scheduleInterval;
 }
 
+- (nullable NSDate*)lastExportedAt {
+
+  return _lastExportedAt;
+}
+
+- (nullable NSDate*)nextExportAt {
+
+  return _nextExportAt;
+}
+
 - (void)dumpProperties {
 
   NSLog(@"ScheduleConfiguration [dumpProperties]");
 
   NSLog(@"  ScheduleEnabled:                 '%@'", (_scheduleEnabled ? @"YES" : @"NO"));
   NSLog(@"  ScheduleInterval:                '%ld'", (long)_scheduleInterval);
+  NSLog(@"  LastExportedAt:                  '%@'", _lastExportedAt.description);
+  NSLog(@"  NextExportedAt:                  '%@'", _nextExportAt.description);
 }
 
 
@@ -75,6 +90,9 @@
   // read user defaults
   _scheduleEnabled = [_userDefaults boolForKey:@"ScheduleEnabled"];
   _scheduleInterval = [_userDefaults integerForKey:@"ScheduleInterval"];
+
+  _lastExportedAt = [_userDefaults valueForKey:@"LastExportedAt"];
+  _nextExportAt = [_userDefaults valueForKey:@"NextExportAt"];
 }
 
 - (void)setScheduleEnabled:(BOOL)flag {
@@ -93,6 +111,24 @@
   _scheduleInterval = interval;
 
   [_userDefaults setInteger:_scheduleInterval forKey:@"ScheduleInterval"];
+}
+
+- (void)setLastExportedAt:(nullable NSDate*)timestamp {
+
+  NSLog(@"ScheduleConfiguration [setLastExportedAt:%@]", timestamp.description);
+
+  _lastExportedAt = timestamp;
+
+  [_userDefaults setValue:_lastExportedAt forKey:@"LastExportedAt"];
+}
+
+- (void)setNextExportAt:(nullable NSDate*)timestamp {
+
+  NSLog(@"ScheduleConfiguration [setNextExportAt:%@]", timestamp.description);
+
+  _nextExportAt = timestamp;
+
+  [_userDefaults setValue:_nextExportAt forKey:@"NextExportAt"];
 }
 
 @end

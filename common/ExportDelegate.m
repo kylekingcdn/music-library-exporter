@@ -17,10 +17,6 @@
 
 @implementation ExportDelegate {
 
-  NSUserDefaults* _userDefaults;
-
-  NSDate* _lastExportedAt;
-
   LibrarySerializer* _librarySerializer;
   ITLibrary* _itLibrary;
 }
@@ -33,11 +29,8 @@
   self = [super init];
 
   _state = ExportStopped;
-  
-  _userDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
-  _librarySerializer = [[LibrarySerializer alloc] init];
 
-  [self loadPropertiesFromUserDefaults];
+  _librarySerializer = [[LibrarySerializer alloc] init];
 
   return self;
 }
@@ -53,11 +46,6 @@
 
 
 #pragma mark - Accessors -
-
-- (NSDate*)lastExportedAt {
-
-  return _lastExportedAt;
-}
 
 - (nullable NSArray<ITLibMediaItem*>*)includedTracks {
 
@@ -77,13 +65,6 @@
   return _librarySerializer.includedPlaylists;
 }
 
-- (void)dumpProperties {
-
-  NSLog(@"ExportDelegate [dumpProperties]");
-
-  NSLog(@"  LastExportedAt:                  '%@'", _lastExportedAt.description);
-}
-
 
 #pragma mark - Mutators -
 
@@ -94,22 +75,6 @@
   if (_stateCallback) {
     _stateCallback(_state);
   }
-}
-
-- (void)loadPropertiesFromUserDefaults {
-
-  NSLog(@"ExportDelegate [loadPropertiesFromUserDefaults]");
-
-  _lastExportedAt = [_userDefaults valueForKey:@"LastExportedAt"];
-}
-
-- (void)setLastExportedAt:(nullable NSDate*)timestamp {
-
-  NSLog(@"ExportDelegate [setLastExportedAt %@]", timestamp.description);
-
-  _lastExportedAt = timestamp;
-
-  [_userDefaults setValue:_lastExportedAt forKey:@"LastExportedAt"];
 }
 
 - (BOOL)prepareForExport {

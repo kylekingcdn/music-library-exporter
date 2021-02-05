@@ -25,6 +25,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)scheduleEnabled;
 - (NSInteger)scheduleInterval;
 
+- (nullable NSDate*)lastExportedAt;
+- (nullable NSDate*)nextExportAt;
+
 - (void)dumpProperties;
 
 
@@ -34,6 +37,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setScheduleEnabled:(BOOL)flag;
 - (void)setScheduleInterval:(NSInteger)interval;
+
+- (void)setLastExportedAt:(nullable NSDate*)timestamp;
+- (void)setNextExportAt:(nullable NSDate*)timestamp;
 
 
 
