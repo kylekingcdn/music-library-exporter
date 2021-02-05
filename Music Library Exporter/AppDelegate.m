@@ -25,7 +25,7 @@
 
 @implementation AppDelegate {
 
-  ConfigurationViewController* configurationViewController;
+  NSUserDefaults* _groupDefaults;
 
   HelperDelegate* _helperDelegate;
 
@@ -33,12 +33,14 @@
   ExportDelegate* _exportDelegate;
 
   ScheduleConfiguration* _scheduleConfiguration;
+
+  ConfigurationViewController* configurationViewController;
 }
 
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 
-  _helperDelegate = [[HelperDelegate alloc] init];
+  _groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
 
   // detect changes in NSUSerDefaults for app group
   [_groupDefaults addObserver:self forKeyPath:@"ScheduleInterval" options:NSKeyValueObservingOptionNew context:NULL];
@@ -48,6 +50,8 @@
   _exportDelegate = [[ExportDelegate alloc] initWithConfiguration:_exportConfiguration];
 
   _scheduleConfiguration = [[ScheduleConfiguration alloc] init];
+
+  _helperDelegate = [[HelperDelegate alloc] init];
 
   configurationViewController = [[ConfigurationViewController alloc] initWithExportDelegate:_exportDelegate
                                                                           andScheduleConfig:_scheduleConfiguration
