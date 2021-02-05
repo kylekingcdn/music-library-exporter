@@ -20,8 +20,8 @@
 
 @implementation LibrarySerializer {
 
-  NSUInteger currentEntityId;
-  NSMutableDictionary* entityIdsDicts;
+  NSUInteger _currentEntityId;
+  NSMutableDictionary* _entityIdsDict;
 
   // member variables stored at run-time to handle filtering content
   NSSet<NSNumber*>* includedPlaylistKinds;
@@ -29,12 +29,17 @@
 }
 
 
-#pragma mark - Utils -
+#pragma mark - Initializers -
 
-+ (NSString*)getHexadecimalPersistentIdForEntity:(ITLibMediaEntity*)entity {
+- (instancetype)init {
 
-  return [LibrarySerializer getHexadecimalPersistentId:entity.persistentID];
+  self = [super init];
+
+  return self;
 }
+
+
+#pragma mark - Utils -
 
 + (NSString*)getHexadecimalPersistentId:(NSNumber*)decimalPersistentId {
 
@@ -49,7 +54,53 @@
   return [filePath stringByReplacingOccurrencesOfString:_configuration.remapRootDirectoryOriginalPath withString:_configuration.remapRootDirectoryMappedPath];
 }
 
-- (NSArray<ITLibPlaylist*>*)includedPlaylists {
+- (NSNumber*)idForEntity:(ITLibMediaEntity*)entity {
+
+  return [_entityIdsDict valueForKey:[entity.persistentID stringValue]];
+}
+
+
+#pragma mark - Mutators -
+
+- (void)initSerializeMembers {
+
+  NSLog(@"LibrarySerializer [initSerializeMembers]");
+
+  _entityIdsDict = [NSMutableDictionary dictionary];
+  _currentEntityId = 0;
+
+  shouldRemapTrackLocations = (_configuration.remapRootDirectory && _configuration.remapRootDirectoryOriginalPath.length > 0 && _configuration.remapRootDirectoryMappedPath.length > 0);
+
+  [self initIncludedPlaylistKindsDict];
+}
+
+- (void)initIncludedPlaylistKindsDict {
+
+  NSLog(@"LibrarySerializer [initIncludedPlaylistKindsDict]");
+
+  NSMutableSet<NSNumber*>* playlistKinds = [NSMutableSet set];
+
+  // add non-distinguished playlist kind
+  [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindNone]];
+  [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindMusic]];
+
+  if (_configuration.includeInternalPlaylists) {
+
+    // and internal music playlists
+    [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindPurchases]];
+    [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKind90sMusic]];
+    [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindMyTopRated]];
+    [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindTop25MostPlayed]];
+    [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindRecentlyPlayed]];
+    [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindRecentlyAdded]];
+    [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindClassicalMusic]];
+    [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindLovedSongs]];
+  }
+
+  includedPlaylistKinds = [playlistKinds copy];
+}
+
+- (void)determineIncludedPlaylists {
 
   NSMutableArray<ITLibPlaylist*>* includedPlaylists = [NSMutableArray array];
 
@@ -79,10 +130,10 @@
     }
   }
 
-  return includedPlaylists;
+  _includedPlaylists = includedPlaylists;
 }
 
-- (NSArray<ITLibMediaItem*>*)includedTracks {
+- (void)determineIncludedTracks {
 
   NSMutableArray<ITLibMediaItem*>* includedTracks = [NSMutableArray array];
 
@@ -95,102 +146,49 @@
     }
   }
 
-  return includedTracks;
+  _includedTracks = includedTracks;
 }
-
-#pragma mark - Mutators -
 
 - (NSNumber*)addEntityToIdDict:(ITLibMediaEntity*)mediaEntity {
 
-  NSUInteger entityId = ++currentEntityId;
+  NSUInteger entityId = ++_currentEntityId;
   NSNumber* entityIdNum = [NSNumber numberWithUnsignedInteger:entityId];
 
-  [entityIdsDicts setValue:entityIdNum forKey:[mediaEntity.persistentID stringValue]];
+  [_entityIdsDict setValue:entityIdNum forKey:[mediaEntity.persistentID stringValue]];
 
   return entityIdNum;
 }
 
-- (void)initSerializeMembers {
+- (OrderedDictionary*)serializeLibraryforTracks:(OrderedDictionary*)tracks andPlaylists:(NSArray<OrderedDictionary*>*)playlists {
 
-  NSLog(@"LibrarySerializer [initSerializeMembers]");
+  NSLog(@"LibrarySerializer [serializeLibraryforTracks:(%lu) andPlaylists:(%lu)]", tracks.count, playlists.count);
 
-  currentEntityId = 0;
-  entityIdsDicts = [NSMutableDictionary dictionary];
+  MutableOrderedDictionary* libraryDict = [MutableOrderedDictionary dictionary];
 
-  shouldRemapTrackLocations = (_configuration.remapRootDirectory && _configuration.remapRootDirectoryOriginalPath.length > 0 && _configuration.remapRootDirectoryMappedPath.length > 0);
-
-  [self initIncludedPlaylistKindsDict];
-}
-
-// TODO: remove non-music
-- (void)initIncludedPlaylistKindsDict {
-
-  NSLog(@"LibrarySerializer [initIncludedPlaylistKindsDict]");
-
-  NSMutableSet<NSNumber*>* playlistKinds = [NSMutableSet set];
-
-  // add non-distinguished playlist kind
-  [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindNone]];
-  [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindMusic]];
-
-  if (_configuration.includeInternalPlaylists) {
-
-    // and internal music playlists
-    [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindPurchases]];
-    [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKind90sMusic]];
-    [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindMyTopRated]];
-    [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindTop25MostPlayed]];
-    [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindRecentlyPlayed]];
-    [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindRecentlyAdded]];
-    [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindClassicalMusic]];
-    [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindLovedSongs]];
-  }
-
-  includedPlaylistKinds = [playlistKinds copy];
-}
-
-- (BOOL)serializeLibrary {
-
-  if (!_library) {
-    NSLog(@"LibrarySerializer [serializeLibrary] error - library is nil");
-    return NO;
-  }
-  if (!_configuration) {
-    NSLog(@"LibrarySerializer [serializeLibrary] error - configuration is nil");
-    return NO;
-  }
-
-  NSLog(@"LibrarySerializer [serializeLibrary]");
-
-  // clear generated library dictionary
-  _libraryDict = [MutableOrderedDictionary dictionary];
-
-  // reset serialize member variables
-  [self initSerializeMembers];
-
-  [_libraryDict setValue:[NSNumber numberWithUnsignedInteger:_library.apiMajorVersion] forKey:@"Major Version"];
-  [_libraryDict setValue:[NSNumber numberWithUnsignedInteger:_library.apiMinorVersion] forKey:@"Minor Version"];
-  [_libraryDict setValue:[NSDate date] forKey:@"Date"]; // TODO:finish me
-  [_libraryDict setValue:_library.applicationVersion forKey:@"Application Version"];
-  [_libraryDict setValue:[NSNumber numberWithUnsignedInteger:_library.features] forKey:@"Features"];
-  [_libraryDict setValue:@(_library.showContentRating) forKey:@"Show Content Ratings"];
+  [libraryDict setValue:[NSNumber numberWithUnsignedInteger:_library.apiMajorVersion] forKey:@"Major Version"];
+  [libraryDict setValue:[NSNumber numberWithUnsignedInteger:_library.apiMinorVersion] forKey:@"Minor Version"];
+  [libraryDict setValue:[NSDate date] forKey:@"Date"]; // TODO:finish me
+  [libraryDict setValue:_library.applicationVersion forKey:@"Application Version"];
+  [libraryDict setValue:[NSNumber numberWithUnsignedInteger:_library.features] forKey:@"Features"];
+  [libraryDict setValue:@(_library.showContentRating) forKey:@"Show Content Ratings"];
   // FIXME: should remap root library apply to this path as well..?
   if (_configuration.musicLibraryPath.length > 0) {
-    [_libraryDict setValue:_configuration.musicLibraryPath forKey:@"Music Folder"];
+    [libraryDict setValue:_configuration.musicLibraryPath forKey:@"Music Folder"];
   }
-//  [dictionary setValue:library.persistentID forKey:@"Library Persistent ID"]; - unavailable
 
-  // add tracks dictionary to library dictionary
-  NSArray<ITLibMediaItem*>* includedTracks = [self includedTracks];
-  OrderedDictionary* tracksDict = [self serializeTracks:includedTracks];
-  [_libraryDict setObject:tracksDict forKey:@"Tracks"];
+  // set tracks
+  [libraryDict setObject:tracks forKey:@"Tracks"];
 
-  // add playlists array to library dictionary
-  NSArray<ITLibPlaylist*>* includedPlaylists = [self includedPlaylists];
-  NSMutableArray<OrderedDictionary*>* playlistsArray = [self serializePlaylists:includedPlaylists];
-  [_libraryDict setObject:playlistsArray forKey:@"Playlists"];
+  // set playlists
+  [libraryDict setObject:playlists forKey:@"Playlists"];
 
-  return YES;
+  return libraryDict;
+}
+
+- (OrderedDictionary*)serializeLibrary {
+
+  return [self serializeLibraryforTracks:[self serializeTracks:_includedTracks]
+                            andPlaylists:[self serializePlaylists:_includedPlaylists]];
 }
 
 - (NSMutableArray<OrderedDictionary*>*)serializePlaylists:(NSArray<ITLibPlaylist*>*)playlists {
@@ -211,6 +209,11 @@
   }
 
   return playlistsArray;
+}
+
+- (NSArray<OrderedDictionary*>*)serializeIncludedPlaylists {
+
+  return [self serializePlaylists:_includedPlaylists];
 }
 
 - (OrderedDictionary*)serializePlaylist:(ITLibPlaylist*)playlistItem withId:(NSNumber*)playlistId {
@@ -246,7 +249,7 @@
   }
 
   // add playlist items array to playlist dict
-  NSMutableArray<OrderedDictionary*>* playlistItemsArray = [self serializePlaylistItems:playlistItem.items];
+  NSArray<OrderedDictionary*>* playlistItemsArray = [self serializePlaylistItems:playlistItem.items];
   [playlistDict setObject:playlistItemsArray forKey:@"Playlist Items"];
 
   return playlistDict;
@@ -263,8 +266,7 @@
 
       MutableOrderedDictionary* playlistItemDict = [MutableOrderedDictionary dictionary];
 
-      NSNumber* trackId = [entityIdsDicts valueForKey:[playlistItem.persistentID stringValue]];
-      
+      NSNumber* trackId = [self idForEntity:playlistItem];
       NSAssert(trackId, @"trackIds dict returned an invalid value for item: %@", playlistItem.persistentID.stringValue);
 
       [playlistItemDict setValue:trackId forKey:@"Track ID"];
@@ -279,11 +281,32 @@
 
 - (OrderedDictionary*)serializeTracks:(NSArray<ITLibMediaItem*>*)tracks {
 
-  NSLog(@"LibrarySerializer [serializeTracks:(%lu)]", tracks.count);
+  return [self serializeTracks:tracks withProgressCallback:nil];
+}
+
+- (OrderedDictionary*)serializeTracks:(NSArray<ITLibMediaItem*>*)tracks withProgressCallback:(nullable void(^)(NSUInteger))callback {
 
   MutableOrderedDictionary* tracksDict = [MutableOrderedDictionary dictionary];
+  NSUInteger trackCount = tracks.count;
+  NSUInteger currentTrack = 0;
+  NSUInteger progressVal = 0;
+  NSUInteger callbackInterval = 10;
+
+  NSLog(@"LibrarySerializer [serializeTracks:(%lu)]", trackCount);
+
+  NSLog(@"LibrarySerializer [serializeTracks] started - %@", [[NSDate date] description]);
 
   for (ITLibMediaItem* track in tracks) {
+
+    if (callback) {
+      if (progressVal == callbackInterval - 1) {
+        progressVal = 0;
+        callback(currentTrack);
+      }
+      else {
+        progressVal++;
+      }
+    }
 
     NSNumber* trackId = [self addEntityToIdDict:track];
 
@@ -291,9 +314,26 @@
 
     // add track dictionary object to root tracks dictionary
     [tracksDict setObject:trackDict forKey:[trackId stringValue]];
+
+    currentTrack++;
   }
 
+  if (callback) {
+    callback(trackCount);
+  }
+
+  NSLog(@"LibrarySerializer [serializeTracks] finished - %@", [[NSDate date] description]);
+
   return tracksDict;
+}
+- (OrderedDictionary*)serializeIncludedTracks {
+
+  return [self serializeTracks:_includedTracks];
+}
+
+- (OrderedDictionary*)serializeIncludedTracksWithProgressCallback:(nullable void(^)(NSUInteger))callback {
+
+  return [self serializeTracks:_includedTracks withProgressCallback:callback];
 }
 
 - (OrderedDictionary*)serializeTrack:(ITLibMediaItem*)trackItem withId:(NSNumber*)trackId {
@@ -495,26 +535,6 @@
   }
 
   return trackDict;
-}
-
-- (BOOL)writeDictionary {
-
-  NSLog(@"LibrarySerializer [writeDictionary]");
-
-  if (!_configuration.isOutputFilePathValid) {
-    NSLog(@"LibrarySerializer [writeDictionary] error - invalid output dir/filename");
-    return NO;
-  }
-
-  NSLog(@"LibrarySerializer [writeDictionary] saving dictionary to: %@", _configuration.outputFileUrl);
-  BOOL writeSuccess = [_libraryDict writeToURL:_configuration.outputFileUrl atomically:YES];
-
-  if (!writeSuccess) {
-    NSLog(@"LibrarySerializer [writeDictionary] error writing dictionary");
-    return NO;
-  }
-
-  return YES;
 }
 
 @end

@@ -12,6 +12,8 @@
 #import "Defines.h"
 #import "UserDefaultsExportConfiguration.h"
 #import "LibrarySerializer.h"
+#import "OrderedDictionary.h"
+
 
 @implementation ExportDelegate {
 
@@ -20,6 +22,7 @@
   NSDate* _lastExportedAt;
 
   LibrarySerializer* _librarySerializer;
+  ITLibrary* _itLibrary;
 }
 
 
@@ -29,6 +32,8 @@
 
   self = [super init];
 
+  _state = ExportStopped;
+  
   _userDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
   _librarySerializer = [[LibrarySerializer alloc] init];
 
@@ -54,6 +59,24 @@
   return _lastExportedAt;
 }
 
+- (nullable NSArray<ITLibMediaItem*>*)includedTracks {
+
+  if (!_librarySerializer) {
+    return nil;
+  }
+
+  return _librarySerializer.includedTracks;
+}
+
+- (nullable NSArray<ITLibPlaylist*>*)includedPlaylists {
+
+  if (!_librarySerializer) {
+    return nil;
+  }
+
+  return _librarySerializer.includedPlaylists;
+}
+
 - (void)dumpProperties {
 
   NSLog(@"ExportDelegate [dumpProperties]");
@@ -63,6 +86,15 @@
 
 
 #pragma mark - Mutators -
+
+- (void)updateState:(ExportState)state {
+
+  _state = state;
+
+  if (_stateCallback) {
+    _stateCallback(_state);
+  }
+}
 
 - (void)loadPropertiesFromUserDefaults {
 
@@ -78,56 +110,96 @@
   [_userDefaults setValue:_lastExportedAt forKey:@"LastExportedAt"];
 }
 
-- (BOOL)exportLibrary {
+- (BOOL)prepareForExport {
 
-  // FIXME: use bookmarked output dir
+  [self updateState:ExportPreparing];
+
+  // set configuration
   if (!_configuration.isOutputDirectoryValid) {
     NSLog(@"[exportLibrary] error - invalid output directory url");
+    [self updateState:ExportError];
     return NO;
   }
-
   if (!_configuration.isOutputFileNameValid) {
     NSLog(@"[exportLibrary] error - invalid output filename");
+    [self updateState:ExportError];
     return NO;
   }
-
   [_librarySerializer setConfiguration:_configuration];
 
+  // init ITLibrary instance
   NSError *initLibraryError = nil;
-  ITLibrary *itLibrary = [ITLibrary libraryWithAPIVersion:@"1.1" error:&initLibraryError];
-  if (!itLibrary) {
+  _itLibrary = [ITLibrary libraryWithAPIVersion:@"1.1" error:&initLibraryError];
+  if (!_itLibrary) {
     NSLog(@"[exportLibrary]  error - failed to init ITLibrary. error: %@", initLibraryError.localizedDescription);
+    [self updateState:ExportError];
     return NO;
   }
+  [_librarySerializer setLibrary:_itLibrary];
 
-  [_librarySerializer setLibrary:itLibrary];
+  [_librarySerializer initSerializeMembers];
 
-  // ensure url renewal status is current
+  [_librarySerializer determineIncludedPlaylists];
+  [_librarySerializer determineIncludedTracks];
+
+  return YES;
+}
+
+- (void)exportLibrary {
+
+  // generate IDs for all entities contained in the library
+//  [_librarySerializer generateEntityIdsDict];
+
+  // serialize tracks
+  NSLog(@"ExportDelegate [exportLibrary] serializing tracks");
+  [self updateState:ExportGeneratingTracks];
+  OrderedDictionary* tracks = [_librarySerializer serializeIncludedTracksWithProgressCallback:_progressCallback];
+
+  // serialize playlists
+  NSLog(@"ExportDelegate [exportLibrary] serializing playlists");
+  [self updateState:ExportGeneratingPlaylists];
+  NSArray<OrderedDictionary*>* playlists = [_librarySerializer serializeIncludedPlaylists];
+
+  // serialize library
+  NSLog(@"ExportDelegate [exportLibrary] serializing library");
+  OrderedDictionary* library = [_librarySerializer serializeLibraryforTracks:tracks andPlaylists:playlists];
+
+  // write library
+  NSLog(@"ExportDelegate [exportLibrary] writing library");
+  [self updateState:ExportWritingToDisk];
+  BOOL writeSuccess = [self writeDictionary:library];
+
+  if (writeSuccess) {
+    [self updateState:ExportFinished];
+  }
+  else {
+    [self updateState:ExportError];
+  }
+}
+
+- (BOOL)writeDictionary:(OrderedDictionary*)libraryDict {
+
+  NSLog(@"ExportDelegate [writeDictionary]");
+
   NSURL* outputDirectoryUrl = _configuration.resolveAndAutoRenewOutputDirectoryUrl;
   if (!outputDirectoryUrl) {
     NSLog(@"[exportLibrary] unable to retrieve output directory - a directory must be selected to obtain write permission");
     return NO;
   }
-  NSLog(@"[exportLibrary] saving to: %@", outputDirectoryUrl);
-
-  // serialize library
-  NSLog(@"[exportLibrary] serializing library");
-  [_librarySerializer serializeLibrary];
 
   // write library
-  NSLog(@"[exportLibrary] writing library to file");
+  NSLog(@"ExportDelegate [writeDictionary] saving to: %@", _configuration.outputFileUrl);
   [outputDirectoryUrl startAccessingSecurityScopedResource];
-  BOOL writeSuccess = [_librarySerializer writeDictionary];
+  BOOL writeSuccess = [libraryDict writeToURL:_configuration.outputFileUrl atomically:YES];
   [outputDirectoryUrl stopAccessingSecurityScopedResource];
 
-  if (writeSuccess) {
-    [self setLastExportedAt:[NSDate date]];
-    return YES;
-  }
-  else {
+  if (!writeSuccess) {
+    NSLog(@"ExportDelegate [writeDictionary] error writing dictionary");
     return NO;
   }
+
+  return YES;
 }
 
-
 @end
+

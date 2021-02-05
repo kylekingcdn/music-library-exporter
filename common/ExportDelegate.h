@@ -7,6 +7,11 @@
 
 #import <Foundation/Foundation.h>
 
+#import "Defines.h"
+
+@class ITLibMediaItem;
+@class ITLibPlaylist;
+@class OrderedDictionary;
 @class UserDefaultsExportConfiguration;
 
 
@@ -17,7 +22,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Properties -
 
+@property (readonly) ExportState state;
+
 @property UserDefaultsExportConfiguration* configuration;
+
+@property (copy) void (^progressCallback)(NSUInteger);
+@property (copy) void (^stateCallback)(NSInteger);
 
 
 #pragma mark - Initializers -
@@ -31,6 +41,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable NSDate*)lastExportedAt;
 
+- (nullable NSArray<ITLibMediaItem*>*)includedTracks;
+- (nullable NSArray<ITLibPlaylist*>*)includedPlaylists;
+
 - (void)dumpProperties;
 
 
@@ -40,8 +53,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setLastExportedAt:(nullable NSDate*)timestamp;
 
-- (BOOL)exportLibrary;
+- (BOOL)prepareForExport;
+- (void)exportLibrary;
 
+- (BOOL)writeDictionary:(OrderedDictionary*)libraryDict;
 
 @end
 

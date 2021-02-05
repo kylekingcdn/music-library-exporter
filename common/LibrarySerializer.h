@@ -15,7 +15,6 @@
 @class MutableOrderedDictionary;
 @class ExportConfiguration;
 
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface LibrarySerializer : NSObject
@@ -26,12 +25,17 @@ NS_ASSUME_NONNULL_BEGIN
 @property ITLibrary* library;
 @property ExportConfiguration* configuration;
 
-@property (readonly) MutableOrderedDictionary* libraryDict;
+@property (readonly) NSArray<ITLibMediaItem*>* includedTracks;
+@property (readonly) NSArray<ITLibPlaylist*>* includedPlaylists;
+
+
+#pragma mark - Initializers -
+
+- (instancetype)init;
 
 
 #pragma mark - Utils -
 
-+ (NSString*)getHexadecimalPersistentIdForEntity:(ITLibMediaEntity*)entity;
 + (NSString*)getHexadecimalPersistentId:(NSNumber*)decimalPersistentId;
 
 
@@ -39,27 +43,37 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString*)remapRootMusicDirForFilePath:(NSString*)filePath;
 
-- (NSArray<ITLibPlaylist*>*)includedPlaylists;
-- (NSArray<ITLibMediaItem*>*)includedTracks;
+- (NSNumber*)idForEntity:(ITLibMediaEntity*)entity;
 
 
 #pragma mark - Mutators -
 
-- (NSNumber*)addEntityToIdDict:(ITLibMediaEntity*)mediaEntity;
-
 - (void)initSerializeMembers;
 - (void)initIncludedPlaylistKindsDict;
 
-- (BOOL)serializeLibrary;
+- (void)determineIncludedPlaylists;
+- (void)determineIncludedTracks;
 
-- (NSMutableArray<OrderedDictionary*>*)serializePlaylists:(NSArray<ITLibPlaylist*>*)playlists;
+- (void)generateEntityIdsDict;
+- (NSNumber*)addEntityToIdDict:(ITLibMediaEntity*)mediaEntity;
+
+- (OrderedDictionary*)serializeLibraryforTracks:(OrderedDictionary*)tracks andPlaylists:(NSArray<OrderedDictionary*>*)playlists;
+- (OrderedDictionary*)serializeLibrary;
+
+- (NSArray<OrderedDictionary*>*)serializePlaylists:(NSArray<ITLibPlaylist*>*)playlists;
+- (NSArray<OrderedDictionary*>*)serializeIncludedPlaylists;
+
 - (OrderedDictionary*)serializePlaylist:(ITLibPlaylist*)playlistItem withId:(NSNumber*)playlistId;
-- (NSMutableArray<OrderedDictionary*>*)serializePlaylistItems:(NSArray<ITLibMediaItem*>*)trackItems;
 
+- (NSArray<OrderedDictionary*>*)serializePlaylistItems:(NSArray<ITLibMediaItem*>*)trackItems;
+
+- (OrderedDictionary*)serializeTracks:(NSArray<ITLibMediaItem*>*)tracks withProgressCallback:(nullable void(^)(NSUInteger))callback;
 - (OrderedDictionary*)serializeTracks:(NSArray<ITLibMediaItem*>*)tracks;
+- (OrderedDictionary*)serializeIncludedTracksWithProgressCallback:(nullable void(^)(NSUInteger))callback;
+- (OrderedDictionary*)serializeIncludedTracks;
+
 - (OrderedDictionary*)serializeTrack:(ITLibMediaItem*)trackItem withId:(NSNumber*)trackId;
 
-- (BOOL)writeDictionary;
 
 @end
 
