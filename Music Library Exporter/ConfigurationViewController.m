@@ -271,13 +271,16 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
   });
 }
 
-- (void)handleStateChange:(ExportState)serializerState {
+- (void)handleStateChange:(ExportState)exportState {
 
-  NSString* stateDescription = [Utils descriptionForExportState:serializerState];
-  
-  NSLog(@"ConfigurationViewController [handleStateChange: %@]", stateDescription);
+  dispatch_async(dispatch_get_main_queue(), ^{
 
-  dispatch_async(dispatch_get_main_queue(), ^{ [self->_exportStateLabel setStringValue:stateDescription]; });
+    NSString* stateDescription = [Utils descriptionForExportState:exportState];
+
+    NSLog(@"ConfigurationViewController [handleStateChange: %@]", stateDescription);
+
+    [self->_exportStateLabel setStringValue:stateDescription];
+  });
 }
 
 @end

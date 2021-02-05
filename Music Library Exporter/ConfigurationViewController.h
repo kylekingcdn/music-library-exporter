@@ -41,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)exportLibrary:(id)sender;
 
 - (void)handleTrackExportProgress:(NSUInteger)currentTrack withTotal:(NSUInteger)trackCount;
-- (void)handleStateChange:(ExportState)serializerState;
+- (void)handleStateChange:(ExportState)exportState;
 
 @end
 
