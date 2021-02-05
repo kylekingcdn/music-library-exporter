@@ -37,6 +37,8 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
 @property (weak) IBOutlet NSTextField *lastExportLabel;
 
 @property (weak) IBOutlet NSButton *exportLibraryButton;
+
+@property (weak) IBOutlet NSVisualEffectView *progressView;
 @property (weak) IBOutlet NSTextField *exportStateLabel;
 @property (weak) IBOutlet NSProgressIndicator *exportProgressBar;
 
