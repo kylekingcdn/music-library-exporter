@@ -16,6 +16,18 @@ extern NSString *const __MLE__AppGroupIdentifier;
 
 extern NSString *const __MLE__HelperBundleIdentifier;
 
+typedef NS_ENUM(NSInteger, ExportState){
+  ExportStopped,
+  ExportPreparing,
+  ExportGeneratingTracks,
+  ExportGeneratingPlaylists,
+  ExportWritingToDisk,
+  ExportFinished,
+  ExportError
+};
+
+extern NSDictionary* const ExportStateDescription;
+
 @end
 
 NS_ASSUME_NONNULL_END

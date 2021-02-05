@@ -102,4 +102,32 @@
   return [Utils createPersistentIdDictionaryForItems:playlistsArray withPersistentIdKey:@"Playlist Persistent ID"];
 }
 
++ (NSString*)descriptionForExportState:(ExportState)state {
+
+  switch (state) {
+
+    case ExportStopped: {
+        return @"Stopped";
+    }
+    case ExportPreparing: {
+        return @"Preparing";
+    }
+    case ExportGeneratingTracks: {
+        return @"Generating tracks";
+    }
+    case ExportGeneratingPlaylists: {
+        return @"Generating playlists";
+    }
+    case ExportWritingToDisk: {
+        return @"Saving to disk";
+    }
+    case ExportFinished: {
+        return @"Finished";
+    }
+    case ExportError: {
+        return @"Error";
+    }
+  }
+}
+
 @end

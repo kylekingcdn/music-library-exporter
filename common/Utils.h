@@ -13,6 +13,8 @@
 @class ITLibPlaylist;
 @class ITLibArtist;
 
+#import "Defines.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Utils : NSObject
@@ -23,6 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSDictionary*)createPersistentIdDictionaryForItems:(NSArray<NSDictionary*>*)itemsArray withPersistentIdKey:(NSString*)persistentIdKey;
 + (NSDictionary*)createPersistentIdDictionaryForTracks:(NSArray<NSDictionary*>*)tracksArray;
 + (NSDictionary*)createPersistentIdDictionaryForPlaylists:(NSArray<NSDictionary*>*)playlistsArray;
+
++ (NSString*)descriptionForExportState:(ExportState)state;
 
 @end
 
