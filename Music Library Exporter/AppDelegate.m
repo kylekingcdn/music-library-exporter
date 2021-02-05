@@ -40,6 +40,10 @@
 
   _helperDelegate = [[HelperDelegate alloc] init];
 
+  // detect changes in NSUSerDefaults for app group
+  [_groupDefaults addObserver:self forKeyPath:@"ScheduleInterval" options:NSKeyValueObservingOptionNew context:NULL];
+  [_groupDefaults addObserver:self forKeyPath:@"NextExportAt" options:NSKeyValueObservingOptionNew context:NULL];
+
   _exportConfiguration = [[UserDefaultsExportConfiguration alloc] initWithUserDefaultsSuiteName:__MLE__AppGroupIdentifier];
   _exportDelegate = [[ExportDelegate alloc] initWithConfiguration:_exportConfiguration];
 
@@ -54,6 +58,23 @@
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
 
+}
+
+- (void)observeValueForKeyPath:(NSString *)aKeyPath ofObject:(id)anObject change:(NSDictionary *)aChange context:(void *)aContext {
+
+  NSLog(@"AppDelegate [observeValueForKeyPath:%@]", aKeyPath);
+
+  if ([aKeyPath isEqualToString:@"ScheduleInterval"]) {
+
+    [_scheduleConfiguration loadPropertiesFromUserDefaults];
+    [_scheduleConfiguration setScheduleInterval:_scheduleConfiguration.scheduleInterval];
+  }
+  else if ([aKeyPath isEqualToString:@"NextExportAt"]) {
+
+    [_scheduleConfiguration loadPropertiesFromUserDefaults];
+
+    // TODO: finish me
+  }
 }
 
 @end
