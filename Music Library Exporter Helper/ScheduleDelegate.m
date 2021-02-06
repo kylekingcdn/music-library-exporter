@@ -17,6 +17,8 @@
 
 @implementation ScheduleDelegate {
 
+  NSUserDefaults* _groupDefaults;
+
   NSTimer* _timer;
   NSTimeInterval _interval;
 }
@@ -27,6 +29,11 @@
 - (instancetype)init {
 
   self = [super init];
+
+  _groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
+  [_groupDefaults addObserver:self forKeyPath:@"ScheduleInterval" options:NSKeyValueObservingOptionNew context:NULL];
+  [_groupDefaults addObserver:self forKeyPath:@"LastExportedAt" options:NSKeyValueObservingOptionNew context:NULL];
+  [_groupDefaults addObserver:self forKeyPath:@"NextExportAt" options:NSKeyValueObservingOptionNew context:NULL];
 
   return self;
 }
@@ -139,6 +146,19 @@
   NSLog(@"ScheduleDelegate [onTimerFinished] current power source: %@", [ScheduleDelegate getCurrentPowerSource]);
 
   [_exportDelegate exportLibrary];
+}
+
+- (void)observeValueForKeyPath:(NSString*)keyPath ofObject:(id)anObject change:(NSDictionary*)aChange context:(void*)aContext {
+
+  NSLog(@"ScheduleDelegate [observeValueForKeyPath:%@]", keyPath);
+
+  if ([keyPath isEqualToString:@"ScheduleInterval"] ||
+      [keyPath isEqualToString:@"LastExportedAt"] ||
+      [keyPath isEqualToString:@"NextExportAt"]) {
+
+    // fetch latest configuration values
+    [_configuration loadPropertiesFromUserDefaults];
+  }
 }
 
 @end
