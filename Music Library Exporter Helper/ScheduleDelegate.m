@@ -7,6 +7,8 @@
 
 #import "ScheduleDelegate.h"
 
+#import <IOKit/ps/IOPowerSources.h>
+
 #import "Defines.h"
 #import "ExportDelegate.h"
 #import "ScheduleConfiguration.h"
@@ -43,6 +45,26 @@
 
   return scheduleDelegate;
 }
+
+
+#pragma mark - Accessors -
+
++ (NSString*)getCurrentPowerSource {
+
+  return (__bridge NSString *)IOPSGetProvidingPowerSourceType(NULL);
+}
+
++ (BOOL)isSystemRunningOnBattery {
+
+  NSString* powerSource = [ScheduleDelegate getCurrentPowerSource];
+
+  //BOOL isSystemRunningOnAc = [powerSource isEqualToString:@kIOPMACPowerKey];
+  BOOL isSystemRunningOnBattery = [powerSource isEqualToString:@kIOPMBatteryPowerKey];
+  BOOL isSystemRunningOnUps = [powerSource isEqualToString:@kIOPMUPSPowerKey];
+
+  return isSystemRunningOnBattery || isSystemRunningOnUps; // || !isSystemRunningOnAc;
+}
+
 
 #pragma mark - Mutators -
 
@@ -82,6 +104,8 @@
 - (void)onTimerFinished {
 
   NSLog(@"ScheduleDelegate [onTimerFinished]");
+
+  NSLog(@"ScheduleDelegate [onTimerFinished] current power source: %@", [ScheduleDelegate getCurrentPowerSource]);
 
   [_exportDelegate exportLibrary];
 }

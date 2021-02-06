@@ -30,6 +30,11 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)schedulerWithConfig:(ScheduleConfiguration*)config;
 + (instancetype)schedulerWithConfig:(ScheduleConfiguration*)config andExporter:(ExportDelegate*)exportDelegate;
 
+#pragma mark - Accessors -
+
++ (NSString*)getCurrentPowerSource;
++ (BOOL)isSystemRunningOnBattery;
+
 
 #pragma mark - Mutators -
 

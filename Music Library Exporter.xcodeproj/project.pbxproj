@@ -18,6 +18,7 @@
 		2749619B25CE4FB000B98E11 /* LibraryFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2749619225CE4F9700B98E11 /* LibraryFilter.m */; };
 		27533C2A25CAA21300A3B4D9 /* ExportDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27533C2325CAA03C00A3B4D9 /* ExportDelegate.m */; };
 		27533C2E25CAA21600A3B4D9 /* ExportDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27533C2325CAA03C00A3B4D9 /* ExportDelegate.m */; };
+		275917EA25CE84980052E94C /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 275917E425CE847F0052E94C /* IOKit.framework */; };
 		276442A225BD3F7600EE217C /* OrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 276442A125BD3F7600EE217C /* OrderedDictionary.m */; };
 		2783C74925C4FAF2002ED7B7 /* ConfigurationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2783C74825C4FAF2002ED7B7 /* ConfigurationView.xib */; };
 		2783C75825C4FB60002ED7B7 /* ConfigurationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2783C75725C4FB60002ED7B7 /* ConfigurationViewController.m */; };
@@ -108,6 +109,7 @@
 		2749619225CE4F9700B98E11 /* LibraryFilter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LibraryFilter.m; sourceTree = "<group>"; };
 		27533C2225CAA03C00A3B4D9 /* ExportDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExportDelegate.h; sourceTree = "<group>"; };
 		27533C2325CAA03C00A3B4D9 /* ExportDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExportDelegate.m; sourceTree = "<group>"; };
+		275917E425CE847F0052E94C /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		276442A025BD3F7600EE217C /* OrderedDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderedDictionary.h; sourceTree = "<group>"; };
 		276442A125BD3F7600EE217C /* OrderedDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderedDictionary.m; sourceTree = "<group>"; };
 		2783C74825C4FAF2002ED7B7 /* ConfigurationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfigurationView.xib; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				27A2C09125C097DF00AAD73C /* iTunesLibrary.framework in Frameworks */,
+				275917EA25CE84980052E94C /* IOKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -199,6 +202,7 @@
 		2705445025B66B7A00FE6D65 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				275917E425CE847F0052E94C /* IOKit.framework */,
 				2705445125B66B7A00FE6D65 /* iTunesLibrary.framework */,
 				27A2C02125C08FF700AAD73C /* ServiceManagement.framework */,
 			);
