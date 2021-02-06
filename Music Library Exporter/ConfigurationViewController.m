@@ -32,6 +32,7 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
 @property (weak) IBOutlet NSButton *scheduleEnabledCheckBox;
 @property (weak) IBOutlet NSTextField *scheduleIntervalTextField;
 @property (weak) IBOutlet NSStepper *scheduleIntervalStepper;
+@property (weak) IBOutlet NSButton *scheduleSkipOnBatteryCheckBox;
 
 @property (weak) IBOutlet NSTextField *nextExportLabel;
 @property (weak) IBOutlet NSTextField *lastExportLabel;
@@ -113,6 +114,7 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
   [_scheduleEnabledCheckBox setState:_scheduleConfiguration.scheduleEnabled];
   [_scheduleIntervalTextField setDoubleValue:_scheduleConfiguration.scheduleInterval];
   [_scheduleIntervalStepper setDoubleValue:_scheduleConfiguration.scheduleInterval];
+  [_scheduleSkipOnBatteryCheckBox setState:_scheduleConfiguration.skipOnBattery];
 
   [_lastExportLabel setStringValue:[NSString stringWithFormat:@"Last export:  %@", _scheduleConfiguration.lastExportedAt ? _scheduleConfiguration.lastExportedAt.description : @"n/a"]];
   [_nextExportLabel setStringValue:[NSString stringWithFormat:@"Next export:  %@", _scheduleConfiguration.nextExportAt ? _scheduleConfiguration.nextExportAt.description : @"n/a"]];
@@ -229,6 +231,14 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
     [_scheduleIntervalTextField setDoubleValue:scheduleInterval];
     [_scheduleConfiguration setScheduleInterval:scheduleInterval];
   }
+}
+
+- (IBAction)setScheduleSkipOnBattery:(id)sender {
+
+  NSControlStateValue flagState = [sender state];
+  BOOL flag = (flagState == NSControlStateValueOn);
+
+  [_scheduleConfiguration setSkipOnBattery:flag];
 }
 
 - (IBAction)exportLibrary:(id)sender {

@@ -44,6 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)setScheduleEnabled:(id)sender;
 - (IBAction)setScheduleInterval:(id)sender;
 - (IBAction)incrementScheduleInterval:(id)sender;
+- (IBAction)setScheduleSkipOnBattery:(id)sender;
 
 - (IBAction)exportLibrary:(id)sender;
 
