@@ -89,6 +89,7 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
   [_exportProgressBar setMinValue:0];
   [_exportProgressBar setMaxValue:100];
   [_exportProgressBar setDoubleValue:0];
+  [_exportStateLabel setStringValue:@"Idle"];
 
   [self updateFromConfiguration];
 }
@@ -212,20 +213,22 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
 
   NSInteger scheduleInterval = [sender integerValue];
 
-  [_scheduleIntervalStepper setIntegerValue:scheduleInterval];
+  if (_scheduleConfiguration.scheduleInterval != scheduleInterval) {
 
-  [_scheduleConfiguration setScheduleInterval:scheduleInterval];
+    [_scheduleConfiguration setScheduleInterval:scheduleInterval];
+    [_scheduleIntervalStepper setIntegerValue:scheduleInterval];
+  }
 }
 
 - (IBAction)incrementScheduleInterval:(id)sender {
 
   NSInteger scheduleInterval = [sender integerValue];
 
-  [_scheduleIntervalTextField setIntegerValue:scheduleInterval];
+  if (_scheduleConfiguration.scheduleInterval != scheduleInterval) {
 
-  [_scheduleConfiguration setScheduleInterval:scheduleInterval];
-
-  // TODO: update next export at
+    [_scheduleIntervalTextField setIntegerValue:scheduleInterval];
+    [_scheduleConfiguration setScheduleInterval:scheduleInterval];
+  }
 }
 
 - (IBAction)exportLibrary:(id)sender {
