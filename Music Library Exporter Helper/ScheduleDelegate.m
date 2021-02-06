@@ -11,7 +11,9 @@
 #import <IOKit/ps/IOPowerSources.h>
 
 #import "Defines.h"
+#import "Utils.h"
 #import "ExportConfiguration.h"
+#import "UserDefaultsExportConfiguration.h"
 #import "ExportDelegate.h"
 #import "ScheduleConfiguration.h"
 
@@ -30,9 +32,10 @@
   self = [super init];
 
   _groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
+  [_groupDefaults addObserver:self forKeyPath:@"ScheduleEnabled" options:NSKeyValueObservingOptionNew context:NULL];
   [_groupDefaults addObserver:self forKeyPath:@"ScheduleInterval" options:NSKeyValueObservingOptionNew context:NULL];
   [_groupDefaults addObserver:self forKeyPath:@"LastExportedAt" options:NSKeyValueObservingOptionNew context:NULL];
-  [_groupDefaults addObserver:self forKeyPath:@"NextExportAt" options:NSKeyValueObservingOptionNew context:NULL];
+//  [_groupDefaults addObserver:self forKeyPath:@"NextExportAt" options:NSKeyValueObservingOptionNew context:NULL];
 
   return self;
 }
@@ -41,6 +44,8 @@
 
   ScheduleDelegate* scheduleDelegate = [[ScheduleDelegate alloc] init];
   [scheduleDelegate setConfiguration:config];
+
+  [scheduleDelegate updateSchedule];
 
   return scheduleDelegate;
 }
@@ -51,11 +56,38 @@
   [scheduleDelegate setConfiguration:config];
   [scheduleDelegate setExportDelegate:exportDelegate];
 
+  [scheduleDelegate updateSchedule];
+
   return scheduleDelegate;
 }
 
 
 #pragma mark - Accessors -
+
+- (nullable NSDate*)determineNextExportDate {
+
+  NSDate* lastExportDate = _configuration.lastExportedAt;
+
+  if (_configuration.scheduleEnabled) {
+
+    // overdue, schedule 60s from now
+    if (!lastExportDate) {
+      return [NSDate dateWithTimeIntervalSinceNow:60];
+    }
+
+    NSTimeInterval intervalSinceLastExport = 0 - [lastExportDate timeIntervalSinceNow];
+    NSLog(@"ScheduleDelegate [determineNextExportDate] %fs since last export", intervalSinceLastExport);
+
+    // overdue, schedule 60s from now
+    if (intervalSinceLastExport > _configuration.scheduleInterval) {
+      return [NSDate dateWithTimeIntervalSinceNow:10/*60*/];
+    }
+
+    return [lastExportDate dateByAddingTimeInterval:_configuration.scheduleInterval];
+  }
+
+  return nil;
+}
 
 + (NSString*)getCurrentPowerSource {
 
@@ -114,7 +146,10 @@
     _timer = nil;
   }
 
-  _timer = [NSTimer scheduledTimerWithTimeInterval:_interval*60*60 target:self selector:@selector(onTimerFinished) userInfo:nil repeats:YES];
+  NSTimeInterval intervalToNextExport = _configuration.nextExportAt.timeIntervalSinceNow;
+  NSLog(@"ScheduleDelegate [activateScheduler] next export in %fs", intervalToNextExport);
+
+  _timer = [NSTimer scheduledTimerWithTimeInterval:intervalToNextExport target:self selector:@selector(onTimerFinished) userInfo:nil repeats:NO];
 }
 
 - (void)deactivateScheduler {
@@ -131,21 +166,51 @@
 
   NSLog(@"ScheduleDelegate [onTimerFinished]");
 
-  NSLog(@"ScheduleDelegate [onTimerFinished] current power source: %@", [ScheduleDelegate getCurrentPowerSource]);
+  ExportDeferralReason deferralReason = [self reasonToDeferExport];
+  if (deferralReason == ExportNoDeferralReason) {
 
-  [_exportDelegate exportLibrary];
+    if ([_exportDelegate prepareForExport]) {
+      [_exportDelegate exportLibrary];
+    }
+  }
+
+  else {
+    NSLog(@"ScheduleDelegate [onTimerFinished] export task is being skipped for reason: %@", [Utils descriptionForExportDeferralReason:deferralReason]);
+  }
+
+  [_configuration setLastExportedAt:[NSDate date]];
+}
+
+- (void)updateSchedule {
+
+  NSLog(@"ScheduleDelegate [updateSchedule]");
+
+  NSDate* nextExportDate = [self determineNextExportDate];
+
+  NSLog(@"ScheduleDelegate [updateSchedule] next export: %@", nextExportDate.description);
+
+  [_configuration setNextExportAt:nextExportDate];
+
+  if (nextExportDate) {
+    [self activateScheduler];
+  }
+  else {
+    [self deactivateScheduler];
+  }
 }
 
 - (void)observeValueForKeyPath:(NSString*)keyPath ofObject:(id)anObject change:(NSDictionary*)aChange context:(void*)aContext {
 
   NSLog(@"ScheduleDelegate [observeValueForKeyPath:%@]", keyPath);
 
-  if ([keyPath isEqualToString:@"ScheduleInterval"] ||
-      [keyPath isEqualToString:@"LastExportedAt"] ||
-      [keyPath isEqualToString:@"NextExportAt"]) {
+  if ([keyPath isEqualToString:@"ScheduleEnabled"] ||
+      [keyPath isEqualToString:@"ScheduleInterval"] ||
+      [keyPath isEqualToString:@"LastExportedAt"]) {
 
     // fetch latest configuration values
     [_configuration loadPropertiesFromUserDefaults];
+
+    [self updateSchedule];
   }
 }
 

@@ -32,7 +32,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)schedulerWithConfig:(ScheduleConfiguration*)config;
 + (instancetype)schedulerWithConfig:(ScheduleConfiguration*)config andExporter:(ExportDelegate*)exportDelegate;
 
+
 #pragma mark - Accessors -
+
+- (nullable NSDate*)determineNextExportDate;
 
 + (NSString*)getCurrentPowerSource;
 + (BOOL)isSystemRunningOnBattery;
@@ -47,6 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)activateScheduler;
 - (void)deactivateScheduler;
 
+- (void)updateSchedule;
 
 
 

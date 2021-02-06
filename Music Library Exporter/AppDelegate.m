@@ -41,6 +41,9 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 
   _groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
+  [_groupDefaults addObserver:self forKeyPath:@"ScheduleInterval" options:NSKeyValueObservingOptionNew context:NULL];
+  [_groupDefaults addObserver:self forKeyPath:@"LastExportedAt" options:NSKeyValueObservingOptionNew context:NULL];
+  [_groupDefaults addObserver:self forKeyPath:@"NextExportAt" options:NSKeyValueObservingOptionNew context:NULL];
 
   // detect changes in NSUSerDefaults for app group
   _exportConfiguration = [[UserDefaultsExportConfiguration alloc] initWithUserDefaultsSuiteName:__MLE__AppGroupIdentifier];
@@ -65,16 +68,12 @@
 
   NSLog(@"AppDelegate [observeValueForKeyPath:%@]", aKeyPath);
 
-  if ([aKeyPath isEqualToString:@"ScheduleInterval"]) {
+  if ([aKeyPath isEqualToString:@"ScheduleInterval"] ||
+      [aKeyPath isEqualToString:@"LastExportedAt"] ||
+      [aKeyPath isEqualToString:@"NextExportAt"]) {
 
     [_scheduleConfiguration loadPropertiesFromUserDefaults];
-    [_scheduleConfiguration setScheduleInterval:_scheduleConfiguration.scheduleInterval];
-  }
-  else if ([aKeyPath isEqualToString:@"NextExportAt"]) {
-
-    [_scheduleConfiguration loadPropertiesFromUserDefaults];
-
-    // TODO: finish me
+    [configurationViewController updateFromConfiguration];
   }
 }
 
