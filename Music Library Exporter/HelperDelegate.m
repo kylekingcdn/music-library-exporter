@@ -88,7 +88,7 @@
   BOOL shouldUpdate = (scheduleEnabled != [self isHelperRegisteredWithSystem]);
   if (shouldUpdate) {
     NSLog(@"HelperDelegate [updateHelperRegistrationIfRequired] updating registration to: %@", (scheduleEnabled ? @"registered" : @"unregistered"));
-    [self registerHelperWithSystem:scheduleEnabled];
+//    [self registerHelperWithSystem:scheduleEnabled];
   }
 }
 
