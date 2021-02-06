@@ -7,6 +7,7 @@
 
 #import "ScheduleDelegate.h"
 
+#import <Cocoa/Cocoa.h>
 #import <IOKit/ps/IOPowerSources.h>
 
 #import "Defines.h"
@@ -63,6 +64,20 @@
   BOOL isSystemRunningOnUps = [powerSource isEqualToString:@kIOPMUPSPowerKey];
 
   return isSystemRunningOnBattery || isSystemRunningOnUps; // || !isSystemRunningOnAc;
+}
+
++ (BOOL)isMainAppRunning {
+
+  NSArray<NSRunningApplication*>* runningApplications = [[NSWorkspace sharedWorkspace] runningApplications];
+
+  for (NSRunningApplication* runningApplication in runningApplications) {
+
+    if ([runningApplication.bundleIdentifier isEqualToString:__MLE__AppBundleIdentifier]) {
+      return YES;
+    }
+  }
+
+  return NO;
 }
 
 

@@ -35,6 +35,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString*)getCurrentPowerSource;
 + (BOOL)isSystemRunningOnBattery;
 
++ (BOOL)isMainAppRunning;
+
 
 #pragma mark - Mutators -
 
