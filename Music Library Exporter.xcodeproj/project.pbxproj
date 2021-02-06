@@ -222,6 +222,7 @@
 				27A2C05825C0934A00AAD73C /* AppDelegate.m */,
 				273B522825CA5F3E00421B14 /* ScheduleDelegate.h */,
 				273B522925CA5F3E00421B14 /* ScheduleDelegate.m */,
+				27A2C05C25C0934A00AAD73C /* MainMenu.xib */,
 				27A2C06C25C093B400AAD73C /* Supporting Files */,
 			);
 			path = "Music Library Exporter Helper";
@@ -230,7 +231,6 @@
 		27A2C06C25C093B400AAD73C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				27A2C05C25C0934A00AAD73C /* MainMenu.xib */,
 				27A2C05F25C0934B00AAD73C /* Info.plist */,
 				27A2C06225C0934B00AAD73C /* Music_Library_Exporter_Helper.entitlements */,
 			);
@@ -265,6 +265,7 @@
 				2783C75625C4FB60002ED7B7 /* ConfigurationViewController.h */,
 				2783C75725C4FB60002ED7B7 /* ConfigurationViewController.m */,
 				2783C74825C4FAF2002ED7B7 /* ConfigurationView.xib */,
+				27EF9A6B25BF23920051CE7B /* MainMenu.xib */,
 				27EF9A8225BF24010051CE7B /* Supporting Files */,
 			);
 			path = "Music Library Exporter";
@@ -274,7 +275,6 @@
 			isa = PBXGroup;
 			children = (
 				27EF9A6925BF23920051CE7B /* Assets.xcassets */,
-				27EF9A6B25BF23920051CE7B /* MainMenu.xib */,
 				27EF9A6E25BF23920051CE7B /* Info.plist */,
 				27EF9A7125BF23920051CE7B /* Music_Library_Exporter.entitlements */,
 			);
