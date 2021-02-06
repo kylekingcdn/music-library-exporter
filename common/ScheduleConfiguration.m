@@ -121,27 +121,36 @@
 
   NSLog(@"ScheduleConfiguration [setScheduleInterval:%ld]", (long)interval);
 
-  _scheduleInterval = interval;
+  if (_scheduleInterval != interval) {
+    
+    _scheduleInterval = interval;
 
-  [_userDefaults setDouble:_scheduleInterval forKey:@"ScheduleInterval"];
+    [_userDefaults setDouble:_scheduleInterval forKey:@"ScheduleInterval"];
+  }
 }
 
 - (void)setLastExportedAt:(nullable NSDate*)timestamp {
 
   NSLog(@"ScheduleConfiguration [setLastExportedAt:%@]", timestamp.description);
 
-  _lastExportedAt = timestamp;
+  if (_lastExportedAt != timestamp) {
 
-  [_userDefaults setValue:_lastExportedAt forKey:@"LastExportedAt"];
+    _lastExportedAt = timestamp;
+
+    [_userDefaults setValue:_lastExportedAt forKey:@"LastExportedAt"];
+  }
 }
 
 - (void)setNextExportAt:(nullable NSDate*)timestamp {
 
   NSLog(@"ScheduleConfiguration [setNextExportAt:%@]", timestamp.description);
 
-  _nextExportAt = timestamp;
+  if (_nextExportAt != timestamp) {
 
-  [_userDefaults setValue:_nextExportAt forKey:@"NextExportAt"];
+    _nextExportAt = timestamp;
+
+    [_userDefaults setValue:_nextExportAt forKey:@"NextExportAt"];
+  }
 }
 
 - (void)setSkipOnBattery:(BOOL)flag {
