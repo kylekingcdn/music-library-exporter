@@ -21,6 +21,8 @@
 
   NSDate* _lastExportedAt;
   NSDate* _nextExportAt;
+
+  BOOL _skipOnBattery;
 }
 
 
@@ -45,6 +47,9 @@
   return [NSDictionary dictionaryWithObjectsAndKeys:
     @NO,             @"ScheduleEnabled",
     @1,              @"ScheduleInterval",
+//    nil,             @"LastExportedAt",
+//    nil,             @"NextExportAt",
+    @NO,             @"SkipOnBattery",
     nil
   ];
 }
@@ -69,6 +74,11 @@
   return _nextExportAt;
 }
 
+- (BOOL)skipOnBattery {
+
+  return _skipOnBattery;
+}
+
 - (void)dumpProperties {
 
   NSLog(@"ScheduleConfiguration [dumpProperties]");
@@ -77,6 +87,7 @@
   NSLog(@"  ScheduleInterval:                '%ld'", (long)_scheduleInterval);
   NSLog(@"  LastExportedAt:                  '%@'", _lastExportedAt.description);
   NSLog(@"  NextExportAt:                    '%@'", _nextExportAt.description);
+  NSLog(@"  SkipOnBattery:                   '%@'", (_skipOnBattery ? @"YES" : @"NO"));
 }
 
 
@@ -93,6 +104,8 @@
 
   _lastExportedAt = [_userDefaults valueForKey:@"LastExportedAt"];
   _nextExportAt = [_userDefaults valueForKey:@"NextExportAt"];
+
+  _skipOnBattery = [_userDefaults boolForKey:@"SkipOnBattery"];
 }
 
 - (void)setScheduleEnabled:(BOOL)flag {
@@ -129,6 +142,15 @@
   _nextExportAt = timestamp;
 
   [_userDefaults setValue:_nextExportAt forKey:@"NextExportAt"];
+}
+
+- (void)setSkipOnBattery:(BOOL)flag {
+
+  NSLog(@"ScheduleConfiguration [setSkipOnBattery:%@]", (flag ? @"YES" : @"NO"));
+
+  _skipOnBattery = flag;
+
+  [_userDefaults setBool:_skipOnBattery forKey:@"SkipOnBattery"];
 }
 
 @end

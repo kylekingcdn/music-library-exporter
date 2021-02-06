@@ -28,6 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable NSDate*)lastExportedAt;
 - (nullable NSDate*)nextExportAt;
 
+- (BOOL)skipOnBattery;
+
 - (void)dumpProperties;
 
 
@@ -40,6 +42,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setLastExportedAt:(nullable NSDate*)timestamp;
 - (void)setNextExportAt:(nullable NSDate*)timestamp;
+
+- (void)setSkipOnBattery:(BOOL)flag;
 
 
 
