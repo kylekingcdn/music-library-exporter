@@ -9,6 +9,7 @@
 
 #import "Defines.h"
 #import "ExportDelegate.h"
+#import "ScheduleConfiguration.h"
 
 @implementation ScheduleDelegate {
 
@@ -27,6 +28,14 @@
   [self setExportDelegate:exportDelegate];
 
   return self;
+}
+
++ (instancetype)schedulerWithConfig:(ScheduleConfiguration*)config {
+
+  ScheduleDelegate* scheduleDelegate = [[ScheduleDelegate alloc] init];
+  [scheduleDelegate setConfiguration:config];
+
+  return scheduleDelegate;
 }
 
 

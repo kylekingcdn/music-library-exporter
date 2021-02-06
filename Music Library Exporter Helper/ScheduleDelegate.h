@@ -8,6 +8,7 @@
 #import <Foundation/Foundation.h>
 
 @class ExportDelegate;
+@class ScheduleConfiguration;
 
 
 NS_ASSUME_NONNULL_BEGIN
@@ -17,12 +18,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Properties -
 
+@property ScheduleConfiguration* configuration;
+
 @property ExportDelegate* exportDelegate;
 
 
 #pragma mark - Initializers -
 
 - (instancetype)initWithExportDelegate:(ExportDelegate*)exportDelegate;
+
++ (instancetype)schedulerWithConfig:(ScheduleConfiguration*)config;
 
 
 #pragma mark - Mutators -

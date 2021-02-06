@@ -39,6 +39,7 @@
   _scheduleConfiguration = [[ScheduleConfiguration alloc] init];
   _scheduleDelegate = [[ScheduleDelegate alloc] initWithExportDelegate:_exportDelegate];
 
+  [_scheduleDelegate setConfiguration:_scheduleConfiguration];
   [_scheduleDelegate setInterval:_scheduleConfiguration.scheduleInterval];
   [_scheduleDelegate activateScheduler];
 }
