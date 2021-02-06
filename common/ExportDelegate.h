@@ -29,18 +29,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property (copy) void (^trackProgressCallback)(NSUInteger);
 @property (copy) void (^stateCallback)(NSInteger);
 
+@property (readonly) NSArray<ITLibMediaItem*>* includedTracks;
+@property (readonly) NSArray<ITLibPlaylist*>* includedPlaylists;
+
 
 #pragma mark - Initializers -
 
 - (instancetype)init;
 
 - (instancetype)initWithConfiguration:(UserDefaultsExportConfiguration*)config;
-
-
-#pragma mark - Accessors -
-
-- (nullable NSArray<ITLibMediaItem*>*)includedTracks;
-- (nullable NSArray<ITLibPlaylist*>*)includedPlaylists;
 
 
 #pragma mark - Mutators -

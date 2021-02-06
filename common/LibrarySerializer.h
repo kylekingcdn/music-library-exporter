@@ -25,9 +25,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property ITLibrary* library;
 @property ExportConfiguration* configuration;
 
-@property (readonly) NSArray<ITLibMediaItem*>* includedTracks;
-@property (readonly) NSArray<ITLibPlaylist*>* includedPlaylists;
-
 
 #pragma mark - Initializers -
 
@@ -49,29 +46,18 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Mutators -
 
 - (void)initSerializeMembers;
-- (void)initIncludedPlaylistKindsDict;
 
-- (void)determineIncludedPlaylists;
-- (void)determineIncludedTracks;
-
-- (void)generateEntityIdsDict;
 - (NSNumber*)addEntityToIdDict:(ITLibMediaEntity*)mediaEntity;
 
 - (OrderedDictionary*)serializeLibraryforTracks:(OrderedDictionary*)tracks andPlaylists:(NSArray<OrderedDictionary*>*)playlists;
-- (OrderedDictionary*)serializeLibrary;
 
 - (NSArray<OrderedDictionary*>*)serializePlaylists:(NSArray<ITLibPlaylist*>*)playlists;
-- (NSArray<OrderedDictionary*>*)serializeIncludedPlaylists;
-
 - (OrderedDictionary*)serializePlaylist:(ITLibPlaylist*)playlistItem withId:(NSNumber*)playlistId;
 
 - (NSArray<OrderedDictionary*>*)serializePlaylistItems:(NSArray<ITLibMediaItem*>*)trackItems;
 
 - (OrderedDictionary*)serializeTracks:(NSArray<ITLibMediaItem*>*)tracks withProgressCallback:(nullable void(^)(NSUInteger))callback;
 - (OrderedDictionary*)serializeTracks:(NSArray<ITLibMediaItem*>*)tracks;
-- (OrderedDictionary*)serializeIncludedTracksWithProgressCallback:(nullable void(^)(NSUInteger))callback;
-- (OrderedDictionary*)serializeIncludedTracks;
-
 - (OrderedDictionary*)serializeTrack:(ITLibMediaItem*)trackItem withId:(NSNumber*)trackId;
 
 

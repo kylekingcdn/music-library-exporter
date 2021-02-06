@@ -11,14 +11,17 @@
 
 #import "Defines.h"
 #import "UserDefaultsExportConfiguration.h"
+#import "LibraryFilter.h"
 #import "LibrarySerializer.h"
 #import "OrderedDictionary.h"
 
 
 @implementation ExportDelegate {
 
-  LibrarySerializer* _librarySerializer;
   ITLibrary* _itLibrary;
+
+  LibraryFilter* _libraryFilter;
+  LibrarySerializer* _librarySerializer;
 }
 
 
@@ -30,6 +33,7 @@
 
   _state = ExportStopped;
 
+  _libraryFilter = [[LibraryFilter alloc] init];
   _librarySerializer = [[LibrarySerializer alloc] init];
 
   return self;
@@ -46,24 +50,6 @@
 
 
 #pragma mark - Accessors -
-
-- (nullable NSArray<ITLibMediaItem*>*)includedTracks {
-
-  if (!_librarySerializer) {
-    return nil;
-  }
-
-  return _librarySerializer.includedTracks;
-}
-
-- (nullable NSArray<ITLibPlaylist*>*)includedPlaylists {
-
-  if (!_librarySerializer) {
-    return nil;
-  }
-
-  return _librarySerializer.includedPlaylists;
-}
 
 
 #pragma mark - Mutators -
@@ -94,7 +80,6 @@
     [self updateState:ExportError];
     return NO;
   }
-  [_librarySerializer setConfiguration:_configuration];
 
   // init ITLibrary instance
   NSError *initLibraryError = nil;
@@ -104,12 +89,19 @@
     [self updateState:ExportError];
     return NO;
   }
-  [_librarySerializer setLibrary:_itLibrary];
 
+  // init filter
+  [_libraryFilter setConfiguration:_configuration];
+  [_libraryFilter setLibrary:_itLibrary];
+
+  // init serializer
+  [_librarySerializer setConfiguration:_configuration];
+  [_librarySerializer setLibrary:_itLibrary];
   [_librarySerializer initSerializeMembers];
 
-  [_librarySerializer determineIncludedPlaylists];
-  [_librarySerializer determineIncludedTracks];
+  // get included items
+  _includedTracks = [_libraryFilter getIncludedTracks];
+  _includedPlaylists = [_libraryFilter getIncludedPlaylists];
 
   return YES;
 }
@@ -121,12 +113,12 @@
   // serialize tracks
   NSLog(@"ExportDelegate [exportLibrary] serializing tracks");
   [self updateState:ExportGeneratingTracks];
-  OrderedDictionary* tracks = [_librarySerializer serializeIncludedTracksWithProgressCallback:_trackProgressCallback];
+  OrderedDictionary* tracks = [_librarySerializer serializeTracks:_includedTracks withProgressCallback:_trackProgressCallback];
 
   // serialize playlists
   NSLog(@"ExportDelegate [exportLibrary] serializing playlists");
   [self updateState:ExportGeneratingPlaylists];
-  NSArray<OrderedDictionary*>* playlists = [_librarySerializer serializeIncludedPlaylists];
+  NSArray<OrderedDictionary*>* playlists = [_librarySerializer serializePlaylists:_includedPlaylists];
 
   // serialize library
   NSLog(@"ExportDelegate [exportLibrary] serializing library");

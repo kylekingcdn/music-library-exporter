@@ -24,7 +24,6 @@
   NSMutableDictionary* _entityIdsDict;
 
   // member variables stored at run-time to handle filtering content
-  NSSet<NSNumber*>* includedPlaylistKinds;
   BOOL shouldRemapTrackLocations;
 }
 
@@ -70,83 +69,6 @@
   _currentEntityId = 0;
 
   shouldRemapTrackLocations = (_configuration.remapRootDirectory && _configuration.remapRootDirectoryOriginalPath.length > 0 && _configuration.remapRootDirectoryMappedPath.length > 0);
-
-  [self initIncludedPlaylistKindsDict];
-}
-
-- (void)initIncludedPlaylistKindsDict {
-
-  NSLog(@"LibrarySerializer [initIncludedPlaylistKindsDict]");
-
-  NSMutableSet<NSNumber*>* playlistKinds = [NSMutableSet set];
-
-  // add non-distinguished playlist kind
-  [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindNone]];
-  [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindMusic]];
-
-  if (_configuration.includeInternalPlaylists) {
-
-    // and internal music playlists
-    [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindPurchases]];
-    [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKind90sMusic]];
-    [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindMyTopRated]];
-    [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindTop25MostPlayed]];
-    [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindRecentlyPlayed]];
-    [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindRecentlyAdded]];
-    [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindClassicalMusic]];
-    [playlistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindLovedSongs]];
-  }
-
-  includedPlaylistKinds = [playlistKinds copy];
-}
-
-- (void)determineIncludedPlaylists {
-
-  NSMutableArray<ITLibPlaylist*>* includedPlaylists = [NSMutableArray array];
-
-  for (ITLibPlaylist* playlist in _library.allPlaylists) {
-
-    // ignore excluded playlist kinds
-    if ([includedPlaylistKinds containsObject:[NSNumber numberWithUnsignedInteger:playlist.distinguishedKind]] && (!playlist.master || _configuration.includeInternalPlaylists)) {
-
-      // ignore folders when flattened
-      if (playlist.kind != ITLibPlaylistKindFolder || !_configuration.flattenPlaylistHierarchy) {
-
-        // ignore playlists that have been manually marked for exclusion
-        if (![_configuration.excludedPlaylistPersistentIds containsObject:playlist.persistentID]) {
-
-          [includedPlaylists addObject:playlist];
-        }
-        else {
-          NSLog(@"LibrarySerializer [includedPlaylists] playlist was manually excluded by id: %@ - %@", playlist.name, playlist.persistentID);
-        }
-      }
-      else {
-        NSLog(@"LibrarySerializer [includedPlaylists] excluding folder due to flattened hierarchy : %@ - %@", playlist.name, playlist.persistentID);
-      }
-    }
-    else {
-     NSLog(@"LibrarySerializer [includedPlaylists] excluding internal playlist: %@ - %@", playlist.name, playlist.persistentID);
-    }
-  }
-
-  _includedPlaylists = includedPlaylists;
-}
-
-- (void)determineIncludedTracks {
-
-  NSMutableArray<ITLibMediaItem*>* includedTracks = [NSMutableArray array];
-
-  for (ITLibMediaItem* track in _library.allMediaItems) {
-
-    // ignore excluded media kinds
-    if (track.mediaKind == ITLibMediaItemMediaKindSong) {
-
-      [includedTracks addObject:track];
-    }
-  }
-
-  _includedTracks = includedTracks;
 }
 
 - (NSNumber*)addEntityToIdDict:(ITLibMediaEntity*)mediaEntity {
@@ -185,12 +107,6 @@
   return libraryDict;
 }
 
-- (OrderedDictionary*)serializeLibrary {
-
-  return [self serializeLibraryforTracks:[self serializeTracks:_includedTracks]
-                            andPlaylists:[self serializePlaylists:_includedPlaylists]];
-}
-
 - (NSMutableArray<OrderedDictionary*>*)serializePlaylists:(NSArray<ITLibPlaylist*>*)playlists {
 
   NSLog(@"LibrarySerializer [serializePlaylists:(%lu)]", playlists.count);
@@ -209,11 +125,6 @@
   }
 
   return playlistsArray;
-}
-
-- (NSArray<OrderedDictionary*>*)serializeIncludedPlaylists {
-
-  return [self serializePlaylists:_includedPlaylists];
 }
 
 - (OrderedDictionary*)serializePlaylist:(ITLibPlaylist*)playlistItem withId:(NSNumber*)playlistId {
@@ -325,15 +236,6 @@
   NSLog(@"LibrarySerializer [serializeTracks] finished - %@", [[NSDate date] description]);
 
   return tracksDict;
-}
-- (OrderedDictionary*)serializeIncludedTracks {
-
-  return [self serializeTracks:_includedTracks];
-}
-
-- (OrderedDictionary*)serializeIncludedTracksWithProgressCallback:(nullable void(^)(NSUInteger))callback {
-
-  return [self serializeTracks:_includedTracks withProgressCallback:callback];
 }
 
 - (OrderedDictionary*)serializeTrack:(ITLibMediaItem*)trackItem withId:(NSNumber*)trackId {
