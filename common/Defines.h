@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 extern NSString *const __MLE__AppGroupIdentifier;
 
+extern NSString* const __MLE__AppBundleIdentifier;
 extern NSString *const __MLE__HelperBundleIdentifier;
 
 typedef NS_ENUM(NSInteger, ExportState){

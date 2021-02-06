@@ -13,6 +13,7 @@
 
 NSString* const __MLE__AppGroupIdentifier = @"group.9YLM7HTV6V.com.MusicLibraryExporter";
 
+NSString* const __MLE__AppBundleIdentifier = @"com.kylekingcdn.MusicLibraryExporter";
 NSString* const __MLE__HelperBundleIdentifier = @"com.kylekingcdn.MusicLibraryExporter.MusicLibraryExporterHelper";
 
 
