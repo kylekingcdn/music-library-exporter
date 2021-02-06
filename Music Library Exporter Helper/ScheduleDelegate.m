@@ -20,12 +20,9 @@
 
 #pragma mark - Initializers -
 
-- (instancetype)initWithExportDelegate:(ExportDelegate*)exportDelegate {
+- (instancetype)init {
 
   self = [super init];
-
-
-  [self setExportDelegate:exportDelegate];
 
   return self;
 }
@@ -38,6 +35,14 @@
   return scheduleDelegate;
 }
 
++ (instancetype)schedulerWithConfig:(ScheduleConfiguration*)config andExporter:(ExportDelegate*)exportDelegate {
+
+  ScheduleDelegate* scheduleDelegate = [[ScheduleDelegate alloc] init];
+  [scheduleDelegate setConfiguration:config];
+  [scheduleDelegate setExportDelegate:exportDelegate];
+
+  return scheduleDelegate;
+}
 
 #pragma mark - Mutators -
 
