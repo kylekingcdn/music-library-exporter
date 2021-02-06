@@ -7,6 +7,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import "Defines.h"
+
 @class ScheduleConfiguration;
 @class ExportDelegate;
 
@@ -36,6 +38,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)isSystemRunningOnBattery;
 
 + (BOOL)isMainAppRunning;
+
+- (ExportDeferralReason)reasonToDeferExport;
 
 
 #pragma mark - Mutators -

@@ -11,6 +11,7 @@
 #import <IOKit/ps/IOPowerSources.h>
 
 #import "Defines.h"
+#import "ExportConfiguration.h"
 #import "ExportDelegate.h"
 #import "ScheduleConfiguration.h"
 
@@ -78,6 +79,21 @@
   }
 
   return NO;
+}
+
+- (ExportDeferralReason)reasonToDeferExport {
+
+  if (!_configuration || !_exportDelegate) {
+    return ExportDeferralErrorReason;
+  }
+  if (_configuration.skipOnBattery && [ScheduleDelegate isSystemRunningOnBattery]) {
+    return ExportDeferralOnBatteryReason;
+  }
+  if ([ScheduleDelegate isMainAppRunning]) {
+    return ExportDeferralMainAppOpenReason;
+  }
+
+  return ExportNoDeferralReason;
 }
 
 
