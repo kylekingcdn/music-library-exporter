@@ -47,7 +47,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)activateScheduler;
 - (void)deactivateScheduler;
 
-- (void)setInterval:(NSTimeInterval)scheduleInterval;
 
 
 

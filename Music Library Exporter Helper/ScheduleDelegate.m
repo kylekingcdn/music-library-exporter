@@ -20,7 +20,6 @@
   NSUserDefaults* _groupDefaults;
 
   NSTimer* _timer;
-  NSTimeInterval _interval;
 }
 
 
@@ -105,17 +104,6 @@
 
 
 #pragma mark - Mutators -
-
-- (void)setInterval:(NSTimeInterval)val {
-
-  NSLog(@"ScheduleDelegate [setInterval:%f]", val);
-
-  _interval = val;
-
-  if (_timer) {
-    [self activateScheduler];
-  }
-}
 
 - (void)activateScheduler {
 

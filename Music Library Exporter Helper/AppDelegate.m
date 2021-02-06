@@ -29,9 +29,6 @@
 
   _scheduleConfiguration = [[ScheduleConfiguration alloc] init];
   _scheduleDelegate = [ScheduleDelegate schedulerWithConfig:_scheduleConfiguration andExporter:_exportDelegate];
-
-  [_scheduleDelegate setInterval:_scheduleConfiguration.scheduleInterval];
-  [_scheduleDelegate activateScheduler];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
