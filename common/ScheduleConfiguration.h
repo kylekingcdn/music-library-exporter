@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSDictionary*)defaultValues;
 
 - (BOOL)scheduleEnabled;
-- (NSInteger)scheduleInterval;
+- (NSTimeInterval)scheduleInterval;
 
 - (nullable NSDate*)lastExportedAt;
 - (nullable NSDate*)nextExportAt;
@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)loadPropertiesFromUserDefaults;
 
 - (void)setScheduleEnabled:(BOOL)flag;
-- (void)setScheduleInterval:(NSInteger)interval;
+- (void)setScheduleInterval:(NSTimeInterval)interval;
 
 - (void)setLastExportedAt:(nullable NSDate*)timestamp;
 - (void)setNextExportAt:(nullable NSDate*)timestamp;

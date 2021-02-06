@@ -111,8 +111,8 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
   //[_excludedPlaylistsTextField setStringValue:_exportConfiguration.excludedPlaylistPersistentIds];
 
   [_scheduleEnabledCheckBox setState:_scheduleConfiguration.scheduleEnabled];
-  [_scheduleIntervalTextField setIntegerValue:_scheduleConfiguration.scheduleInterval];
-  [_scheduleIntervalStepper setIntegerValue:_scheduleConfiguration.scheduleInterval];
+  [_scheduleIntervalTextField setDoubleValue:_scheduleConfiguration.scheduleInterval];
+  [_scheduleIntervalStepper setDoubleValue:_scheduleConfiguration.scheduleInterval];
 
   [_lastExportLabel setStringValue:[NSString stringWithFormat:@"Last export:  %@", _scheduleConfiguration.lastExportedAt ? _scheduleConfiguration.lastExportedAt.description : @"n/a"]];
   [_nextExportLabel setStringValue:[NSString stringWithFormat:@"Next export:  %@", _scheduleConfiguration.nextExportAt ? _scheduleConfiguration.nextExportAt.description : @"n/a"]];
@@ -211,22 +211,22 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
 
 - (IBAction)setScheduleInterval:(id)sender {
 
-  NSInteger scheduleInterval = [sender integerValue];
+  NSTimeInterval scheduleInterval = [sender doubleValue];
 
   if (_scheduleConfiguration.scheduleInterval != scheduleInterval) {
 
     [_scheduleConfiguration setScheduleInterval:scheduleInterval];
-    [_scheduleIntervalStepper setIntegerValue:scheduleInterval];
+    [_scheduleIntervalStepper setDoubleValue:scheduleInterval];
   }
 }
 
 - (IBAction)incrementScheduleInterval:(id)sender {
 
-  NSInteger scheduleInterval = [sender integerValue];
+  NSTimeInterval scheduleInterval = [sender doubleValue];
 
   if (_scheduleConfiguration.scheduleInterval != scheduleInterval) {
 
-    [_scheduleIntervalTextField setIntegerValue:scheduleInterval];
+    [_scheduleIntervalTextField setDoubleValue:scheduleInterval];
     [_scheduleConfiguration setScheduleInterval:scheduleInterval];
   }
 }

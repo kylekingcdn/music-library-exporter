@@ -17,7 +17,7 @@
   NSUserDefaults* _userDefaults;
 
   BOOL _scheduleEnabled;
-  NSInteger _scheduleInterval;
+  NSTimeInterval _scheduleInterval;
 
   NSDate* _lastExportedAt;
   NSDate* _nextExportAt;
@@ -46,7 +46,7 @@
 
   return [NSDictionary dictionaryWithObjectsAndKeys:
     @NO,             @"ScheduleEnabled",
-    @1,              @"ScheduleInterval",
+    @3600,              @"ScheduleInterval",
 //    nil,             @"LastExportedAt",
 //    nil,             @"NextExportAt",
     @NO,             @"SkipOnBattery",
@@ -59,7 +59,7 @@
   return _scheduleEnabled;
 }
 
-- (NSInteger)scheduleInterval {
+- (NSTimeInterval)scheduleInterval {
 
   return _scheduleInterval;
 }
@@ -84,7 +84,7 @@
   NSLog(@"ScheduleConfiguration [dumpProperties]");
 
   NSLog(@"  ScheduleEnabled:                 '%@'", (_scheduleEnabled ? @"YES" : @"NO"));
-  NSLog(@"  ScheduleInterval:                '%ld'", (long)_scheduleInterval);
+  NSLog(@"  ScheduleInterval:                '%f'", _scheduleInterval);
   NSLog(@"  LastExportedAt:                  '%@'", _lastExportedAt.description);
   NSLog(@"  NextExportAt:                    '%@'", _nextExportAt.description);
   NSLog(@"  SkipOnBattery:                   '%@'", (_skipOnBattery ? @"YES" : @"NO"));
@@ -100,7 +100,7 @@
 
   // read user defaults
   _scheduleEnabled = [_userDefaults boolForKey:@"ScheduleEnabled"];
-  _scheduleInterval = [_userDefaults integerForKey:@"ScheduleInterval"];
+  _scheduleInterval = [_userDefaults doubleForKey:@"ScheduleInterval"];
 
   _lastExportedAt = [_userDefaults valueForKey:@"LastExportedAt"];
   _nextExportAt = [_userDefaults valueForKey:@"NextExportAt"];
@@ -117,13 +117,13 @@
   [_userDefaults setBool:_scheduleEnabled forKey:@"ScheduleEnabled"];
 }
 
-- (void)setScheduleInterval:(NSInteger)interval {
+- (void)setScheduleInterval:(NSTimeInterval)interval {
 
   NSLog(@"ScheduleConfiguration [setScheduleInterval:%ld]", (long)interval);
 
   _scheduleInterval = interval;
 
-  [_userDefaults setInteger:_scheduleInterval forKey:@"ScheduleInterval"];
+  [_userDefaults setDouble:_scheduleInterval forKey:@"ScheduleInterval"];
 }
 
 - (void)setLastExportedAt:(nullable NSDate*)timestamp {
