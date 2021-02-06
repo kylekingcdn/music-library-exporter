@@ -4,3 +4,6 @@
 //
 //  Created by Kyle King on 2021-02-05.
 //
+
+VERSION_BUILD = 20
+CURRENT_PROJECT_VERSION = 0.1.2
