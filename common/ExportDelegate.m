@@ -33,6 +33,13 @@
 
   _state = ExportStopped;
 
+  NSError *error = nil;
+  _itLibrary = [ITLibrary libraryWithAPIVersion:@"1.1" error:&error];
+  if (!_itLibrary) {
+    NSLog(@"error - failed to init ITLibrary. error: %@", error.localizedDescription);
+    return self;
+  }
+
   _libraryFilter = [[LibraryFilter alloc] init];
   _librarySerializer = [[LibrarySerializer alloc] init];
 
