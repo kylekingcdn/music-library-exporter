@@ -1,0 +1,35 @@
+//
+//  Signing.xcconfig
+//  Music Library Exporter
+//
+//  Created by Kyle King on 2021-02-05.
+//
+
+// Shared
+CODE_SIGN_STYLE = Manual
+DEVELOPMENT_TEAM = 9YLM7HTV6V
+ENABLE_HARDENED_RUNTIME = YES
+
+// Entitlements
+MLE_MAINAPP_CODE_SIGN_ENTITLEMENTS = Music Library Exporter/Supporting Files/Music_Library_Exporter.entitlements
+MLE_HELPERAPP_CODE_SIGN_ENTITLEMENTS = Music Library Exporter Helper/Supporting Files/Music_Library_Exporter_Helper.entitlements
+MLE_CLITOOL_CODE_SIGN_ENTITLEMENTS =
+
+// Code Signing Identity
+MLE_MAINAPP_CODE_SIGN_IDENTITY_DEBUG = Mac Developer: Kyle King (Y4WV8H5R72)
+MLE_MAINAPP_CODE_SIGN_IDENTITY_RELEASE = 3rd Party Mac Developer Application: Kyle King (9YLM7HTV6V)
+MLE_HELPERAPP_CODE_SIGN_IDENTITY_DEBUG = Mac Developer: Kyle King (Y4WV8H5R72)
+MLE_HELPERAPP_CODE_SIGN_IDENTITY_RELEASE = 3rd Party Mac Developer Application: Kyle King (9YLM7HTV6V)
+MLE_CLITOOL_CODE_SIGN_IDENTITY_DEBUG = Mac Developer: Kyle King (Y4WV8H5R72)
+MLE_CLITOOL_CODE_SIGN_IDENTITY_RELEASE = 3rd Party Mac Developer Application: Kyle King (9YLM7HTV6V)
+
+// Provisioning Profile
+MLE_MAINAPP_PROVISIONING_PROFILE_SPECIFIER_DEBUG = Music Library Exporter - Development
+MLE_MAINAPP_PROVISIONING_PROFILE_SPECIFIER_RELEASE = Music Library Exporter
+MLE_HELPERAPP_PROVISIONING_PROFILE_SPECIFIER_DEBUG = Music Library Exporter Helper - Development
+MLE_HELPERAPP_PROVISIONING_PROFILE_SPECIFIER_RELEASE = Music Library Exporter Helper
+MLE_CLITOOL_PROVISIONING_PROFILE_SPECIFIER_DEBUG =
+MLE_CLITOOL_PROVISIONING_PROFILE_SPECIFIER_RELEASE =
+
+
+

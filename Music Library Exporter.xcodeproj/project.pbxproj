@@ -93,6 +93,14 @@
 		273B522925CA5F3E00421B14 /* ScheduleDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ScheduleDelegate.m; path = "Music Library Exporter Helper/ScheduleDelegate.m"; sourceTree = SOURCE_ROOT; };
 		273B522E25CA666000421B14 /* Defines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Defines.h; sourceTree = "<group>"; };
 		273B522F25CA666000421B14 /* Defines.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Defines.m; sourceTree = "<group>"; };
+		2749611525CE2A1700B98E11 /* Music Library Exporter Helper.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Music Library Exporter Helper.xcconfig"; sourceTree = "<group>"; };
+		2749611725CE2A1700B98E11 /* Music Library Exporter.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Music Library Exporter.xcconfig"; sourceTree = "<group>"; };
+		2749611925CE2A1700B98E11 /* library-generator.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "library-generator.xcconfig"; sourceTree = "<group>"; };
+		2749612025CE2A1700B98E11 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		2749612125CE2A1700B98E11 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		2749612225CE2A1700B98E11 /* Version.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Version.xcconfig; sourceTree = "<group>"; };
+		2749612325CE2A1700B98E11 /* Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = "<group>"; };
+		2749612425CE2FF400B98E11 /* Signing.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Signing.xcconfig; sourceTree = "<group>"; };
 		27533C2225CAA03C00A3B4D9 /* ExportDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExportDelegate.h; sourceTree = "<group>"; };
 		27533C2325CAA03C00A3B4D9 /* ExportDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExportDelegate.m; sourceTree = "<group>"; };
 		276442A025BD3F7600EE217C /* OrderedDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderedDictionary.h; sourceTree = "<group>"; };
@@ -162,6 +170,7 @@
 		2705443C25B66A0A00FE6D65 = {
 			isa = PBXGroup;
 			children = (
+				2749611325CE2A1700B98E11 /* Config */,
 				27A2BFBE25C0851B00AAD73C /* common */,
 				27EF9A6525BF23910051CE7B /* Music Library Exporter */,
 				27A2C05625C0934A00AAD73C /* Music Library Exporter Helper */,
@@ -189,6 +198,37 @@
 				27A2C02125C08FF700AAD73C /* ServiceManagement.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2749611325CE2A1700B98E11 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				2749611F25CE2A1700B98E11 /* Common */,
+				2749611425CE2A1700B98E11 /* Schemes */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		2749611425CE2A1700B98E11 /* Schemes */ = {
+			isa = PBXGroup;
+			children = (
+				2749611725CE2A1700B98E11 /* Music Library Exporter.xcconfig */,
+				2749611525CE2A1700B98E11 /* Music Library Exporter Helper.xcconfig */,
+				2749611925CE2A1700B98E11 /* library-generator.xcconfig */,
+			);
+			path = Schemes;
+			sourceTree = "<group>";
+		};
+		2749611F25CE2A1700B98E11 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				2749612325CE2A1700B98E11 /* Base.xcconfig */,
+				2749612225CE2A1700B98E11 /* Version.xcconfig */,
+				2749612425CE2FF400B98E11 /* Signing.xcconfig */,
+				2749612025CE2A1700B98E11 /* Debug.xcconfig */,
+				2749612125CE2A1700B98E11 /* Release.xcconfig */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		27A2BFBE25C0851B00AAD73C /* common */ = {
@@ -483,208 +523,57 @@
 /* Begin XCBuildConfiguration section */
 		2705444A25B66A0A00FE6D65 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2749612025CE2A1700B98E11 /* Debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				CODE_SIGN_STYLE = Manual;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 9YLM7HTV6V;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
 		2705444B25B66A0A00FE6D65 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2749612125CE2A1700B98E11 /* Release.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
-				CODE_SIGN_STYLE = Manual;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 9YLM7HTV6V;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				SDKROOT = macosx;
 			};
 			name = Release;
 		};
 		2705444D25B66A0A00FE6D65 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2749611925CE2A1700B98E11 /* library-generator.xcconfig */;
 			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
 		2705444E25B66A0A00FE6D65 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2749611925CE2A1700B98E11 /* library-generator.xcconfig */;
 			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
 		27A2C06425C0934B00AAD73C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2749611525CE2A1700B98E11 /* Music Library Exporter Helper.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "Music Library Exporter Helper/Supporting Files/Music_Library_Exporter_Helper.entitlements";
-				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = "Music Library Exporter Helper/Supporting Files/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.kylekingcdn.MusicLibraryExporter.MusicLibraryExporterHelper;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Music Library Exporter Helper - Development";
-				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
 		27A2C06525C0934B00AAD73C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2749611525CE2A1700B98E11 /* Music Library Exporter Helper.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "Music Library Exporter Helper/Supporting Files/Music_Library_Exporter_Helper.entitlements";
-				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = "Music Library Exporter Helper/Supporting Files/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.kylekingcdn.MusicLibraryExporter.MusicLibraryExporterHelper;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Music Library Exporter Helper";
-				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
 		27EF9A7325BF23920051CE7B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2749611725CE2A1700B98E11 /* Music Library Exporter.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "Music Library Exporter/Supporting Files/Music_Library_Exporter.entitlements";
-				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = "Music Library Exporter/Supporting Files/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.kylekingcdn.MusicLibraryExporter;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Music Library Exporter - Development";
 			};
 			name = Debug;
 		};
 		27EF9A7425BF23920051CE7B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2749611725CE2A1700B98E11 /* Music Library Exporter.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "Music Library Exporter/Supporting Files/Music_Library_Exporter.entitlements";
-				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = "Music Library Exporter/Supporting Files/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.kylekingcdn.MusicLibraryExporter;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Music Library Exporter";
 			};
 			name = Release;
 		};

@@ -1,0 +1,29 @@
+//
+//  Release.xcconfig
+//  Music Library Exporter
+//
+//  Created by Kyle King on 2021-02-05.
+//
+
+#include "../Common/Base.xcconfig"
+
+// Architectures
+ONLY_ACTIVE_ARCH = NO
+
+// Build Options
+DEBUG_INFORMATION_FORMAT = dwarf-with-dsym
+ENABLE_TESTABILITY = NO
+
+// Signing
+CODE_SIGN_IDENTITY = $(CODE_SIGN_IDENTITY_RELEASE)
+PROVISIONING_PROFILE_SPECIFIER = $(PROVISIONING_PROFILE_SPECIFIER_RELEASE)
+
+// Apple Clang - Code Generation
+GCC_OPTIMIZATION_LEVEL = $(inherited)
+
+// Apple Clang - Preprocessing
+ENABLE_NS_ASSERTIONS = NO
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited)
+
+// User-Defined
+MTL_ENABLE_DEBUG_INFO = NO
