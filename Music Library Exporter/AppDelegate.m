@@ -47,7 +47,7 @@
   [_groupDefaults addObserver:self forKeyPath:@"NextExportAt" options:NSKeyValueObservingOptionNew context:NULL];
 
   _exportConfiguration = [[UserDefaultsExportConfiguration alloc] initWithUserDefaultsSuiteName:__MLE__AppGroupIdentifier];
-  _exportDelegate = [[ExportDelegate alloc] initWithConfiguration:_exportConfiguration];
+  _exportDelegate = [ExportDelegate exporterWithConfig:_exportConfiguration];
 
   _scheduleConfiguration = [[ScheduleConfiguration alloc] init];
 

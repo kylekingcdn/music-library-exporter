@@ -34,12 +34,11 @@
   [_groupDefaults addObserver:self forKeyPath:@"NextExportAt" options:NSKeyValueObservingOptionNew context:NULL];
 
   _exportConfiguration = [[UserDefaultsExportConfiguration alloc] initWithUserDefaultsSuiteName:__MLE__AppGroupIdentifier];
-  _exportDelegate = [[ExportDelegate alloc] initWithConfiguration:_exportConfiguration];
+  _exportDelegate = [ExportDelegate exporterWithConfig:_exportConfiguration];
 
   _scheduleConfiguration = [[ScheduleConfiguration alloc] init];
-  _scheduleDelegate = [[ScheduleDelegate alloc] initWithExportDelegate:_exportDelegate];
+  _scheduleDelegate = [ScheduleDelegate schedulerWithConfig:_scheduleConfiguration andExporter:_exportDelegate];
 
-  [_scheduleDelegate setConfiguration:_scheduleConfiguration];
   [_scheduleDelegate setInterval:_scheduleConfiguration.scheduleInterval];
   [_scheduleDelegate activateScheduler];
 }

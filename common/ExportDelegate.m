@@ -39,13 +39,12 @@
   return self;
 }
 
-- (instancetype)initWithConfiguration:(UserDefaultsExportConfiguration*)config {
++ (instancetype)exporterWithConfig:(UserDefaultsExportConfiguration*)config {
 
-  self = [self init];
+  ExportDelegate* delegate = [[ExportDelegate alloc] init];
+  [delegate setConfiguration:config];
 
-  [self setConfiguration:config];
-
-  return self;
+  return delegate;
 }
 
 

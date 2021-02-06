@@ -16,22 +16,15 @@
 
 #pragma mark - Initializers -
 
-- (instancetype)initWithUserDefaults:(NSUserDefaults*)userDefaults {
+- (instancetype)initWithUserDefaultsSuiteName:(NSString*)suiteName {
 
   self = [super init];
 
-  _userDefaults = userDefaults;
+  _userDefaults = [[NSUserDefaults alloc] initWithSuiteName:suiteName];;
 
   [self loadPropertiesFromUserDefaults];
 
   return self;
-}
-
-- (instancetype)initWithUserDefaultsSuiteName:(NSString*)suiteName {
-
-  NSUserDefaults* userDefaultsForSuiteName = [[NSUserDefaults alloc] initWithSuiteName:suiteName];
-
-  return [self initWithUserDefaults:userDefaultsForSuiteName];
 }
 
 

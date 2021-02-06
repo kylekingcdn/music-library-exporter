@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)init;
 
-- (instancetype)initWithConfiguration:(UserDefaultsExportConfiguration*)config;
++ (instancetype)exporterWithConfig:(UserDefaultsExportConfiguration*)config;
 
 
 #pragma mark - Mutators -
