@@ -27,6 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSDictionary*)createPersistentIdDictionaryForPlaylists:(NSArray<NSDictionary*>*)playlistsArray;
 
 + (NSString*)descriptionForExportState:(ExportState)state;
++ (NSString*)descriptionForExportDeferralReason:(ExportDeferralReason)reason;
 
 @end
 

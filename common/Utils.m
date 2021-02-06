@@ -130,4 +130,25 @@
   }
 }
 
++ (NSString*)descriptionForExportDeferralReason:(ExportDeferralReason)reason {
+
+  switch (reason) {
+    case ExportDeferralOnBatteryReason: {
+      return @"Running on battery";
+    }
+    case ExportDeferralMainAppOpenReason: {
+      return @"Main app open";
+    }
+    case ExportDeferralErrorReason: {
+      return @"Error";
+    }
+    case ExportDeferralUnknownReason: {
+      return @"Unknown";
+    }
+    case ExportNoDeferralReason: {
+      return @"Not deferred";
+    }
+  }
+}
+
 @end

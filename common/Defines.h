@@ -27,7 +27,13 @@ typedef NS_ENUM(NSInteger, ExportState){
   ExportError
 };
 
-extern NSDictionary* const ExportStateDescription;
+typedef NS_ENUM(NSInteger, ExportDeferralReason){
+  ExportDeferralOnBatteryReason,
+  ExportDeferralMainAppOpenReason,
+  ExportDeferralErrorReason,
+  ExportDeferralUnknownReason,
+  ExportNoDeferralReason,
+};
 
 @end
 
