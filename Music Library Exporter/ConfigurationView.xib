@@ -240,7 +240,7 @@
                     <constraints>
                         <constraint firstAttribute="width" constant="40" id="Aue-uF-ZRj"/>
                     </constraints>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="center" placeholderString="1" drawsBackground="YES" id="HG6-Nl-PbA">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="center" placeholderString="1" drawsBackground="YES" usesSingleLineMode="YES" id="HG6-Nl-PbA">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -448,6 +448,5 @@ to prevent possible conflicts</string>
             </constraints>
             <point key="canvasLocation" x="104" y="179"/>
         </customView>
-        <userDefaultsController representsSharedInstance="YES" id="vFw-z8-2oN"/>
     </objects>
 </document>

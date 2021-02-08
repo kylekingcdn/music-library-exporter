@@ -12,6 +12,7 @@
 #import "UserDefaultsExportConfiguration.h"
 #import "ExportDelegate.h"
 #import "ScheduleConfiguration.h"
+#import "HourNumberFormatter.h"
 
 static void *MLEProgressObserverContext = &MLEProgressObserverContext;
 
@@ -54,6 +55,8 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
   ExportDelegate* _exportDelegate;
 
   ScheduleConfiguration* _scheduleConfiguration;
+
+  HourNumberFormatter* _scheduleIntervalHourFormatter;
 }
 
 
@@ -76,6 +79,7 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
   // ensure helper registration status matches configuration value for scheduleEnabled
   [_helperDelegate updateHelperRegistrationWithScheduleEnabled:_scheduleConfiguration.scheduleEnabled];
 
+
   return self;
 }
 
@@ -85,6 +89,9 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
 - (void)viewDidLoad {
 
   [super viewDidLoad];
+
+  _scheduleIntervalHourFormatter = [[HourNumberFormatter alloc] init];
+  [_scheduleIntervalTextField setFormatter:_scheduleIntervalHourFormatter];
 
   [_exportProgressBar setIndeterminate:NO];
   [_exportProgressBar setMinValue:0];
@@ -217,6 +224,10 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
 
   if (_scheduleConfiguration.scheduleInterval != scheduleInterval) {
 
+    if (scheduleInterval == 0) {
+      scheduleInterval = 1;
+    }
+    [_scheduleIntervalTextField setDoubleValue:scheduleInterval];
     [_scheduleConfiguration setScheduleInterval:scheduleInterval];
     [_scheduleIntervalStepper setDoubleValue:scheduleInterval];
   }
@@ -228,8 +239,12 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
 
   if (_scheduleConfiguration.scheduleInterval != scheduleInterval) {
 
+    if (scheduleInterval == 0) {
+      scheduleInterval = 1;
+    }
     [_scheduleIntervalTextField setDoubleValue:scheduleInterval];
     [_scheduleConfiguration setScheduleInterval:scheduleInterval];
+    [_scheduleIntervalStepper setDoubleValue:scheduleInterval];
   }
 }
 

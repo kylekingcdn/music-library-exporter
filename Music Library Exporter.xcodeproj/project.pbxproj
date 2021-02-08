@@ -11,6 +11,7 @@
 		2705445225B66B7A00FE6D65 /* iTunesLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2705445125B66B7A00FE6D65 /* iTunesLibrary.framework */; };
 		2705445925B670E700FE6D65 /* LibrarySerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2705445825B670E700FE6D65 /* LibrarySerializer.m */; };
 		272C8E9825C0E59C003CBF47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27EF9A6925BF23920051CE7B /* Assets.xcassets */; };
+		272D6A0F25D1B104005023CA /* HourNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 272D6A0E25D1B0F7005023CA /* HourNumberFormatter.m */; };
 		273B523325CA672300421B14 /* Defines.m in Sources */ = {isa = PBXBuildFile; fileRef = 273B522F25CA666000421B14 /* Defines.m */; };
 		273B523725CA672700421B14 /* Defines.m in Sources */ = {isa = PBXBuildFile; fileRef = 273B522F25CA666000421B14 /* Defines.m */; };
 		2749619325CE4FA400B98E11 /* LibraryFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2749619225CE4F9700B98E11 /* LibraryFilter.m */; };
@@ -93,6 +94,8 @@
 		2705445125B66B7A00FE6D65 /* iTunesLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTunesLibrary.framework; path = System/Library/Frameworks/iTunesLibrary.framework; sourceTree = SDKROOT; };
 		2705445725B670E700FE6D65 /* LibrarySerializer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LibrarySerializer.h; sourceTree = "<group>"; };
 		2705445825B670E700FE6D65 /* LibrarySerializer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LibrarySerializer.m; sourceTree = "<group>"; };
+		272D6A0D25D1B0F7005023CA /* HourNumberFormatter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HourNumberFormatter.h; sourceTree = "<group>"; };
+		272D6A0E25D1B0F7005023CA /* HourNumberFormatter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HourNumberFormatter.m; sourceTree = "<group>"; };
 		273B522825CA5F3E00421B14 /* ScheduleDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScheduleDelegate.h; path = "Music Library Exporter Helper/ScheduleDelegate.h"; sourceTree = SOURCE_ROOT; };
 		273B522925CA5F3E00421B14 /* ScheduleDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ScheduleDelegate.m; path = "Music Library Exporter Helper/ScheduleDelegate.m"; sourceTree = SOURCE_ROOT; };
 		273B522E25CA666000421B14 /* Defines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Defines.h; sourceTree = "<group>"; };
@@ -313,6 +316,8 @@
 				27EF9A6725BF23910051CE7B /* AppDelegate.m */,
 				27C0A10225CB0BF100EDDE22 /* HelperDelegate.h */,
 				27C0A10325CB0BF100EDDE22 /* HelperDelegate.m */,
+				272D6A0D25D1B0F7005023CA /* HourNumberFormatter.h */,
+				272D6A0E25D1B0F7005023CA /* HourNumberFormatter.m */,
 				2783C75625C4FB60002ED7B7 /* ConfigurationViewController.h */,
 				2783C75725C4FB60002ED7B7 /* ConfigurationViewController.m */,
 				2783C74825C4FAF2002ED7B7 /* ConfigurationView.xib */,
@@ -501,6 +506,7 @@
 				27A2BFC425C085E400AAD73C /* LibraryParser.m in Sources */,
 				27A2BFC525C085E400AAD73C /* LibrarySerializer.m in Sources */,
 				27C0A10425CB0BF100EDDE22 /* HelperDelegate.m in Sources */,
+				272D6A0F25D1B104005023CA /* HourNumberFormatter.m in Sources */,
 				2783C75825C4FB60002ED7B7 /* ConfigurationViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
