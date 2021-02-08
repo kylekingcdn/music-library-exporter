@@ -133,6 +133,13 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
 
   [_lastExportLabel setStringValue:[NSString stringWithFormat:@"Last export:  %@", _scheduleConfiguration.lastExportedAt ? _scheduleConfiguration.lastExportedAt.description : @"n/a"]];
   [_nextExportLabel setStringValue:[NSString stringWithFormat:@"Next export:  %@", _scheduleConfiguration.nextExportAt ? _scheduleConfiguration.nextExportAt.description : @"n/a"]];
+
+  // update states of controls with dependencies
+  [_remapOriginalDirectoryTextField setEnabled:_exportConfiguration.remapRootDirectory];
+  [_remapMappedDirectoryTextField setEnabled:_exportConfiguration.remapRootDirectory];
+  [_scheduleIntervalTextField setEnabled:_scheduleConfiguration.scheduleEnabled];
+  [_scheduleIntervalStepper setEnabled:_scheduleConfiguration.scheduleEnabled];
+  [_scheduleSkipOnBatteryCheckBox setEnabled:_scheduleConfiguration.scheduleEnabled];
 }
 
 - (IBAction)setMediaFolderLocation:(id)sender {
@@ -181,6 +188,9 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
   BOOL flag = (flagState == NSControlStateValueOn);
 
   [_exportConfiguration setRemapRootDirectory:flag];
+
+  [_remapOriginalDirectoryTextField setEnabled:flag];
+  [_remapMappedDirectoryTextField setEnabled:flag];
 }
 
 - (IBAction)setRemapOriginalText:(id)sender {
@@ -219,18 +229,18 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
   BOOL flag = (flagState == NSControlStateValueOn);
 
   [_scheduleConfiguration setScheduleEnabled:flag];
-
-  // register/unregister helper app
   [_helperDelegate updateHelperRegistrationWithScheduleEnabled:flag];
 
-  // TODO: update next export at
+  [_scheduleIntervalTextField setEnabled:flag];
+  [_scheduleIntervalStepper setEnabled:flag];
+  [_scheduleSkipOnBatteryCheckBox setEnabled:flag];
 }
 
 - (IBAction)setScheduleInterval:(id)sender {
 
   NSTimeInterval scheduleInterval = [sender doubleValue];
 
-  if (_scheduleConfiguration.scheduleInterval != scheduleInterval) {
+  if (_scheduleConfiguration.scheduleInterval != scheduleInterval && _scheduleConfiguration.scheduleEnabled) {
 
     if (scheduleInterval == 0) {
       scheduleInterval = 1;
@@ -245,7 +255,7 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
 
   NSTimeInterval scheduleInterval = [sender doubleValue];
 
-  if (_scheduleConfiguration.scheduleInterval != scheduleInterval) {
+  if (_scheduleConfiguration.scheduleInterval != scheduleInterval && _scheduleConfiguration.scheduleEnabled) {
 
     if (scheduleInterval == 0) {
       scheduleInterval = 1;
@@ -261,7 +271,9 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
   NSControlStateValue flagState = [sender state];
   BOOL flag = (flagState == NSControlStateValueOn);
 
-  [_scheduleConfiguration setSkipOnBattery:flag];
+  if (_scheduleConfiguration.scheduleEnabled) {
+    [_scheduleConfiguration setSkipOnBattery:flag];
+  }
 }
 
 - (IBAction)exportLibrary:(id)sender {

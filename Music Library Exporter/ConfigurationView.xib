@@ -134,7 +134,7 @@
                 </textField>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dWM-bR-tNA" userLabel="Path mapping checkbox">
                     <rect key="frame" x="197" y="426" width="380" height="18"/>
-                    <buttonCell key="cell" type="check" title="Remap music root directory" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="8wE-Bs-Aj7">
+                    <buttonCell key="cell" type="check" title="Remap music root directory" bezelStyle="regularSquare" imagePosition="left" inset="2" id="8wE-Bs-Aj7">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -160,7 +160,7 @@
                 </textField>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BjE-vG-HTd" userLabel="Path mapping original field">
                     <rect key="frame" x="335" y="380" width="242" height="21"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="Text to find" drawsBackground="YES" id="0do-Lr-cX6">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="Text to find" drawsBackground="YES" id="0do-Lr-cX6">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -180,7 +180,7 @@
                 </textField>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JJM-n9-YVb" userLabel="Path mapping mapped field">
                     <rect key="frame" x="335" y="349" width="242" height="21"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="Replacement text" drawsBackground="YES" id="g4y-t2-Rgo">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="Replacement text" drawsBackground="YES" id="g4y-t2-Rgo">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -234,7 +234,7 @@
                 </textField>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="w6z-XH-YS0" userLabel="Schedule checkbox">
                     <rect key="frame" x="197" y="214" width="230" height="18"/>
-                    <buttonCell key="cell" type="check" title="Automatically export library every" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="7n5-7E-GkX">
+                    <buttonCell key="cell" type="check" title="Automatically export library every" bezelStyle="regularSquare" imagePosition="left" inset="2" id="7n5-7E-GkX">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -247,7 +247,7 @@
                     <constraints>
                         <constraint firstAttribute="width" constant="40" id="Aue-uF-ZRj"/>
                     </constraints>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="center" placeholderString="1" drawsBackground="YES" usesSingleLineMode="YES" id="HG6-Nl-PbA">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="center" placeholderString="1" drawsBackground="YES" usesSingleLineMode="YES" id="HG6-Nl-PbA">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -259,7 +259,7 @@
                 </textField>
                 <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cPD-R5-ghn" userLabel="Schedule interval stepper">
                     <rect key="frame" x="472" y="209" width="19" height="28"/>
-                    <stepperCell key="cell" scrollable="YES" lineBreakMode="clipping" continuous="YES" alignment="left" minValue="1" maxValue="24" doubleValue="1" valueWraps="YES" id="1Hw-VP-AZe"/>
+                    <stepperCell key="cell" scrollable="YES" lineBreakMode="clipping" continuous="YES" enabled="NO" alignment="left" minValue="1" maxValue="24" doubleValue="1" valueWraps="YES" id="1Hw-VP-AZe"/>
                     <connections>
                         <action selector="incrementScheduleInterval:" target="-2" id="oh8-Bh-8uB"/>
                     </connections>
@@ -344,7 +344,7 @@ to prevent possible conflicts</string>
                 </textField>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="016-DX-Sno" userLabel="Skip on battery checkbox">
                     <rect key="frame" x="197" y="151" width="380" height="18"/>
-                    <buttonCell key="cell" type="check" title="Skip scheduled exports when system is running on battery" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="jWr-7J-KmK">
+                    <buttonCell key="cell" type="check" title="Skip scheduled exports when system is running on battery" bezelStyle="regularSquare" imagePosition="left" enabled="NO" state="on" inset="2" id="jWr-7J-KmK">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
