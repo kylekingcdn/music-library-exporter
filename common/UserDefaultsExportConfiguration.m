@@ -47,10 +47,19 @@
     nil
   ];
 }
+- (NSString*)outputDirectoryBookmarkKey {
+
+  if (!_outputDirectoryBookmarkKeySuffix || _outputDirectoryBookmarkKeySuffix.length == 0) {
+    return @"OutputDirectoryBookmark";
+  }
+  else {
+    return [NSString stringWithFormat:@"OutputDirectoryBookmark%@", _outputDirectoryBookmarkKeySuffix];
+  }
+}
 
 - (nullable NSData*)fetchOutputDirectoryBookmarkData {
 
-  return [_userDefaults dataForKey:@"OutputDirectoryBookmark"];
+  return [_userDefaults dataForKey: [self outputDirectoryBookmarkKey]];
 }
 
 
@@ -210,7 +219,7 @@
   // save bookmark data to user defaults
   else {
 
-    [_userDefaults setValue:outputDirBookmarkData forKey:@"OutputDirectoryBookmark"];
+    [_userDefaults setValue:outputDirBookmarkData forKey:[self outputDirectoryBookmarkKey]];
     [super setOutputDirectoryUrl:outputDirUrl];
 
     return YES;

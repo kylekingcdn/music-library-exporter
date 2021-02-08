@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UserDefaultsExportConfiguration : ExportConfiguration
 
+@property NSString* outputDirectoryBookmarkKeySuffix;
+
 
 #pragma mark - Initializers -
 
@@ -24,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSDictionary*)defaultValues;
 
+- (NSString*)outputDirectoryBookmarkKey;
 - (nullable NSData*)fetchOutputDirectoryBookmarkData;
 
 
