@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,6 +14,8 @@
 		272D6A0F25D1B104005023CA /* HourNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 272D6A0E25D1B0F7005023CA /* HourNumberFormatter.m */; };
 		273B523325CA672300421B14 /* Defines.m in Sources */ = {isa = PBXBuildFile; fileRef = 273B522F25CA666000421B14 /* Defines.m */; };
 		273B523725CA672700421B14 /* Defines.m in Sources */ = {isa = PBXBuildFile; fileRef = 273B522F25CA666000421B14 /* Defines.m */; };
+		273E13EE25D1C6710012483C /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 273E13ED25D1C6710012483C /* Sentry */; };
+		273E13F325D1C6860012483C /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 273E13F225D1C6860012483C /* Sentry */; };
 		2749619325CE4FA400B98E11 /* LibraryFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2749619225CE4F9700B98E11 /* LibraryFilter.m */; };
 		2749619725CE4FAA00B98E11 /* LibraryFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2749619225CE4F9700B98E11 /* LibraryFilter.m */; };
 		2749619B25CE4FB000B98E11 /* LibraryFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2749619225CE4F9700B98E11 /* LibraryFilter.m */; };
@@ -163,6 +165,7 @@
 			files = (
 				27A2C09125C097DF00AAD73C /* iTunesLibrary.framework in Frameworks */,
 				275917EA25CE84980052E94C /* IOKit.framework in Frameworks */,
+				273E13F325D1C6860012483C /* Sentry in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,6 +175,7 @@
 			files = (
 				27A2BFC925C0860700AAD73C /* iTunesLibrary.framework in Frameworks */,
 				27A2C02225C08FF700AAD73C /* ServiceManagement.framework in Frameworks */,
+				273E13EE25D1C6710012483C /* Sentry in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,6 +374,9 @@
 			dependencies = (
 			);
 			name = "Music Library Exporter Helper";
+			packageProductDependencies = (
+				273E13F225D1C6860012483C /* Sentry */,
+			);
 			productName = "Music Library Exporter Helper";
 			productReference = 27A2C05525C0934A00AAD73C /* Music Library Exporter Helper.app */;
 			productType = "com.apple.product-type.application";
@@ -389,6 +396,9 @@
 				27A2C07125C0943900AAD73C /* PBXTargetDependency */,
 			);
 			name = "Music Library Exporter";
+			packageProductDependencies = (
+				273E13ED25D1C6710012483C /* Sentry */,
+			);
 			productName = "Music Library Exporter";
 			productReference = 27EF9A6425BF23910051CE7B /* Music Library Exporter.app */;
 			productType = "com.apple.product-type.application";
@@ -421,6 +431,9 @@
 				Base,
 			);
 			mainGroup = 2705443C25B66A0A00FE6D65;
+			packageReferences = (
+				273E13EC25D1C6710012483C /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
+			);
 			productRefGroup = 2705444625B66A0A00FE6D65 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -637,6 +650,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		273E13EC25D1C6710012483C /* XCRemoteSwiftPackageReference "sentry-cocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/getsentry/sentry-cocoa.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.1.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		273E13ED25D1C6710012483C /* Sentry */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 273E13EC25D1C6710012483C /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
+			productName = Sentry;
+		};
+		273E13F225D1C6860012483C /* Sentry */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 273E13EC25D1C6710012483C /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
+			productName = Sentry;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2705443D25B66A0A00FE6D65 /* Project object */;
 }
