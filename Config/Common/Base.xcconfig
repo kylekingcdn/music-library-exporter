@@ -5,8 +5,8 @@
 //  Created by Kyle King on 2021-02-05.
 //
 
-#include "../Common/Version.xcconfig"
-#include "../Common/Signing.xcconfig"
+#include "Config/Common/Version.xcconfig"
+#include "Config/Common/Signing.xcconfig"
 
 // Architectures
 SDKROOT = macosx

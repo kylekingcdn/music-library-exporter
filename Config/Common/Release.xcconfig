@@ -5,7 +5,7 @@
 //  Created by Kyle King on 2021-02-05.
 //
 
-#include "../Common/Base.xcconfig"
+#include "Config/Common/Base.xcconfig"
 
 // Architectures
 ONLY_ACTIVE_ARCH = NO
