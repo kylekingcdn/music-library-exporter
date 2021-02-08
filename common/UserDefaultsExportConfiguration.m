@@ -20,9 +20,7 @@
 
   self = [super init];
 
-  _userDefaults = [[NSUserDefaults alloc] initWithSuiteName:suiteName];;
-
-  [self loadPropertiesFromUserDefaults];
+  _userDefaults = [[NSUserDefaults alloc] initWithSuiteName:suiteName];
 
   return self;
 }
