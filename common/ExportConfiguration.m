@@ -13,6 +13,7 @@
   NSString* _musicLibraryPath;
 
   NSURL* _outputDirectoryUrl;
+  NSString* _outputDirectoryPath;
   NSString* _outputFileName;
 
   BOOL _remapRootDirectory;
@@ -45,6 +46,11 @@
 - (NSURL*)outputDirectoryUrl {
 
   return _outputDirectoryUrl;
+}
+
+- (NSString*)outputDirectoryPath {
+
+  return _outputDirectoryPath;
 }
 
 - (NSString*)outputDirectoryUrlPath {
@@ -141,6 +147,7 @@
   NSLog(@"  MusicLibraryPath:                '%@'", _musicLibraryPath);
 
   NSLog(@"  OutputDirectoryUrl:              '%@'", _outputDirectoryUrl);
+  NSLog(@"  OutputDirectoryPath:             '%@'", _outputDirectoryPath);
   NSLog(@"  OutputFileName:                  '%@'", _outputFileName);
 
   NSLog(@"  RemapRootDirectory:              '%@'", (_remapRootDirectory ? @"YES" : @"NO"));
@@ -167,6 +174,13 @@
   NSLog(@"ExportConfiguration [setOutputDirectoryUrl %@]", dirUrl);
 
   _outputDirectoryUrl = dirUrl;
+}
+
+- (void)setOutputDirectoryPath:(NSString*)dirPath {
+
+  NSLog(@"ExportConfiguration [setOutputDirectoryPath %@]", dirPath);
+
+  _outputDirectoryPath = dirPath;
 }
 
 - (void)setOutputFileName:(NSString*)fileName {

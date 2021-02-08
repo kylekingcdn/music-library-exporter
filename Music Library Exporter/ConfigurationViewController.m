@@ -169,6 +169,7 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
       if (outputDirUrl) {
 
         [self->_exportConfiguration setOutputDirectoryUrl:outputDirUrl];
+        [self->_exportConfiguration setOutputDirectoryPath:outputDirUrl.path];
         [self->_outputDirectoryTextField setStringValue:outputDirUrl.path];
       }
     }

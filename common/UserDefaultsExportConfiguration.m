@@ -34,6 +34,7 @@
     @"",             @"MusicLibraryPath",
 
 //  @"",             @"OutputDirectoryBookmark", /* we want this to be nil if it doesn't exist */
+    @"",             @"OutputDirectoryPath",
     @"Library.xml",  @"OutputFileName",
 
     @NO,             @"RemapRootDirectory",
@@ -77,6 +78,13 @@
   [super setOutputDirectoryUrl:dirUrl];
 
   [self saveBookmarkForOutputDirectoryUrl:dirUrl];
+}
+
+- (void)setOutputDirectoryPath:(NSString*)dirPath {
+
+  [super setOutputDirectoryPath:dirPath];
+
+  [_userDefaults setValue:dirPath forKey:@"OutputDirectoryPath"];
 }
 
 - (void)setOutputFileName:(NSString*)fileName {
@@ -137,6 +145,7 @@
   [super setMusicLibraryPath:[_userDefaults valueForKey:@"MusicLibraryPath"]];
 
   [super setOutputDirectoryUrl:[self resolveAndAutoRenewOutputDirectoryUrl]];
+  [super setOutputDirectoryPath:[_userDefaults valueForKey:@"OutputDirectoryPath"]];
   [super setOutputFileName:[_userDefaults valueForKey:@"OutputFileName"]];
 
   [super setRemapRootDirectory:[_userDefaults boolForKey:@"RemapRootDirectory"]];
