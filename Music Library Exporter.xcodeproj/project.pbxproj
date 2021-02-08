@@ -487,8 +487,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				273B523325CA672300421B14 /* Defines.m in Sources */,
-				27A2C06125C0934B00AAD73C /* main.m in Sources */,
-				27A2C05925C0934A00AAD73C /* AppDelegate.m in Sources */,
 				2783C76825C518CC002ED7B7 /* ExportConfiguration.m in Sources */,
 				27EC7C6725C8C41800996E9E /* UserDefaultsExportConfiguration.m in Sources */,
 				27533C2E25CAA21600A3B4D9 /* ExportDelegate.m in Sources */,
@@ -499,6 +497,8 @@
 				27A2C08C25C097C000AAD73C /* LibraryParser.m in Sources */,
 				27A2C08D25C097C000AAD73C /* LibrarySerializer.m in Sources */,
 				27934B5925CB13D500488944 /* ScheduleDelegate.m in Sources */,
+				27A2C05925C0934A00AAD73C /* AppDelegate.m in Sources */,
+				27A2C06125C0934B00AAD73C /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -507,8 +507,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				273B523725CA672700421B14 /* Defines.m in Sources */,
-				27EF9A7025BF23920051CE7B /* main.m in Sources */,
-				27EF9A6825BF23910051CE7B /* AppDelegate.m in Sources */,
 				2783C76725C518CC002ED7B7 /* ExportConfiguration.m in Sources */,
 				27EC7C6325C8C41300996E9E /* UserDefaultsExportConfiguration.m in Sources */,
 				27533C2A25CAA21300A3B4D9 /* ExportDelegate.m in Sources */,
@@ -518,9 +516,11 @@
 				2749619325CE4FA400B98E11 /* LibraryFilter.m in Sources */,
 				27A2BFC425C085E400AAD73C /* LibraryParser.m in Sources */,
 				27A2BFC525C085E400AAD73C /* LibrarySerializer.m in Sources */,
-				27C0A10425CB0BF100EDDE22 /* HelperDelegate.m in Sources */,
 				272D6A0F25D1B104005023CA /* HourNumberFormatter.m in Sources */,
+				27C0A10425CB0BF100EDDE22 /* HelperDelegate.m in Sources */,
 				2783C75825C4FB60002ED7B7 /* ConfigurationViewController.m in Sources */,
+				27EF9A6825BF23910051CE7B /* AppDelegate.m in Sources */,
+				27EF9A7025BF23920051CE7B /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
