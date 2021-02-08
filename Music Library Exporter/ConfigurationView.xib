@@ -66,6 +66,7 @@
                     </textFieldCell>
                     <connections>
                         <action selector="setMediaFolderLocation:" target="-2" id="m4a-Lm-6I8"/>
+                        <outlet property="nextKeyView" destination="AMO-i9-8k7" id="oZb-Lf-eWz"/>
                     </connections>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2ur-tq-GOh" userLabel="Library path description">
@@ -91,6 +92,9 @@
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
+                    <connections>
+                        <outlet property="nextKeyView" destination="2Pg-dB-pIn" id="Hue-m6-8eO"/>
+                    </connections>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aNt-y7-Osz" userLabel="Output directory description">
                     <rect key="frame" x="199" y="492" width="380" height="14"/>
@@ -117,6 +121,7 @@
                     </textFieldCell>
                     <connections>
                         <action selector="setOutputFileName:" target="-2" id="HfB-fL-Vz8"/>
+                        <outlet property="nextKeyView" destination="BjE-vG-HTd" id="jTX-ce-06X"/>
                     </connections>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jEV-Wb-pGb" userLabel="Path mapping label">
@@ -162,6 +167,7 @@
                     </textFieldCell>
                     <connections>
                         <action selector="setRemapOriginalText:" target="-2" id="Ydo-pW-SW4"/>
+                        <outlet property="nextKeyView" destination="JJM-n9-YVb" id="4aC-Cq-d1B"/>
                     </connections>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ssc-9C-hAE" userLabel="Path mapping mapped label">
@@ -181,6 +187,7 @@
                     </textFieldCell>
                     <connections>
                         <action selector="setRemapReplacementText:" target="-2" id="r6u-EX-vWO"/>
+                        <outlet property="nextKeyView" destination="cGM-Xy-cVO" id="wpB-AB-3Xb"/>
                     </connections>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="u8n-GV-iLz" userLabel="Playlists Label">
@@ -247,6 +254,7 @@
                     </textFieldCell>
                     <connections>
                         <action selector="setScheduleInterval:" target="-2" id="EnH-an-fUv"/>
+                        <outlet property="nextKeyView" destination="aQn-IB-K3Q" id="Wah-84-DO4"/>
                     </connections>
                 </textField>
                 <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cPD-R5-ghn" userLabel="Schedule interval stepper">

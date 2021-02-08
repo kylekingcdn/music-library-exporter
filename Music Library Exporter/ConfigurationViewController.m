@@ -84,6 +84,14 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
 }
 
 
+#pragma mark - Accessors -
+
+- (id)firstResponderView {
+
+  return _libraryPathTextField;
+}
+
+
 #pragma mark - Mutators -
 
 - (void)viewDidLoad {

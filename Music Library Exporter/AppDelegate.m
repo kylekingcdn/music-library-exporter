@@ -57,7 +57,8 @@
                                                                           andScheduleConfig:_scheduleConfiguration
                                                                           forHelperDelegate:_helperDelegate];
 
-  [_window setContentView:[configurationViewController view]];
+  [_window setContentView:configurationViewController.view];
+  [_window setInitialFirstResponder:configurationViewController.firstResponderView];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {

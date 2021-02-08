@@ -26,6 +26,11 @@ NS_ASSUME_NONNULL_BEGIN
                      forHelperDelegate:(HelperDelegate*)helperDelegate;
 
 
+#pragma mark - Accessors -
+
+- (id)firstResponderView;
+
+
 #pragma mark - Mutators -
 
 - (void)updateFromConfiguration;
