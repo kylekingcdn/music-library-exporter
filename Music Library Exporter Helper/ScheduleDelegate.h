@@ -42,6 +42,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (BOOL)isMainAppRunning;
 
+- (BOOL)isOutputDirectoryBookmarkValid;
+
 - (ExportDeferralReason)reasonToDeferExport;
 
 
@@ -51,6 +53,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)deactivateScheduler;
 
 - (void)updateSchedule;
+
+- (void)requestOutputDirectoryPermissions;
+- (void)requestOutputDirectoryPermissionsIfRequired;
 
 
 

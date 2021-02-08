@@ -35,6 +35,7 @@
   [_groupDefaults addObserver:self forKeyPath:@"ScheduleEnabled" options:NSKeyValueObservingOptionNew context:NULL];
   [_groupDefaults addObserver:self forKeyPath:@"ScheduleInterval" options:NSKeyValueObservingOptionNew context:NULL];
   [_groupDefaults addObserver:self forKeyPath:@"LastExportedAt" options:NSKeyValueObservingOptionNew context:NULL];
+  [_groupDefaults addObserver:self forKeyPath:@"OutputDirectoryPath" options:NSKeyValueObservingOptionNew context:NULL];
 //  [_groupDefaults addObserver:self forKeyPath:@"NextExportAt" options:NSKeyValueObservingOptionNew context:NULL];
 
   return self;
@@ -57,6 +58,8 @@
   [scheduleDelegate setExportDelegate:exportDelegate];
 
   [scheduleDelegate updateSchedule];
+
+  [scheduleDelegate requestOutputDirectoryPermissionsIfRequired];
 
   return scheduleDelegate;
 }
@@ -115,6 +118,32 @@
       return YES;
     }
   }
+
+  return NO;
+}
+
+- (BOOL)isOutputDirectoryBookmarkValid {
+
+  NSLog(@"ScheduleDelegate [isOutputDirectoryBookmarkValid]");
+
+  NSString* outputDirPath = _exportDelegate.configuration.outputDirectoryPath;
+  if (outputDirPath.length == 0) {
+    NSLog(@"ScheduleDelegate [isOutputDirectoryBookmarkValid] output directory has not been set yet");
+    return NO;
+  }
+
+  NSURL* outputDirUrl = _exportDelegate.configuration.resolveAndAutoRenewOutputDirectoryUrl;
+
+  if (outputDirUrl && outputDirUrl.isFileURL) {
+
+    if ([outputDirUrl.path isEqualToString:outputDirPath]) {
+      NSLog(@"ScheduleDelegate [isOutputDirectoryBookmarkValid] bookmark is valid");
+      return YES;
+    }
+    NSLog(@"ScheduleDelegate [isOutputDirectoryBookmarkValid] bookmarked path: %@", outputDirUrl.path);
+  }
+
+  NSLog(@"ScheduleDelegate [isOutputDirectoryBookmarkValid] bookmark is not valid. The helper app must be granted write permission to: %@", outputDirPath);
 
   return NO;
 }
@@ -205,12 +234,86 @@
 
   if ([keyPath isEqualToString:@"ScheduleEnabled"] ||
       [keyPath isEqualToString:@"ScheduleInterval"] ||
-      [keyPath isEqualToString:@"LastExportedAt"]) {
+      [keyPath isEqualToString:@"LastExportedAt"] ||
+      [keyPath isEqualToString:@"OutputDirectoryPath"]) {
 
     // fetch latest configuration values
     [_configuration loadPropertiesFromUserDefaults];
+    [_exportDelegate.configuration loadPropertiesFromUserDefaults];
 
+    [self requestOutputDirectoryPermissionsIfRequired];
     [self updateSchedule];
+  }
+}
+
+- (void)requestOutputDirectoryPermissions {
+
+  NSLog(@"ScheduleDelegate [requestOutputDirectoryPermissions]");
+
+  NSString* outputDirPath = _exportDelegate.configuration.outputDirectoryPath;
+
+  // Set activation policy to regular to allow for modal to pop up
+  [[NSApplication sharedApplication] setActivationPolicy:NSApplicationActivationPolicyRegular];
+  
+  NSOpenPanel* openPanel = [NSOpenPanel openPanel];
+  [openPanel setCanChooseDirectories:YES];
+  [openPanel setCanChooseFiles:NO];
+  [openPanel setAllowsMultipleSelection:NO];
+  [openPanel setLevel:NSFloatingWindowLevel];
+
+  [openPanel setMessage:@"Select a location to save the generated library."];
+  if (outputDirPath.length > 0) {
+    [openPanel setDirectoryURL:[NSURL fileURLWithPath:outputDirPath]];
+  }
+
+  [[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
+
+  [openPanel beginWithCompletionHandler:^(NSInteger result) {
+
+    if (result == NSModalResponseOK) {
+
+      NSURL* outputDirUrl = [openPanel URL];
+
+      if (outputDirUrl) {
+        if (outputDirPath.length == 0 || [outputDirUrl.path isEqualToString:outputDirUrl.path]) {
+          NSLog(@"ScheduleDelegate [requestOutputDirectoryPermissions] the correct output directory has been selected");
+          [self->_exportDelegate.configuration setOutputDirectoryUrl:outputDirUrl];
+        }
+        else {
+          NSLog(@"ScheduleDelegate [requestOutputDirectoryPermissions] the user has selected a diretory that differs from the output directory set with the main app.");
+        }
+      }
+      else {
+        NSLog(@"ScheduleDelegate [requestOutputDirectoryPermissions] the user has cancelled granting permissions. Automated exports will be disabled.");
+        // TODO: warn user that automated exports will be disabled + do disable
+      }
+    }
+    else {
+      NSLog(@"ScheduleDelegate [requestOutputDirectoryPermissions] the user has cancelled granting permissions. Automated exports will be disabled.");
+      // TODO: warn user that automated exports will be disabled + do disable
+    }
+
+    // reset activation policy
+    [[NSApplication sharedApplication] setActivationPolicy:NSApplicationActivationPolicyProhibited];
+  }];
+}
+
+- (void)requestOutputDirectoryPermissionsIfRequired {
+
+  NSString* outputDirPath = _exportDelegate.configuration.outputDirectoryPath;
+  BOOL outputDirIsSet = (outputDirPath.length > 0);
+
+  if (!outputDirIsSet) {
+    NSLog(@"ScheduleDelegate [requestOutputDirectoryPermissionsIfRequired] not prompting for permissions since output path hasn't been set yet");
+    return;
+  }
+  else if (self.isOutputDirectoryBookmarkValid) {
+    NSLog(@"ScheduleDelegate [requestOutputDirectoryPermissionsIfRequired] output dir bookmark is valid, permissions grant not required");
+
+  }
+  else {
+    NSLog(@"ScheduleDelegate [requestOutputDirectoryPermissionsIfRequired] output dir bookmark is either not valid or inconsistent. Triggering prompt for permissions grant");
+    [self requestOutputDirectoryPermissions];
   }
 }
 
