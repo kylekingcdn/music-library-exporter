@@ -16,6 +16,8 @@
 #import "ScheduleConfiguration.h"
 #import "ConfigurationViewController.h"
 
+@import Sentry;
+
 @interface AppDelegate ()
 
 @property (strong) IBOutlet NSWindow *window;
@@ -40,6 +42,13 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 
+#if SENTRY_ENABLED == 1
+  [SentrySDK startWithConfigureOptions:^(SentryOptions *options) {
+      options.dsn = @"https://157b5edf2ba84c86b4ebf0b8d50d2d26@o370998.ingest.sentry.io/5628302";
+     // options.debug = YES;
+  }];
+#endif
+  
   _groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
   [_groupDefaults addObserver:self forKeyPath:@"ScheduleInterval" options:NSKeyValueObservingOptionNew context:NULL];
   [_groupDefaults addObserver:self forKeyPath:@"LastExportedAt" options:NSKeyValueObservingOptionNew context:NULL];
