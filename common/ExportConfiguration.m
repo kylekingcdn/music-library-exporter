@@ -47,7 +47,7 @@
   return _outputDirectoryUrl;
 }
 
-- (NSString*)outputDirectoryPath {
+- (NSString*)outputDirectoryUrlPath {
 
   if (_outputDirectoryUrl && _outputDirectoryUrl.isFileURL) {
     return _outputDirectoryUrl.path;

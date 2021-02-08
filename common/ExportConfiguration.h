@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString*)musicLibraryPath;
 
 - (nullable NSURL*)outputDirectoryUrl;
-- (NSString*)outputDirectoryPath;
+- (NSString*)outputDirectoryUrlPath;
 - (BOOL)isOutputDirectoryValid;
 
 - (NSString*)outputFileName;

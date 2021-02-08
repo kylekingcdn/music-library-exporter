@@ -115,7 +115,7 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
   NSLog(@"ConfigurationViewController [updateFromConfiguration]");
 
   [_libraryPathTextField setStringValue:_exportConfiguration.musicLibraryPath];
-  [_outputDirectoryTextField setStringValue:_exportConfiguration.outputDirectoryPath];
+  [_outputDirectoryTextField setStringValue:_exportConfiguration.outputDirectoryUrlPath];
   [_outputFileNameTextField setStringValue:_exportConfiguration.outputFileName];
 
   [_remapRootDirectoryCheckBox setState:(_exportConfiguration.remapRootDirectory ? NSControlStateValueOn : NSControlStateValueOff)];
