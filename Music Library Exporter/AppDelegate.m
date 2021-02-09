@@ -68,7 +68,9 @@
                                                                           andScheduleConfig:_scheduleConfiguration
                                                                           forHelperDelegate:_helperDelegate];
 
-  [_window setContentView:configurationViewController.view];
+  // add configurationView to window contentview
+  [configurationViewController.view setFrame:_window.contentView.frame];
+  [_window.contentView addSubview:configurationViewController.view];
   [_window setInitialFirstResponder:configurationViewController.firstResponderView];
 }
 

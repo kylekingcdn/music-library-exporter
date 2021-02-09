@@ -34,7 +34,7 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="c22-O7-iKe" userLabel="Configuration View">
             <rect key="frame" x="0.0" y="0.0" width="597" height="598"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4At-1b-40C" userLabel="Internal playlists checkbox">
                     <rect key="frame" x="197" y="270" width="380" height="18"/>
