@@ -10,6 +10,8 @@
 		2705444925B66A0A00FE6D65 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2705444825B66A0A00FE6D65 /* main.m */; };
 		2705445225B66B7A00FE6D65 /* iTunesLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2705445125B66B7A00FE6D65 /* iTunesLibrary.framework */; };
 		2705445925B670E700FE6D65 /* LibrarySerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2705445825B670E700FE6D65 /* LibrarySerializer.m */; };
+		2725CA4725D3F2D7002C1203 /* PlaylistsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2725CA4625D3F2D7002C1203 /* PlaylistsViewController.m */; };
+		2725CA4C25D3F65C002C1203 /* PlaylistsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2725CA4B25D3F65C002C1203 /* PlaylistsView.xib */; };
 		272C8E9825C0E59C003CBF47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27EF9A6925BF23920051CE7B /* Assets.xcassets */; };
 		272D6A0F25D1B104005023CA /* HourNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 272D6A0E25D1B0F7005023CA /* HourNumberFormatter.m */; };
 		273B523325CA672300421B14 /* Defines.m in Sources */ = {isa = PBXBuildFile; fileRef = 273B522F25CA666000421B14 /* Defines.m */; };
@@ -96,6 +98,9 @@
 		2705445125B66B7A00FE6D65 /* iTunesLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTunesLibrary.framework; path = System/Library/Frameworks/iTunesLibrary.framework; sourceTree = SDKROOT; };
 		2705445725B670E700FE6D65 /* LibrarySerializer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LibrarySerializer.h; sourceTree = "<group>"; };
 		2705445825B670E700FE6D65 /* LibrarySerializer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LibrarySerializer.m; sourceTree = "<group>"; };
+		2725CA4525D3F2D7002C1203 /* PlaylistsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaylistsViewController.h; sourceTree = "<group>"; };
+		2725CA4625D3F2D7002C1203 /* PlaylistsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaylistsViewController.m; sourceTree = "<group>"; };
+		2725CA4B25D3F65C002C1203 /* PlaylistsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaylistsView.xib; sourceTree = "<group>"; };
 		272D6A0D25D1B0F7005023CA /* HourNumberFormatter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HourNumberFormatter.h; sourceTree = "<group>"; };
 		272D6A0E25D1B0F7005023CA /* HourNumberFormatter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HourNumberFormatter.m; sourceTree = "<group>"; };
 		273B522825CA5F3E00421B14 /* ScheduleDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScheduleDelegate.h; path = "Music Library Exporter Helper/ScheduleDelegate.h"; sourceTree = SOURCE_ROOT; };
@@ -325,6 +330,9 @@
 				2783C75625C4FB60002ED7B7 /* ConfigurationViewController.h */,
 				2783C75725C4FB60002ED7B7 /* ConfigurationViewController.m */,
 				2783C74825C4FAF2002ED7B7 /* ConfigurationView.xib */,
+				2725CA4525D3F2D7002C1203 /* PlaylistsViewController.h */,
+				2725CA4625D3F2D7002C1203 /* PlaylistsViewController.m */,
+				2725CA4B25D3F65C002C1203 /* PlaylistsView.xib */,
 				27EF9A6B25BF23920051CE7B /* MainMenu.xib */,
 				27EF9A8225BF24010051CE7B /* Supporting Files */,
 			);
@@ -461,6 +469,7 @@
 			files = (
 				27EF9A6A25BF23920051CE7B /* Assets.xcassets in Resources */,
 				2783C74925C4FAF2002ED7B7 /* ConfigurationView.xib in Resources */,
+				2725CA4C25D3F65C002C1203 /* PlaylistsView.xib in Resources */,
 				27EF9A6D25BF23920051CE7B /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -514,6 +523,7 @@
 				27A2BFC625C085E400AAD73C /* OrderedDictionary.m in Sources */,
 				27A2BFC325C085E400AAD73C /* Utils.m in Sources */,
 				2749619325CE4FA400B98E11 /* LibraryFilter.m in Sources */,
+				2725CA4725D3F2D7002C1203 /* PlaylistsViewController.m in Sources */,
 				27A2BFC425C085E400AAD73C /* LibraryParser.m in Sources */,
 				27A2BFC525C085E400AAD73C /* LibrarySerializer.m in Sources */,
 				272D6A0F25D1B104005023CA /* HourNumberFormatter.m in Sources */,

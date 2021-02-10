@@ -8,13 +8,14 @@
 #import "AppDelegate.h"
 
 #import <ServiceManagement/ServiceManagement.h>
-
+#import <iTunesLibrary/ITLibrary.h>
 #import "Utils.h"
 #import "HelperDelegate.h"
 #import "UserDefaultsExportConfiguration.h"
 #import "ExportDelegate.h"
 #import "ScheduleConfiguration.h"
 #import "ConfigurationViewController.h"
+#import "PlaylistsViewController.h"
 
 @import Sentry;
 
@@ -29,6 +30,8 @@
 
   NSUserDefaults* _groupDefaults;
 
+  ITLibrary* _itLibrary;
+
   HelperDelegate* _helperDelegate;
 
   UserDefaultsExportConfiguration* _exportConfiguration;
@@ -36,7 +39,8 @@
 
   ScheduleConfiguration* _scheduleConfiguration;
 
-  ConfigurationViewController* configurationViewController;
+  ConfigurationViewController* _configurationViewController;
+  PlaylistsViewController* _playlistsViewController;
 }
 
 
@@ -64,14 +68,35 @@
 
   _helperDelegate = [[HelperDelegate alloc] init];
 
-  configurationViewController = [[ConfigurationViewController alloc] initWithExportDelegate:_exportDelegate
+  _configurationViewController = [[ConfigurationViewController alloc] initWithExportDelegate:_exportDelegate
                                                                           andScheduleConfig:_scheduleConfiguration
                                                                           forHelperDelegate:_helperDelegate];
 
   // add configurationView to window contentview
-  [configurationViewController.view setFrame:_window.contentView.frame];
-  [_window.contentView addSubview:configurationViewController.view];
-  [_window setInitialFirstResponder:configurationViewController.firstResponderView];
+  [_configurationViewController.view setFrame:_window.contentView.frame];
+  [_window.contentView addSubview:_configurationViewController.view];
+  [_window setInitialFirstResponder:_configurationViewController.firstResponderView];
+
+  // init ITLibrary instance
+  NSError *initLibraryError = nil;
+  _itLibrary = [ITLibrary libraryWithAPIVersion:@"1.1" error:&initLibraryError];
+  if (!_itLibrary) {
+    NSLog(@"AppDelegate [applicationDidFinishLaunching]  error - failed to init ITLibrary. error: %@", initLibraryError.localizedDescription);
+    return;
+  }
+
+  // init playlistsView
+  _playlistsViewController = [PlaylistsViewController controllerWithLibrary:_itLibrary andExportConfig:_exportConfiguration];
+  NSWindow* playlistsViewWindow = [NSWindow windowWithContentViewController:_playlistsViewController];
+  [playlistsViewWindow setTitle:@"Playlists"];
+
+  // update window frame
+  NSRect playlistsViewWindowFrame = _window.frame;
+  playlistsViewWindowFrame.origin.x += (_window.frame.size.width + 20);
+  [playlistsViewWindow setFrame:playlistsViewWindowFrame display:YES];
+
+  [playlistsViewWindow makeKeyAndOrderFront:NSApp];
+  [_window makeKeyAndOrderFront:NSApp];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
@@ -87,7 +112,7 @@
       [aKeyPath isEqualToString:@"NextExportAt"]) {
 
     [_scheduleConfiguration loadPropertiesFromUserDefaults];
-    [configurationViewController updateFromConfiguration];
+    [_configurationViewController updateFromConfiguration];
   }
 }
 
