@@ -20,10 +20,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property ITLibPlaylist* playlist;
 @property NSArray<PlaylistNode*>* children;
 
-@property (copy) NSString* title;
-
-@property (readonly) BOOL isLeaf;
-
 
 #pragma mark - Initializers
 

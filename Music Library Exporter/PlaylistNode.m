@@ -26,7 +26,6 @@
 
   PlaylistNode* node = [[PlaylistNode alloc] init];
 
-  [node setTitle:playlist.name];
   [node setPlaylist:playlist];
   [node setChildren:childNodes];
 
