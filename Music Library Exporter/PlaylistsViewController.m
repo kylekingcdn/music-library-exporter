@@ -51,6 +51,70 @@
 
 #pragma mark - Accessors
 
++ (TableColumnType)columnWithIdentifier:(NSString*)columnIdentifier {
+
+  if ([columnIdentifier isEqualToString:@"titleColumn"]) {
+    return TitleColumn;
+  }
+  else if ([columnIdentifier isEqualToString:@"kindColumn"]) {
+    return KindColumn;
+  }
+  else if ([columnIdentifier isEqualToString:@"itemsColumn"]) {
+    return ItemsColumn;
+  }
+  else if ([columnIdentifier isEqualToString:@"sortingColumn"]) {
+    return SortingColumn;
+  }
+
+  return NullColumn;
+}
+
++ (nullable NSString*)cellViewIdentifierForColumn:(TableColumnType)column {
+
+  switch (column) {
+    case TitleColumn: {
+      return @"titleCellView";
+    }
+    case KindColumn: {
+      return @"kindCellView";
+    }
+    case ItemsColumn: {
+      return @"itemsCellView";
+    }
+    case SortingColumn: {
+      return @"sortingCellView";
+    }
+    default: {
+      return nil;
+    }
+  }
+}
+
++ (nullable NSString*)cellTitleForColumn:(TableColumnType)column andNode:(PlaylistNode*)node {
+
+  if (!node) {
+    return nil;
+  }
+
+  switch (column) {
+    case TitleColumn: {
+      return node.playlist.name;
+    }
+    case KindColumn: {
+      return node.kindDescription;
+    }
+    case ItemsColumn: {
+      return node.itemsDescription;
+    }
+    case SortingColumn: {
+      return @"Default";
+    }
+    default: {
+      return nil;
+    }
+  }
+}
+
 - (NSArray<ITLibPlaylist*>*)playlistsWithParentId:(nullable NSNumber*)parentId {
 
   NSMutableArray<ITLibPlaylist*>* children = [NSMutableArray array];
@@ -169,11 +233,17 @@
     return nil;
   }
 
+  TableColumnType columnType = [PlaylistsViewController columnWithIdentifier:tableColumn.identifier];
+  if (columnType == NullColumn) {
+    return nil;
+  }
+
+  NSString* cellViewId = [PlaylistsViewController cellViewIdentifierForColumn:columnType];
+  NSString* cellViewTitle = [PlaylistsViewController cellTitleForColumn:columnType andNode:node];
 
   // checkbox columns
-  if ([tableColumn.identifier isEqualToString:@"titleColumn"]) {
-    NSString* cellId = @"titleCellView";
-    CheckBoxTableCellView* cellView = [outlineView makeViewWithIdentifier:cellId owner:nil];
+  if (columnType == TitleColumn) {
+    CheckBoxTableCellView* cellView = [outlineView makeViewWithIdentifier:cellViewId owner:nil];
 
     NSControlStateValue state;
     if ([_exportConfiguration.excludedPlaylistPersistentIds containsObject:node.playlist.persistentID]) {
@@ -184,49 +254,24 @@
     }
 
     [cellView.checkbox setState:state];
-    [cellView.checkbox setTitle:node.playlist.name];
+    [cellView.checkbox setTitle:cellViewTitle];
     return cellView;
   }
 
-  // drop down columns
-//  else if ([tableColumn.identifier isEqualToString:@"sortingColumn"]) {
-//    NSString* cellId = @"sortingCellView";
-//    NSString* cellTitle = @"Default";
-
-//    return nil;
-//  }
-
   // text field columns
-  else {
+  else if (columnType != NullColumn){
 
-    NSString* cellTitle;
-    NSString* cellId;
-
-    if ([tableColumn.identifier isEqualToString:@"kindColumn"]) {
-      cellId = @"kindCellView";
-      cellTitle = node.kindDescription;
-    }
-    else if ([tableColumn.identifier isEqualToString:@"itemsColumn"]) {
-      cellId = @"itemsCellView";
-      cellTitle = node.itemsDescription;
-    }
-    else if ([tableColumn.identifier isEqualToString:@"sortingColumn"]) {
-      cellId = @"sortingCellView";
-      cellTitle = @"Default";
-    }
-    else {
-      return nil;
-    }
-
-    NSTableCellView* cellView = [outlineView makeViewWithIdentifier:cellId owner:nil];
+    NSTableCellView* cellView = [outlineView makeViewWithIdentifier:cellViewId owner:nil];
     if (!cellView) {
       NSLog(@"PlaylistsViewController [viewForTableColumn:%@] error - failed to make cell view", tableColumn.identifier);
       return nil;
     }
 
-    [cellView.textField setStringValue:cellTitle];
+    [cellView.textField setStringValue:cellViewTitle];
     return cellView;
   }
+
+  return nil;
 }
 
 @end

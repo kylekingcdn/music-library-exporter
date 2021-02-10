@@ -17,6 +17,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PlaylistsViewController : NSViewController <NSOutlineViewDelegate, NSOutlineViewDataSource>
 
+typedef NS_ENUM(NSInteger, TableColumnType){
+  NullColumn,
+  TitleColumn,
+  KindColumn,
+  ItemsColumn,
+  SortingColumn
+};
+
 
 #pragma mark - Properties
 
@@ -32,6 +40,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 #pragma mark - Accessors
+
++ (TableColumnType)columnWithIdentifier:(NSString*)columnIdentifier;
+
++ (nullable NSString*)cellViewIdentifierForColumn:(TableColumnType)column;
++ (nullable NSString*)cellTitleForColumn:(TableColumnType)column andNode:(PlaylistNode*)node;
 
 - (NSArray<ITLibPlaylist*>*)playlistsWithParentId:(nullable NSNumber*)playlistId;
 - (NSArray<ITLibPlaylist*>*)childrenForPlaylist:(nullable ITLibPlaylist*)playlist;
