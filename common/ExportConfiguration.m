@@ -22,7 +22,7 @@
 
   BOOL _flattenPlaylistHierarchy;
   BOOL _includeInternalPlaylists;
-  NSArray<NSNumber*>* _excludedPlaylistPersistentIds;
+  NSMutableSet<NSNumber*>* _excludedPlaylistPersistentIds;
 }
 
 
@@ -135,7 +135,7 @@
     return _includeInternalPlaylists;
 }
 
-- (NSArray<NSNumber*>*)excludedPlaylistPersistentIds {
+- (NSSet<NSNumber*>*)excludedPlaylistPersistentIds {
 
     return _excludedPlaylistPersistentIds;
 }
@@ -225,35 +225,23 @@
   _includeInternalPlaylists = flag;
 }
 
-- (void)setExcludedPlaylistPersistentIds:(NSArray<NSNumber*>*)excludedIds {
+- (void)setExcludedPlaylistPersistentIds:(NSSet<NSNumber*>*)excludedIds {
 
-  _excludedPlaylistPersistentIds = excludedIds;
+  _excludedPlaylistPersistentIds = [excludedIds mutableCopy];
 }
 
 - (void)addExcludedPlaylistPersistentId:(NSNumber*)playlistId {
 
   NSLog(@"ExportConfiguration [addExcludedPlaylistPersistentId %@]", playlistId);
 
-  if (![_excludedPlaylistPersistentIds containsObject:playlistId]) {
-
-    NSMutableArray<NSNumber*>* updatedIds = [_excludedPlaylistPersistentIds mutableCopy];
-    [updatedIds addObject:playlistId];
-
-    [self setExcludedPlaylistPersistentIds:updatedIds];
-  }
+  [_excludedPlaylistPersistentIds addObject:playlistId];
 }
 
 - (void)removeExcludedPlaylistPersistentId:(NSNumber*)playlistId {
 
   NSLog(@"ExportConfiguration [removeExcludedPlaylistPersistentId %@]", playlistId);
 
-  if ([_excludedPlaylistPersistentIds containsObject:playlistId]) {
-
-    NSMutableArray<NSNumber*>* updatedIds = [_excludedPlaylistPersistentIds mutableCopy];
-    [updatedIds removeObject:playlistId];
-
-    [self setExcludedPlaylistPersistentIds:updatedIds];
-  }
+  [_excludedPlaylistPersistentIds removeObject:playlistId];
 }
 
 - (void)setExcluded:(BOOL)excluded forPlaylistId:(NSNumber*)playlistId {
