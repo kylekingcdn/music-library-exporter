@@ -25,6 +25,8 @@
 		27533C2E25CAA21600A3B4D9 /* ExportDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27533C2325CAA03C00A3B4D9 /* ExportDelegate.m */; };
 		275917EA25CE84980052E94C /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 275917E425CE847F0052E94C /* IOKit.framework */; };
 		276442A225BD3F7600EE217C /* OrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 276442A125BD3F7600EE217C /* OrderedDictionary.m */; };
+		276B1AD125D40BB3002D7289 /* PlaylistNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B1ACF25D40BB3002D7289 /* PlaylistNode.m */; };
+		276B1AD825D415A2002D7289 /* CheckBoxTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B1AD725D415A2002D7289 /* CheckBoxTableCellView.m */; };
 		2783C74925C4FAF2002ED7B7 /* ConfigurationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2783C74825C4FAF2002ED7B7 /* ConfigurationView.xib */; };
 		2783C75825C4FB60002ED7B7 /* ConfigurationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2783C75725C4FB60002ED7B7 /* ConfigurationViewController.m */; };
 		2783C76725C518CC002ED7B7 /* ExportConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 2783C76625C518CC002ED7B7 /* ExportConfiguration.m */; };
@@ -122,6 +124,10 @@
 		275917E425CE847F0052E94C /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		276442A025BD3F7600EE217C /* OrderedDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderedDictionary.h; sourceTree = "<group>"; };
 		276442A125BD3F7600EE217C /* OrderedDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderedDictionary.m; sourceTree = "<group>"; };
+		276B1ACF25D40BB3002D7289 /* PlaylistNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaylistNode.m; sourceTree = "<group>"; };
+		276B1AD025D40BB3002D7289 /* PlaylistNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaylistNode.h; sourceTree = "<group>"; };
+		276B1AD625D415A2002D7289 /* CheckBoxTableCellView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckBoxTableCellView.h; sourceTree = "<group>"; };
+		276B1AD725D415A2002D7289 /* CheckBoxTableCellView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CheckBoxTableCellView.m; sourceTree = "<group>"; };
 		2783C74825C4FAF2002ED7B7 /* ConfigurationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfigurationView.xib; sourceTree = "<group>"; };
 		2783C75625C4FB60002ED7B7 /* ConfigurationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfigurationViewController.h; sourceTree = "<group>"; };
 		2783C75725C4FB60002ED7B7 /* ConfigurationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfigurationViewController.m; sourceTree = "<group>"; };
@@ -330,6 +336,10 @@
 				2783C75625C4FB60002ED7B7 /* ConfigurationViewController.h */,
 				2783C75725C4FB60002ED7B7 /* ConfigurationViewController.m */,
 				2783C74825C4FAF2002ED7B7 /* ConfigurationView.xib */,
+				276B1AD025D40BB3002D7289 /* PlaylistNode.h */,
+				276B1ACF25D40BB3002D7289 /* PlaylistNode.m */,
+				276B1AD625D415A2002D7289 /* CheckBoxTableCellView.h */,
+				276B1AD725D415A2002D7289 /* CheckBoxTableCellView.m */,
 				2725CA4525D3F2D7002C1203 /* PlaylistsViewController.h */,
 				2725CA4625D3F2D7002C1203 /* PlaylistsViewController.m */,
 				2725CA4B25D3F65C002C1203 /* PlaylistsView.xib */,
@@ -520,10 +530,12 @@
 				27EC7C6325C8C41300996E9E /* UserDefaultsExportConfiguration.m in Sources */,
 				27533C2A25CAA21300A3B4D9 /* ExportDelegate.m in Sources */,
 				27C0A0F525CB046A00EDDE22 /* ScheduleConfiguration.m in Sources */,
+				276B1AD125D40BB3002D7289 /* PlaylistNode.m in Sources */,
 				27A2BFC625C085E400AAD73C /* OrderedDictionary.m in Sources */,
 				27A2BFC325C085E400AAD73C /* Utils.m in Sources */,
 				2749619325CE4FA400B98E11 /* LibraryFilter.m in Sources */,
 				2725CA4725D3F2D7002C1203 /* PlaylistsViewController.m in Sources */,
+				276B1AD825D415A2002D7289 /* CheckBoxTableCellView.m in Sources */,
 				27A2BFC425C085E400AAD73C /* LibraryParser.m in Sources */,
 				27A2BFC525C085E400AAD73C /* LibrarySerializer.m in Sources */,
 				272D6A0F25D1B104005023CA /* HourNumberFormatter.m in Sources */,
