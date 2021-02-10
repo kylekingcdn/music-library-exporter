@@ -140,6 +140,11 @@
     return _excludedPlaylistPersistentIds;
 }
 
+- (BOOL)isPlaylistIdExcluded:(NSNumber*)playlistId {
+
+  return [_excludedPlaylistPersistentIds containsObject:playlistId];
+}
+
 - (void)dumpProperties {
 
   NSLog(@"ExportConfiguration [dumpProperties]");

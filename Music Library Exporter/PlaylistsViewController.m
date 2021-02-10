@@ -272,7 +272,7 @@
 
     CheckBoxTableCellView* cellView = [outlineView makeViewWithIdentifier:cellViewId owner:nil];
 
-    NSControlStateValue state = [_exportConfiguration.excludedPlaylistPersistentIds containsObject:node.playlist.persistentID] ? NSControlStateValueOff : NSControlStateValueOn;
+    NSControlStateValue state = [_exportConfiguration isPlaylistIdExcluded:node.playlist.persistentID] ? NSControlStateValueOff : NSControlStateValueOn;
 
     [cellView.checkbox setAction:@selector(setPlaylistExcludedForCellView:)];
     [cellView.checkbox setTarget:self];

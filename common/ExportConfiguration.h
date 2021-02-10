@@ -41,6 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)flattenPlaylistHierarchy;
 - (BOOL)includeInternalPlaylists;
 - (NSSet<NSNumber*>*)excludedPlaylistPersistentIds;
+- (BOOL)isPlaylistIdExcluded:(NSNumber*)playlistId;
 
 - (void)dumpProperties;
 

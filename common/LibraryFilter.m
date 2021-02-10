@@ -76,7 +76,7 @@
       if (playlist.kind != ITLibPlaylistKindFolder || !_configuration.flattenPlaylistHierarchy) {
 
         // ignore playlists that have been manually marked for exclusion
-        if (![_configuration.excludedPlaylistPersistentIds containsObject:playlist.persistentID]) {
+        if (![_configuration isPlaylistIdExcluded:playlist.persistentID]) {
 
           [includedPlaylists addObject:playlist];
         }
