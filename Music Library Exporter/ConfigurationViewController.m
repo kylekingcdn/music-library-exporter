@@ -331,8 +331,6 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
 
     if (exportState == ExportFinished) {
       [self->_scheduleConfiguration setLastExportedAt:[NSDate date]];
-      //[self->_scheduleConfiguration setNextExportedAt:/* next_export_at */];
-      [self updateFromConfiguration];
     }
   });
 }
