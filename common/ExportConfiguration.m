@@ -227,9 +227,43 @@
 
 - (void)setExcludedPlaylistPersistentIds:(NSArray<NSNumber*>*)excludedIds {
 
-  NSLog(@"ExportConfiguration [setExcludedPlaylistPersistentIds %lu]", (unsigned long)excludedIds.count);
-
   _excludedPlaylistPersistentIds = excludedIds;
+}
+
+- (void)addExcludedPlaylistPersistentId:(NSNumber*)playlistId {
+
+  NSLog(@"ExportConfiguration [addExcludedPlaylistPersistentId %@]", playlistId);
+
+  if (![_excludedPlaylistPersistentIds containsObject:playlistId]) {
+
+    NSMutableArray<NSNumber*>* updatedIds = [_excludedPlaylistPersistentIds mutableCopy];
+    [updatedIds addObject:playlistId];
+
+    [self setExcludedPlaylistPersistentIds:updatedIds];
+  }
+}
+
+- (void)removeExcludedPlaylistPersistentId:(NSNumber*)playlistId {
+
+  NSLog(@"ExportConfiguration [removeExcludedPlaylistPersistentId %@]", playlistId);
+
+  if ([_excludedPlaylistPersistentIds containsObject:playlistId]) {
+
+    NSMutableArray<NSNumber*>* updatedIds = [_excludedPlaylistPersistentIds mutableCopy];
+    [updatedIds removeObject:playlistId];
+
+    [self setExcludedPlaylistPersistentIds:updatedIds];
+  }
+}
+
+- (void)setExcluded:(BOOL)excluded forPlaylistId:(NSNumber*)playlistId {
+
+  if (excluded) {
+    [self addExcludedPlaylistPersistentId:playlistId];
+  }
+  else {
+    [self removeExcludedPlaylistPersistentId:playlistId];
+  }
 }
 
 @end
