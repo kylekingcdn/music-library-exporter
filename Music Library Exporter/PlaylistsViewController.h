@@ -10,29 +10,38 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class ITLibrary;
+@class ITLibPlaylist;
 @class ExportConfiguration;
+@class PlaylistNode;
 
 
-@interface PlaylistsViewController : NSViewController
+@interface PlaylistsViewController : NSViewController <NSOutlineViewDelegate, NSOutlineViewDataSource>
 
 
-#pragma mark - Properties -
+#pragma mark - Properties
 
 @property ITLibrary* library;
 @property ExportConfiguration* exportConfiguration;
 
 
-#pragma mark - Initializers -
+#pragma mark - Initializers
 
 - (instancetype)init;
 
 + (PlaylistsViewController*)controllerWithLibrary:(ITLibrary*)lib andExportConfig:(ExportConfiguration*)config;
 
 
-#pragma mark - Accessors -
+#pragma mark - Accessors
+
+- (NSArray<ITLibPlaylist*>*)playlistsWithParentId:(nullable NSNumber*)playlistId;
+- (NSArray<ITLibPlaylist*>*)childrenForPlaylist:(nullable ITLibPlaylist*)playlist;
+
+- (PlaylistNode*)createNodeForPlaylist:(nullable ITLibPlaylist*)playlist;
 
 
-#pragma mark - Mutators -
+#pragma mark - Mutators
+
+- (void)initPlaylistNodes;
 
 
 @end
