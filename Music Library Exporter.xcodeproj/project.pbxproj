@@ -27,6 +27,7 @@
 		276442A225BD3F7600EE217C /* OrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 276442A125BD3F7600EE217C /* OrderedDictionary.m */; };
 		276B1AD125D40BB3002D7289 /* PlaylistNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B1ACF25D40BB3002D7289 /* PlaylistNode.m */; };
 		276B1AD825D415A2002D7289 /* CheckBoxTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B1AD725D415A2002D7289 /* CheckBoxTableCellView.m */; };
+		276B1AE125D42453002D7289 /* PopupButtonTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B1ADF25D42452002D7289 /* PopupButtonTableCellView.m */; };
 		2783C74925C4FAF2002ED7B7 /* ConfigurationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2783C74825C4FAF2002ED7B7 /* ConfigurationView.xib */; };
 		2783C75825C4FB60002ED7B7 /* ConfigurationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2783C75725C4FB60002ED7B7 /* ConfigurationViewController.m */; };
 		2783C76725C518CC002ED7B7 /* ExportConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 2783C76625C518CC002ED7B7 /* ExportConfiguration.m */; };
@@ -128,6 +129,8 @@
 		276B1AD025D40BB3002D7289 /* PlaylistNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaylistNode.h; sourceTree = "<group>"; };
 		276B1AD625D415A2002D7289 /* CheckBoxTableCellView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckBoxTableCellView.h; sourceTree = "<group>"; };
 		276B1AD725D415A2002D7289 /* CheckBoxTableCellView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CheckBoxTableCellView.m; sourceTree = "<group>"; };
+		276B1ADF25D42452002D7289 /* PopupButtonTableCellView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PopupButtonTableCellView.m; sourceTree = "<group>"; };
+		276B1AE025D42453002D7289 /* PopupButtonTableCellView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PopupButtonTableCellView.h; sourceTree = "<group>"; };
 		2783C74825C4FAF2002ED7B7 /* ConfigurationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfigurationView.xib; sourceTree = "<group>"; };
 		2783C75625C4FB60002ED7B7 /* ConfigurationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfigurationViewController.h; sourceTree = "<group>"; };
 		2783C75725C4FB60002ED7B7 /* ConfigurationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfigurationViewController.m; sourceTree = "<group>"; };
@@ -340,6 +343,8 @@
 				276B1ACF25D40BB3002D7289 /* PlaylistNode.m */,
 				276B1AD625D415A2002D7289 /* CheckBoxTableCellView.h */,
 				276B1AD725D415A2002D7289 /* CheckBoxTableCellView.m */,
+				276B1AE025D42453002D7289 /* PopupButtonTableCellView.h */,
+				276B1ADF25D42452002D7289 /* PopupButtonTableCellView.m */,
 				2725CA4525D3F2D7002C1203 /* PlaylistsViewController.h */,
 				2725CA4625D3F2D7002C1203 /* PlaylistsViewController.m */,
 				2725CA4B25D3F65C002C1203 /* PlaylistsView.xib */,
@@ -525,6 +530,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				276B1AE125D42453002D7289 /* PopupButtonTableCellView.m in Sources */,
 				273B523725CA672700421B14 /* Defines.m in Sources */,
 				2783C76725C518CC002ED7B7 /* ExportConfiguration.m in Sources */,
 				27EC7C6325C8C41300996E9E /* UserDefaultsExportConfiguration.m in Sources */,

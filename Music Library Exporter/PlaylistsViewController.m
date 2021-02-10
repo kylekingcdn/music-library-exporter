@@ -13,6 +13,7 @@
 #import "PlaylistNode.h"
 #import "ExportConfiguration.h"
 #import "CheckBoxTableCellView.h"
+#import "PopupButtonTableCellView.h"
 
 
 @interface PlaylistsViewController ()
@@ -243,18 +244,24 @@
 
   // checkbox columns
   if (columnType == TitleColumn) {
+
     CheckBoxTableCellView* cellView = [outlineView makeViewWithIdentifier:cellViewId owner:nil];
 
-    NSControlStateValue state;
-    if ([_exportConfiguration.excludedPlaylistPersistentIds containsObject:node.playlist.persistentID]) {
-      state = NSControlStateValueOff;
-    }
-    else {
-      state = NSControlStateValueOn;
-    }
+    NSControlStateValue state = [_exportConfiguration.excludedPlaylistPersistentIds containsObject:node.playlist.persistentID] ? NSControlStateValueOff : NSControlStateValueOn;
 
     [cellView.checkbox setState:state];
     [cellView.checkbox setTitle:cellViewTitle];
+
+    return cellView;
+  }
+
+  // popup button columns
+  else if (columnType == SortingColumn) {
+
+    PopupButtonTableCellView* cellView = [outlineView makeViewWithIdentifier:cellViewId owner:nil];
+
+    // TODO: handle custom sorting
+
     return cellView;
   }
 
@@ -268,6 +275,7 @@
     }
 
     [cellView.textField setStringValue:cellViewTitle];
+    
     return cellView;
   }
 
