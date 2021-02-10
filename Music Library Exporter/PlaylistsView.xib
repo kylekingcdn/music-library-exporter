@@ -32,7 +32,7 @@
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
-                                    <tableColumn editable="NO" width="8" minWidth="8" maxWidth="3.4028234663852886e+38" id="8y0-dm-8sa" userLabel="Empty Column">
+                                    <tableColumn editable="NO" width="10" minWidth="8" maxWidth="3.4028234663852886e+38" id="8y0-dm-8sa" userLabel="Empty Column">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -55,7 +55,7 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView identifier="titleCellView" id="qlq-Iu-8dv" customClass="CheckBoxTableCellView">
-                                                <rect key="frame" x="12" y="1" width="183" height="24"/>
+                                                <rect key="frame" x="14" y="1" width="183" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="doo-QQ-0Te" userLabel="Title Cell Button">
@@ -86,7 +86,7 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView identifier="kindCellView" id="pZf-O5-uye">
-                                                <rect key="frame" x="198" y="1" width="119" height="24"/>
+                                                <rect key="frame" x="200" y="1" width="119" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yFR-Uk-IyY">
@@ -118,7 +118,7 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView identifier="itemsCellView" id="Ygi-cJ-zQp">
-                                                <rect key="frame" x="320" y="1" width="114" height="24"/>
+                                                <rect key="frame" x="322" y="1" width="114" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9yf-Xw-xVU">
@@ -157,7 +157,7 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView identifier="sortingCellView" id="X87-G3-CBs" customClass="PopupButtonTableCellView">
-                                                <rect key="frame" x="437" y="1" width="126" height="24"/>
+                                                <rect key="frame" x="439" y="1" width="126" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L5B-G3-rdZ" userLabel="Sorting Cell Button">

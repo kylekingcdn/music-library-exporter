@@ -46,6 +46,8 @@ typedef NS_ENUM(NSInteger, TableColumnType){
 + (nullable NSString*)cellViewIdentifierForColumn:(TableColumnType)column;
 + (nullable NSString*)cellTitleForColumn:(TableColumnType)column andNode:(PlaylistNode*)node;
 
+- (nullable PlaylistNode*)playlistNodeForCellView:(NSTableCellView*)cellView;
+
 - (NSArray<ITLibPlaylist*>*)playlistsWithParentId:(nullable NSNumber*)playlistId;
 - (NSArray<ITLibPlaylist*>*)childrenForPlaylist:(nullable ITLibPlaylist*)playlist;
 
@@ -55,6 +57,9 @@ typedef NS_ENUM(NSInteger, TableColumnType){
 #pragma mark - Mutators
 
 - (void)initPlaylistNodes;
+
+
+- (IBAction)setPlaylistExcludedForCellView:(id)sender;
 
 
 @end

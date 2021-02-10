@@ -116,6 +116,18 @@
   }
 }
 
+- (nullable PlaylistNode*)playlistNodeForCellView:(NSTableCellView*)cellView {
+
+  if (!cellView) {
+    return nil;
+  }
+
+  NSInteger row = [_outlineView rowForView:cellView];
+  PlaylistNode* node = [_outlineView itemAtRow:row];
+
+  return node;
+}
+
 - (NSArray<ITLibPlaylist*>*)playlistsWithParentId:(nullable NSNumber*)parentId {
 
   NSMutableArray<ITLibPlaylist*>* children = [NSMutableArray array];
@@ -174,6 +186,19 @@
   }
 
   _rootNode = [self createNodeForPlaylist:nil];
+}
+
+- (IBAction)setPlaylistExcludedForCellView:(id)sender {
+
+  PlaylistNode* node = [self playlistNodeForCellView:sender];
+  if (!node) {
+    return;
+  }
+
+  BOOL excluded = ([sender state] == NSControlStateValueOff);
+  NSNumber* playlistId = node.playlist.persistentID;
+
+  [_exportConfiguration setExcluded:excluded forPlaylistId:playlistId];
 }
 
 
@@ -249,6 +274,8 @@
 
     NSControlStateValue state = [_exportConfiguration.excludedPlaylistPersistentIds containsObject:node.playlist.persistentID] ? NSControlStateValueOff : NSControlStateValueOn;
 
+    [cellView.checkbox setAction:@selector(setPlaylistExcludedForCellView:)];
+    [cellView.checkbox setTarget:self];
     [cellView.checkbox setState:state];
     [cellView.checkbox setTitle:cellViewTitle];
 
@@ -259,8 +286,8 @@
   else if (columnType == SortingColumn) {
 
     PopupButtonTableCellView* cellView = [outlineView makeViewWithIdentifier:cellViewId owner:nil];
-
     // TODO: handle custom sorting
+
 
     return cellView;
   }
