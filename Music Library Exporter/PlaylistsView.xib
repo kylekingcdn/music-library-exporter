@@ -160,23 +160,38 @@
                                                 <rect key="frame" x="439" y="1" width="126" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L5B-G3-rdZ" userLabel="Sorting Cell Button">
+                                                    <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L5B-G3-rdZ" userLabel="Sorting Button">
                                                         <rect key="frame" x="-2" y="-2" width="129" height="25"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                                                        <popUpButtonCell key="cell" type="push" title="Default" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="zTg-lf-wNe" id="HbW-OZ-dWJ">
+                                                        <popUpButtonCell key="cell" type="push" title="Default" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" tag="101" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" altersStateOfSelectedItem="NO" selectedItem="zTg-lf-wNe" id="HbW-OZ-dWJ" userLabel="Sorting Button Cell">
                                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="menu"/>
-                                                            <menu key="menu" id="4PG-cJ-azV">
+                                                            <menu key="menu" autoenablesItems="NO" id="4PG-cJ-azV">
                                                                 <items>
-                                                                    <menuItem title="Default" state="on" id="zTg-lf-wNe"/>
+                                                                    <menuItem title="Default" tag="101" identifier="defaultSortingMenuItem" id="zTg-lf-wNe">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                        <accessibility identifier="defaultSortingMenuItem"/>
+                                                                    </menuItem>
                                                                     <menuItem isSeparatorItem="YES" id="AxW-Uy-mPd"/>
-                                                                    <menuItem title="Title" id="nl5-vU-6sF"/>
-                                                                    <menuItem title="Artist" id="xsd-51-UuG" userLabel="Artist"/>
-                                                                    <menuItem title="Album Artist" id="6mh-Ww-WJy"/>
-                                                                    <menuItem title="Date Added" id="h89-C4-aQf" userLabel="Date Added"/>
+                                                                    <menuItem title="Title" tag="201" identifier="titleSortingMenuItem" id="nl5-vU-6sF">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Artist" tag="202" identifier="artistSortingMenuItem" id="xsd-51-UuG" userLabel="Artist">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Album Artist" tag="203" identifier="albumArtistSortingMenuItem" id="6mh-Ww-WJy">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Date Added" tag="204" identifier="dateAddedSortingMenuItem" id="h89-C4-aQf" userLabel="Date Added">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
                                                                     <menuItem isSeparatorItem="YES" id="kHG-8A-RLg"/>
-                                                                    <menuItem title="Ascending" id="rpZ-xc-SW8" userLabel="Ascending"/>
-                                                                    <menuItem title="Descending" id="kjL-ZH-f7O" userLabel="Descending"/>
+                                                                    <menuItem title="Ascending" tag="301" identifier="ascendingSortOrderMenuItem" id="rpZ-xc-SW8" userLabel="Ascending">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Descending" tag="302" identifier="descendingSortOrderMenuItem" id="kjL-ZH-f7O" userLabel="Descending">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
                                                                 </items>
                                                             </menu>
                                                         </popUpButtonCell>

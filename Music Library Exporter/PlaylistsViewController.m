@@ -14,6 +14,7 @@
 #import "ExportConfiguration.h"
 #import "CheckBoxTableCellView.h"
 #import "PopupButtonTableCellView.h"
+#import "Utils.h"
 
 
 @interface PlaylistsViewController ()
@@ -112,6 +113,88 @@
   }
 }
 
++ (PlaylistSortColumnType)playlistSortColumnForMenuItemTag:(NSInteger)tag {
+
+  if (tag > 200 && tag < 300) {
+
+    switch (tag) {
+      case 201: {
+        return PlaylistSortColumnTitle;
+      }
+      case 202: {
+        return PlaylistSortColumnArtist;
+      }
+      case 203: {
+        return PlaylistSortColumnAlbumArtist;
+      }
+      case 204: {
+        return PlaylistSortColumnDateAdded;
+      }
+      default: {
+        break;
+      }
+    }
+  }
+
+  return PlaylistSortColumnNull;
+}
+
++ (PlaylistSortOrderType)playlistSortOrderForMenuItemTag:(NSInteger)tag {
+
+  if (tag > 300 && tag < 400) {
+
+    switch (tag) {
+      case 301: {
+        return PlaylistSortOrderAscending;
+      }
+      case 302: {
+        return PlaylistSortOrderDescending;
+      }
+      default: {
+        break;
+      }
+    }
+  }
+
+  return PlaylistSortOrderNull;
+}
+
++ (NSInteger)menuItemTagForPlaylistSortColumn:(PlaylistSortColumnType)sortColumn {
+
+  switch (sortColumn) {
+    case PlaylistSortColumnTitle: {
+      return 201;
+    }
+    case PlaylistSortColumnArtist: {
+      return 202;
+    }
+    case PlaylistSortColumnAlbumArtist: {
+      return 203;
+    }
+    case PlaylistSortColumnDateAdded: {
+      return 204;
+    }
+    default: {
+      return -1;
+    }
+  }
+}
+
++ (NSInteger)menuItemTagForPlaylistSortOrder:(PlaylistSortOrderType)sortOrder {
+
+  switch (sortOrder) {
+    case PlaylistSortOrderAscending: {
+      return 301;
+    }
+    case PlaylistSortOrderDescending: {
+      return 302;
+    }
+    default: {
+      return -1;
+    }
+  }
+}
+
 - (nullable PlaylistNode*)playlistNodeForCellView:(NSView*)cellView {
 
   NSInteger row = [_outlineView rowForView:cellView];
@@ -177,6 +260,44 @@
   return [PlaylistNode nodeWithPlaylist:playlist andChildren:childNodes];
 }
 
+- (void)updateSortingButton:(NSPopUpButton*)button forPlaylist:(ITLibPlaylist*)playlist {
+
+  PlaylistSortColumnType sortColumn = [_exportConfiguration playlistCustomSortColumn:playlist.persistentID];
+  PlaylistSortOrderType sortOrder = [_exportConfiguration playlistCustomSortOrder:playlist.persistentID];
+
+  BOOL isDefault = (sortColumn == PlaylistSortColumnNull);
+
+  // fallback to ascending if sort order hasn't been set yet
+  if (!isDefault && sortOrder == PlaylistSortOrderNull) {
+    sortOrder = PlaylistSortOrderAscending;
+  }
+
+  NSInteger sortColumnTag = [PlaylistsViewController menuItemTagForPlaylistSortColumn:sortColumn];
+  NSInteger sortOrderTag = [PlaylistsViewController menuItemTagForPlaylistSortOrder:sortOrder];
+
+  for (NSMenuItem* item in button.itemArray) {
+    NSInteger itemTag = item.tag;
+    if (itemTag == 101) {
+      [item setState:(isDefault ? NSControlStateValueOn : NSControlStateValueOff)];
+    }
+    else if (itemTag > 200 && itemTag < 300) {
+      [item setState:(item.tag == sortColumnTag ? NSControlStateValueOn : NSControlStateValueOff)];
+    }
+    else if (itemTag > 300 && itemTag < 400) {
+
+      [item setEnabled:!isDefault];
+      [item setState:(item.tag == sortOrderTag ? NSControlStateValueOn : NSControlStateValueOff)];
+    }
+  }
+
+  if (isDefault) {
+    [button setTitle:@"Default"];
+  }
+  else {
+    [button setTitle:[Utils titleForPlaylistSortColumn:sortColumn]];
+  }
+}
+
 
 #pragma mark - Mutators
 
@@ -200,6 +321,57 @@
   NSNumber* playlistId = node.playlist.persistentID;
 
   [_exportConfiguration setExcluded:excluded forPlaylistId:playlistId];
+}
+
+- (IBAction)setPlaylistSorting:(id)sender {
+
+  PlaylistNode* node = [self playlistNodeForCellView:sender];
+  if (!node) {
+    NSLog(@"PlaylistsViewController [setPlaylistSorting] error - failed to fetch playlist node");
+    return;
+  }
+
+  NSPopUpButton* popupButton = sender;
+  NSMenuItem* triggeredItem = popupButton.selectedItem;
+  NSInteger itemTag = triggeredItem.tag;
+
+  // default
+  if (itemTag == 101) {
+    NSLog(@"PlaylistsViewController [setPlaylistSorting] Default");
+    [_exportConfiguration setDefaultSortingForPlaylist:node.playlist.persistentID];
+  }
+  // sort column
+  else if (itemTag > 200 && itemTag < 300) {
+    PlaylistSortColumnType sortColumn = [PlaylistsViewController playlistSortColumnForMenuItemTag:itemTag];
+    if (sortColumn == PlaylistSortColumnNull) {
+      NSLog(@"PlaylistsViewController [setPlaylistSorting] error - failed to determine sort column for itemTag:%li", (long)itemTag);
+    }
+    // ignore if no change
+    else if (sortColumn == [_exportConfiguration playlistCustomSortColumn:node.playlist.persistentID]) {
+      return;
+    }
+    else {
+      NSLog(@"PlaylistsViewController [setPlaylistSorting] column: %@", [Utils titleForPlaylistSortColumn:sortColumn]);
+      [_exportConfiguration setCustomSortColumn:sortColumn forPlaylist:node.playlist.persistentID];
+    }
+  }
+  // sort order
+  else if (itemTag > 300 && itemTag < 400) {
+    PlaylistSortOrderType sortOrder = [PlaylistsViewController playlistSortOrderForMenuItemTag:itemTag];
+    if (sortOrder == PlaylistSortOrderNull) {
+      NSLog(@"PlaylistsViewController [setPlaylistSorting] error - failed to determine sort order for itemTag:%li", (long)itemTag);
+    }
+    // ignore if no change
+    else if (sortOrder == [_exportConfiguration playlistCustomSortOrder:node.playlist.persistentID]) {
+      return;
+    }
+    else {
+      NSLog(@"PlaylistsViewController [setPlaylistSorting] order: %@", [Utils titleForPlaylistSortOrder:sortOrder]);
+      [_exportConfiguration setCustomSortOrder:sortOrder forPlaylist:node.playlist.persistentID];
+    }
+  }
+
+  [self updateSortingButton:popupButton forPlaylist:node.playlist];
 }
 
 
@@ -283,8 +455,11 @@
   else if (columnType == SortingColumn) {
 
     PopupButtonTableCellView* cellView = [outlineView makeViewWithIdentifier:cellViewId owner:nil];
-    // TODO: handle custom sorting
 
+    [cellView.button setAction:@selector(setPlaylistSorting:)];
+    [cellView.button setTarget:self];
+
+    [self updateSortingButton:cellView.button forPlaylist:node.playlist];
 
     return cellView;
   }

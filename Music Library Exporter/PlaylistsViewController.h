@@ -7,6 +7,9 @@
 
 #import <Cocoa/Cocoa.h>
 
+#import "Defines.h"
+
+
 NS_ASSUME_NONNULL_BEGIN
 
 @class ITLibrary;
@@ -46,6 +49,12 @@ typedef NS_ENUM(NSInteger, TableColumnType) {
 + (nullable NSString*)cellViewIdentifierForColumn:(TableColumnType)column;
 + (nullable NSString*)cellTitleForColumn:(TableColumnType)column andNode:(PlaylistNode*)node;
 
++ (PlaylistSortColumnType)playlistSortColumnForMenuItemTag:(NSInteger)tag;
++ (PlaylistSortOrderType)playlistSortOrderForMenuItemTag:(NSInteger)tag;
+
++ (NSInteger)menuItemTagForPlaylistSortColumn:(PlaylistSortColumnType)sortColumn;
++ (NSInteger)menuItemTagForPlaylistSortOrder:(PlaylistSortOrderType)sortOrder;
+
 - (nullable PlaylistNode*)playlistNodeForCellView:(NSView*)cellView;
 
 - (NSArray<ITLibPlaylist*>*)playlistsWithParentId:(nullable NSNumber*)playlistId;
@@ -53,12 +62,16 @@ typedef NS_ENUM(NSInteger, TableColumnType) {
 
 - (PlaylistNode*)createNodeForPlaylist:(nullable ITLibPlaylist*)playlist;
 
+- (void)updateSortingButton:(NSPopUpButton*)button forPlaylist:(ITLibPlaylist*)playlist;
+
 
 #pragma mark - Mutators
 
 - (void)initPlaylistNodes;
 
 - (IBAction)setPlaylistExcludedForCellView:(id)sender;
+
+- (IBAction)setPlaylistSorting:(id)sender;
 
 
 @end
