@@ -46,7 +46,7 @@ typedef NS_ENUM(NSInteger, TableColumnType) {
 + (nullable NSString*)cellViewIdentifierForColumn:(TableColumnType)column;
 + (nullable NSString*)cellTitleForColumn:(TableColumnType)column andNode:(PlaylistNode*)node;
 
-- (nullable PlaylistNode*)playlistNodeForCellView:(NSTableCellView*)cellView;
+- (nullable PlaylistNode*)playlistNodeForCellView:(NSView*)cellView;
 
 - (NSArray<ITLibPlaylist*>*)playlistsWithParentId:(nullable NSNumber*)playlistId;
 - (NSArray<ITLibPlaylist*>*)childrenForPlaylist:(nullable ITLibPlaylist*)playlist;

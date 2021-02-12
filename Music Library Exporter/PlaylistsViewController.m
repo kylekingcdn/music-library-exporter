@@ -112,13 +112,13 @@
   }
 }
 
-- (nullable PlaylistNode*)playlistNodeForCellView:(NSTableCellView*)cellView {
+- (nullable PlaylistNode*)playlistNodeForCellView:(NSView*)cellView {
 
-  if (!cellView) {
+  NSInteger row = [_outlineView rowForView:cellView];
+  if (row == -1) {
     return nil;
   }
 
-  NSInteger row = [_outlineView rowForView:cellView];
   PlaylistNode* node = [_outlineView itemAtRow:row];
 
   return node;
