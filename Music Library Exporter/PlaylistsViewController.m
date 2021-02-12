@@ -26,7 +26,6 @@
 @implementation PlaylistsViewController {
 
   PlaylistNode* _rootNode;
-//  NSTreeController* _treeController;
 }
 
 
@@ -106,9 +105,6 @@
     }
     case ItemsColumn: {
       return node.itemsDescription;
-    }
-    case SortingColumn: {
-      return @"Default";
     }
     default: {
       return nil;
@@ -309,5 +305,6 @@
 
   return nil;
 }
+
 
 @end

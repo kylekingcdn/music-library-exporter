@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PlaylistsViewController : NSViewController <NSOutlineViewDelegate, NSOutlineViewDataSource>
 
-typedef NS_ENUM(NSInteger, TableColumnType){
+typedef NS_ENUM(NSInteger, TableColumnType) {
   NullColumn,
   TitleColumn,
   KindColumn,
@@ -57,7 +57,6 @@ typedef NS_ENUM(NSInteger, TableColumnType){
 #pragma mark - Mutators
 
 - (void)initPlaylistNodes;
-
 
 - (IBAction)setPlaylistExcludedForCellView:(id)sender;
 
