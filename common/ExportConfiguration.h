@@ -7,6 +7,8 @@
 
 #import <Foundation/Foundation.h>
 
+#include "Defines.h"
+
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -43,6 +45,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSSet<NSNumber*>*)excludedPlaylistPersistentIds;
 - (BOOL)isPlaylistIdExcluded:(NSNumber*)playlistId;
 
+- (NSDictionary*)playlistCustomSortColumnDict;
+- (NSDictionary*)playlistCustomSortOrderDict;
+
+- (PlaylistSortColumnType)playlistCustomSortColumn:(NSNumber*)playlistId;
+- (PlaylistSortOrderType)playlistCustomSortOrder:(NSNumber*)playlistId;
+
 - (void)dumpProperties;
 
 
@@ -65,6 +73,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addExcludedPlaylistPersistentId:(NSNumber*)playlistId;
 - (void)removeExcludedPlaylistPersistentId:(NSNumber*)playlistId;
 - (void)setExcluded:(BOOL)excluded forPlaylistId:(NSNumber*)playlistId;
+
+- (void)setCustomSortColumnDict:(NSDictionary*)dict;
+- (void)setCustomSortOrderDict:(NSDictionary*)dict;
+
+- (void)setDefaultSortingForPlaylist:(NSNumber*)playlistId;
+- (void)setCustomSortColumn:(PlaylistSortColumnType)sortColumn forPlaylist:(NSNumber*)playlistId;
+- (void)setCustomSortOrder:(PlaylistSortOrderType)sortOrder forPlaylist:(NSNumber*)playlistId;
 
 @end
 

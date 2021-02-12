@@ -49,6 +49,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addExcludedPlaylistPersistentId:(NSNumber*)playlistId;
 - (void)removeExcludedPlaylistPersistentId:(NSNumber*)playlistId;
 
+- (void)setCustomSortColumnDict:(NSDictionary*)dict;
+- (void)setCustomSortOrderDict:(NSDictionary*)dict;
+
 - (void)loadPropertiesFromUserDefaults;
 - (void)registerDefaultValues;
 

@@ -151,4 +151,78 @@
   }
 }
 
++ (nullable NSString*)titleForPlaylistSortColumn:(PlaylistSortColumnType)sortColumn {
+
+  switch (sortColumn) {
+    case PlaylistSortColumnTitle: {
+      return @"Title";
+    }
+    case PlaylistSortColumnArtist: {
+      return @"Artist";
+    }
+    case PlaylistSortColumnAlbumArtist: {
+      return @"Album Artist";
+    }
+    case PlaylistSortColumnDateAdded: {
+      return @"Date Added";
+    }
+    case PlaylistSortColumnNull: {
+      return nil;
+    }
+  }
+}
+
++ (PlaylistSortColumnType)playlistSortColumnForTitle:(nullable NSString*)title {
+
+  if (!title) {
+    return PlaylistSortColumnNull;
+  }
+
+  if ([title isEqualToString:@"Title"]) {
+    return PlaylistSortColumnTitle;
+  }
+  else if ([title isEqualToString:@"Artist"]) {
+    return PlaylistSortColumnArtist;
+  }
+  else if ([title isEqualToString:@"Album Artist"]) {
+    return PlaylistSortColumnAlbumArtist;
+  }
+  else if ([title isEqualToString:@"Date Added"]) {
+    return PlaylistSortColumnDateAdded;
+  }
+
+  return PlaylistSortColumnNull;
+}
+
++ (nullable NSString*)titleForPlaylistSortOrder:(PlaylistSortOrderType)sortOrder {
+
+  switch (sortOrder) {
+    case PlaylistSortOrderAscending: {
+      return @"Ascending";
+    }
+    case PlaylistSortOrderDescending: {
+      return @"Descending";
+    }
+    case PlaylistSortOrderNull: {
+      return nil;
+    }
+  }
+}
+
++ (PlaylistSortOrderType)playlistSortOrderForTitle:(nullable NSString*)title {
+
+  if (!title) {
+    return PlaylistSortOrderNull;
+  }
+
+  if ([title isEqualToString:@"Ascending"]) {
+    return PlaylistSortOrderAscending;
+  }
+  else if ([title isEqualToString:@"Descending"]) {
+    return PlaylistSortOrderDescending;
+  }
+
+  return PlaylistSortOrderNull;
+}
+
 @end

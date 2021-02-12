@@ -7,6 +7,7 @@
 
 #import "ExportConfiguration.h"
 
+#import "Utils.h"
 
 @implementation ExportConfiguration {
 
@@ -23,6 +24,9 @@
   BOOL _flattenPlaylistHierarchy;
   BOOL _includeInternalPlaylists;
   NSMutableSet<NSNumber*>* _excludedPlaylistPersistentIds;
+
+  NSDictionary* _playlistCustomSortColumnDict;
+  NSDictionary* _playlistCustomSortOrderDict;
 }
 
 
@@ -145,6 +149,32 @@
   return [_excludedPlaylistPersistentIds containsObject:playlistId];
 }
 
+- (NSDictionary*)playlistCustomSortColumnDict {
+
+  return _playlistCustomSortColumnDict;
+}
+
+- (NSDictionary*)playlistCustomSortOrderDict {
+
+  return _playlistCustomSortOrderDict;
+}
+
+- (PlaylistSortColumnType)playlistCustomSortColumn:(NSNumber*)playlistId {
+
+  NSString* sortColumnTitle = [_playlistCustomSortColumnDict valueForKey:[playlistId stringValue]];
+  PlaylistSortColumnType sortColumn = [Utils playlistSortColumnForTitle:sortColumnTitle];
+
+  return sortColumn;
+}
+
+- (PlaylistSortOrderType)playlistCustomSortOrder:(NSNumber*)playlistId {
+
+  NSString* sortOrderTitle = [_playlistCustomSortOrderDict valueForKey:[playlistId stringValue]];
+  PlaylistSortOrderType sortOrder = [Utils playlistSortOrderForTitle:sortOrderTitle];
+
+  return sortOrder;
+}
+
 - (void)dumpProperties {
 
   NSLog(@"ExportConfiguration [dumpProperties]");
@@ -257,6 +287,52 @@
   else {
     [self removeExcludedPlaylistPersistentId:playlistId];
   }
+}
+
+- (void)setCustomSortColumnDict:(NSDictionary*)dict {
+
+  _playlistCustomSortColumnDict = dict;
+}
+
+- (void)setCustomSortOrderDict:(NSDictionary*)dict {
+
+  _playlistCustomSortOrderDict = dict;
+}
+
+- (void)setDefaultSortingForPlaylist:(NSNumber*)playlistId {
+
+  [self setCustomSortColumn:PlaylistSortColumnNull forPlaylist:playlistId];
+  [self setCustomSortOrder:PlaylistSortOrderNull forPlaylist:playlistId];
+}
+
+- (void)setCustomSortColumn:(PlaylistSortColumnType)sortColumn forPlaylist:(NSNumber*)playlistId {
+
+  NSString* sortColumnTitle = [Utils titleForPlaylistSortColumn:sortColumn];
+  NSMutableDictionary* sortColumnDict = [_playlistCustomSortColumnDict mutableCopy];
+
+  if (sortColumnTitle) {
+    [sortColumnDict setValue:sortColumnTitle forKey:[playlistId stringValue]];
+  }
+  else {
+    [sortColumnDict removeObjectForKey:[playlistId stringValue]];
+  }
+
+  [self setCustomSortColumnDict:sortColumnDict];
+}
+
+- (void)setCustomSortOrder:(PlaylistSortOrderType)sortOrder forPlaylist:(NSNumber*)playlistId {
+
+  NSString* sortOrderTitle = [Utils titleForPlaylistSortOrder:sortOrder];
+  NSMutableDictionary* sortOrderDict = [_playlistCustomSortOrderDict mutableCopy];
+
+  if (sortOrderTitle) {
+    [sortOrderDict setValue:sortOrderTitle forKey:[playlistId stringValue]];
+  }
+  else {
+    [sortOrderDict removeObjectForKey:[playlistId stringValue]];
+  }
+
+  [self setCustomSortOrderDict:sortOrderDict];
 }
 
 @end

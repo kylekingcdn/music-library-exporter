@@ -45,6 +45,9 @@
     @YES,            @"IncludeInternalPlaylists",
     @[],             @"ExcludedPlaylistPersistentIds",
 
+    @{},             @"PlaylistCustomSortColumns",
+    @{},             @"PlaylistCustomSortOrders",
+
     nil
   ];
 }
@@ -150,6 +153,20 @@
   [_userDefaults setObject:[[super excludedPlaylistPersistentIds] allObjects] forKey:@"ExcludedPlaylistPersistentIds"];
 }
 
+- (void)setCustomSortColumnDict:(NSDictionary*)dict {
+
+  [super setCustomSortColumnDict:dict];
+
+  [_userDefaults setObject:dict forKey:@"PlaylistCustomSortColumns"];
+}
+
+- (void)setCustomSortOrderDict:(NSDictionary*)dict {
+
+  [super setCustomSortOrderDict:dict];
+
+  [_userDefaults setObject:dict forKey:@"PlaylistCustomSortOrders"];
+}
+
 - (void)loadPropertiesFromUserDefaults {
 
   NSLog(@"UserDefaultsExportConfiguration [loadPropertiesFromUserDefaults]");
@@ -169,6 +186,10 @@
   [super setFlattenPlaylistHierarchy:[_userDefaults boolForKey:@"FlattenPlaylistHierarchy"]];
   [super setIncludeInternalPlaylists:[_userDefaults boolForKey:@"IncludeInternalPlaylists"]];
   [super setExcludedPlaylistPersistentIds:[NSSet setWithArray:[_userDefaults arrayForKey:@"ExcludedPlaylistPersistentIds"]]];
+
+  [super setCustomSortColumnDict:[_userDefaults dictionaryForKey:@"PlaylistCustomSortColumns"]];
+  [super setCustomSortOrderDict:[_userDefaults dictionaryForKey:@"PlaylistCustomSortOrders"]];
+
 }
 
 - (void)registerDefaultValues {
