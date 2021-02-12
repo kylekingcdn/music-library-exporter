@@ -225,4 +225,82 @@
   return PlaylistSortOrderNull;
 }
 
++ (nullable NSString*)mediaItemPropertyForSortColumn:(PlaylistSortColumnType)sortColumn {
+
+  switch (sortColumn) {
+    case PlaylistSortColumnTitle: {
+      return ITLibMediaItemPropertyTitle;
+    }
+    case PlaylistSortColumnArtist: {
+      return ITLibMediaItemPropertyArtistName;
+    }
+    case PlaylistSortColumnAlbumArtist: {
+      return ITLibMediaItemPropertyAlbumArtist;
+    }
+    case PlaylistSortColumnDateAdded: {
+      return ITLibMediaItemPropertyAddedDate;
+    }
+    default: {
+      return nil;
+    }
+  }
+}
+
++ (NSComparisonResult)alphabeticallyCompareString:(NSString*)string1 withString:(NSString*)string2 {
+
+  BOOL string1HasLetterPrefix = [[NSCharacterSet letterCharacterSet] characterIsMember:[string1 characterAtIndex:0]];
+  BOOL string2HasLetterPrefix = [[NSCharacterSet letterCharacterSet] characterIsMember:[string2 characterAtIndex:0]];
+
+  if (string1HasLetterPrefix && !string2HasLetterPrefix) {
+    return NSOrderedAscending;
+  }
+  else if (!string1HasLetterPrefix && string2HasLetterPrefix) {
+    return NSOrderedDescending;
+  }
+  else {
+    return [string1 compare:string2 options:(NSCaseInsensitiveSearch | NSDiacriticInsensitiveSearch | NSNumericSearch)];
+  }
+}
+
++ (NSArray<ITLibMediaItem*>*)sortMediaItems:(NSArray<ITLibMediaItem*>*)items byProperty:(NSString*)sortProperty withOrder:(PlaylistSortOrderType)order{
+
+  NSLog(@"Utils [sortMediaItems byProperty:%@ withOrder:%@]", sortProperty, [Utils titleForPlaylistSortOrder:order]);
+  
+  return [items sortedArrayUsingComparator:^NSComparisonResult(id item1, id item2) {
+
+    id item1Value = [(ITLibMediaItem*)item1 valueForProperty:sortProperty];
+    id item2Value = [(ITLibMediaItem*)item2 valueForProperty:sortProperty];
+
+    if (!item1Value || !item2Value) {
+      if (item1Value == item2Value) {
+        return NSOrderedSame;
+      }
+      else if (item1Value) {
+        return NSOrderedAscending;
+      }
+      else {
+        return NSOrderedDescending;
+      }
+    }
+
+    NSComparisonResult result;
+
+    if (item1Value && [item1Value isKindOfClass:[NSString class]]) {
+      result = [Utils alphabeticallyCompareString:item1Value withString:item2Value];
+    }
+    else {
+      result = [item1Value compare:item2Value];
+    }
+
+    if (order == PlaylistSortOrderAscending) {
+      return result;
+    }
+    else {
+      return -result;
+    }
+  }];
+}
+
+
+
 @end

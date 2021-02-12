@@ -35,6 +35,11 @@ NS_ASSUME_NONNULL_BEGIN
 + (nullable NSString*)titleForPlaylistSortOrder:(PlaylistSortOrderType)sortOrder;
 + (PlaylistSortOrderType)playlistSortOrderForTitle:(nullable NSString*)title;
 
++ (nullable NSString*)mediaItemPropertyForSortColumn:(PlaylistSortColumnType)sortColumn;
+
++ (NSComparisonResult)alphabeticallyCompareString:(NSString*)string1 withString:(NSString*)string2;
++ (NSArray<ITLibMediaItem*>*)sortMediaItems:(NSArray<ITLibMediaItem*>*)items byProperty:(NSString*)sortProperty withOrder:(PlaylistSortOrderType)order;
+
 @end
 
 NS_ASSUME_NONNULL_END

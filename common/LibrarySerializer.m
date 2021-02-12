@@ -16,6 +16,7 @@
 #import "OrderedDictionary.h"
 #import "Utils.h"
 #import "ExportConfiguration.h"
+#import "LibraryFilter.h"
 
 
 @implementation LibrarySerializer {
@@ -159,8 +160,25 @@
     [playlistDict setValue:[NSNumber numberWithBool:YES] forKey:@"Folder"];
   }
 
+  NSArray<ITLibMediaItem*>* playlistItems = playlistItem.items;
+  PlaylistSortColumnType sortColumn = [_configuration playlistCustomSortColumn:playlistItem.persistentID];
+
+  // custom sorting
+  if (sortColumn != PlaylistSortColumnNull) {
+
+    NSString* sortColumnProperty = [Utils mediaItemPropertyForSortColumn:sortColumn];
+    PlaylistSortOrderType sortOrder = [_configuration playlistCustomSortOrder:playlistItem.persistentID];
+
+    if (sortOrder == PlaylistSortOrderNull) {
+      // fallback to ascending
+      sortOrder = PlaylistSortOrderAscending;
+    }
+
+    playlistItems = [Utils sortMediaItems:playlistItems byProperty:sortColumnProperty withOrder:sortOrder];
+  }
+
   // add playlist items array to playlist dict
-  NSArray<OrderedDictionary*>* playlistItemsArray = [self serializePlaylistItems:playlistItem.items];
+  NSArray<OrderedDictionary*>* playlistItemsArray = [self serializePlaylistItems:playlistItems];
   [playlistDict setObject:playlistItemsArray forKey:@"Playlist Items"];
 
   return playlistDict;
