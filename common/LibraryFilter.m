@@ -27,6 +27,8 @@
 
   self = [super init];
 
+  _filterExcludedPlaylistIds = YES;
+
   return self;
 }
 
@@ -75,8 +77,8 @@
       // ignore folders when flattened
       if (playlist.kind != ITLibPlaylistKindFolder || !_configuration.flattenPlaylistHierarchy) {
 
-        // ignore playlists that have been manually marked for exclusion
-        if (![_configuration isPlaylistIdExcluded:playlist.persistentID]) {
+        // excluded manually specified playlists if desired
+        if (!_filterExcludedPlaylistIds || ![_configuration isPlaylistIdExcluded:playlist.persistentID]) {
 
           [includedPlaylists addObject:playlist];
         }
