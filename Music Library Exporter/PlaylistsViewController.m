@@ -152,12 +152,17 @@
 
 - (NSArray<ITLibPlaylist*>*)childrenForPlaylist:(nullable ITLibPlaylist*)playlist {
 
-  // if playlist is nil, we return the root playlists
-  if (playlist && playlist.kind != ITLibPlaylistKindFolder) {
-    return [NSArray array];
+  if (playlist) {
+    if (playlist.kind == ITLibPlaylistKindFolder) {
+      return [self playlistsWithParentId:playlist.persistentID];
+    }
+    else {
+      return [NSArray array];
+    }
   }
+  // if playlist is nil, we return the root playlists
   else {
-    return [self playlistsWithParentId:playlist.persistentID];
+    return [self playlistsWithParentId:nil];
   }
 }
 
@@ -228,10 +233,6 @@
 }
 
 - (id)outlineView:(NSOutlineView*)outlineView child:(NSInteger)index ofItem:(nullable id)item {
-
-  if(!_rootNode) {
-    return nil;
-  }
 
   PlaylistNode* node = item ? item : _rootNode;
 

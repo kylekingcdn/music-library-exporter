@@ -40,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString*)remapRootMusicDirForFilePath:(NSString*)filePath;
 
-- (NSNumber*)idForEntity:(ITLibMediaEntity*)entity;
+- (nullable NSNumber*)idForEntity:(ITLibMediaEntity*)entity;
 
 
 #pragma mark - Mutators -

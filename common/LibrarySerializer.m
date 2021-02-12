@@ -53,7 +53,7 @@
   return [filePath stringByReplacingOccurrencesOfString:_configuration.remapRootDirectoryOriginalPath withString:_configuration.remapRootDirectoryMappedPath];
 }
 
-- (NSNumber*)idForEntity:(ITLibMediaEntity*)entity {
+- (nullable NSNumber*)idForEntity:(ITLibMediaEntity*)entity {
 
   return [_entityIdsDict valueForKey:[entity.persistentID stringValue]];
 }
@@ -142,7 +142,7 @@
   [playlistDict setValue:playlistId forKey:@"Playlist ID"];
   [playlistDict setValue:[LibrarySerializer getHexadecimalPersistentId:playlistItem.persistentID] forKey:@"Playlist Persistent ID"];
 
-  if (playlistItem.parentID > 0 && !_configuration.flattenPlaylistHierarchy) {
+  if (playlistItem.parentID && !_configuration.flattenPlaylistHierarchy) {
     [playlistDict setValue:[LibrarySerializer getHexadecimalPersistentId:playlistItem.parentID] forKey:@"Parent Persistent ID"];
   }
   if (playlistItem.distinguishedKind > ITLibDistinguishedPlaylistKindNone) {
@@ -178,7 +178,7 @@
       MutableOrderedDictionary* playlistItemDict = [MutableOrderedDictionary dictionary];
 
       NSNumber* trackId = [self idForEntity:playlistItem];
-      NSAssert(trackId, @"trackIds dict returned an invalid value for item: %@", playlistItem.persistentID.stringValue);
+      NSAssert(trackId != nil, @"trackIds dict returned an invalid value for item: %@", playlistItem.persistentID.stringValue);
 
       [playlistItemDict setValue:trackId forKey:@"Track ID"];
 

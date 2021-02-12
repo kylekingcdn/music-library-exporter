@@ -7,17 +7,17 @@
 
 #import <Foundation/Foundation.h>
 
-#import <iTunesLibrary/ITLibPlaylist.h>
+@class ITLibPlaylist;
+
 
 NS_ASSUME_NONNULL_BEGIN
-
 
 @interface PlaylistNode : NSObject
 
 
 #pragma mark - Properties
 
-@property ITLibPlaylist* playlist;
+@property (nullable) ITLibPlaylist* playlist;
 @property NSArray<PlaylistNode*>* children;
 
 
@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)init;
 
-+ (PlaylistNode*)nodeWithPlaylist:(ITLibPlaylist*)playlist andChildren:(NSArray<PlaylistNode*>*)childNodes;
++ (PlaylistNode*)nodeWithPlaylist:(nullable ITLibPlaylist*)playlist andChildren:(NSArray<PlaylistNode*>*)childNodes;
 
 
 #pragma mark - Accessors

@@ -230,7 +230,7 @@
     NSLog(@"UserDefaultsExportConfiguration [fetchAndAutoRenewOutputDirectoryUrl] bookmark is stale, attempting renewal");
 
     [outputDirBookmarkUrl startAccessingSecurityScopedResource];
-    outputDirBookmarkData = [outputDirBookmarkUrl bookmarkDataWithOptions:NSURLBookmarkCreationWithSecurityScope includingResourceValuesForKeys:nil relativeToURL:nil error:&outputDirBookmarkRenewError];
+    [outputDirBookmarkUrl bookmarkDataWithOptions:NSURLBookmarkCreationWithSecurityScope includingResourceValuesForKeys:nil relativeToURL:nil error:&outputDirBookmarkRenewError];
     [outputDirBookmarkUrl stopAccessingSecurityScopedResource];
 
     [self saveBookmarkForOutputDirectoryUrl:outputDirBookmarkUrl];

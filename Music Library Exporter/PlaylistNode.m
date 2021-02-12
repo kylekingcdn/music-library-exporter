@@ -22,7 +22,7 @@
   return self;
 }
 
-+ (PlaylistNode*)nodeWithPlaylist:(ITLibPlaylist*)playlist andChildren:(NSArray<PlaylistNode*>*)childNodes {
++ (PlaylistNode*)nodeWithPlaylist:(nullable ITLibPlaylist*)playlist andChildren:(NSArray<PlaylistNode*>*)childNodes {
 
   PlaylistNode* node = [[PlaylistNode alloc] init];
 
