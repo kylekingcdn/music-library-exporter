@@ -35,6 +35,25 @@ typedef NS_ENUM(NSInteger, ExportDeferralReason){
   ExportNoDeferralReason,
 };
 
+typedef NS_ENUM(NSInteger, PlaylistSortModeType) {
+  PlaylistSortDefaultMode,
+  PlaylistSortCustomMode,
+};
+
+typedef NS_ENUM(NSInteger, PlaylistSortColumnType) {
+  PlaylistSortColumnTitle,
+  PlaylistSortColumnArtist,
+  PlaylistSortColumnAlbumArtist,
+  PlaylistSortColumnDateAdded,
+  PlaylistSortColumnNull,
+};
+
+typedef NS_ENUM(NSInteger, PlaylistSortOrderType) {
+  PlaylistSortOrderAscending,
+  PlaylistSortOrderDescending,
+  PlaylistSortOrderNull,
+};
+
 @end
 
 NS_ASSUME_NONNULL_END
