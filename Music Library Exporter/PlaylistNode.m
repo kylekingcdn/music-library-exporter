@@ -71,7 +71,7 @@
     case ITLibPlaylistKindSmart:
     case ITLibPlaylistKindGenius:
     case ITLibPlaylistKindGeniusMix: {
-      return [NSString stringWithFormat:@"%lu songs", _playlist.items.count];
+      return [NSString string];
     }
   }
 }
