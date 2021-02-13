@@ -55,11 +55,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView identifier="titleCellView" id="qlq-Iu-8dv" customClass="CheckBoxTableCellView">
-                                                <rect key="frame" x="14" y="1" width="182" height="24"/>
+                                                <rect key="frame" x="14" y="1" width="183" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="doo-QQ-0Te" userLabel="Title Cell Button">
-                                                        <rect key="frame" x="0.0" y="3" width="180" height="18"/>
+                                                        <rect key="frame" x="0.0" y="3" width="181" height="18"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <buttonCell key="cell" type="check" title="Title Cell" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Kto-sQ-735">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -118,11 +118,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView identifier="itemsCellView" id="Ygi-cJ-zQp">
-                                                <rect key="frame" x="328" y="1" width="125" height="24"/>
+                                                <rect key="frame" x="328" y="1" width="126" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9yf-Xw-xVU">
-                                                        <rect key="frame" x="0.0" y="4" width="125" height="16"/>
+                                                        <rect key="frame" x="0.0" y="4" width="126" height="16"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Items Cell" id="tg0-Bh-Kbe">
                                                             <font key="font" usesAppearanceFont="YES"/>
