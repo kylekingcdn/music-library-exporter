@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Accessors -
 
++ (ScheduleConfiguration*)sharedConfig;
+
 - (NSDictionary*)defaultValues;
 
 - (BOOL)scheduleEnabled;
@@ -34,6 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 #pragma mark - Mutators -
+
++ (void)initSharedConfig:(ScheduleConfiguration*)sharedConfig;
 
 - (void)loadPropertiesFromUserDefaults;
 

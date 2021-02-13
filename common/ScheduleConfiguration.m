@@ -12,6 +12,9 @@
 #import "Defines.h"
 
 
+static ScheduleConfiguration* _sharedConfig;
+
+
 @implementation ScheduleConfiguration {
 
   NSUserDefaults* _userDefaults;
@@ -41,6 +44,13 @@
 
 
 #pragma mark - Accessors -
+
++ (ScheduleConfiguration*)sharedConfig {
+
+  NSAssert((_sharedConfig != nil), @"ScheduleConfiguration sharedConfig has not been initialized!");
+
+  return _sharedConfig;
+}
 
 - (NSDictionary*)defaultValues {
 
@@ -92,6 +102,13 @@
 
 
 #pragma mark - Mutators -
+
++ (void)initSharedConfig:(ScheduleConfiguration*)sharedConfig {
+
+  NSAssert((_sharedConfig == nil), @"ScheduleConfiguration sharedConfig has already been initialized!");
+
+  _sharedConfig = sharedConfig;
+}
 
 - (void)loadPropertiesFromUserDefaults {
 
