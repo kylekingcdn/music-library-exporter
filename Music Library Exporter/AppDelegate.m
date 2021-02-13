@@ -42,6 +42,7 @@
 
   ConfigurationViewController* _configurationViewController;
   PlaylistsViewController* _playlistsViewController;
+  NSWindow* _playlistsViewWindow;
 }
 
 
@@ -105,15 +106,14 @@
 
   // init playlistsView
   _playlistsViewController = [[PlaylistsViewController alloc] initWithLibrary:_library];
-  NSWindow* playlistsViewWindow = [NSWindow windowWithContentViewController:_playlistsViewController];
-  [playlistsViewWindow setTitle:@"Playlists"];
+  _playlistsViewWindow = [NSWindow windowWithContentViewController:_playlistsViewController];
+  [_playlistsViewWindow setTitle:@"Playlists"];
 
   // update window frame
   NSRect playlistsViewWindowFrame = _window.frame;
   playlistsViewWindowFrame.origin.x += (_window.frame.size.width + 20);
-  [playlistsViewWindow setFrame:playlistsViewWindowFrame display:YES];
+  [_playlistsViewWindow setFrame:playlistsViewWindowFrame display:YES];
 
-  [playlistsViewWindow makeKeyAndOrderFront:NSApp];
   [_window makeKeyAndOrderFront:NSApp];
 }
 
