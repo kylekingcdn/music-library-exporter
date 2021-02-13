@@ -225,7 +225,6 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
   BOOL flag = (flagState == NSControlStateValueOn);
 
   [ScheduleConfiguration.sharedConfig setScheduleEnabled:flag];
-  [_helperDelegate updateHelperRegistrationWithScheduleEnabled:flag];
 
   [_scheduleIntervalTextField setEnabled:flag];
   [_scheduleIntervalStepper setEnabled:flag];
