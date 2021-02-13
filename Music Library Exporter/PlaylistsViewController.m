@@ -10,11 +10,12 @@
 #import <iTunesLibrary/ITLibPlaylist.h>
 #import <iTunesLibrary/ITLibrary.h>
 
+#import "Utils.h"
 #import "PlaylistNode.h"
 #import "ExportConfiguration.h"
+#import "LibraryFilter.h"
 #import "CheckBoxTableCellView.h"
 #import "PopupButtonTableCellView.h"
-#import "Utils.h"
 
 
 @interface PlaylistsViewController ()
@@ -26,8 +27,13 @@
 
 @implementation PlaylistsViewController {
 
+  NSUserDefaults* _groupDefaults;
+
   ITLibrary* _library;
 
+  NSArray<ITLibPlaylist*>* _filteredPlaylists;
+
+  LibraryFilter* _libraryFilter;
   PlaylistNode* _rootNode;
 }
 
@@ -39,6 +45,15 @@
   self = [super initWithNibName:@"PlaylistsView" bundle:nil];
 
   _library = library;
+  _libraryFilter = [[LibraryFilter alloc] initWithLibrary:_library];
+
+  // show playlists that have been manually excluded to allow for changing status
+  [_libraryFilter setFilterExcludedPlaylistIds:NO];
+
+  // detect changes in NSUSerDefaults for app group
+  _groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
+  [_groupDefaults addObserver:self forKeyPath:@"FlattenPlaylistHierarchy" options:NSKeyValueObservingOptionNew context:NULL];
+  [_groupDefaults addObserver:self forKeyPath:@"IncludeInternalPlaylists" options:NSKeyValueObservingOptionNew context:NULL];
 
   return self;
 }
@@ -205,7 +220,7 @@
 
   NSMutableArray<ITLibPlaylist*>* children = [NSMutableArray array];
 
-  for (ITLibPlaylist* playlist in _library.allPlaylists) {
+  for (ITLibPlaylist* playlist in _filteredPlaylists) {
 
     // check if we are not looking for root objects (parameterized parentId != nil) and playlist has a valid parent Id
     if (parentId && playlist.parentID) {
@@ -233,9 +248,14 @@
       return [NSArray array];
     }
   }
-  // if playlist is nil, we return the root playlists
+  // if playlist is nil, we return the root playlists (or all if flatten hierarchy is enabled)
   else {
-    return [self playlistsWithParentId:nil];
+    if (ExportConfiguration.sharedConfig.flattenPlaylistHierarchy) {
+      return _filteredPlaylists;
+    }
+    else {
+      return [self playlistsWithParentId:nil];
+    }
   }
 }
 
@@ -300,6 +320,8 @@
   if (!_library) {
     return;
   }
+
+  _filteredPlaylists = [_libraryFilter getIncludedPlaylists];
 
   _rootNode = [self createNodeForPlaylist:nil];
 }
@@ -473,6 +495,18 @@
   }
 
   return nil;
+}
+
+- (void)observeValueForKeyPath:(NSString *)aKeyPath ofObject:(id)anObject change:(NSDictionary *)aChange context:(void *)aContext {
+
+  NSLog(@"PlaylistsViewController [observeValueForKeyPath:%@]", aKeyPath);
+
+  if ([aKeyPath isEqualToString:@"FlattenPlaylistHierarchy"] ||
+      [aKeyPath isEqualToString:@"IncludeInternalPlaylists"]) {
+
+    [self initPlaylistNodes];
+    [_outlineView reloadData];
+  }
 }
 
 
