@@ -68,8 +68,8 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
 
   _exportDelegate = exportDelegate;
 
-  [ExportConfiguration.sharedConfig dumpProperties];
-  [ScheduleConfiguration.sharedConfig dumpProperties];
+//  [ExportConfiguration.sharedConfig dumpProperties];
+//  [ScheduleConfiguration.sharedConfig dumpProperties];
 
   // ensure helper registration status matches configuration value for scheduleEnabled
   [_helperDelegate updateHelperRegistrationWithScheduleEnabled:ScheduleConfiguration.sharedConfig.scheduleEnabled];
