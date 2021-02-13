@@ -121,6 +121,11 @@
 
 }
 
+- (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender {
+
+  return YES;
+}
+
 - (void)observeValueForKeyPath:(NSString *)aKeyPath ofObject:(id)anObject change:(NSDictionary *)aChange context:(void *)aContext {
 
   NSLog(@"AppDelegate [observeValueForKeyPath:%@]", aKeyPath);
