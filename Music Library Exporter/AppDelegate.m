@@ -74,6 +74,7 @@
 
   // detect changes in NSUSerDefaults for app group
   _groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
+  [_groupDefaults addObserver:self forKeyPath:@"ScheduleEnabled" options:NSKeyValueObservingOptionNew context:NULL];
   [_groupDefaults addObserver:self forKeyPath:@"ScheduleInterval" options:NSKeyValueObservingOptionNew context:NULL];
   [_groupDefaults addObserver:self forKeyPath:@"LastExportedAt" options:NSKeyValueObservingOptionNew context:NULL];
   [_groupDefaults addObserver:self forKeyPath:@"NextExportAt" options:NSKeyValueObservingOptionNew context:NULL];
@@ -124,10 +125,15 @@
 
   if ([aKeyPath isEqualToString:@"ScheduleInterval"] ||
       [aKeyPath isEqualToString:@"LastExportedAt"] ||
-      [aKeyPath isEqualToString:@"NextExportAt"]) {
+      [aKeyPath isEqualToString:@"NextExportAt"] ||
+      [aKeyPath isEqualToString:@"ScheduleEnabled"]) {
 
     [_scheduleConfiguration loadPropertiesFromUserDefaults];
     [_configurationViewController updateFromConfiguration];
+
+    if ([aKeyPath isEqualToString:@"ScheduleEnabled"]) {
+      [_helperDelegate updateHelperRegistrationWithScheduleEnabled:_scheduleConfiguration.scheduleEnabled];
+    }
   }
 }
 

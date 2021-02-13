@@ -15,6 +15,7 @@
 #import "UserDefaultsExportConfiguration.h"
 #import "ExportDelegate.h"
 #import "ScheduleConfiguration.h"
+#import "DirectoryPermissionsWindowController.h"
 
 @implementation ScheduleDelegate {
 
@@ -23,6 +24,8 @@
   NSUserDefaults* _groupDefaults;
 
   NSTimer* _timer;
+
+  DirectoryPermissionsWindowController* _permissionsWindowController;
 }
 
 
@@ -234,54 +237,13 @@
 
 - (void)requestOutputDirectoryPermissions {
 
-  NSLog(@"ScheduleDelegate [requestOutputDirectoryPermissions]");
-
-  NSString* outputDirPath = UserDefaultsExportConfiguration.sharedConfig.outputDirectoryPath;
-
-  // Set activation policy to regular to allow for modal to pop up
-  [[NSApplication sharedApplication] setActivationPolicy:NSApplicationActivationPolicyRegular];
-  
-  NSOpenPanel* openPanel = [NSOpenPanel openPanel];
-  [openPanel setCanChooseDirectories:YES];
-  [openPanel setCanChooseFiles:NO];
-  [openPanel setAllowsMultipleSelection:NO];
-  [openPanel setLevel:NSFloatingWindowLevel];
-
-  [openPanel setMessage:@"Select a location to save the generated library."];
-  if (outputDirPath.length > 0) {
-    [openPanel setDirectoryURL:[NSURL fileURLWithPath:outputDirPath]];
+  if (_permissionsWindowController) {
+    [[_permissionsWindowController window] close];
+    _permissionsWindowController = nil;
   }
 
-  [[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
-
-  [openPanel beginWithCompletionHandler:^(NSInteger result) {
-
-    if (result == NSModalResponseOK) {
-
-      NSURL* outputDirUrl = [openPanel URL];
-
-      if (outputDirUrl) {
-        if (outputDirPath.length == 0 || [outputDirUrl.path isEqualToString:outputDirUrl.path]) {
-          NSLog(@"ScheduleDelegate [requestOutputDirectoryPermissions] the correct output directory has been selected");
-          [UserDefaultsExportConfiguration.sharedConfig setOutputDirectoryUrl:outputDirUrl];
-        }
-        else {
-          NSLog(@"ScheduleDelegate [requestOutputDirectoryPermissions] the user has selected a diretory that differs from the output directory set with the main app.");
-        }
-      }
-      else {
-        NSLog(@"ScheduleDelegate [requestOutputDirectoryPermissions] the user has cancelled granting permissions. Automated exports will be disabled.");
-        // TODO: warn user that automated exports will be disabled + do disable
-      }
-    }
-    else {
-      NSLog(@"ScheduleDelegate [requestOutputDirectoryPermissions] the user has cancelled granting permissions. Automated exports will be disabled.");
-      // TODO: warn user that automated exports will be disabled + do disable
-    }
-
-    // reset activation policy
-    [[NSApplication sharedApplication] setActivationPolicy:NSApplicationActivationPolicyProhibited];
-  }];
+  _permissionsWindowController = [[DirectoryPermissionsWindowController alloc] initWithWindowNibName:@"DirectoryPermissionsWindow"];
+  [_permissionsWindowController.window makeKeyAndOrderFront:self];
 }
 
 - (void)requestOutputDirectoryPermissionsIfRequired {
