@@ -37,8 +37,6 @@ static ScheduleConfiguration* _sharedConfig;
 
   _userDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
 
-  [self loadPropertiesFromUserDefaults];
-
   return self;
 }
 

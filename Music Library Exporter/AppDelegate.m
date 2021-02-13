@@ -63,6 +63,7 @@
 
   // init scheduleConfiguration
   _scheduleConfiguration = [[ScheduleConfiguration alloc] init];
+  [_scheduleConfiguration loadPropertiesFromUserDefaults];
 
   // set shared scheduleConfiguration
   [ScheduleConfiguration initSharedConfig:_scheduleConfiguration];
