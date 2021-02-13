@@ -20,14 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface LibrarySerializer : NSObject
 
 
-#pragma mark - Properties -
-
-@property ITLibrary* library;
-
-
 #pragma mark - Initializers -
 
-- (instancetype)init;
+- (instancetype)initWithLibrary:(ITLibrary*)library;
 
 
 #pragma mark - Utils -

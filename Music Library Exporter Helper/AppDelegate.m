@@ -7,6 +7,8 @@
 
 #import "AppDelegate.h"
 
+#import <iTunesLibrary/ITLibrary.h>
+
 #import "UserDefaultsExportConfiguration.h"
 #import "ExportDelegate.h"
 #import "ScheduleConfiguration.h"
@@ -15,6 +17,8 @@
 @import Sentry;
 
 @implementation AppDelegate {
+
+  ITLibrary* _library;
 
   UserDefaultsExportConfiguration* _exportConfiguration;
   ExportDelegate* _exportDelegate;
@@ -48,11 +52,18 @@
   // set shared scheduleConfiguration
   [ScheduleConfiguration initSharedConfig:_scheduleConfiguration];
 
-  // init exportDelegate
-  _exportDelegate = [ExportDelegate exporter];
+  // init ITLibrary
+  NSError *error = nil;
+  _library = [ITLibrary libraryWithAPIVersion:@"1.1" error:&error];
+  if (!_library) {
+    NSLog(@"AppDelegate [applicationDidFinishLaunching] error - failed to init ITLibrary. error: %@", error.localizedDescription);
+    return;
+  }
+
+  _exportDelegate = [[ExportDelegate alloc] initWithLibrary:_library];
 
   // init scheduleDelegate
-  _scheduleDelegate = [ScheduleDelegate schedulerWithExporter:_exportDelegate];
+  _scheduleDelegate = [[ScheduleDelegate alloc] initWithExportDelegate:_exportDelegate];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {

@@ -21,6 +21,8 @@
 
 @implementation LibrarySerializer {
 
+  ITLibrary* _library;
+
   NSUInteger _currentEntityId;
   NSMutableDictionary* _entityIdsDict;
 
@@ -31,9 +33,11 @@
 
 #pragma mark - Initializers -
 
-- (instancetype)init {
+- (instancetype)initWithLibrary:(ITLibrary*)library {
 
   self = [super init];
+
+  _library = library;
 
   return self;
 }

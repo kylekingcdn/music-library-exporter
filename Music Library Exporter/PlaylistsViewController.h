@@ -29,16 +29,9 @@ typedef NS_ENUM(NSInteger, TableColumnType) {
 };
 
 
-#pragma mark - Properties
-
-@property ITLibrary* library;
-
-
 #pragma mark - Initializers
 
-- (instancetype)init;
-
-+ (PlaylistsViewController*)controllerWithLibrary:(ITLibrary*)lib;
+- (instancetype)initWithLibrary:(ITLibrary*)library;
 
 
 #pragma mark - Accessors

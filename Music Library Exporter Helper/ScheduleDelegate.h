@@ -18,16 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ScheduleDelegate : NSObject
 
 
-#pragma mark - Properties -
-
-@property ExportDelegate* exportDelegate;
-
-
 #pragma mark - Initializers -
 
-- (instancetype)init;
-
-+ (instancetype)schedulerWithExporter:(ExportDelegate*)exportDelegate;
+- (instancetype)initWithExportDelegate:(ExportDelegate*)exportDelegate;
 
 
 #pragma mark - Accessors -

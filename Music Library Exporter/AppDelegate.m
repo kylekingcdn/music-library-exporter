@@ -9,11 +9,12 @@
 
 #import <ServiceManagement/ServiceManagement.h>
 #import <iTunesLibrary/ITLibrary.h>
+
 #import "Utils.h"
-#import "HelperDelegate.h"
 #import "UserDefaultsExportConfiguration.h"
-#import "ExportDelegate.h"
 #import "ScheduleConfiguration.h"
+#import "ExportDelegate.h"
+#import "HelperDelegate.h"
 #import "ConfigurationViewController.h"
 #import "PlaylistsViewController.h"
 
@@ -30,7 +31,7 @@
 
   NSUserDefaults* _groupDefaults;
 
-  ITLibrary* _itLibrary;
+  ITLibrary* _library;
 
   HelperDelegate* _helperDelegate;
 
@@ -74,7 +75,15 @@
   [_groupDefaults addObserver:self forKeyPath:@"LastExportedAt" options:NSKeyValueObservingOptionNew context:NULL];
   [_groupDefaults addObserver:self forKeyPath:@"NextExportAt" options:NSKeyValueObservingOptionNew context:NULL];
 
-  _exportDelegate = [ExportDelegate exporter];
+  // init ITLibrary
+  NSError *error = nil;
+  _library = [ITLibrary libraryWithAPIVersion:@"1.1" error:&error];
+  if (!_library) {
+    NSLog(@"AppDelegate [applicationDidFinishLaunching] error - failed to init ITLibrary. error: %@", error.localizedDescription);
+    return;
+  }
+
+  _exportDelegate = [[ExportDelegate alloc] initWithLibrary:_library];
 
   _helperDelegate = [[HelperDelegate alloc] init];
 
@@ -88,14 +97,14 @@
 
   // init ITLibrary instance
   NSError *initLibraryError = nil;
-  _itLibrary = [ITLibrary libraryWithAPIVersion:@"1.1" error:&initLibraryError];
-  if (!_itLibrary) {
+  _library = [ITLibrary libraryWithAPIVersion:@"1.1" error:&initLibraryError];
+  if (!_library) {
     NSLog(@"AppDelegate [applicationDidFinishLaunching]  error - failed to init ITLibrary. error: %@", initLibraryError.localizedDescription);
     return;
   }
 
   // init playlistsView
-  _playlistsViewController = [PlaylistsViewController controllerWithLibrary:_itLibrary];
+  _playlistsViewController = [[PlaylistsViewController alloc] initWithLibrary:_library];
   NSWindow* playlistsViewWindow = [NSWindow windowWithContentViewController:_playlistsViewController];
   [playlistsViewWindow setTitle:@"Playlists"];
 

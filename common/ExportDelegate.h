@@ -9,6 +9,7 @@
 
 #import "Defines.h"
 
+@class ITLibrary;
 @class ITLibMediaItem;
 @class ITLibPlaylist;
 @class OrderedDictionary;
@@ -32,9 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Initializers -
 
-- (instancetype)init;
-
-+ (instancetype)exporter;
+- (instancetype)initWithLibrary:(ITLibrary*)library;
 
 
 #pragma mark - Mutators -

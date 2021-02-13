@@ -26,25 +26,21 @@
 
 @implementation PlaylistsViewController {
 
+  ITLibrary* _library;
+
   PlaylistNode* _rootNode;
 }
 
 
 #pragma mark - Initializers
 
-- (instancetype)init {
+- (instancetype)initWithLibrary:(ITLibrary*)library {
 
   self = [super initWithNibName:@"PlaylistsView" bundle:nil];
 
+  _library = library;
+
   return self;
-}
-
-+ (PlaylistsViewController*)controllerWithLibrary:(ITLibrary*)lib {
-
-  PlaylistsViewController* controller = [[PlaylistsViewController alloc] init];
-
-  [controller setLibrary:lib];
-  return controller;
 }
 
 

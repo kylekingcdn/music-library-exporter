@@ -18,6 +18,8 @@
 
 @implementation ScheduleDelegate {
 
+  ExportDelegate* _exportDelegate;
+
   NSUserDefaults* _groupDefaults;
 
   NSTimer* _timer;
@@ -26,30 +28,26 @@
 
 #pragma mark - Initializers -
 
-- (instancetype)init {
+- (instancetype)initWithExportDelegate:(ExportDelegate*)exportDelegate {
 
   self = [super init];
 
+  // detect changes in NSUSerDefaults for app group
   _groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
   [_groupDefaults addObserver:self forKeyPath:@"ScheduleEnabled" options:NSKeyValueObservingOptionNew context:NULL];
   [_groupDefaults addObserver:self forKeyPath:@"ScheduleInterval" options:NSKeyValueObservingOptionNew context:NULL];
   [_groupDefaults addObserver:self forKeyPath:@"LastExportedAt" options:NSKeyValueObservingOptionNew context:NULL];
   [_groupDefaults addObserver:self forKeyPath:@"OutputDirectoryPath" options:NSKeyValueObservingOptionNew context:NULL];
-//  [_groupDefaults addObserver:self forKeyPath:@"NextExportAt" options:NSKeyValueObservingOptionNew context:NULL];
 
+  _exportDelegate = exportDelegate;
+
+  // update schedule
   [self updateSchedule];
 
+  // request output dir permission if required
+  [self requestOutputDirectoryPermissionsIfRequired];
+
   return self;
-}
-
-+ (instancetype)schedulerWithExporter:(ExportDelegate*)exportDelegate {
-
-  ScheduleDelegate* scheduleDelegate = [[ScheduleDelegate alloc] init];
-  [scheduleDelegate setExportDelegate:exportDelegate];
-
-  [scheduleDelegate requestOutputDirectoryPermissionsIfRequired];
-
-  return scheduleDelegate;
 }
 
 

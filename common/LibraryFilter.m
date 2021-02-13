@@ -18,16 +18,29 @@
 #import "ExportConfiguration.h"
 
 
-@implementation LibraryFilter
+@implementation LibraryFilter {
+
+  ITLibrary* _library;
+}
 
 
 #pragma mark - Initializers -
 
-- (instancetype)init {
+- (instancetype)initWithLibrary:(ITLibrary*)library {
 
   self = [super init];
 
-  _filterExcludedPlaylistIds = YES;
+  _library = library;
+
+  [self setFilterExcludedPlaylistIds:YES];
+
+  return self;
+}
+
+
+- (instancetype)init {
+
+  self = [super init];
 
   return self;
 }

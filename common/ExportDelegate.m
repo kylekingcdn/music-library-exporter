@@ -18,7 +18,7 @@
 
 @implementation ExportDelegate {
 
-  ITLibrary* _itLibrary;
+  ITLibrary* _library;
 
   LibraryFilter* _libraryFilter;
   LibrarySerializer* _librarySerializer;
@@ -27,30 +27,19 @@
 
 #pragma mark - Initializers -
 
-- (instancetype)init {
+- (instancetype)initWithLibrary:(ITLibrary*)library {
 
   self = [super init];
 
   _state = ExportStopped;
 
-  NSError *error = nil;
-  _itLibrary = [ITLibrary libraryWithAPIVersion:@"1.1" error:&error];
-  if (!_itLibrary) {
-    NSLog(@"error - failed to init ITLibrary. error: %@", error.localizedDescription);
-    return self;
-  }
+  _library = library;
 
-  _libraryFilter = [[LibraryFilter alloc] init];
-  _librarySerializer = [[LibrarySerializer alloc] init];
+  _libraryFilter = [[LibraryFilter alloc] initWithLibrary:_library];
+  _librarySerializer = [[LibrarySerializer alloc] initWithLibrary:_library];
 
   return self;
 }
-
-+ (instancetype)exporter {
-
-  return [[ExportDelegate alloc] init];
-}
-
 
 
 #pragma mark - Mutators -
@@ -82,20 +71,7 @@
     return NO;
   }
 
-  // init ITLibrary instance
-  NSError *initLibraryError = nil;
-  _itLibrary = [ITLibrary libraryWithAPIVersion:@"1.1" error:&initLibraryError];
-  if (!_itLibrary) {
-    NSLog(@"ExportDelegate [prepareForExport]  error - failed to init ITLibrary. error: %@", initLibraryError.localizedDescription);
-    [self updateState:ExportError];
-    return NO;
-  }
-
-  // init filter
-  [_libraryFilter setLibrary:_itLibrary];
-
   // init serializer
-  [_librarySerializer setLibrary:_itLibrary];
   [_librarySerializer initSerializeMembers];
 
   // get included items

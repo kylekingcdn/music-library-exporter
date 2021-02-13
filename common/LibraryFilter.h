@@ -19,14 +19,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Properties -
 
-@property ITLibrary* library;
-
 @property BOOL filterExcludedPlaylistIds;
 
 
 #pragma mark - Initializers -
 
-- (instancetype)init;
+- (instancetype)initWithLibrary:(ITLibrary*)library;
 
 
 #pragma mark - Accessors -
