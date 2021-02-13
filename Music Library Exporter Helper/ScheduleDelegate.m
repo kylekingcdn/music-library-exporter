@@ -12,7 +12,6 @@
 
 #import "Defines.h"
 #import "Utils.h"
-#import "ExportConfiguration.h"
 #import "UserDefaultsExportConfiguration.h"
 #import "ExportDelegate.h"
 #import "ScheduleConfiguration.h"
@@ -126,13 +125,13 @@
 
   NSLog(@"ScheduleDelegate [isOutputDirectoryBookmarkValid]");
 
-  NSString* outputDirPath = _exportDelegate.configuration.outputDirectoryPath;
+  NSString* outputDirPath = UserDefaultsExportConfiguration.sharedConfig.outputDirectoryPath;
   if (outputDirPath.length == 0) {
     NSLog(@"ScheduleDelegate [isOutputDirectoryBookmarkValid] output directory has not been set yet");
     return NO;
   }
 
-  NSURL* outputDirUrl = _exportDelegate.configuration.resolveAndAutoRenewOutputDirectoryUrl;
+  NSURL* outputDirUrl = UserDefaultsExportConfiguration.sharedConfig.resolveAndAutoRenewOutputDirectoryUrl;
 
   if (outputDirUrl && outputDirUrl.isFileURL) {
 
@@ -239,7 +238,7 @@
 
     // fetch latest configuration values
     [_configuration loadPropertiesFromUserDefaults];
-    [_exportDelegate.configuration loadPropertiesFromUserDefaults];
+    [UserDefaultsExportConfiguration.sharedConfig loadPropertiesFromUserDefaults];
 
     [self requestOutputDirectoryPermissionsIfRequired];
     [self updateSchedule];
@@ -250,7 +249,7 @@
 
   NSLog(@"ScheduleDelegate [requestOutputDirectoryPermissions]");
 
-  NSString* outputDirPath = _exportDelegate.configuration.outputDirectoryPath;
+  NSString* outputDirPath = UserDefaultsExportConfiguration.sharedConfig.outputDirectoryPath;
 
   // Set activation policy to regular to allow for modal to pop up
   [[NSApplication sharedApplication] setActivationPolicy:NSApplicationActivationPolicyRegular];
@@ -277,7 +276,7 @@
       if (outputDirUrl) {
         if (outputDirPath.length == 0 || [outputDirUrl.path isEqualToString:outputDirUrl.path]) {
           NSLog(@"ScheduleDelegate [requestOutputDirectoryPermissions] the correct output directory has been selected");
-          [self->_exportDelegate.configuration setOutputDirectoryUrl:outputDirUrl];
+          [UserDefaultsExportConfiguration.sharedConfig setOutputDirectoryUrl:outputDirUrl];
         }
         else {
           NSLog(@"ScheduleDelegate [requestOutputDirectoryPermissions] the user has selected a diretory that differs from the output directory set with the main app.");
@@ -300,7 +299,7 @@
 
 - (void)requestOutputDirectoryPermissionsIfRequired {
 
-  NSString* outputDirPath = _exportDelegate.configuration.outputDirectoryPath;
+  NSString* outputDirPath = UserDefaultsExportConfiguration.sharedConfig.outputDirectoryPath;
   BOOL outputDirIsSet = (outputDirPath.length > 0);
 
   if (!outputDirIsSet) {

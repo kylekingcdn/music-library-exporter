@@ -39,13 +39,11 @@
   return self;
 }
 
-+ (PlaylistsViewController*)controllerWithLibrary:(ITLibrary*)lib andExportConfig:(ExportConfiguration*)exportConfig {
++ (PlaylistsViewController*)controllerWithLibrary:(ITLibrary*)lib {
 
   PlaylistsViewController* controller = [[PlaylistsViewController alloc] init];
 
   [controller setLibrary:lib];
-  [controller setExportConfiguration:exportConfig];
-
   return controller;
 }
 
@@ -262,8 +260,8 @@
 
 - (void)updateSortingButton:(NSPopUpButton*)button forPlaylist:(ITLibPlaylist*)playlist {
 
-  PlaylistSortColumnType sortColumn = [_exportConfiguration playlistCustomSortColumn:playlist.persistentID];
-  PlaylistSortOrderType sortOrder = [_exportConfiguration playlistCustomSortOrder:playlist.persistentID];
+  PlaylistSortColumnType sortColumn = [ExportConfiguration.sharedConfig playlistCustomSortColumn:playlist.persistentID];
+  PlaylistSortOrderType sortOrder = [ExportConfiguration.sharedConfig playlistCustomSortOrder:playlist.persistentID];
 
   BOOL isDefault = (sortColumn == PlaylistSortColumnNull);
 
@@ -303,7 +301,7 @@
 
 - (void)initPlaylistNodes {
 
-  if (!_exportConfiguration || !_library) {
+  if (!_library) {
     return;
   }
 
@@ -320,7 +318,7 @@
   BOOL excluded = ([sender state] == NSControlStateValueOff);
   NSNumber* playlistId = node.playlist.persistentID;
 
-  [_exportConfiguration setExcluded:excluded forPlaylistId:playlistId];
+  [ExportConfiguration.sharedConfig setExcluded:excluded forPlaylistId:playlistId];
 }
 
 - (IBAction)setPlaylistSorting:(id)sender {
@@ -338,7 +336,7 @@
   // default
   if (itemTag == 101) {
     NSLog(@"PlaylistsViewController [setPlaylistSorting] Default");
-    [_exportConfiguration setDefaultSortingForPlaylist:node.playlist.persistentID];
+    [ExportConfiguration.sharedConfig setDefaultSortingForPlaylist:node.playlist.persistentID];
   }
   // sort column
   else if (itemTag > 200 && itemTag < 300) {
@@ -347,12 +345,12 @@
       NSLog(@"PlaylistsViewController [setPlaylistSorting] error - failed to determine sort column for itemTag:%li", (long)itemTag);
     }
     // ignore if no change
-    else if (sortColumn == [_exportConfiguration playlistCustomSortColumn:node.playlist.persistentID]) {
+    else if (sortColumn == [ExportConfiguration.sharedConfig playlistCustomSortColumn:node.playlist.persistentID]) {
       return;
     }
     else {
       NSLog(@"PlaylistsViewController [setPlaylistSorting] column: %@", [Utils titleForPlaylistSortColumn:sortColumn]);
-      [_exportConfiguration setCustomSortColumn:sortColumn forPlaylist:node.playlist.persistentID];
+      [ExportConfiguration.sharedConfig setCustomSortColumn:sortColumn forPlaylist:node.playlist.persistentID];
     }
   }
   // sort order
@@ -362,12 +360,12 @@
       NSLog(@"PlaylistsViewController [setPlaylistSorting] error - failed to determine sort order for itemTag:%li", (long)itemTag);
     }
     // ignore if no change
-    else if (sortOrder == [_exportConfiguration playlistCustomSortOrder:node.playlist.persistentID]) {
+    else if (sortOrder == [ExportConfiguration.sharedConfig playlistCustomSortOrder:node.playlist.persistentID]) {
       return;
     }
     else {
       NSLog(@"PlaylistsViewController [setPlaylistSorting] order: %@", [Utils titleForPlaylistSortOrder:sortOrder]);
-      [_exportConfiguration setCustomSortOrder:sortOrder forPlaylist:node.playlist.persistentID];
+      [ExportConfiguration.sharedConfig setCustomSortOrder:sortOrder forPlaylist:node.playlist.persistentID];
     }
   }
 
@@ -441,7 +439,7 @@
 
     CheckBoxTableCellView* cellView = [outlineView makeViewWithIdentifier:cellViewId owner:nil];
 
-    NSControlStateValue state = [_exportConfiguration isPlaylistIdExcluded:node.playlist.persistentID] ? NSControlStateValueOff : NSControlStateValueOn;
+    NSControlStateValue state = [ExportConfiguration.sharedConfig isPlaylistIdExcluded:node.playlist.persistentID] ? NSControlStateValueOff : NSControlStateValueOn;
 
     [cellView.checkbox setAction:@selector(setPlaylistExcludedForCellView:)];
     [cellView.checkbox setTarget:self];

@@ -20,7 +20,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Properties -
 
 @property ITLibrary* library;
-@property ExportConfiguration* configuration;
 
 @property BOOL filterExcludedPlaylistIds;
 

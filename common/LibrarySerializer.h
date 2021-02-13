@@ -23,7 +23,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Properties -
 
 @property ITLibrary* library;
-@property ExportConfiguration* configuration;
 
 
 #pragma mark - Initializers -

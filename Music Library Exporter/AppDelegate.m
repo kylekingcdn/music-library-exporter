@@ -52,19 +52,24 @@
      // options.debug = YES;
   }];
 #endif
-  
+
+  // init exportConfiguration
+  _exportConfiguration = [[UserDefaultsExportConfiguration alloc] initWithUserDefaultsSuiteName:__MLE__AppGroupIdentifier];
+  [_exportConfiguration setOutputDirectoryBookmarkKeySuffix:@"Main"];
+  [_exportConfiguration loadPropertiesFromUserDefaults];
+
+  // set shared exportConfiguration
+  [UserDefaultsExportConfiguration initSharedConfig:_exportConfiguration];
+
+  _scheduleConfiguration = [[ScheduleConfiguration alloc] init];
+
+  // detect changes in NSUSerDefaults for app group
   _groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
   [_groupDefaults addObserver:self forKeyPath:@"ScheduleInterval" options:NSKeyValueObservingOptionNew context:NULL];
   [_groupDefaults addObserver:self forKeyPath:@"LastExportedAt" options:NSKeyValueObservingOptionNew context:NULL];
   [_groupDefaults addObserver:self forKeyPath:@"NextExportAt" options:NSKeyValueObservingOptionNew context:NULL];
 
-  // detect changes in NSUSerDefaults for app group
-  _exportConfiguration = [[UserDefaultsExportConfiguration alloc] initWithUserDefaultsSuiteName:__MLE__AppGroupIdentifier];
-  [_exportConfiguration setOutputDirectoryBookmarkKeySuffix:@"Main"];
-  [_exportConfiguration loadPropertiesFromUserDefaults];
-  _exportDelegate = [ExportDelegate exporterWithConfig:_exportConfiguration];
-
-  _scheduleConfiguration = [[ScheduleConfiguration alloc] init];
+  _exportDelegate = [ExportDelegate exporter];
 
   _helperDelegate = [[HelperDelegate alloc] init];
 
@@ -86,7 +91,7 @@
   }
 
   // init playlistsView
-  _playlistsViewController = [PlaylistsViewController controllerWithLibrary:_itLibrary andExportConfig:_exportConfiguration];
+  _playlistsViewController = [PlaylistsViewController controllerWithLibrary:_itLibrary];
   NSWindow* playlistsViewWindow = [NSWindow windowWithContentViewController:_playlistsViewController];
   [playlistsViewWindow setTitle:@"Playlists"];
 

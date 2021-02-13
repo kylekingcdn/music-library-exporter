@@ -32,14 +32,13 @@ typedef NS_ENUM(NSInteger, TableColumnType) {
 #pragma mark - Properties
 
 @property ITLibrary* library;
-@property ExportConfiguration* exportConfiguration;
 
 
 #pragma mark - Initializers
 
 - (instancetype)init;
 
-+ (PlaylistsViewController*)controllerWithLibrary:(ITLibrary*)lib andExportConfig:(ExportConfiguration*)config;
++ (PlaylistsViewController*)controllerWithLibrary:(ITLibrary*)lib;
 
 
 #pragma mark - Accessors

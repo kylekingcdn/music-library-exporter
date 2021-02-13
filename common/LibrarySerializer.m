@@ -51,7 +51,8 @@
 
 - (NSString*)remapRootMusicDirForFilePath:(NSString*)filePath {
 
-  return [filePath stringByReplacingOccurrencesOfString:_configuration.remapRootDirectoryOriginalPath withString:_configuration.remapRootDirectoryMappedPath];
+  return [filePath stringByReplacingOccurrencesOfString:ExportConfiguration.sharedConfig.remapRootDirectoryOriginalPath
+                                             withString:ExportConfiguration.sharedConfig.remapRootDirectoryMappedPath];
 }
 
 - (nullable NSNumber*)idForEntity:(ITLibMediaEntity*)entity {
@@ -69,7 +70,9 @@
   _entityIdsDict = [NSMutableDictionary dictionary];
   _currentEntityId = 0;
 
-  shouldRemapTrackLocations = (_configuration.remapRootDirectory && _configuration.remapRootDirectoryOriginalPath.length > 0 && _configuration.remapRootDirectoryMappedPath.length > 0);
+  shouldRemapTrackLocations = (ExportConfiguration.sharedConfig.remapRootDirectory &&
+                               ExportConfiguration.sharedConfig.remapRootDirectoryOriginalPath.length > 0 &&
+                               ExportConfiguration.sharedConfig.remapRootDirectoryMappedPath.length > 0);
 }
 
 - (NSNumber*)addEntityToIdDict:(ITLibMediaEntity*)mediaEntity {
@@ -95,8 +98,8 @@
   [libraryDict setValue:[NSNumber numberWithUnsignedInteger:_library.features] forKey:@"Features"];
   [libraryDict setValue:@(_library.showContentRating) forKey:@"Show Content Ratings"];
   // FIXME: should remap root library apply to this path as well..?
-  if (_configuration.musicLibraryPath.length > 0) {
-    [libraryDict setValue:_configuration.musicLibraryPath forKey:@"Music Folder"];
+  if (ExportConfiguration.sharedConfig.musicLibraryPath.length > 0) {
+    [libraryDict setValue:ExportConfiguration.sharedConfig.musicLibraryPath forKey:@"Music Folder"];
   }
 
   // set tracks
@@ -143,7 +146,7 @@
   [playlistDict setValue:playlistId forKey:@"Playlist ID"];
   [playlistDict setValue:[LibrarySerializer getHexadecimalPersistentId:playlistItem.persistentID] forKey:@"Playlist Persistent ID"];
 
-  if (playlistItem.parentID && !_configuration.flattenPlaylistHierarchy) {
+  if (playlistItem.parentID && !ExportConfiguration.sharedConfig.flattenPlaylistHierarchy) {
     [playlistDict setValue:[LibrarySerializer getHexadecimalPersistentId:playlistItem.parentID] forKey:@"Parent Persistent ID"];
   }
   if (playlistItem.distinguishedKind > ITLibDistinguishedPlaylistKindNone) {
@@ -161,13 +164,13 @@
   }
 
   NSArray<ITLibMediaItem*>* playlistItems = playlistItem.items;
-  PlaylistSortColumnType sortColumn = [_configuration playlistCustomSortColumn:playlistItem.persistentID];
+  PlaylistSortColumnType sortColumn = [ExportConfiguration.sharedConfig playlistCustomSortColumn:playlistItem.persistentID];
 
   // custom sorting
   if (sortColumn != PlaylistSortColumnNull) {
 
     NSString* sortColumnProperty = [Utils mediaItemPropertyForSortColumn:sortColumn];
-    PlaylistSortOrderType sortOrder = [_configuration playlistCustomSortOrder:playlistItem.persistentID];
+    PlaylistSortOrderType sortOrder = [ExportConfiguration.sharedConfig playlistCustomSortOrder:playlistItem.persistentID];
 
     if (sortOrder == PlaylistSortOrderNull) {
       // fallback to ascending
@@ -447,7 +450,7 @@
     NSString* trackFilePath = trackItem.location.path;
 
     if (shouldRemapTrackLocations) {
-      trackFilePath = [trackFilePath stringByReplacingOccurrencesOfString:_configuration.remapRootDirectoryOriginalPath withString:_configuration.remapRootDirectoryMappedPath];
+      trackFilePath = self.remapRootMusicDirForFilePath:trackFilePath;
     }
 
     NSString* encodedTrackPath = [[NSURL fileURLWithPath:trackFilePath] absoluteString];

@@ -46,16 +46,11 @@
   return self;
 }
 
-+ (instancetype)exporterWithConfig:(UserDefaultsExportConfiguration*)config {
++ (instancetype)exporter {
 
-  ExportDelegate* delegate = [[ExportDelegate alloc] init];
-  [delegate setConfiguration:config];
-
-  return delegate;
+  return [[ExportDelegate alloc] init];
 }
 
-
-#pragma mark - Accessors -
 
 
 #pragma mark - Mutators -
@@ -76,12 +71,12 @@
   [self updateState:ExportPreparing];
 
   // set configuration
-  if (!_configuration.isOutputDirectoryValid) {
+  if (!UserDefaultsExportConfiguration.sharedConfig.isOutputDirectoryValid) {
     NSLog(@"ExportDelegate [prepareForExport] error - invalid output directory url");
     [self updateState:ExportError];
     return NO;
   }
-  if (!_configuration.isOutputFileNameValid) {
+  if (!UserDefaultsExportConfiguration.sharedConfig.isOutputFileNameValid) {
     NSLog(@"ExportDelegate [prepareForExport] error - invalid output filename");
     [self updateState:ExportError];
     return NO;
@@ -97,11 +92,9 @@
   }
 
   // init filter
-  [_libraryFilter setConfiguration:_configuration];
   [_libraryFilter setLibrary:_itLibrary];
 
   // init serializer
-  [_librarySerializer setConfiguration:_configuration];
   [_librarySerializer setLibrary:_itLibrary];
   [_librarySerializer initSerializeMembers];
 
@@ -147,16 +140,16 @@
 
   NSLog(@"ExportDelegate [writeDictionary]");
 
-  NSURL* outputDirectoryUrl = _configuration.resolveAndAutoRenewOutputDirectoryUrl;
+  NSURL* outputDirectoryUrl = UserDefaultsExportConfiguration.sharedConfig.resolveAndAutoRenewOutputDirectoryUrl;
   if (!outputDirectoryUrl) {
     NSLog(@"ExportDelegate [writeDictionary] unable to retrieve output directory - a directory must be selected to obtain write permission");
     return NO;
   }
 
   // write library
-  NSLog(@"ExportDelegate [writeDictionary] saving to: %@", _configuration.outputFileUrl);
+  NSLog(@"ExportDelegate [writeDictionary] saving to: %@", UserDefaultsExportConfiguration.sharedConfig.outputFileUrl);
   [outputDirectoryUrl startAccessingSecurityScopedResource];
-  BOOL writeSuccess = [libraryDict writeToURL:_configuration.outputFileUrl atomically:YES];
+  BOOL writeSuccess = [libraryDict writeToURL:UserDefaultsExportConfiguration.sharedConfig.outputFileUrl atomically:YES];
   [outputDirectoryUrl stopAccessingSecurityScopedResource];
 
   if (!writeSuccess) {

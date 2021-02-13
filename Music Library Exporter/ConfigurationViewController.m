@@ -51,7 +51,6 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
 
   HelperDelegate* _helperDelegate;
 
-  UserDefaultsExportConfiguration* _exportConfiguration;
   ExportDelegate* _exportDelegate;
 
   ScheduleConfiguration* _scheduleConfiguration;
@@ -68,12 +67,11 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
 
   _helperDelegate = helperDelegate;
 
-  _exportConfiguration = exportDelegate.configuration;
   _exportDelegate = exportDelegate;
 
   _scheduleConfiguration = scheduleConfig;
 
-  [_exportConfiguration dumpProperties];
+  [ExportConfiguration.sharedConfig dumpProperties];
   [_scheduleConfiguration dumpProperties];
 
   // ensure helper registration status matches configuration value for scheduleEnabled
@@ -114,17 +112,17 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
 
   NSLog(@"ConfigurationViewController [updateFromConfiguration]");
 
-  [_libraryPathTextField setStringValue:_exportConfiguration.musicLibraryPath];
-  [_outputDirectoryTextField setStringValue:_exportConfiguration.outputDirectoryUrlPath];
-  [_outputFileNameTextField setStringValue:_exportConfiguration.outputFileName];
+  [_libraryPathTextField setStringValue:ExportConfiguration.sharedConfig.musicLibraryPath];
+  [_outputDirectoryTextField setStringValue:ExportConfiguration.sharedConfig.outputDirectoryUrlPath];
+  [_outputFileNameTextField setStringValue:ExportConfiguration.sharedConfig.outputFileName];
 
-  [_remapRootDirectoryCheckBox setState:(_exportConfiguration.remapRootDirectory ? NSControlStateValueOn : NSControlStateValueOff)];
-  [_remapOriginalDirectoryTextField setStringValue:_exportConfiguration.remapRootDirectoryOriginalPath];
-  [_remapMappedDirectoryTextField setStringValue:_exportConfiguration.remapRootDirectoryMappedPath];
+  [_remapRootDirectoryCheckBox setState:(ExportConfiguration.sharedConfig.remapRootDirectory ? NSControlStateValueOn : NSControlStateValueOff)];
+  [_remapOriginalDirectoryTextField setStringValue:ExportConfiguration.sharedConfig.remapRootDirectoryOriginalPath];
+  [_remapMappedDirectoryTextField setStringValue:ExportConfiguration.sharedConfig.remapRootDirectoryMappedPath];
 
-  [_flattenPlaylistsCheckBox setState:(_exportConfiguration.flattenPlaylistHierarchy ? NSControlStateValueOn : NSControlStateValueOff)];
-  [_includeInternalPlaylistsCheckBox setState:(_exportConfiguration.includeInternalPlaylists ? NSControlStateValueOn : NSControlStateValueOff)];
-  //[_excludedPlaylistsTextField setStringValue:_exportConfiguration.excludedPlaylistPersistentIds];
+  [_flattenPlaylistsCheckBox setState:(ExportConfiguration.sharedConfig.flattenPlaylistHierarchy ? NSControlStateValueOn : NSControlStateValueOff)];
+  [_includeInternalPlaylistsCheckBox setState:(ExportConfiguration.sharedConfig.includeInternalPlaylists ? NSControlStateValueOn : NSControlStateValueOff)];
+  //[_excludedPlaylistsTextField setStringValue:ExportConfiguration.sharedConfig.excludedPlaylistPersistentIds];
 
   [_scheduleEnabledCheckBox setState:_scheduleConfiguration.scheduleEnabled];
   [_scheduleIntervalTextField setDoubleValue:_scheduleConfiguration.scheduleInterval/3600];
@@ -135,8 +133,8 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
   [_nextExportLabel setStringValue:[NSString stringWithFormat:@"Next export:  %@", _scheduleConfiguration.nextExportAt ? _scheduleConfiguration.nextExportAt.description : @"n/a"]];
 
   // update states of controls with dependencies
-  [_remapOriginalDirectoryTextField setEnabled:_exportConfiguration.remapRootDirectory];
-  [_remapMappedDirectoryTextField setEnabled:_exportConfiguration.remapRootDirectory];
+  [_remapOriginalDirectoryTextField setEnabled:ExportConfiguration.sharedConfig.remapRootDirectory];
+  [_remapMappedDirectoryTextField setEnabled:ExportConfiguration.sharedConfig.remapRootDirectory];
   [_scheduleIntervalTextField setEnabled:_scheduleConfiguration.scheduleEnabled];
   [_scheduleIntervalStepper setEnabled:_scheduleConfiguration.scheduleEnabled];
   [_scheduleSkipOnBatteryCheckBox setEnabled:_scheduleConfiguration.scheduleEnabled];
@@ -146,7 +144,7 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
 
   NSString* mediaFolder = [sender stringValue];
 
-  [_exportConfiguration setMusicLibraryPath:mediaFolder];
+  [ExportConfiguration.sharedConfig setMusicLibraryPath:mediaFolder];
 }
 
 - (IBAction)browseOutputDirectory:(id)sender {
@@ -168,8 +166,8 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
       NSURL* outputDirUrl = [openPanel URL];
       if (outputDirUrl) {
 
-        [self->_exportConfiguration setOutputDirectoryUrl:outputDirUrl];
-        [self->_exportConfiguration setOutputDirectoryPath:outputDirUrl.path];
+        [ExportConfiguration.sharedConfig setOutputDirectoryUrl:outputDirUrl];
+        [ExportConfiguration.sharedConfig setOutputDirectoryPath:outputDirUrl.path];
         [self->_outputDirectoryTextField setStringValue:outputDirUrl.path];
       }
     }
@@ -180,7 +178,7 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
 
   NSString* outputFileName = [sender stringValue];
 
-  [_exportConfiguration setOutputFileName:outputFileName];
+  [ExportConfiguration.sharedConfig setOutputFileName:outputFileName];
 }
 
 - (IBAction)setRemapRootDirectory:(id)sender {
@@ -188,7 +186,7 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
   NSControlStateValue flagState = [sender state];
   BOOL flag = (flagState == NSControlStateValueOn);
 
-  [_exportConfiguration setRemapRootDirectory:flag];
+  [ExportConfiguration.sharedConfig setRemapRootDirectory:flag];
 
   [_remapOriginalDirectoryTextField setEnabled:flag];
   [_remapMappedDirectoryTextField setEnabled:flag];
@@ -198,14 +196,14 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
 
   NSString* remapOriginalText = [sender stringValue];
 
-  [_exportConfiguration setRemapRootDirectoryOriginalPath:remapOriginalText];
+  [ExportConfiguration.sharedConfig setRemapRootDirectoryOriginalPath:remapOriginalText];
 }
 
 - (IBAction)setRemapReplacementText:(id)sender {
 
   NSString* remapReplacementText = [sender stringValue];
 
-  [_exportConfiguration setRemapRootDirectoryMappedPath:remapReplacementText];
+  [ExportConfiguration.sharedConfig setRemapRootDirectoryMappedPath:remapReplacementText];
 }
 
 - (IBAction)setFlattenPlaylistHierarchy:(id)sender {
@@ -213,7 +211,7 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
   NSControlStateValue flagState = [sender state];
   BOOL flag = (flagState == NSControlStateValueOn);
 
-  [_exportConfiguration setFlattenPlaylistHierarchy:flag];
+  [ExportConfiguration.sharedConfig setFlattenPlaylistHierarchy:flag];
 }
 
 - (IBAction)setIncludeInternalPlaylists:(id)sender {
@@ -221,7 +219,7 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
   NSControlStateValue flagState = [sender state];
   BOOL flag = (flagState == NSControlStateValueOn);
 
-  [_exportConfiguration setIncludeInternalPlaylists:flag];
+  [ExportConfiguration.sharedConfig setIncludeInternalPlaylists:flag];
 }
 
 - (IBAction)setScheduleEnabled:(id)sender {

@@ -12,7 +12,6 @@
 @class ITLibMediaItem;
 @class ITLibPlaylist;
 @class OrderedDictionary;
-@class UserDefaultsExportConfiguration;
 
 
 NS_ASSUME_NONNULL_BEGIN
@@ -23,8 +22,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Properties -
 
 @property (readonly) ExportState state;
-
-@property UserDefaultsExportConfiguration* configuration;
 
 @property (copy) void (^trackProgressCallback)(NSUInteger);
 @property (copy) void (^stateCallback)(NSInteger);
@@ -37,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)init;
 
-+ (instancetype)exporterWithConfig:(UserDefaultsExportConfiguration*)config;
++ (instancetype)exporter;
 
 
 #pragma mark - Mutators -

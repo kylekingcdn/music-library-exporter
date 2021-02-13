@@ -33,12 +33,18 @@
   }];
 #endif
 
+  // init exportConfiguration
   _exportConfiguration = [[UserDefaultsExportConfiguration alloc] initWithUserDefaultsSuiteName:__MLE__AppGroupIdentifier];
   [_exportConfiguration setOutputDirectoryBookmarkKeySuffix:@"Helper"];
   [_exportConfiguration loadPropertiesFromUserDefaults];
-  _exportDelegate = [ExportDelegate exporterWithConfig:_exportConfiguration];
+
+  // set shared exportConfiguration
+  [UserDefaultsExportConfiguration initSharedConfig:_exportConfiguration];
 
   _scheduleConfiguration = [[ScheduleConfiguration alloc] init];
+
+  _exportDelegate = [ExportDelegate exporter];
+  
   _scheduleDelegate = [ScheduleDelegate schedulerWithConfig:_scheduleConfiguration andExporter:_exportDelegate];
 }
 

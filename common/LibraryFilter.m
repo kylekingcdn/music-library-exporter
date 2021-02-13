@@ -45,7 +45,7 @@
   [includedPlaylistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindNone]];
   [includedPlaylistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindMusic]];
 
-  if (_configuration.includeInternalPlaylists) {
+  if (ExportConfiguration.sharedConfig.includeInternalPlaylists) {
 
     // and internal music playlists
     [includedPlaylistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindPurchases]];
@@ -72,13 +72,13 @@
   for (ITLibPlaylist* playlist in _library.allPlaylists) {
 
     // ignore excluded playlist kinds
-    if ([includedPlaylistKinds containsObject:[NSNumber numberWithUnsignedInteger:playlist.distinguishedKind]] && (!playlist.master || _configuration.includeInternalPlaylists)) {
+    if ([includedPlaylistKinds containsObject:[NSNumber numberWithUnsignedInteger:playlist.distinguishedKind]] && (!playlist.master || ExportConfiguration.sharedConfig.includeInternalPlaylists)) {
 
       // ignore folders when flattened
-      if (playlist.kind != ITLibPlaylistKindFolder || !_configuration.flattenPlaylistHierarchy) {
+      if (playlist.kind != ITLibPlaylistKindFolder || !ExportConfiguration.sharedConfig.flattenPlaylistHierarchy) {
 
         // excluded manually specified playlists if desired
-        if (!_filterExcludedPlaylistIds || ![_configuration isPlaylistIdExcluded:playlist.persistentID]) {
+        if (!_filterExcludedPlaylistIds || ![ExportConfiguration.sharedConfig isPlaylistIdExcluded:playlist.persistentID]) {
 
           [includedPlaylists addObject:playlist];
         }
