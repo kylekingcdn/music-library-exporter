@@ -62,6 +62,8 @@
 		27EF9A6A25BF23920051CE7B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27EF9A6925BF23920051CE7B /* Assets.xcassets */; };
 		27EF9A6D25BF23920051CE7B /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27EF9A6B25BF23920051CE7B /* MainMenu.xib */; };
 		27EF9A7025BF23920051CE7B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27EF9A6F25BF23920051CE7B /* main.m */; };
+		27F253E525D8710400243606 /* DirectoryPermissionsWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27F253E425D8710400243606 /* DirectoryPermissionsWindow.xib */; };
+		27F253EB25D87F7700243606 /* DirectoryPermissionsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F253EA25D87F7700243606 /* DirectoryPermissionsWindowController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -166,6 +168,9 @@
 		27EF9A6F25BF23920051CE7B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		27EF9A7125BF23920051CE7B /* Music_Library_Exporter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Music_Library_Exporter.entitlements; sourceTree = "<group>"; };
 		27F253E025D867B300243606 /* Sentry.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Sentry.xcconfig; sourceTree = "<group>"; };
+		27F253E425D8710400243606 /* DirectoryPermissionsWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DirectoryPermissionsWindow.xib; sourceTree = "<group>"; };
+		27F253E925D87F7700243606 /* DirectoryPermissionsWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DirectoryPermissionsWindowController.h; sourceTree = "<group>"; };
+		27F253EA25D87F7700243606 /* DirectoryPermissionsWindowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DirectoryPermissionsWindowController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -300,6 +305,9 @@
 				273B522825CA5F3E00421B14 /* ScheduleDelegate.h */,
 				273B522925CA5F3E00421B14 /* ScheduleDelegate.m */,
 				27A2C05C25C0934A00AAD73C /* MainMenu.xib */,
+				27F253E925D87F7700243606 /* DirectoryPermissionsWindowController.h */,
+				27F253EA25D87F7700243606 /* DirectoryPermissionsWindowController.m */,
+				27F253E425D8710400243606 /* DirectoryPermissionsWindow.xib */,
 				27A2C06C25C093B400AAD73C /* Supporting Files */,
 			);
 			path = "Music Library Exporter Helper";
@@ -479,6 +487,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27F253E525D8710400243606 /* DirectoryPermissionsWindow.xib in Resources */,
 				27A2C05E25C0934B00AAD73C /* MainMenu.xib in Resources */,
 				27D56E5825D85B2700A87B1F /* Credits.rtf in Resources */,
 				272C8E9825C0E59C003CBF47 /* Assets.xcassets in Resources */,
@@ -530,6 +539,7 @@
 				27A2C08D25C097C000AAD73C /* LibrarySerializer.m in Sources */,
 				27934B5925CB13D500488944 /* ScheduleDelegate.m in Sources */,
 				27A2C05925C0934A00AAD73C /* AppDelegate.m in Sources */,
+				27F253EB25D87F7700243606 /* DirectoryPermissionsWindowController.m in Sources */,
 				27A2C06125C0934B00AAD73C /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
