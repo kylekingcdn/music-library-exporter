@@ -42,6 +42,10 @@
 
 - (NSString*)kindDescription {
 
+  if (_playlist.distinguishedKind != ITLibDistinguishedPlaylistKindNone || _playlist.isMaster) {
+    return @"Internal Playlist";
+  }
+
   switch (_playlist.kind) {
     case ITLibPlaylistKindRegular: {
       return @"Playlist";
@@ -71,7 +75,7 @@
     case ITLibPlaylistKindSmart:
     case ITLibPlaylistKindGenius:
     case ITLibPlaylistKindGeniusMix: {
-      return [NSString string];
+      return [NSString stringWithFormat:@"%lu songs", _playlist.items.count];
     }
   }
 }
