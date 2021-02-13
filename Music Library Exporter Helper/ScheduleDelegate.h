@@ -20,8 +20,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Properties -
 
-@property ScheduleConfiguration* configuration;
-
 @property ExportDelegate* exportDelegate;
 
 
@@ -29,8 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)init;
 
-+ (instancetype)schedulerWithConfig:(ScheduleConfiguration*)config;
-+ (instancetype)schedulerWithConfig:(ScheduleConfiguration*)config andExporter:(ExportDelegate*)exportDelegate;
++ (instancetype)schedulerWithExporter:(ExportDelegate*)exportDelegate;
 
 
 #pragma mark - Accessors -

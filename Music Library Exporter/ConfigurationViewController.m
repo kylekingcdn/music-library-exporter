@@ -53,15 +53,13 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
 
   ExportDelegate* _exportDelegate;
 
-  ScheduleConfiguration* _scheduleConfiguration;
-
   HourNumberFormatter* _scheduleIntervalHourFormatter;
 }
 
 
 #pragma mark - Initializers -
 
-- (instancetype)initWithExportDelegate:(ExportDelegate*)exportDelegate andScheduleConfig:(ScheduleConfiguration*)scheduleConfig forHelperDelegate:(HelperDelegate*)helperDelegate {
+- (instancetype)initWithExportDelegate:(ExportDelegate*)exportDelegate forHelperDelegate:(HelperDelegate*)helperDelegate {
 
   self = [super initWithNibName: @"ConfigurationView" bundle: nil];
 
@@ -69,13 +67,11 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
 
   _exportDelegate = exportDelegate;
 
-  _scheduleConfiguration = scheduleConfig;
-
   [ExportConfiguration.sharedConfig dumpProperties];
-  [_scheduleConfiguration dumpProperties];
+  [ScheduleConfiguration.sharedConfig dumpProperties];
 
   // ensure helper registration status matches configuration value for scheduleEnabled
-  [_helperDelegate updateHelperRegistrationWithScheduleEnabled:_scheduleConfiguration.scheduleEnabled];
+  [_helperDelegate updateHelperRegistrationWithScheduleEnabled:ScheduleConfiguration.sharedConfig.scheduleEnabled];
 
 
   return self;
@@ -124,20 +120,20 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
   [_includeInternalPlaylistsCheckBox setState:(ExportConfiguration.sharedConfig.includeInternalPlaylists ? NSControlStateValueOn : NSControlStateValueOff)];
   //[_excludedPlaylistsTextField setStringValue:ExportConfiguration.sharedConfig.excludedPlaylistPersistentIds];
 
-  [_scheduleEnabledCheckBox setState:_scheduleConfiguration.scheduleEnabled];
-  [_scheduleIntervalTextField setDoubleValue:_scheduleConfiguration.scheduleInterval/3600];
-  [_scheduleIntervalStepper setDoubleValue:_scheduleConfiguration.scheduleInterval/3600];
-  [_scheduleSkipOnBatteryCheckBox setState:_scheduleConfiguration.skipOnBattery];
+  [_scheduleEnabledCheckBox setState:ScheduleConfiguration.sharedConfig.scheduleEnabled];
+  [_scheduleIntervalTextField setDoubleValue:ScheduleConfiguration.sharedConfig.scheduleInterval/3600];
+  [_scheduleIntervalStepper setDoubleValue:ScheduleConfiguration.sharedConfig.scheduleInterval/3600];
+  [_scheduleSkipOnBatteryCheckBox setState:ScheduleConfiguration.sharedConfig.skipOnBattery];
 
-  [_lastExportLabel setStringValue:[NSString stringWithFormat:@"Last export:  %@", _scheduleConfiguration.lastExportedAt ? _scheduleConfiguration.lastExportedAt.description : @"n/a"]];
-  [_nextExportLabel setStringValue:[NSString stringWithFormat:@"Next export:  %@", _scheduleConfiguration.nextExportAt ? _scheduleConfiguration.nextExportAt.description : @"n/a"]];
+  [_lastExportLabel setStringValue:[NSString stringWithFormat:@"Last export:  %@", ScheduleConfiguration.sharedConfig.lastExportedAt ? ScheduleConfiguration.sharedConfig.lastExportedAt.description : @"n/a"]];
+  [_nextExportLabel setStringValue:[NSString stringWithFormat:@"Next export:  %@", ScheduleConfiguration.sharedConfig.nextExportAt ? ScheduleConfiguration.sharedConfig.nextExportAt.description : @"n/a"]];
 
   // update states of controls with dependencies
   [_remapOriginalDirectoryTextField setEnabled:ExportConfiguration.sharedConfig.remapRootDirectory];
   [_remapMappedDirectoryTextField setEnabled:ExportConfiguration.sharedConfig.remapRootDirectory];
-  [_scheduleIntervalTextField setEnabled:_scheduleConfiguration.scheduleEnabled];
-  [_scheduleIntervalStepper setEnabled:_scheduleConfiguration.scheduleEnabled];
-  [_scheduleSkipOnBatteryCheckBox setEnabled:_scheduleConfiguration.scheduleEnabled];
+  [_scheduleIntervalTextField setEnabled:ScheduleConfiguration.sharedConfig.scheduleEnabled];
+  [_scheduleIntervalStepper setEnabled:ScheduleConfiguration.sharedConfig.scheduleEnabled];
+  [_scheduleSkipOnBatteryCheckBox setEnabled:ScheduleConfiguration.sharedConfig.scheduleEnabled];
 }
 
 - (IBAction)setMediaFolderLocation:(id)sender {
@@ -227,7 +223,7 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
   NSControlStateValue flagState = [sender state];
   BOOL flag = (flagState == NSControlStateValueOn);
 
-  [_scheduleConfiguration setScheduleEnabled:flag];
+  [ScheduleConfiguration.sharedConfig setScheduleEnabled:flag];
   [_helperDelegate updateHelperRegistrationWithScheduleEnabled:flag];
 
   [_scheduleIntervalTextField setEnabled:flag];
@@ -239,14 +235,14 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
 
   NSTimeInterval scheduleInterval = [sender doubleValue];
 
-  if (_scheduleConfiguration.scheduleInterval != scheduleInterval && _scheduleConfiguration.scheduleEnabled) {
+  if (ScheduleConfiguration.sharedConfig.scheduleInterval != scheduleInterval && ScheduleConfiguration.sharedConfig.scheduleEnabled) {
 
     if (scheduleInterval == 0) {
       scheduleInterval = 1;
     }
 
     [_scheduleIntervalTextField setDoubleValue:scheduleInterval];
-    [_scheduleConfiguration setScheduleInterval:scheduleInterval * 3600];
+    [ScheduleConfiguration.sharedConfig setScheduleInterval:scheduleInterval * 3600];
     [_scheduleIntervalStepper setDoubleValue:scheduleInterval];
   }
 }
@@ -255,13 +251,13 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
 
   NSTimeInterval scheduleInterval = [sender doubleValue];
 
-  if (_scheduleConfiguration.scheduleInterval != scheduleInterval && _scheduleConfiguration.scheduleEnabled) {
+  if (ScheduleConfiguration.sharedConfig.scheduleInterval != scheduleInterval && ScheduleConfiguration.sharedConfig.scheduleEnabled) {
 
     if (scheduleInterval == 0) {
       scheduleInterval = 1;
     }
     [_scheduleIntervalTextField setDoubleValue:scheduleInterval];
-    [_scheduleConfiguration setScheduleInterval:scheduleInterval * 3600];
+    [ScheduleConfiguration.sharedConfig setScheduleInterval:scheduleInterval * 3600];
     [_scheduleIntervalStepper setDoubleValue:scheduleInterval];
   }
 }
@@ -271,8 +267,8 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
   NSControlStateValue flagState = [sender state];
   BOOL flag = (flagState == NSControlStateValueOn);
 
-  if (_scheduleConfiguration.scheduleEnabled) {
-    [_scheduleConfiguration setSkipOnBattery:flag];
+  if (ScheduleConfiguration.sharedConfig.scheduleEnabled) {
+    [ScheduleConfiguration.sharedConfig setSkipOnBattery:flag];
   }
 }
 
@@ -328,7 +324,7 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
     [self->_exportStateLabel setStringValue:stateDescription];
 
     if (exportState == ExportFinished) {
-      [self->_scheduleConfiguration setLastExportedAt:[NSDate date]];
+      [ScheduleConfiguration.sharedConfig setLastExportedAt:[NSDate date]];
     }
   });
 }

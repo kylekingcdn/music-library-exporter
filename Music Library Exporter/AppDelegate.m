@@ -61,7 +61,11 @@
   // set shared exportConfiguration
   [UserDefaultsExportConfiguration initSharedConfig:_exportConfiguration];
 
+  // init scheduleConfiguration
   _scheduleConfiguration = [[ScheduleConfiguration alloc] init];
+
+  // set shared scheduleConfiguration
+  [ScheduleConfiguration initSharedConfig:_scheduleConfiguration];
 
   // detect changes in NSUSerDefaults for app group
   _groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
@@ -74,7 +78,6 @@
   _helperDelegate = [[HelperDelegate alloc] init];
 
   _configurationViewController = [[ConfigurationViewController alloc] initWithExportDelegate:_exportDelegate
-                                                                          andScheduleConfig:_scheduleConfiguration
                                                                           forHelperDelegate:_helperDelegate];
 
   // add configurationView to window contentview

@@ -37,26 +37,15 @@
   [_groupDefaults addObserver:self forKeyPath:@"OutputDirectoryPath" options:NSKeyValueObservingOptionNew context:NULL];
 //  [_groupDefaults addObserver:self forKeyPath:@"NextExportAt" options:NSKeyValueObservingOptionNew context:NULL];
 
+  [self updateSchedule];
+
   return self;
 }
 
-+ (instancetype)schedulerWithConfig:(ScheduleConfiguration*)config {
++ (instancetype)schedulerWithExporter:(ExportDelegate*)exportDelegate {
 
   ScheduleDelegate* scheduleDelegate = [[ScheduleDelegate alloc] init];
-  [scheduleDelegate setConfiguration:config];
-
-  [scheduleDelegate updateSchedule];
-
-  return scheduleDelegate;
-}
-
-+ (instancetype)schedulerWithConfig:(ScheduleConfiguration*)config andExporter:(ExportDelegate*)exportDelegate {
-
-  ScheduleDelegate* scheduleDelegate = [[ScheduleDelegate alloc] init];
-  [scheduleDelegate setConfiguration:config];
   [scheduleDelegate setExportDelegate:exportDelegate];
-
-  [scheduleDelegate updateSchedule];
 
   [scheduleDelegate requestOutputDirectoryPermissionsIfRequired];
 
@@ -68,9 +57,9 @@
 
 - (nullable NSDate*)determineNextExportDate {
 
-  NSDate* lastExportDate = _configuration.lastExportedAt;
+  NSDate* lastExportDate = ScheduleConfiguration.sharedConfig.lastExportedAt;
 
-  if (_configuration.scheduleEnabled) {
+  if (ScheduleConfiguration.sharedConfig.scheduleEnabled) {
 
     // overdue, schedule 60s from now
     if (!lastExportDate) {
@@ -81,11 +70,11 @@
     NSLog(@"ScheduleDelegate [determineNextExportDate] %fs since last export", intervalSinceLastExport);
 
     // overdue, schedule 60s from now
-    if (intervalSinceLastExport > _configuration.scheduleInterval) {
+    if (intervalSinceLastExport > ScheduleConfiguration.sharedConfig.scheduleInterval) {
       return [NSDate dateWithTimeIntervalSinceNow:10/*60*/];
     }
 
-    return [lastExportDate dateByAddingTimeInterval:_configuration.scheduleInterval];
+    return [lastExportDate dateByAddingTimeInterval:ScheduleConfiguration.sharedConfig.scheduleInterval];
   }
 
   return nil;
@@ -149,10 +138,10 @@
 
 - (ExportDeferralReason)reasonToDeferExport {
 
-  if (!_configuration || !_exportDelegate) {
+  if (!_exportDelegate) {
     return ExportDeferralErrorReason;
   }
-  if (_configuration.skipOnBattery && [ScheduleDelegate isSystemRunningOnBattery]) {
+  if (ScheduleConfiguration.sharedConfig.skipOnBattery && [ScheduleDelegate isSystemRunningOnBattery]) {
     return ExportDeferralOnBatteryReason;
   }
   if ([ScheduleDelegate isMainAppRunning]) {
@@ -174,7 +163,7 @@
     _timer = nil;
   }
 
-  NSTimeInterval intervalToNextExport = _configuration.nextExportAt.timeIntervalSinceNow;
+  NSTimeInterval intervalToNextExport = ScheduleConfiguration.sharedConfig.nextExportAt.timeIntervalSinceNow;
   NSLog(@"ScheduleDelegate [activateScheduler] next export in %fs", intervalToNextExport);
 
   _timer = [NSTimer scheduledTimerWithTimeInterval:intervalToNextExport target:self selector:@selector(onTimerFinished) userInfo:nil repeats:NO];
@@ -206,7 +195,7 @@
     NSLog(@"ScheduleDelegate [onTimerFinished] export task is being skipped for reason: %@", [Utils descriptionForExportDeferralReason:deferralReason]);
   }
 
-  [_configuration setLastExportedAt:[NSDate date]];
+  [ScheduleConfiguration.sharedConfig setLastExportedAt:[NSDate date]];
 }
 
 - (void)updateSchedule {
@@ -217,7 +206,7 @@
 
   NSLog(@"ScheduleDelegate [updateSchedule] next export: %@", nextExportDate.description);
 
-  [_configuration setNextExportAt:nextExportDate];
+  [ScheduleConfiguration.sharedConfig setNextExportAt:nextExportDate];
 
   if (nextExportDate) {
     [self activateScheduler];
@@ -237,7 +226,7 @@
       [keyPath isEqualToString:@"OutputDirectoryPath"]) {
 
     // fetch latest configuration values
-    [_configuration loadPropertiesFromUserDefaults];
+    [ScheduleConfiguration.sharedConfig loadPropertiesFromUserDefaults];
     [UserDefaultsExportConfiguration.sharedConfig loadPropertiesFromUserDefaults];
 
     [self requestOutputDirectoryPermissionsIfRequired];
