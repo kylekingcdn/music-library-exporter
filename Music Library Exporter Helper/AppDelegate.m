@@ -34,7 +34,7 @@
 #endif
 
   // init exportConfiguration
-  _exportConfiguration = [[UserDefaultsExportConfiguration alloc] initWithUserDefaultsSuiteName:__MLE__AppGroupIdentifier];
+  _exportConfiguration = [[UserDefaultsExportConfiguration alloc] init];
   [_exportConfiguration setOutputDirectoryBookmarkKeySuffix:@"Helper"];
   [_exportConfiguration loadPropertiesFromUserDefaults];
 

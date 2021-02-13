@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Initializers -
 
-- (instancetype)initWithUserDefaultsSuiteName:(NSString*)suiteName;
+- (instancetype)init;
 
 
 #pragma mark - Accessors -

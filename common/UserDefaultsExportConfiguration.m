@@ -19,11 +19,11 @@ static UserDefaultsExportConfiguration* _sharedConfig;
 
 #pragma mark - Initializers -
 
-- (instancetype)initWithUserDefaultsSuiteName:(NSString*)suiteName {
+- (instancetype)init {
 
   self = [super init];
 
-  _userDefaults = [[NSUserDefaults alloc] initWithSuiteName:suiteName];
+  _userDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
 
   return self;
 }
