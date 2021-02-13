@@ -104,16 +104,6 @@
     return;
   }
 
-  // init playlistsView
-  _playlistsViewController = [[PlaylistsViewController alloc] initWithLibrary:_library];
-  _playlistsViewWindow = [NSWindow windowWithContentViewController:_playlistsViewController];
-  [_playlistsViewWindow setTitle:@"Playlists"];
-
-  // update window frame
-  NSRect playlistsViewWindowFrame = _window.frame;
-  playlistsViewWindowFrame.origin.x += (_window.frame.size.width + 20);
-  [_playlistsViewWindow setFrame:playlistsViewWindowFrame display:YES];
-
   [_window makeKeyAndOrderFront:NSApp];
 }
 
@@ -140,6 +130,21 @@
 }
 
 - (void)showPlaylistsView {
+
+  if (!_playlistsViewController) {
+
+    // init playlistsView
+    _playlistsViewController = [[PlaylistsViewController alloc] initWithLibrary:_library];
+    _playlistsViewWindow = [NSWindow windowWithContentViewController:_playlistsViewController];
+    [_playlistsViewWindow setTitle:@"Playlists"];
+  }
+
+  if (!_playlistsViewWindow.isVisible) {
+    // update playlists window frame
+    NSRect playlistsViewWindowFrame = _window.frame;
+    playlistsViewWindowFrame.origin.x += (_window.frame.size.width + 20);
+    [_playlistsViewWindow setFrame:playlistsViewWindowFrame display:YES];
+  }
 
   [_playlistsViewWindow makeKeyAndOrderFront:NSApp];
 }
