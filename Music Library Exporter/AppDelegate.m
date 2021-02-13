@@ -49,10 +49,12 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 
 #if SENTRY_ENABLED == 1
-  [SentrySDK startWithConfigureOptions:^(SentryOptions *options) {
-      options.dsn = @"https://157b5edf2ba84c86b4ebf0b8d50d2d26@o370998.ingest.sentry.io/5628302";
-     // options.debug = YES;
-  }];
+  NSString* sentryDsn = SENTRY_DSN;
+  if (sentryDsn && sentryDsn.length > 0) {
+    [SentrySDK startWithConfigureOptions:^(SentryOptions *options) {
+        options.dsn = sentryDsn;
+    }];
+  }
 #endif
 
   // init exportConfiguration

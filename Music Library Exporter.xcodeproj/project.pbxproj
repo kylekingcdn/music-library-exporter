@@ -165,6 +165,7 @@
 		27EF9A6E25BF23920051CE7B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		27EF9A6F25BF23920051CE7B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		27EF9A7125BF23920051CE7B /* Music_Library_Exporter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Music_Library_Exporter.entitlements; sourceTree = "<group>"; };
+		27F253E025D867B300243606 /* Sentry.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Sentry.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -260,6 +261,7 @@
 				2749612425CE2FF400B98E11 /* Signing.xcconfig */,
 				2749612025CE2A1700B98E11 /* Debug.xcconfig */,
 				2749612125CE2A1700B98E11 /* Release.xcconfig */,
+				27F253E025D867B300243606 /* Sentry.xcconfig */,
 			);
 			path = Common;
 			sourceTree = "<group>";
