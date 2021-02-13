@@ -13,6 +13,7 @@
 #import "ExportDelegate.h"
 #import "ScheduleConfiguration.h"
 #import "HourNumberFormatter.h"
+#import "AppDelegate.h"
 
 static void *MLEProgressObserverContext = &MLEProgressObserverContext;
 
@@ -229,6 +230,11 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
   [_scheduleIntervalTextField setEnabled:flag];
   [_scheduleIntervalStepper setEnabled:flag];
   [_scheduleSkipOnBatteryCheckBox setEnabled:flag];
+}
+
+- (IBAction)customizePlaylists:(id)sender {
+
+  [(AppDelegate*)NSApp.delegate showPlaylistsView];
 }
 
 - (IBAction)setScheduleInterval:(id)sender {

@@ -42,6 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (IBAction)setFlattenPlaylistHierarchy:(id)sender;
 - (IBAction)setIncludeInternalPlaylists:(id)sender;
+- (IBAction)customizePlaylists:(id)sender;
 
 - (IBAction)setScheduleEnabled:(id)sender;
 - (IBAction)setScheduleInterval:(id)sender;
