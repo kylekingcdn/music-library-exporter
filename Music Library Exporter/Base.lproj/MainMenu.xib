@@ -685,11 +685,11 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="335" y="390" width="588" height="559"/>
+            <rect key="contentRect" x="335" y="390" width="597" height="631"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2048" height="1255"/>
-            <value key="minSize" type="size" width="587" height="559"/>
+            <value key="minSize" type="size" width="597" height="631"/>
             <view key="contentView" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="588" height="559"/>
+                <rect key="frame" x="0.0" y="0.0" width="597" height="631"/>
                 <autoresizingMask key="autoresizingMask"/>
             </view>
             <point key="canvasLocation" x="-494.5" y="352"/>
