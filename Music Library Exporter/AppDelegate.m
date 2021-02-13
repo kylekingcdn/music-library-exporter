@@ -134,4 +134,14 @@
   }
 }
 
+- (void)showPlaylistsView {
+
+  [_playlistsViewWindow makeKeyAndOrderFront:NSApp];
+}
+
+- (void)hidePlaylistsView {
+
+  [_playlistsViewWindow orderOut:NSApp];
+}
+
 @end

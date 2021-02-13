@@ -9,6 +9,8 @@
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
+- (void)showPlaylistsView;
+- (void)hidePlaylistsView;
 
 @end
 
