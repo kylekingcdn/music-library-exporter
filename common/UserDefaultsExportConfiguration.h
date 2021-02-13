@@ -24,6 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Accessors -
 
++ (UserDefaultsExportConfiguration*)sharedConfig;
+
 - (NSDictionary*)defaultValues;
 
 - (NSString*)outputDirectoryBookmarkKey;
@@ -31,6 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 #pragma mark - Mutators -
+
++ (void)initSharedConfig:(UserDefaultsExportConfiguration*)sharedConfig;
 
 - (void)setMusicLibraryPath:(NSString*)musicLibraryPath;
 

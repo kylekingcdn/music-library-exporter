@@ -8,6 +8,9 @@
 #import "UserDefaultsExportConfiguration.h"
 
 
+static UserDefaultsExportConfiguration* _sharedConfig;
+
+
 @implementation UserDefaultsExportConfiguration {
 
   NSUserDefaults* _userDefaults;
@@ -27,6 +30,13 @@
 
 
 #pragma mark - Accessors -
+
++ (UserDefaultsExportConfiguration*)sharedConfig {
+
+  NSAssert((_sharedConfig != nil), @"UserDefaultsExportConfiguration sharedConfig has not been initialized!");
+
+  return _sharedConfig;
+}
 
 - (NSDictionary*)defaultValues {
 
@@ -68,6 +78,16 @@
 
 
 #pragma mark - Mutators -
+
++ (void)initSharedConfig:(UserDefaultsExportConfiguration*)sharedConfig {
+
+  NSAssert((_sharedConfig == nil), @"UserDefaultsExportConfiguration sharedConfig has already been initialized!");
+
+  _sharedConfig = sharedConfig;
+
+  // init shared config for superclass
+  [ExportConfiguration initSharedConfig:sharedConfig];
+}
 
 - (void)setMusicLibraryPath:(NSString*)musicLibraryPath {
 
