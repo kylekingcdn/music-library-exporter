@@ -450,7 +450,7 @@
     NSString* trackFilePath = trackItem.location.path;
 
     if (shouldRemapTrackLocations) {
-      trackFilePath = self.remapRootMusicDirForFilePath:trackFilePath;
+      trackFilePath = [self remapRootMusicDirForFilePath:trackFilePath];
     }
 
     NSString* encodedTrackPath = [[NSURL fileURLWithPath:trackFilePath] absoluteString];
