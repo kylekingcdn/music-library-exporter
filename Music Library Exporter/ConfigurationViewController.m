@@ -224,6 +224,9 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
   NSControlStateValue flagState = [sender state];
   BOOL flag = (flagState == NSControlStateValueOn);
 
+  if (flag == NO) {
+    [ScheduleConfiguration.sharedConfig setNextExportAt:nil];
+  }
   [ScheduleConfiguration.sharedConfig setScheduleEnabled:flag];
 
   [_scheduleIntervalTextField setEnabled:flag];
