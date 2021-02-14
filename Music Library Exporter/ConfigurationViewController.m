@@ -126,8 +126,17 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
   [_scheduleIntervalStepper setDoubleValue:ScheduleConfiguration.sharedConfig.scheduleInterval/3600];
   [_scheduleSkipOnBatteryCheckBox setState:ScheduleConfiguration.sharedConfig.skipOnBattery];
 
-  [_lastExportLabel setStringValue:[NSString stringWithFormat:@"Last export:  %@", ScheduleConfiguration.sharedConfig.lastExportedAt ? ScheduleConfiguration.sharedConfig.lastExportedAt.description : @"n/a"]];
-  [_nextExportLabel setStringValue:[NSString stringWithFormat:@"Next export:  %@", ScheduleConfiguration.sharedConfig.nextExportAt ? ScheduleConfiguration.sharedConfig.nextExportAt.description : @"n/a"]];
+  NSString* lastExportDescription = @"n/a";
+  if (ScheduleConfiguration.sharedConfig.lastExportedAt) {
+    lastExportDescription = [NSDateFormatter localizedStringFromDate:ScheduleConfiguration.sharedConfig.lastExportedAt dateStyle:NSDateFormatterLongStyle timeStyle:NSDateFormatterLongStyle];
+  }
+  NSString* nextExportDescription = @"n/a";
+  if (ScheduleConfiguration.sharedConfig.nextExportAt) {
+    nextExportDescription = [NSDateFormatter localizedStringFromDate:ScheduleConfiguration.sharedConfig.nextExportAt dateStyle:NSDateFormatterLongStyle timeStyle:NSDateFormatterLongStyle];
+  }
+
+  [_lastExportLabel setStringValue:[NSString stringWithFormat:@"Last export:  %@", lastExportDescription]];
+  [_nextExportLabel setStringValue:[NSString stringWithFormat:@"Next export:  %@", nextExportDescription]];
 
   // update states of controls with dependencies
   [_remapOriginalDirectoryTextField setEnabled:ExportConfiguration.sharedConfig.remapRootDirectory];
