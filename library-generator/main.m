@@ -10,8 +10,11 @@
 #import <iTunesLibrary/ITLibrary.h>
 
 #import "Utils.h"
-#import "LibraryParser.h"
+#import "OrderedDictionary.h"
+#import "LibraryFilter.h"
 #import "LibrarySerializer.h"
+#import "ExportConfiguration.h"
+#import "ExportDelegate.h"
 
 int main(int argc, const char * argv[]) {
 
@@ -26,7 +29,12 @@ int main(int argc, const char * argv[]) {
     NSString* exportedLibraryFilePath = [NSString stringWithUTF8String:argv[1]];
     NSString* exportedLibraryDir = [exportedLibraryFilePath stringByDeletingLastPathComponent];
     NSURL* exportedLibraryFileUrl = [NSURL fileURLWithPath:exportedLibraryFilePath];
+    NSString* exportedLibraryFileName = [exportedLibraryFilePath lastPathComponent];
+
     NSString* sourceLibraryFilePath = [NSString stringWithUTF8String:argv[2]];
+
+    // temp
+    NSString* _programCommand = @"export";
 
     /* validate args */
     BOOL exportedLibraryDirIsDir;
@@ -43,82 +51,54 @@ int main(int argc, const char * argv[]) {
       return -1;
     }
 
-    // temporary run-time flags
-    BOOL generateNewLibrary = YES;
-    BOOL comparePlaylistDicts = YES;
-    BOOL compareTrackDicts = YES;
-
-    // initialize library handler
-    NSError *error = nil;
-    ITLibrary *library = [ITLibrary libraryWithAPIVersion:@"1.1" error:&error];
-    if (!library) {
+    // init ITLibrary
+    NSError* error = nil;
+    ITLibrary* _library = [ITLibrary libraryWithAPIVersion:@"1.1" error:&error];
+    if (!_library) {
       NSLog(@"error - failed to init ITLibrary. error: %@", error.localizedDescription);
       return -1;
     }
 
-    /* -- generated library serialization/parsing -- */
+    // init exportConfiguration
+    ExportConfiguration* _exportConfiguration = [[ExportConfiguration alloc] init];
 
-    // generate library dictionary via iTunesLibrary framework
-    if (generateNewLibrary) {
+    // add call to new helper for parsing args and applying them to exportConfigibrary];
+    [_exportConfiguration setOutputDirectoryUrl:exportedLibraryFileUrl];
+    [_exportConfiguration setOutputFileName:exportedLibraryFileName];
 
-      LibrarySerializer* serializer = [LibrarySerializer alloc];
-      [serializer setLibrary:library];
+    // set shared exportConfiguration
+    [ExportConfiguration initSharedConfig:_exportConfiguration];
 
-      // specify playlist options
-      [serializer setIncludeInternalPlaylists:YES];
-      [serializer setFlattenPlaylistHierarchy:NO];
-      [serializer setIncludeFoldersWhenFlattened:NO];
-      [serializer setExcludedPlaylistPersistentIds:@[ ]];
-      [serializer setMusicOnly:YES];
+    if ([_programCommand isEqualToString:@"export"]) {
 
-      // specify track path re-mapping options
-      [serializer setRemapRootDirectory:NO];
-      //[serializer setOriginalRootDirectory:@"/Users/Kyle/Music/Music/Media.localized/Music"];
-      //[serializer setMappedRootDirectory:@"/data/music"];
+      /* prepare for export */
 
-      // generate
-      [serializer serializeLibrary];
+      NSLog(@"preparing for export");
 
-      [serializer setOutputFileUrl:exportedLibraryFileUrl];
-      [serializer writeDictionary];
-    }
+      LibrarySerializer* _librarySerializer = [[LibrarySerializer alloc] initWithLibrary:_library];
+      [_librarySerializer initSerializeMembers];
 
-    // Parse generated library
-    LibraryParser* generatedLibraryParser = [LibraryParser alloc];
-    [generatedLibraryParser setLibraryDictionaryWithPropertyList:exportedLibraryFilePath];
+      LibraryFilter* _libraryFilter = [[LibraryFilter alloc] initWithLibrary:_library];
+      NSArray<ITLibMediaItem*>* _includedTracks = [_libraryFilter getIncludedTracks];
+      NSArray<ITLibPlaylist*>* _includedPlaylists = [_libraryFilter getIncludedPlaylists];
 
-    /* -- source dictionary parsing -- */
+      /* start export */
 
-    LibraryParser* sourceLibraryParser = [LibraryParser alloc];
-    [sourceLibraryParser setLibraryDictionaryWithPropertyList:sourceLibraryFilePath];
+      NSLog(@"serializing tracks");
+      OrderedDictionary* tracksDict = [_librarySerializer serializeTracks:_includedTracks];
 
-    /* -- library comparison/validation -- */
+      NSLog(@"serializing playlists");
+      NSArray<OrderedDictionary*>* playlistsArr = [_librarySerializer serializePlaylists:_includedPlaylists];
 
-    if (compareTrackDicts) {
+      NSLog(@"serializing library");
+      OrderedDictionary* libraryDict = [_librarySerializer serializeLibraryforTracks:tracksDict andPlaylists:playlistsArr];
 
-      NSArray<NSString*>* excludedTrackKeys = @[
-        @"Track Type", @"File Type", // invalid values
-        @"Purchased", @"Matched", @"Apple Music", @"Disabled", @"Playlist Only", // invalid values
-        @"Date Modified", @"Date Added", @"Play Date UTC", @"Play Date", @"Skip Date", // FIXME: invalid values? offset by 1hr?
-        @"Track ID", // unavailable, custom ID generated
-        @"File Folder Count", @"Library Folder Count", @"Artwork Count", // unavailable
-        @"Work", @"Movement Number", @"Movement Count", @"Movement Name", // unavailable
-        @"Loved", @"Disliked", @"Album Loved",  @"Album Disliked", // unavailable
-        @"Explicit", // unavailable
-      ];
-      NSDictionary* sourceLibraryTrackIdsDict = [sourceLibraryParser libraryTracksPersistentIdDictionary];
-      NSDictionary* generatedLibraryTrackIdsDict = [generatedLibraryParser libraryTracksPersistentIdDictionary];
-
-      [Utils recursivelyCompareDictionary:sourceLibraryTrackIdsDict withDictionary:generatedLibraryTrackIdsDict exceptForKeys:excludedTrackKeys];
-    }
-
-    if (comparePlaylistDicts) {
-
-      NSArray<NSString*>* excludedPlaylistKeys = @[ @"Description", @"Smart Info", @"Smart Criteria", @"Playlist ID" ]; // unavailable
-      NSDictionary* sourceLibraryPlaylistIdsDict = [sourceLibraryParser libraryPlaylistsPersistentIdDictionary];
-      NSDictionary* generatedLibraryPlaylistIdsDict = [generatedLibraryParser libraryPlaylistsPersistentIdDictionary];
-
-      [Utils recursivelyCompareDictionary:sourceLibraryPlaylistIdsDict withDictionary:generatedLibraryPlaylistIdsDict exceptForKeys:excludedPlaylistKeys];
+      NSLog(@"writing to file");
+      BOOL writeSuccess = [libraryDict writeToURL:exportedLibraryFileUrl atomically:YES];
+      if (!writeSuccess) {
+        NSLog(@"error writing dictionary");
+        return -1;
+      }
     }
   }
 
