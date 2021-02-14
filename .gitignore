@@ -24,3 +24,4 @@ DerivedData/
 
 ## Gcc Patch
 /*.gcno
+/Config/Common/Sentry.xcconfig
