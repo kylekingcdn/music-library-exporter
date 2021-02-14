@@ -13,7 +13,7 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window title="Music Library Exporter Permissions" separatorStyle="none" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" animationBehavior="default" titlebarAppearsTransparent="YES" toolbarStyle="unified" id="QvC-M9-y7g">
+        <window title="Music Library Exporter Permissions" separatorStyle="shadow" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" animationBehavior="default" toolbarStyle="unified" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="640" height="333"/>
@@ -21,11 +21,11 @@
             <value key="minSize" type="size" width="640" height="333"/>
             <value key="maxSize" type="size" width="640" height="333"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="640" height="333"/>
+                <rect key="frame" x="0.0" y="0.0" width="729" height="319"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1ig-Nh-h6A">
-                        <rect key="frame" x="18" y="270" width="604" height="43"/>
+                        <rect key="frame" x="107" y="251" width="604" height="43"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="lessThanOrEqual" constant="600" id="3aY-sd-UAH"/>
                         </constraints>
@@ -36,16 +36,16 @@
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bKj-qM-1Ae">
-                        <rect key="frame" x="38" y="138" width="574" height="112"/>
+                        <rect key="frame" x="28" y="127" width="683" height="98"/>
                         <textFieldCell key="cell" id="ltG-z1-rjc">
                             <font key="font" textStyle="subheadline" name=".SFNS-Regular"/>
-                            <mutableString key="title">When automatic library exporting is enabled, Music Library Exporter uses it's background helper tool to generate your library without the main application being open.  Since this helper tool is a separate application, it requires your permission to write to the directory that you have selected.  You will only be asked to grant save permissions the first time that automatic exporting is enabled, or when the output directory option is updated.</mutableString>
+                            <string key="title">When automatic library exporting is enabled, Music Library Exporter uses it's background helper tool to generate your library without the main application being open.  Since this helper tool is a separate application, it requires your permission to write to the directory that you have selected.  You will only be asked to grant save permissions the first time that automatic exporting is enabled, or when the output directory option is updated.</string>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HbZ-Qe-goP">
-                        <rect key="frame" x="38" y="60" width="574" height="48"/>
+                        <rect key="frame" x="28" y="65" width="683" height="32"/>
                         <textFieldCell key="cell" controlSize="small" id="5Px-S6-5kD">
                             <font key="font" metaFont="titleBar" textStyle="headline"/>
                             <string key="title">In order for automatic exports to work correctly, the location that you choose must be the same as the Output Directory that was selected from the Music Library Exporter main application.</string>
@@ -54,7 +54,7 @@
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Rju-6w-gs4">
-                        <rect key="frame" x="227" y="13" width="186" height="32"/>
+                        <rect key="frame" x="272" y="13" width="186" height="32"/>
                         <buttonCell key="cell" type="push" title="Choose Output Directory" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7M9-Oi-aSB">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -63,24 +63,46 @@
                             <action selector="chooseOutputDirectory:" target="-2" id="kdM-dy-kTI"/>
                         </connections>
                     </button>
+                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qEz-g8-gIb">
+                        <rect key="frame" x="30" y="240" width="64" height="64"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="64" id="WdB-Rt-KSj"/>
+                            <constraint firstAttribute="height" constant="64" id="ZMJ-Is-4nZ"/>
+                        </constraints>
+                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="topLeft" imageScaling="proportionallyUpOrDown" image="AppIcon" id="xz9-OP-OIf"/>
+                    </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="1ig-Nh-h6A" secondAttribute="trailing" constant="20" symbolic="YES" id="1iN-FH-qGR"/>
-                    <constraint firstItem="1ig-Nh-h6A" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" symbolic="YES" id="9hb-T5-RmH"/>
-                    <constraint firstItem="1ig-Nh-h6A" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="20" symbolic="YES" id="ACx-m6-h79"/>
+                    <constraint firstAttribute="trailing" secondItem="1ig-Nh-h6A" secondAttribute="trailing" constant="20" id="1iN-FH-qGR"/>
+                    <constraint firstItem="1ig-Nh-h6A" firstAttribute="centerY" secondItem="qEz-g8-gIb" secondAttribute="centerY" id="2B2-If-4G9"/>
+                    <constraint firstItem="1ig-Nh-h6A" firstAttribute="leading" secondItem="qEz-g8-gIb" secondAttribute="trailing" constant="15" id="9hb-T5-RmH"/>
                     <constraint firstItem="HbZ-Qe-goP" firstAttribute="trailing" secondItem="bKj-qM-1Ae" secondAttribute="trailing" id="B7a-hv-AUK"/>
                     <constraint firstItem="HbZ-Qe-goP" firstAttribute="top" secondItem="bKj-qM-1Ae" secondAttribute="bottom" constant="30" id="EzS-h5-gIi"/>
                     <constraint firstItem="Rju-6w-gs4" firstAttribute="centerX" secondItem="EiT-Mj-1SZ" secondAttribute="centerX" id="Hnd-JS-dFW"/>
                     <constraint firstAttribute="bottom" secondItem="Rju-6w-gs4" secondAttribute="bottom" constant="20" symbolic="YES" id="MGC-is-zCT"/>
-                    <constraint firstItem="bKj-qM-1Ae" firstAttribute="top" secondItem="1ig-Nh-h6A" secondAttribute="bottom" constant="20" id="OKt-rI-ncI"/>
                     <constraint firstItem="HbZ-Qe-goP" firstAttribute="leading" secondItem="bKj-qM-1Ae" secondAttribute="leading" id="T2G-B3-TeU"/>
-                    <constraint firstItem="Rju-6w-gs4" firstAttribute="top" secondItem="HbZ-Qe-goP" secondAttribute="bottom" constant="20" symbolic="YES" id="V31-7q-83f"/>
-                    <constraint firstItem="1ig-Nh-h6A" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="20" symbolic="YES" id="f31-bh-KY8"/>
-                    <constraint firstItem="bKj-qM-1Ae" firstAttribute="trailing" secondItem="1ig-Nh-h6A" secondAttribute="trailing" constant="-10" id="u5D-Vz-6T3"/>
-                    <constraint firstItem="bKj-qM-1Ae" firstAttribute="leading" secondItem="1ig-Nh-h6A" secondAttribute="leading" constant="20" id="vAg-gx-FbJ"/>
+                    <constraint firstItem="Rju-6w-gs4" firstAttribute="top" secondItem="HbZ-Qe-goP" secondAttribute="bottom" constant="25" id="V31-7q-83f"/>
+                    <constraint firstItem="qEz-g8-gIb" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="15" id="ZbJ-74-R3m"/>
+                    <constraint firstItem="qEz-g8-gIb" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="30" id="eWG-X3-aHP"/>
+                    <constraint firstItem="bKj-qM-1Ae" firstAttribute="leading" secondItem="qEz-g8-gIb" secondAttribute="leading" id="hOC-tv-Sdn"/>
+                    <constraint firstItem="bKj-qM-1Ae" firstAttribute="trailing" secondItem="1ig-Nh-h6A" secondAttribute="trailing" id="u5D-Vz-6T3"/>
+                    <constraint firstItem="bKj-qM-1Ae" firstAttribute="top" secondItem="qEz-g8-gIb" secondAttribute="bottom" constant="15" id="vHb-9R-H0b"/>
                 </constraints>
             </view>
-            <point key="canvasLocation" x="53" y="101.5"/>
+            <point key="canvasLocation" x="53" y="101"/>
         </window>
+        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="ScT-rw-SxC">
+            <rect key="frame" x="0.0" y="0.0" width="37" height="16"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="10w-xO-yhC">
+                <font key="font" usesAppearanceFont="YES"/>
+                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+            </textFieldCell>
+            <point key="canvasLocation" x="-115" y="339"/>
+        </textField>
     </objects>
+    <resources>
+        <image name="AppIcon" width="128" height="128"/>
+    </resources>
 </document>
