@@ -56,6 +56,7 @@
 		27CDC90D25BADAFC0032BF79 /* LibraryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CDC90C25BADAFC0032BF79 /* LibraryParser.m */; };
 		27D56E5425D85B2700A87B1F /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 27D56E4C25D85A5B00A87B1F /* Credits.rtf */; };
 		27D56E5825D85B2700A87B1F /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 27D56E4C25D85A5B00A87B1F /* Credits.rtf */; };
+		27D6827525D9055300BBF8FE /* Defines.m in Sources */ = {isa = PBXBuildFile; fileRef = 273B522F25CA666000421B14 /* Defines.m */; };
 		27EC7C6325C8C41300996E9E /* UserDefaultsExportConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 27EC7C6225C8C3E500996E9E /* UserDefaultsExportConfiguration.m */; };
 		27EC7C6725C8C41800996E9E /* UserDefaultsExportConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 27EC7C6225C8C3E500996E9E /* UserDefaultsExportConfiguration.m */; };
 		27EF9A6825BF23910051CE7B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27EF9A6725BF23910051CE7B /* AppDelegate.m */; };
@@ -513,13 +514,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27D6827525D9055300BBF8FE /* Defines.m in Sources */,
+				27C52A7425B69C4B00D829F3 /* Utils.m in Sources */,
+				276442A225BD3F7600EE217C /* OrderedDictionary.m in Sources */,
+				2783C76925C518CC002ED7B7 /* ExportConfiguration.m in Sources */,
 				2749619B25CE4FB000B98E11 /* LibraryFilter.m in Sources */,
 				27CDC90D25BADAFC0032BF79 /* LibraryParser.m in Sources */,
 				2705445925B670E700FE6D65 /* LibrarySerializer.m in Sources */,
-				2783C76925C518CC002ED7B7 /* ExportConfiguration.m in Sources */,
 				2705444925B66A0A00FE6D65 /* main.m in Sources */,
-				27C52A7425B69C4B00D829F3 /* Utils.m in Sources */,
-				276442A225BD3F7600EE217C /* OrderedDictionary.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -528,18 +530,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				273B523325CA672300421B14 /* Defines.m in Sources */,
+				27A2C08B25C097C000AAD73C /* Utils.m in Sources */,
+				27A2C08725C097B600AAD73C /* OrderedDictionary.m in Sources */,
 				2783C76825C518CC002ED7B7 /* ExportConfiguration.m in Sources */,
 				27EC7C6725C8C41800996E9E /* UserDefaultsExportConfiguration.m in Sources */,
 				27533C2E25CAA21600A3B4D9 /* ExportDelegate.m in Sources */,
 				27C0A0F125CB046500EDDE22 /* ScheduleConfiguration.m in Sources */,
-				27A2C08725C097B600AAD73C /* OrderedDictionary.m in Sources */,
-				27A2C08B25C097C000AAD73C /* Utils.m in Sources */,
 				2749619725CE4FAA00B98E11 /* LibraryFilter.m in Sources */,
 				27A2C08C25C097C000AAD73C /* LibraryParser.m in Sources */,
 				27A2C08D25C097C000AAD73C /* LibrarySerializer.m in Sources */,
+				27F253EB25D87F7700243606 /* DirectoryPermissionsWindowController.m in Sources */,
 				27934B5925CB13D500488944 /* ScheduleDelegate.m in Sources */,
 				27A2C05925C0934A00AAD73C /* AppDelegate.m in Sources */,
-				27F253EB25D87F7700243606 /* DirectoryPermissionsWindowController.m in Sources */,
 				27A2C06125C0934B00AAD73C /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -548,23 +550,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				276B1AE125D42453002D7289 /* PopupButtonTableCellView.m in Sources */,
 				273B523725CA672700421B14 /* Defines.m in Sources */,
+				27A2BFC325C085E400AAD73C /* Utils.m in Sources */,
+				27A2BFC625C085E400AAD73C /* OrderedDictionary.m in Sources */,
 				2783C76725C518CC002ED7B7 /* ExportConfiguration.m in Sources */,
 				27EC7C6325C8C41300996E9E /* UserDefaultsExportConfiguration.m in Sources */,
 				27533C2A25CAA21300A3B4D9 /* ExportDelegate.m in Sources */,
 				27C0A0F525CB046A00EDDE22 /* ScheduleConfiguration.m in Sources */,
-				276B1AD125D40BB3002D7289 /* PlaylistNode.m in Sources */,
-				27A2BFC625C085E400AAD73C /* OrderedDictionary.m in Sources */,
-				27A2BFC325C085E400AAD73C /* Utils.m in Sources */,
 				2749619325CE4FA400B98E11 /* LibraryFilter.m in Sources */,
-				2725CA4725D3F2D7002C1203 /* PlaylistsViewController.m in Sources */,
-				276B1AD825D415A2002D7289 /* CheckBoxTableCellView.m in Sources */,
 				27A2BFC425C085E400AAD73C /* LibraryParser.m in Sources */,
 				27A2BFC525C085E400AAD73C /* LibrarySerializer.m in Sources */,
 				272D6A0F25D1B104005023CA /* HourNumberFormatter.m in Sources */,
-				27C0A10425CB0BF100EDDE22 /* HelperDelegate.m in Sources */,
+				276B1AD125D40BB3002D7289 /* PlaylistNode.m in Sources */,
+				276B1AD825D415A2002D7289 /* CheckBoxTableCellView.m in Sources */,
+				276B1AE125D42453002D7289 /* PopupButtonTableCellView.m in Sources */,
+				2725CA4725D3F2D7002C1203 /* PlaylistsViewController.m in Sources */,
 				2783C75825C4FB60002ED7B7 /* ConfigurationViewController.m in Sources */,
+				27C0A10425CB0BF100EDDE22 /* HelperDelegate.m in Sources */,
 				27EF9A6825BF23910051CE7B /* AppDelegate.m in Sources */,
 				27EF9A7025BF23920051CE7B /* main.m in Sources */,
 			);
