@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )";
+PROJECT_DIR="$(dirname "${SCRIPT_DIR}")";
+
+VERSION_CONFIG_PATH="${PROJECT_DIR}/Config/Common/Version.xcconfig";
+
+main() {
+
+  if [[ ! -f "${VERSION_CONFIG_PATH}" ]]; then
+    echo -e "error - failed to find version config file: ${VERSION_CONFIG_PATH}";
+    exit 1;
+  fi;
+
+  VERSION_BUILD_OLD=$(cat ${VERSION_CONFIG_PATH} | grep -m 1 "VERSION_BUILD=" | cut -f2 -d"=");
+
+  if [[ -z "${VERSION_BUILD_OLD}" ]]; then
+    echo -e "error - failed to parse VERSION_BUILD from version config file: ${VERSION_CONFIG_PATH}";
+    exit 1;
+  fi;
+
+  # increment variable
+  VERSION_BUILD_NEW=$(( ${VERSION_BUILD_OLD} + 1 ));
+
+  # sed search/replace expressions for version assignment
+  VER_EXP_I="VERSION_BUILD=${VERSION_BUILD_OLD}";
+  VER_EXP_F="VERSION_BUILD=${VERSION_BUILD_NEW}";
+
+  sed -i ".temp" "s/${VER_EXP_I}/${VER_EXP_F}/g" "${VERSION_CONFIG_PATH}" && rm "${VERSION_CONFIG_PATH}.temp";
+
+  echo -e "Increased build number from ${VERSION_BUILD_OLD} to ${VERSION_BUILD_NEW} in $(basename "${VERSION_CONFIG_PATH}")";
+}
+
+main "${@}" 2>&1 | tee -a '/tmp/mle-increment-build-number.log';
+
