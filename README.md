@@ -1,7 +1,5 @@
 <p align="center">
-  <a href="https://github.com/kylekingcdn/music-library-exporter">
-    <img src="https://i.imgur.com/nZU1lCj.png" alt="Logo" width="100" height="100">
-  </a>
+  <img src="https://i.imgur.com/nZU1lCj.png" alt="Logo" width="100" height="100">
 </p>
 <h3 align="center">Music Library Exporter</h3>
 <p align="center">A lightweight macOS application that brings back automated iTunes Library XML generation</p>
