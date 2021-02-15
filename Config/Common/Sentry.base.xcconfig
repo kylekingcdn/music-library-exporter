@@ -5,5 +5,5 @@
 //  Created by Kyle King on 2021-02-13.
 //
 
-SENTRY_MAIN_DSN = '@""'
-SENTRY_HELPER_DSN = '@""'
+SENTRY_MAIN_DSN = '@"https:/()/_@_.ingest.sentry.io/_"'
+SENTRY_HELPER_DSN = '@"https:/()/_@_.ingest.sentry.io/_"'
