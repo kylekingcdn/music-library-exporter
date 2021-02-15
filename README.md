@@ -6,8 +6,8 @@
 <h3 align="center">Music Library Exporter</h3>
 <p align="center">A lightweight macOS application that brings back automated iTunes Library XML generation</p>
 <p align="center">
-  <!--<a href="https://music-exporter.app">Visit our website</a>-->
-  <!--·-->
+  <a href="https://music-exporter.app">Visit our website</a>
+  ·
   <a href="https://github.com/kylekingcdn/music-library-exporter/issues">Report a bug</a>
   ·
   <a href="https://github.com/kylekingcdn/music-library-exporter/issues">Request a feature</a>
