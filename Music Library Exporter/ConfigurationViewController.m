@@ -294,6 +294,10 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
   dispatch_queue_attr_t queuePriorityAttr = dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_SERIAL, QOS_CLASS_USER_INITIATED, 0);
   dispatch_queue_t gcdQueue = dispatch_queue_create("ExportQueue", queuePriorityAttr);
 
+  // add state callback immediately
+  void (^stateCallback)(NSInteger) = ^(NSInteger state){ [self handleStateChange:state]; };
+  [self->_exportDelegate setStateCallback:stateCallback];
+
   // prepare ExportDelegate members
   BOOL delegateReady = [_exportDelegate prepareForExport];
   if (!delegateReady) {
@@ -309,11 +313,9 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
 
   dispatch_async(gcdQueue, ^{
 
+    // add progress callback
     void (^progressCallback)(NSUInteger) = ^(NSUInteger currentTrack){ [self handleTrackExportProgress:currentTrack withTotal:trackCount]; };
     [self->_exportDelegate setTrackProgressCallback:progressCallback];
-    
-    void (^stateCallback)(NSInteger) = ^(NSInteger state){ [self handleStateChange:state]; };
-    [self->_exportDelegate setStateCallback:stateCallback];
 
     [self->_exportDelegate exportLibrary];
   });
@@ -338,11 +340,25 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
 
     NSLog(@"ConfigurationViewController [handleStateChange: %@]", stateDescription);
 
-    [self->_exportStateLabel setStringValue:stateDescription];
+    BOOL exportAllowed;
 
-    if (exportState == ExportFinished) {
-      [ScheduleConfiguration.sharedConfig setLastExportedAt:[NSDate date]];
+    switch (exportState) {
+      case ExportFinished:
+        [ScheduleConfiguration.sharedConfig setLastExportedAt:[NSDate date]];
+      case ExportStopped:
+      case ExportError: {
+        exportAllowed = YES;
+        break;
+      }
+      default: {
+        exportAllowed = NO;
+        break;
+      }
     }
+
+    [self->_exportStateLabel setStringValue:stateDescription];
+    [self->_exportLibraryButton setEnabled:exportAllowed];
+
   });
 }
 

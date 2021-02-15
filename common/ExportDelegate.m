@@ -10,6 +10,7 @@
 #import <iTunesLibrary/ITLibrary.h>
 
 #import "Defines.h"
+#import "Utils.h"
 #import "UserDefaultsExportConfiguration.h"
 #import "LibraryFilter.h"
 #import "LibrarySerializer.h"
@@ -57,6 +58,22 @@
 
   NSLog(@"ExportDelegate [prepareForExport]");
 
+  // validate state
+  switch (_state) {
+    case ExportStopped:
+    case ExportFinished:
+    case ExportError: {
+      break;
+    }
+    case ExportPreparing:
+    case ExportGeneratingTracks:
+    case ExportGeneratingPlaylists:
+    case ExportWritingToDisk: {
+      NSLog(@"ExportDelegate [prepareForExport] currently busy - state: %@", [Utils descriptionForExportState:_state]);
+      return NO;
+    }
+  }
+
   [self updateState:ExportPreparing];
 
   // set configuration
@@ -84,6 +101,25 @@
 - (void)exportLibrary {
 
   NSLog(@"ExportDelegate [exportLibrary]");
+
+  // validate state
+  switch (_state) {
+    case ExportPreparing: {
+      break;
+    }
+    case ExportStopped:
+    case ExportFinished:
+    case ExportError: {
+      NSLog(@"ExportDelegate [exportLibrary] error - prepareForExport must be called first - current state: %@", [Utils descriptionForExportState:_state]);
+      return;
+    }
+    case ExportGeneratingTracks:
+    case ExportGeneratingPlaylists:
+    case ExportWritingToDisk: {
+      NSLog(@"ExportDelegate [exportLibrary] delegate is currently busy - state: %@", [Utils descriptionForExportState:_state]);
+      return;
+    }
+  }
 
   // serialize tracks
   NSLog(@"ExportDelegate [exportLibrary] serializing tracks");
