@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )";
+KEYS_PATH="${SCRIPT_DIR}/.sentry.keys";
+
+read_keys() {
+
+  # keys file not found, exit without failing
+  if [[ ! -f "${KEYS_PATH}" ]]; then
+    exit 0;
+  fi;
+
+  source "${KEYS_PATH}";
+
+  if [[ -z "${SENTRY_ORG}" ]]; then
+    echo -e "error - SENTRY_ORG not set";
+    exit -1;
+  elif [[ -z "${SENTRY_PROJECT}" ]]; then
+    echo -e "error - SENTRY_PROJECT not set";
+    exit -1;
+  elif [[ -z "${SENTRY_AUTH_TOKEN}" ]]; then
+    echo -e "error - SENTRY_AUTH_TOKEN not set";
+    exit -1;
+  fi;
+}
+
+main() {
+
+  read_keys;
+
+  echo -e "\nUploading debug symbols to sentry - $(date)\n";
+
+  if [[ -z "${ARCHIVE_DSYMS_PATH}" ]]; then
+    echo "error - ARCHIVE_DSYMS_PATH is unset!";
+    exit -1;
+  elif [[ ! -d "${ARCHIVE_DSYMS_PATH}" ]]; then
+    echo "error - directory for ARCHIVE_DSYMS_PATH doesn't exist: '${ARCHIVE_DSYMS_PATH}'";
+    exit -1;
+  fi;
+
+  sentry-cli \
+    --auth-token "${SENTRY_AUTH_TOKEN}" upload-dif \
+    --org "${SENTRY_ORG}" \
+    --project "${SENTRY_PROJECT}" \
+    --force-foreground \
+    "${ARCHIVE_DSYMS_PATH}";
+
+  echo;
+}
+
+
+main "${@}" 2>&1 | tee -a '/tmp/mle-sentry-upload.log';
+
