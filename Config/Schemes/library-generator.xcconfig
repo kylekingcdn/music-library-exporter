@@ -5,6 +5,12 @@
 //  Created by Kyle King on 2021-02-05.
 //
 
+// Linking
+OTHER_LDFLAGS = -ObjC $(inherited)
+
+// Search Paths
+HEADER_SEARCH_PATHS = $(SRCROOT)/3rd/ArgumentParser/ArgumentParser $(inherited)
+
 // Signing
 CODE_SIGN_ENTITLEMENTS = $(MLE_CLITOOL_CODE_SIGN_ENTITLEMENTS)
 CODE_SIGN_IDENTITY_DEBUG = $(MLE_CLITOOL_CODE_SIGN_IDENTITY_DEBUG)
