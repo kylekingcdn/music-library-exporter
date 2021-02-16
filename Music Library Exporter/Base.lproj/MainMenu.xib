@@ -670,9 +670,16 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Help" systemMenu="help" id="F2S-fz-NVQ">
                         <items>
-                            <menuItem title="Music Library Exporter Help" keyEquivalent="?" id="FKE-Sm-Kum">
+                            <menuItem title="Music Library Exporter Website" id="nRN-7r-yON" userLabel="Music Library Exporter Support">
+                                <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="showHelp:" target="-1" id="y7X-2Q-9no"/>
+                                    <action selector="openMusicLibraryExporterWebsite:" target="Voe-Tx-rLC" id="cJL-qG-p73"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Contact Support" id="zeA-OS-rcT" userLabel="Contact Support">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="contactSupport:" target="Voe-Tx-rLC" id="147-nb-Kx9"/>
                                 </connections>
                             </menuItem>
                         </items>

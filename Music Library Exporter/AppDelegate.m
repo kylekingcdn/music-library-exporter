@@ -162,4 +162,14 @@
   [_playlistsViewWindow orderOut:NSApp];
 }
 
+- (IBAction)openMusicLibraryExporterWebsite:(id)sender {
+
+  [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://music-exporter.app/"]];
+}
+
+- (IBAction)contactSupport:(id)sender {
+
+  [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"mailto:support@music-exporter.app"]];
+}
+
 @end
