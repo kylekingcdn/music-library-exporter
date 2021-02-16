@@ -8,6 +8,7 @@
 #import <Foundation/Foundation.h>
 
 #import <iTunesLibrary/ITLibrary.h>
+#import <iTunesLibrary/ITLibPlaylist.h>
 
 #import "Utils.h"
 #import "OrderedDictionary.h"
@@ -15,41 +16,51 @@
 #import "LibrarySerializer.h"
 #import "ExportConfiguration.h"
 #import "ExportDelegate.h"
+#import "ArgParser.h"
+#import "XPMArguments.h"
 
 int main(int argc, const char * argv[]) {
 
   @autoreleasepool {
 
-    if (argc != 3) {
-      NSLog(@"usage: library-generator [output_xml_path] [itunes_generated_xml_path]");
+    ArgParser* argParser = [ArgParser parserWithProcessInfo:[NSProcessInfo processInfo]];
+    [argParser parse];
+
+    // validate command
+    if (![argParser validateCommand]) {
+      NSString* error = argParser.commandError;
+      NSLog(@"error parsing command: %@", error);
       return -1;
     }
 
-    /* parse args */
-    NSString* exportedLibraryFilePath = [NSString stringWithUTF8String:argv[1]];
-    NSString* exportedLibraryDir = [exportedLibraryFilePath stringByDeletingLastPathComponent];
-    NSURL* exportedLibraryFileUrl = [NSURL fileURLWithPath:exportedLibraryFilePath];
-    NSString* exportedLibraryFileName = [exportedLibraryFilePath lastPathComponent];
+    LGCommandKind command = argParser.command;
 
-    NSString* sourceLibraryFilePath = [NSString stringWithUTF8String:argv[2]];
+    // display help
+    if (command == LGCommandKindHelp) {
+      [argParser displayHelp];
+      return 0;
+    }
 
-    // temp
-    NSString* _programCommand = @"export";
+    // validate options
+    if (![argParser validateOptions]) {
+      NSString* error = argParser.optionsError;
+      NSLog(@"error interpreting options - %@", error);
+      if (argParser.optionsWithErrors) {
+        NSLog(@"%@", [argParser.optionsWithErrors componentsJoinedByString:@", "]);
+      }
 
-    /* validate args */
-    BOOL exportedLibraryDirIsDir;
-    BOOL exportedLibraryDirExists = [[NSFileManager defaultManager] fileExistsAtPath:exportedLibraryDir isDirectory:&exportedLibraryDirIsDir];
-    BOOL sourceLibraryFileExists = [[NSFileManager defaultManager] fileExistsAtPath:sourceLibraryFilePath];
-
-    /* log errors */
-    if (!exportedLibraryDirExists || !exportedLibraryDirIsDir) {
-      NSLog(@"error - directory for generated xml doesn't exist: '%@'", exportedLibraryDir);
       return -1;
     }
-    if (!sourceLibraryFileExists) {
-      NSLog(@"error - library xml from iTunes not found at path: '%@'", sourceLibraryFilePath);
+
+    // generate ExportConfiguration from options
+    ExportConfiguration* configuration = [[ExportConfiguration alloc] init];
+    if (![argParser populateExportConfiguration:configuration]) {
+      NSLog(@"an internal error occured while interpreting configuration options");
       return -1;
     }
+
+    [ExportConfiguration initSharedConfig:configuration];
+    [configuration dumpProperties];
 
     // init ITLibrary
     NSError* error = nil;
@@ -59,17 +70,11 @@ int main(int argc, const char * argv[]) {
       return -1;
     }
 
-    // init exportConfiguration
-    ExportConfiguration* _exportConfiguration = [[ExportConfiguration alloc] init];
+    LibraryFilter* _libraryFilter = [[LibraryFilter alloc] initWithLibrary:_library];
+    NSArray<ITLibMediaItem*>* _includedTracks = [_libraryFilter getIncludedTracks];
+    NSArray<ITLibPlaylist*>* _includedPlaylists = [_libraryFilter getIncludedPlaylists];
 
-    // add call to new helper for parsing args and applying them to exportConfigibrary];
-    [_exportConfiguration setOutputDirectoryUrl:exportedLibraryFileUrl];
-    [_exportConfiguration setOutputFileName:exportedLibraryFileName];
-
-    // set shared exportConfiguration
-    [ExportConfiguration initSharedConfig:_exportConfiguration];
-
-    if ([_programCommand isEqualToString:@"export"]) {
+    if (command == LGCommandKindExport) {
 
       /* prepare for export */
 
@@ -77,10 +82,6 @@ int main(int argc, const char * argv[]) {
 
       LibrarySerializer* _librarySerializer = [[LibrarySerializer alloc] initWithLibrary:_library];
       [_librarySerializer initSerializeMembers];
-
-      LibraryFilter* _libraryFilter = [[LibraryFilter alloc] initWithLibrary:_library];
-      NSArray<ITLibMediaItem*>* _includedTracks = [_libraryFilter getIncludedTracks];
-      NSArray<ITLibPlaylist*>* _includedPlaylists = [_libraryFilter getIncludedPlaylists];
 
       /* start export */
 
@@ -94,10 +95,16 @@ int main(int argc, const char * argv[]) {
       OrderedDictionary* libraryDict = [_librarySerializer serializeLibraryforTracks:tracksDict andPlaylists:playlistsArr];
 
       NSLog(@"writing to file");
-      BOOL writeSuccess = [libraryDict writeToURL:exportedLibraryFileUrl atomically:YES];
+      BOOL writeSuccess = [libraryDict writeToURL:configuration.outputFileUrl atomically:YES];
       if (!writeSuccess) {
         NSLog(@"error writing dictionary");
         return -1;
+      }
+    }
+    else if (command == LGCommandKindPrint) {
+
+      for (ITLibPlaylist* currPlaylist in _includedPlaylists) {
+        NSLog(@"%@ - %@", currPlaylist.name, currPlaylist.persistentID);
       }
     }
   }

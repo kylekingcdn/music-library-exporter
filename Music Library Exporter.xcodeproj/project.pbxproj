@@ -11,6 +11,7 @@
 		2705445225B66B7A00FE6D65 /* iTunesLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2705445125B66B7A00FE6D65 /* iTunesLibrary.framework */; };
 		2705445925B670E700FE6D65 /* LibrarySerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2705445825B670E700FE6D65 /* LibrarySerializer.m */; };
 		270D78B325DB6B9800B3D409 /* libArgumentParser-Static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 270D78B025DB6B9300B3D409 /* libArgumentParser-Static.a */; };
+		271DD26E25DB9FCF009BB292 /* ArgParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 271DD26D25DB9FCF009BB292 /* ArgParser.m */; };
 		271DD27425DBA246009BB292 /* LGDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 271DD27325DBA246009BB292 /* LGDefines.m */; };
 		2725CA4725D3F2D7002C1203 /* PlaylistsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2725CA4625D3F2D7002C1203 /* PlaylistsViewController.m */; };
 		2725CA4C25D3F65C002C1203 /* PlaylistsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2725CA4B25D3F65C002C1203 /* PlaylistsView.xib */; };
@@ -119,6 +120,48 @@
 			remoteGlobalIDString = DA01E2FF1A8471E20012BCAE;
 			remoteInfo = "ArgumentParser-Dynamic Tests";
 		};
+		271DD25D25DB9F3D009BB292 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 270D786825DB682000B3D409 /* ArgumentParser.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DACF2EC414FD3B2F0097C754;
+			remoteInfo = desc;
+		};
+		271DD25F25DB9F3D009BB292 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 270D786825DB682000B3D409 /* ArgumentParser.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DACF2EDF14FD3B630097C754;
+			remoteInfo = "long-desc";
+		};
+		271DD26125DB9F3D009BB292 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 270D786825DB682000B3D409 /* ArgumentParser.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DACF2EF214FD3B7A0097C754;
+			remoteInfo = spiffy;
+		};
+		271DD26325DB9F3D009BB292 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 270D786825DB682000B3D409 /* ArgumentParser.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DA00447A155D94FF0028A012;
+			remoteInfo = "ArgumentParser-Dynamic";
+		};
+		271DD26525DB9F3D009BB292 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 270D786825DB682000B3D409 /* ArgumentParser.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DA87348918970AB800113896;
+			remoteInfo = "ArgumentParser-Static";
+		};
+		271DD26725DB9F3D009BB292 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 270D786825DB682000B3D409 /* ArgumentParser.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DA01E2FF1A8471E20012BCAE;
+			remoteInfo = "ArgumentParser-Dynamic Tests";
+		};
 		27A2C07025C0943900AAD73C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2705443D25B66A0A00FE6D65 /* Project object */;
@@ -159,6 +202,8 @@
 		2705445825B670E700FE6D65 /* LibrarySerializer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LibrarySerializer.m; sourceTree = "<group>"; };
 		270D786825DB682000B3D409 /* ArgumentParser.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ArgumentParser.xcodeproj; path = ArgumentParser/ArgumentParser.xcodeproj; sourceTree = "<group>"; };
 		270D789C25DB6B9300B3D409 /* ArgumentParser.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ArgumentParser.xcodeproj; path = "/Users/Kyle/Development/Projects/music-library-exporter/3rd/ArgumentParser/ArgumentParser.xcodeproj"; sourceTree = "<absolute>"; };
+		271DD26C25DB9FCF009BB292 /* ArgParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArgParser.h; sourceTree = "<group>"; };
+		271DD26D25DB9FCF009BB292 /* ArgParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArgParser.m; sourceTree = "<group>"; };
 		271DD27225DBA246009BB292 /* LGDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LGDefines.h; sourceTree = "<group>"; };
 		271DD27325DBA246009BB292 /* LGDefines.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LGDefines.m; sourceTree = "<group>"; };
 		2725CA4525D3F2D7002C1203 /* PlaylistsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaylistsViewController.h; sourceTree = "<group>"; };
@@ -310,6 +355,19 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		271DD25025DB9F3C009BB292 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				271DD25E25DB9F3D009BB292 /* desc */,
+				271DD26025DB9F3D009BB292 /* long-desc */,
+				271DD26225DB9F3D009BB292 /* spiffy */,
+				271DD26425DB9F3D009BB292 /* ArgumentParser-Dynamic.dylib */,
+				271DD26625DB9F3D009BB292 /* libArgumentParser-Static.a */,
+				271DD26825DB9F3D009BB292 /* ArgumentParser-Dynamic Tests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		2749611325CE2A1700B98E11 /* Config */ = {
 			isa = PBXGroup;
 			children = (
@@ -399,6 +457,8 @@
 				2705444825B66A0A00FE6D65 /* main.m */,
 				271DD27225DBA246009BB292 /* LGDefines.h */,
 				271DD27325DBA246009BB292 /* LGDefines.m */,
+				271DD26C25DB9FCF009BB292 /* ArgParser.h */,
+				271DD26D25DB9FCF009BB292 /* ArgParser.m */,
 			);
 			path = "library-generator";
 			sourceTree = "<group>";
@@ -553,6 +613,10 @@
 					ProductGroup = 270D789D25DB6B9300B3D409 /* Products */;
 					ProjectRef = 270D789C25DB6B9300B3D409 /* ArgumentParser.xcodeproj */;
 				},
+				{
+					ProductGroup = 271DD25025DB9F3C009BB292 /* Products */;
+					ProjectRef = 270D786825DB682000B3D409 /* ArgumentParser.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -606,6 +670,48 @@
 			remoteRef = 270D78B125DB6B9300B3D409 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		271DD25E25DB9F3D009BB292 /* desc */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = desc;
+			remoteRef = 271DD25D25DB9F3D009BB292 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		271DD26025DB9F3D009BB292 /* long-desc */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = "long-desc";
+			remoteRef = 271DD25F25DB9F3D009BB292 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		271DD26225DB9F3D009BB292 /* spiffy */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = spiffy;
+			remoteRef = 271DD26125DB9F3D009BB292 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		271DD26425DB9F3D009BB292 /* ArgumentParser-Dynamic.dylib */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.dylib";
+			path = "ArgumentParser-Dynamic.dylib";
+			remoteRef = 271DD26325DB9F3D009BB292 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		271DD26625DB9F3D009BB292 /* libArgumentParser-Static.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libArgumentParser-Static.a";
+			remoteRef = 271DD26525DB9F3D009BB292 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		271DD26825DB9F3D009BB292 /* ArgumentParser-Dynamic Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "ArgumentParser-Dynamic Tests.xctest";
+			remoteRef = 271DD26725DB9F3D009BB292 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -646,6 +752,7 @@
 				2783C76925C518CC002ED7B7 /* ExportConfiguration.m in Sources */,
 				2749619B25CE4FB000B98E11 /* LibraryFilter.m in Sources */,
 				27CDC90D25BADAFC0032BF79 /* LibraryParser.m in Sources */,
+				271DD26E25DB9FCF009BB292 /* ArgParser.m in Sources */,
 				2705445925B670E700FE6D65 /* LibrarySerializer.m in Sources */,
 				2705444925B66A0A00FE6D65 /* main.m in Sources */,
 			);
