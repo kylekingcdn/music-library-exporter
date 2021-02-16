@@ -10,6 +10,7 @@
 		2705444925B66A0A00FE6D65 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2705444825B66A0A00FE6D65 /* main.m */; };
 		2705445225B66B7A00FE6D65 /* iTunesLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2705445125B66B7A00FE6D65 /* iTunesLibrary.framework */; };
 		2705445925B670E700FE6D65 /* LibrarySerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2705445825B670E700FE6D65 /* LibrarySerializer.m */; };
+		270D78B325DB6B9800B3D409 /* libArgumentParser-Static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 270D78B025DB6B9300B3D409 /* libArgumentParser-Static.a */; };
 		2725CA4725D3F2D7002C1203 /* PlaylistsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2725CA4625D3F2D7002C1203 /* PlaylistsViewController.m */; };
 		2725CA4C25D3F65C002C1203 /* PlaylistsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2725CA4B25D3F65C002C1203 /* PlaylistsView.xib */; };
 		272C8E9825C0E59C003CBF47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27EF9A6925BF23920051CE7B /* Assets.xcassets */; };
@@ -68,6 +69,55 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		270D789F25DB6B9300B3D409 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 270D789C25DB6B9300B3D409 /* ArgumentParser.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = DA87348818970AB800113896;
+			remoteInfo = "ArgumentParser-Static";
+		};
+		270D78A725DB6B9300B3D409 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 270D789C25DB6B9300B3D409 /* ArgumentParser.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DACF2EC414FD3B2F0097C754;
+			remoteInfo = desc;
+		};
+		270D78A925DB6B9300B3D409 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 270D789C25DB6B9300B3D409 /* ArgumentParser.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DACF2EDF14FD3B630097C754;
+			remoteInfo = "long-desc";
+		};
+		270D78AB25DB6B9300B3D409 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 270D789C25DB6B9300B3D409 /* ArgumentParser.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DACF2EF214FD3B7A0097C754;
+			remoteInfo = spiffy;
+		};
+		270D78AD25DB6B9300B3D409 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 270D789C25DB6B9300B3D409 /* ArgumentParser.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DA00447A155D94FF0028A012;
+			remoteInfo = "ArgumentParser-Dynamic";
+		};
+		270D78AF25DB6B9300B3D409 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 270D789C25DB6B9300B3D409 /* ArgumentParser.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DA87348918970AB800113896;
+			remoteInfo = "ArgumentParser-Static";
+		};
+		270D78B125DB6B9300B3D409 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 270D789C25DB6B9300B3D409 /* ArgumentParser.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DA01E2FF1A8471E20012BCAE;
+			remoteInfo = "ArgumentParser-Dynamic Tests";
+		};
 		27A2C07025C0943900AAD73C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2705443D25B66A0A00FE6D65 /* Project object */;
@@ -106,6 +156,8 @@
 		2705445125B66B7A00FE6D65 /* iTunesLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTunesLibrary.framework; path = System/Library/Frameworks/iTunesLibrary.framework; sourceTree = SDKROOT; };
 		2705445725B670E700FE6D65 /* LibrarySerializer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LibrarySerializer.h; sourceTree = "<group>"; };
 		2705445825B670E700FE6D65 /* LibrarySerializer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LibrarySerializer.m; sourceTree = "<group>"; };
+		270D786825DB682000B3D409 /* ArgumentParser.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ArgumentParser.xcodeproj; path = ArgumentParser/ArgumentParser.xcodeproj; sourceTree = "<group>"; };
+		270D789C25DB6B9300B3D409 /* ArgumentParser.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ArgumentParser.xcodeproj; path = "/Users/Kyle/Development/Projects/music-library-exporter/3rd/ArgumentParser/ArgumentParser.xcodeproj"; sourceTree = "<absolute>"; };
 		2725CA4525D3F2D7002C1203 /* PlaylistsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaylistsViewController.h; sourceTree = "<group>"; };
 		2725CA4625D3F2D7002C1203 /* PlaylistsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaylistsViewController.m; sourceTree = "<group>"; };
 		2725CA4B25D3F65C002C1203 /* PlaylistsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaylistsView.xib; sourceTree = "<group>"; };
@@ -179,6 +231,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				270D78B325DB6B9800B3D409 /* libArgumentParser-Static.a in Frameworks */,
 				2705445225B66B7A00FE6D65 /* iTunesLibrary.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -217,6 +270,7 @@
 				27EF9A5E25BF21FE0051CE7B /* 3rd */,
 				2705445025B66B7A00FE6D65 /* Frameworks */,
 				2705444625B66A0A00FE6D65 /* Products */,
+				270D789C25DB6B9300B3D409 /* ArgumentParser.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -238,6 +292,19 @@
 				27A2C02125C08FF700AAD73C /* ServiceManagement.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		270D789D25DB6B9300B3D409 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				270D78A825DB6B9300B3D409 /* desc */,
+				270D78AA25DB6B9300B3D409 /* long-desc */,
+				270D78AC25DB6B9300B3D409 /* spiffy */,
+				270D78AE25DB6B9300B3D409 /* ArgumentParser-Dynamic.dylib */,
+				270D78B025DB6B9300B3D409 /* libArgumentParser-Static.a */,
+				270D78B225DB6B9300B3D409 /* ArgumentParser-Dynamic Tests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		2749611325CE2A1700B98E11 /* Config */ = {
@@ -334,6 +401,7 @@
 		27EF9A5E25BF21FE0051CE7B /* 3rd */ = {
 			isa = PBXGroup;
 			children = (
+				270D786825DB682000B3D409 /* ArgumentParser.xcodeproj */,
 				276442A025BD3F7600EE217C /* OrderedDictionary.h */,
 				276442A125BD3F7600EE217C /* OrderedDictionary.m */,
 			);
@@ -393,6 +461,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				270D78A025DB6B9300B3D409 /* PBXTargetDependency */,
 			);
 			name = "library-generator";
 			productName = "library-generator";
@@ -474,6 +543,12 @@
 			);
 			productRefGroup = 2705444625B66A0A00FE6D65 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 270D789D25DB6B9300B3D409 /* Products */;
+					ProjectRef = 270D789C25DB6B9300B3D409 /* ArgumentParser.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				27EF9A6325BF23910051CE7B /* Music Library Exporter */,
@@ -482,6 +557,51 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		270D78A825DB6B9300B3D409 /* desc */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = desc;
+			remoteRef = 270D78A725DB6B9300B3D409 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		270D78AA25DB6B9300B3D409 /* long-desc */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = "long-desc";
+			remoteRef = 270D78A925DB6B9300B3D409 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		270D78AC25DB6B9300B3D409 /* spiffy */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = spiffy;
+			remoteRef = 270D78AB25DB6B9300B3D409 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		270D78AE25DB6B9300B3D409 /* ArgumentParser-Dynamic.dylib */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.dylib";
+			path = "ArgumentParser-Dynamic.dylib";
+			remoteRef = 270D78AD25DB6B9300B3D409 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		270D78B025DB6B9300B3D409 /* libArgumentParser-Static.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libArgumentParser-Static.a";
+			remoteRef = 270D78AF25DB6B9300B3D409 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		270D78B225DB6B9300B3D409 /* ArgumentParser-Dynamic Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "ArgumentParser-Dynamic Tests.xctest";
+			remoteRef = 270D78B125DB6B9300B3D409 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		27A2C05325C0934A00AAD73C /* Resources */ = {
@@ -575,6 +695,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		270D78A025DB6B9300B3D409 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "ArgumentParser-Static";
+			targetProxy = 270D789F25DB6B9300B3D409 /* PBXContainerItemProxy */;
+		};
 		27A2C07125C0943900AAD73C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 27A2C05425C0934A00AAD73C /* Music Library Exporter Helper */;
