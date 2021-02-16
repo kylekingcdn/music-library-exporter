@@ -34,7 +34,7 @@
   NSString* sentryDsn = SENTRY_DSN;
   if (sentryDsn && sentryDsn.length > 0) {
     [SentrySDK startWithConfigureOptions:^(SentryOptions *options) {
-        options.dsn = sentryDsn;
+      options.dsn = [NSString stringWithFormat:@"https://%@", sentryDsn];
     }];
   }
 #endif
