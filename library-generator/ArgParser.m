@@ -292,7 +292,6 @@
   _remapSearchOptionSig = [XPMArgumentSignature argumentSignatureWithFormat:[LGDefines signatureFormatForOption:LGOptionKindRemapSearch]];
   _remapReplaceOptionSig = [XPMArgumentSignature argumentSignatureWithFormat:[LGDefines signatureFormatForOption:LGOptionKindRemapReplace]];
   _outputPathOptionSig = [XPMArgumentSignature argumentSignatureWithFormat:[LGDefines signatureFormatForOption:LGOptionKindOutputPath]];
-
 }
 
 - (void)parse {
@@ -350,7 +349,7 @@
 
   // command issued is valid
   _command = [commandTypes.anyObject integerValue];
-  NSLog(@"ArgParser [validateCommand] valid command: %li", (long)_command);
+  NSLog(@"ArgParser [validateCommand] valid command: %@", [LGDefines signatureFormatForCommand:_command]);
 
   return YES;
 }
