@@ -106,18 +106,9 @@
   [configuration setFlattenPlaylistHierarchy:[_package booleanValueForSignature:_flattenOptionSig]];
   [configuration setIncludeInternalPlaylists:![_package booleanValueForSignature:_excludeInternalOptionSig]];
 
-  // TODO: finish me
   NSString* excludedIdsStr = [_package firstObjectForSignature:_excludeIdsOptionSig];
   if (excludedIdsStr) {
-    NSArray<NSString*>* excludedIdsArr = [excludedIdsStr componentsSeparatedByString:@","];
-    NSMutableSet<NSNumber*>* excludedIds = [NSMutableSet set];
-
-    NSNumberFormatter* numberFormatter = [[NSNumberFormatter alloc] init];
-    [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
-
-    for (NSString* currId in excludedIdsArr) {
-      [excludedIds addObject:[numberFormatter numberFromString:currId]];
-    }
+    NSSet<NSNumber*>* excludedIds = [ArgParser parsePlaylistIdsOption:excludedIdsStr];
     [configuration setExcludedPlaylistPersistentIds:excludedIds];
   }
 
@@ -170,6 +161,29 @@
   if (_processInfo) {
     NSLog(@"ArgParser [dumpArguments]: %@", NSProcessInfo.processInfo.arguments);
   }
+}
+
++ (NSSet<NSNumber*>*)parsePlaylistIdsOption:(NSString*)playlistIdsOption {
+
+  NSMutableSet<NSNumber*>* playlistIds = [NSMutableSet set];
+
+  NSNumberFormatter* numberFormatter = [[NSNumberFormatter alloc] init];
+  [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+
+  NSArray<NSString*>* playlistIdStrings = [playlistIdsOption componentsSeparatedByString:@","];
+
+  for (NSString* playlistIdStr in playlistIdStrings) {
+
+    NSNumber* playlistId = [numberFormatter numberFromString:playlistIdStr];
+    if (!playlistId) {
+      NSLog(@"ArgParser [parsePlaylistIdsOption]: error - failed to parse playlist id: %@", playlistIdStr);
+    }
+    else {
+      [playlistIds addObject:playlistId];
+    }
+  }
+
+  return playlistIds;
 }
 
 

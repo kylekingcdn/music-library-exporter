@@ -49,6 +49,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)dumpArguments;
 
++ (NSSet<NSNumber*>*)parsePlaylistIdsOption:(NSString*)playlistIdsOption;
+
 
 #pragma mark - Mutators
 
