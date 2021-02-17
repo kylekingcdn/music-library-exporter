@@ -37,7 +37,7 @@ The library is exported in an XML format, and is compatible with other applicati
 ## Setup
 1. Clone the repo
    ```
-   git clone 'https://github.com/kylekingcdn/music-library-exporter.git'
+   git clone --recurse-submodules 'https://github.com/kylekingcdn/music-library-exporter.git'
    ```
 1. Change to project directory
    ```
