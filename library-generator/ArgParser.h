@@ -20,8 +20,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Properties
 
-@property (readonly) NSDictionary* parsed;
-
 @property (readonly) NSProcessInfo* processInfo;
 
 @property (readonly) LGCommandKind command;
