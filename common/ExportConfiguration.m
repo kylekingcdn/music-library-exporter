@@ -40,6 +40,11 @@ static ExportConfiguration* _sharedConfig;
 
   self = [super init];
 
+  _excludedPlaylistPersistentIds = [NSMutableSet set];
+
+  _playlistCustomSortColumnDict = [NSDictionary dictionary];
+  _playlistCustomSortOrderDict = [NSDictionary dictionary];
+
   return self;
 }
 
