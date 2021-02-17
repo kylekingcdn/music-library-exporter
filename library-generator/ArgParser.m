@@ -7,6 +7,7 @@
 
 #import "ArgParser.h"
 
+#import "Utils.h"
 #import "XPMArguments.h"
 #import "ExportConfiguration.h"
 
@@ -112,16 +113,18 @@
     [configuration setExcludedPlaylistPersistentIds:excludedIds];
   }
 
-  /*
-  NSString* sortOverridesStr = [_package firstObjectForSignature:_sortOptionSig];
-  if (sortOverridesStr) {
-    NSArray<NSString*>* sortOverridesArr = [sortOverridesStr componentsSeparatedByString:@","];
-    for (NSString* currPlaylistSortOverride in sortOverridesArr) {
-      //...
+  NSString* playlistSorting = [_package firstObjectForSignature:_sortOptionSig];
+  NSDictionary* sortOverridesDict = [ArgParser parsePlaylistSortingOption:playlistSorting];
+  for (NSString* currPlaylistIdStr in sortOverridesDict.allKeys) {
+    NSDecimalNumber* currPlaylistId = [NSDecimalNumber decimalNumberWithString:currPlaylistIdStr];
+    if (currPlaylistId) {
+      NSDictionary* currPlaylistSorting = [sortOverridesDict objectForKey:currPlaylistIdStr];
+      PlaylistSortColumnType sortCol = [[currPlaylistSorting objectForKey:@"column"] integerValue];
+      PlaylistSortOrderType sortOrder = [[currPlaylistSorting objectForKey:@"order"] integerValue];
+      [configuration setCustomSortColumn:sortCol forPlaylist:currPlaylistId];
+      [configuration setCustomSortOrder:sortOrder forPlaylist:currPlaylistId];
     }
-    [configuration setExcludedPlaylistsPersistentIds:excludedIds];
   }
-  */
 
   NSString* remapSearch = [_package firstObjectForSignature:_remapSearchOptionSig];
   NSString* remapReplace = [_package firstObjectForSignature:_remapReplaceOptionSig];
@@ -181,6 +184,93 @@
   }
 
   return playlistIds;
+}
+
++ (NSDictionary*)parsePlaylistSortingOption:(NSString*)playlistSortingOption {
+
+  NSMutableDictionary* playlistSorting = [NSMutableDictionary dictionary];
+
+  // each will be in form of {id}:{sort_col}-{sort_order}
+  NSArray<NSString*>* playlistSortingStrings = [playlistSortingOption componentsSeparatedByString:@","];
+
+  for (NSString* playlistSortStr in playlistSortingStrings) {
+
+    // part 1 will be {id}, part 2 will be {sort_col}-{sort_order}
+    NSArray<NSString*>* playlistIdSortParts = [playlistSortStr componentsSeparatedByString:@":"];
+
+    if (playlistIdSortParts.count != 2) {
+      NSLog(@"ArgParser [parsePlaylistSortingOption] error - unexpected format for sorting option part: %@", playlistSortStr);
+    }
+    else {
+      // part 1 will be {sort_col}, part 2 will be {sort_order}
+      NSString* playlistIdStr = playlistIdSortParts.firstObject;
+
+      NSDecimalNumber* playlistId = [NSDecimalNumber decimalNumberWithString:playlistIdStr];
+      if (!playlistId) {
+        NSLog(@"ArgParser [parsePlaylistSortingOption] error - failed to parse playlist id: %@", playlistIdStr);
+      }
+
+      NSString* sortColOrderStr = playlistIdSortParts.lastObject;
+      NSArray<NSString*>* sortColOrderParts = [sortColOrderStr componentsSeparatedByString:@"-"];
+      if (sortColOrderParts.count != 2) {
+        NSLog(@"ArgParser [parsePlaylistSortingOption] error - unexpected format for sorting column + sorting order: %@", sortColOrderStr);
+      }
+      else {
+        NSString* sortColStr = sortColOrderParts.firstObject;
+        PlaylistSortColumnType sortCol = [ArgParser sortColumnForOptionName:sortColStr];
+
+        NSString* sortOrderStr = sortColOrderParts.lastObject;
+        PlaylistSortOrderType sortOrder = [ArgParser sortOrderForOptionName:sortOrderStr];
+
+        if (sortCol == PlaylistSortColumnNull) {
+          NSLog(@"ArgParser [parsePlaylistSortingOption] error - unknown sort column: %@", sortColStr);
+        }
+        else if (sortOrder == PlaylistSortOrderNull) {
+          NSLog(@"ArgParser [parsePlaylistSortingOption] error - unknown sort order: %@", sortOrderStr);
+        }
+        else {
+          NSString* sortColTitle = [Utils titleForPlaylistSortColumn:sortCol];
+          NSString* sortOrderTitle = [Utils titleForPlaylistSortOrder:sortOrder];
+          NSLog(@"ArgParser [parsePlaylistSortingOption] parsed sorting option (Playlist: '%@', Column: '%@', Order: '%@')", [playlistId stringValue], sortColTitle, sortOrderTitle);
+
+          NSDictionary* sortValsDict = [NSDictionary dictionaryWithObjectsAndKeys: @(sortCol), @"column", @(sortOrder), @"order", nil];
+          [playlistSorting setObject:sortValsDict forKey:[playlistId stringValue]];
+        }
+      }
+    }
+  }
+
+  return playlistSorting;
+}
+
++ (PlaylistSortColumnType)sortColumnForOptionName:(NSString*)sortColumnOption {
+
+  if ([sortColumnOption isEqualToString:@"title" ]) {
+    return PlaylistSortColumnTitle;
+  }
+  else if ([sortColumnOption isEqualToString:@"artist" ]) {
+    return PlaylistSortColumnArtist;
+  }
+  else if ([sortColumnOption isEqualToString:@"albumartist" ]) {
+    return PlaylistSortColumnAlbumArtist;
+  }
+  else if ([sortColumnOption isEqualToString:@"dateadded" ]) {
+    return PlaylistSortColumnDateAdded;
+  }
+
+  return PlaylistSortColumnNull;
+}
+
++ (PlaylistSortOrderType)sortOrderForOptionName:(NSString*)sortOrderOption {
+
+  if ([sortOrderOption isEqualToString:@"d"]) {
+    return PlaylistSortOrderDescending;
+  }
+  else if ([sortOrderOption isEqualToString:@"a"]) {
+    return PlaylistSortOrderAscending;
+  }
+
+  return PlaylistSortOrderNull;
 }
 
 

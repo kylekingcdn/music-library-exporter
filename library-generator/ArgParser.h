@@ -8,6 +8,7 @@
 #import <Foundation/Foundation.h>
 
 #import "LGDefines.h"
+#import "Defines.h"
 
 
 NS_ASSUME_NONNULL_BEGIN
@@ -48,7 +49,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)dumpArguments;
 
 + (NSSet<NSNumber*>*)parsePlaylistIdsOption:(NSString*)playlistIdsOption;
++ (NSDictionary*)parsePlaylistSortingOption:(NSString*)playlistSortingOption;
 
++ (PlaylistSortColumnType)sortColumnForOptionName:(NSString*)sortColumnOption;
++ (PlaylistSortOrderType)sortOrderForOptionName:(NSString*)sortOrderOption;
 
 #pragma mark - Mutators
 
