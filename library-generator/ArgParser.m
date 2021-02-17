@@ -167,14 +167,11 @@
 
   NSMutableSet<NSNumber*>* playlistIds = [NSMutableSet set];
 
-  NSNumberFormatter* numberFormatter = [[NSNumberFormatter alloc] init];
-  [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
-
   NSArray<NSString*>* playlistIdStrings = [playlistIdsOption componentsSeparatedByString:@","];
 
   for (NSString* playlistIdStr in playlistIdStrings) {
 
-    NSNumber* playlistId = [numberFormatter numberFromString:playlistIdStr];
+    NSDecimalNumber* playlistId = [NSDecimalNumber decimalNumberWithString:playlistIdStr];
     if (!playlistId) {
       NSLog(@"ArgParser [parsePlaylistIdsOption]: error - failed to parse playlist id: %@", playlistIdStr);
     }
