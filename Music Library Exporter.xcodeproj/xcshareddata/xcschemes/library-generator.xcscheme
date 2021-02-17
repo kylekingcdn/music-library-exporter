@@ -52,11 +52,43 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "$(PROJECT_DIR)/tests/libraries/generatedLibrary.xml"
+            argument = "--help"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "export"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "$(PROJECT_DIR)/tests/libraries/sourceLibrary.xml"
+            argument = "--flatten"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--exclude_internal"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--exclude_ids &quot;2098908617431189596,11169671622112643793,7044236994454731450,15257110363737464637,10911737330077117965,15709063814536325674,13949459831021915281&quot;"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--music_media_dir &quot;/Users/Kyle/Music/Music/Media&quot;"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--sort &quot;5285429958683431998:title-a,11050115819915658280:title-a,5788130543452403119:title-a,9755133620711728680:title-a,6824924103082308668:title-a,3622303820935286294:title-a,17249423450916925054:dateadded-d,11961626704075883416:dateadded-d,4600699850141714633:dateadded-d,4624903942494826139:title-a,14251283440720830501:title-a,15422249850076999555:dateadded-d,8836123044206631714:title-a&quot;"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--remap_search &quot;/Users/Kyle/Music/Music/Media.localized/Music&quot;"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--remap_replace &quot;/data/music&quot;"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--output_path &quot;/Users/Kyle/Downloads/Library.xml&quot;"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
