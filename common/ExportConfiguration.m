@@ -208,6 +208,9 @@ static ExportConfiguration* _sharedConfig;
   NSLog(@"  FlattenPlaylistHierarchy:        '%@'", (_flattenPlaylistHierarchy ? @"YES" : @"NO"));
   NSLog(@"  IncludeInternalPlaylists:        '%@'", (_includeInternalPlaylists ? @"YES" : @"NO"));
   NSLog(@"  ExcludedPlaylistPersistentIds:   '%@'", _excludedPlaylistPersistentIds);
+
+  NSLog(@"  PlaylistCustomSortColumns:       '%@'", _playlistCustomSortColumnDict);
+  NSLog(@"  PlaylistCustomSortOrders:        '%@'", _playlistCustomSortOrderDict);
 }
 
 
