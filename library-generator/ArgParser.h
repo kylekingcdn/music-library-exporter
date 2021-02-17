@@ -48,8 +48,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)dumpArguments;
 
-+ (NSSet<NSNumber*>*)parsePlaylistIdsOption:(NSString*)playlistIdsOption;
-+ (NSDictionary*)parsePlaylistSortingOption:(NSString*)playlistSortingOption;
++ (NSSet<NSNumber*>*)playlistIdsForIdsOption:(NSString*)playlistIdsOption;
+
++ (NSError*)parsePlaylistsSortingOption:(NSString*)sortOption forColumnDictionary:(NSMutableDictionary*)sortColDict andOrderDictionary:(NSMutableDictionary*)sortOrderDict;
++ (NSError*)parsePlaylistSortingOption:(NSString*)sortOption forColumnDictionary:(NSMutableDictionary*)sortColDict andOrderDictionary:(NSMutableDictionary*)sortOrderDict;
++ (NSError*)parsePlaylistSortingOptionValue:(NSString*)sortOptionValue forColumn:(PlaylistSortColumnType*)sortColumn andOrder:(PlaylistSortOrderType*)sortOrder;
 
 + (PlaylistSortColumnType)sortColumnForOptionName:(NSString*)sortColumnOption;
 + (PlaylistSortOrderType)sortOrderForOptionName:(NSString*)sortOrderOption;

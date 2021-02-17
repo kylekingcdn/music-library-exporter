@@ -107,6 +107,7 @@
 - (BOOL)populateExportConfiguration:(ExportConfiguration*)configuration {
 
   [configuration setFlattenPlaylistHierarchy:[_package booleanValueForSignature:_flattenOptionSig]];
+
   [configuration setIncludeInternalPlaylists:![_package booleanValueForSignature:_excludeInternalOptionSig]];
 
   NSString* musicMediaDir = [_package firstObjectForSignature:_musicMediaDirSig];
@@ -115,21 +116,23 @@
   }
   NSString* excludedIdsStr = [_package firstObjectForSignature:_excludeIdsOptionSig];
   if (excludedIdsStr) {
-    NSSet<NSNumber*>* excludedIds = [ArgParser parsePlaylistIdsOption:excludedIdsStr];
+    NSSet<NSNumber*>* excludedIds = [ArgParser playlistIdsForIdsOption:excludedIdsStr];
     [configuration setExcludedPlaylistPersistentIds:excludedIds];
   }
 
-  NSString* playlistSorting = [_package firstObjectForSignature:_sortOptionSig];
-  NSDictionary* sortOverridesDict = [ArgParser parsePlaylistSortingOption:playlistSorting];
-  for (NSString* currPlaylistIdStr in sortOverridesDict.allKeys) {
-    NSDecimalNumber* currPlaylistId = [NSDecimalNumber decimalNumberWithString:currPlaylistIdStr];
-    if (currPlaylistId) {
-      NSDictionary* currPlaylistSorting = [sortOverridesDict objectForKey:currPlaylistIdStr];
-      PlaylistSortColumnType sortCol = [[currPlaylistSorting objectForKey:@"column"] integerValue];
-      PlaylistSortOrderType sortOrder = [[currPlaylistSorting objectForKey:@"order"] integerValue];
-      [configuration setCustomSortColumn:sortCol forPlaylist:currPlaylistId];
-      [configuration setCustomSortOrder:sortOrder forPlaylist:currPlaylistId];
+  NSString* playlistSortingOpt = [_package firstObjectForSignature:_sortOptionSig];
+  if (playlistSortingOpt) {
+
+    NSMutableDictionary* sortColumnDict = [NSMutableDictionary dictionary];
+    NSMutableDictionary* sortOrderDict = [NSMutableDictionary dictionary];
+    NSError* sortOptionError = [ArgParser parsePlaylistsSortingOption:playlistSortingOpt forColumnDictionary:sortColumnDict andOrderDictionary:sortOrderDict];
+    if (sortOptionError) {
+      NSLog(@"error parsing options - %@", sortOptionError.localizedDescription);
+      return NO;
     }
+
+    [configuration setCustomSortColumnDict:sortColumnDict];
+    [configuration setCustomSortOrderDict:sortOrderDict];
   }
 
   NSString* remapSearch = [_package firstObjectForSignature:_remapSearchOptionSig];
@@ -172,7 +175,7 @@
   }
 }
 
-+ (NSSet<NSNumber*>*)parsePlaylistIdsOption:(NSString*)playlistIdsOption {
++ (NSSet<NSNumber*>*)playlistIdsForIdsOption:(NSString*)playlistIdsOption {
 
   NSMutableSet<NSNumber*>* playlistIds = [NSMutableSet set];
 
@@ -192,61 +195,114 @@
   return playlistIds;
 }
 
-+ (NSDictionary*)parsePlaylistSortingOption:(NSString*)playlistSortingOption {
++ (NSError*)parsePlaylistsSortingOption:(NSString*)sortOptions forColumnDictionary:(NSMutableDictionary*)sortColDict andOrderDictionary:(NSMutableDictionary*)sortOrderDict {
 
-  NSMutableDictionary* playlistSorting = [NSMutableDictionary dictionary];
+//  NSLog(@"ArgParser [parsePlaylistsSortingOption:%@]", sortOptions);
+
+  NSError* error;
 
   // each will be in form of {id}:{sort_col}-{sort_order}
-  NSArray<NSString*>* playlistSortingStrings = [playlistSortingOption componentsSeparatedByString:@","];
+  NSArray<NSString*>* playlistSortingStrings = [sortOptions componentsSeparatedByString:@","];
 
-  for (NSString* playlistSortStr in playlistSortingStrings) {
+  for (NSString* sortOption in playlistSortingStrings) {
 
-    // part 1 will be {id}, part 2 will be {sort_col}-{sort_order}
-    NSArray<NSString*>* playlistIdSortParts = [playlistSortStr componentsSeparatedByString:@":"];
-
-    if (playlistIdSortParts.count != 2) {
-      NSLog(@"ArgParser [parsePlaylistSortingOption] error - unexpected format for sorting option part: %@", playlistSortStr);
-    }
-    else {
-      // part 1 will be {sort_col}, part 2 will be {sort_order}
-      NSString* playlistIdStr = playlistIdSortParts.firstObject;
-
-      NSDecimalNumber* playlistId = [NSDecimalNumber decimalNumberWithString:playlistIdStr];
-      if (!playlistId) {
-        NSLog(@"ArgParser [parsePlaylistSortingOption] error - failed to parse playlist id: %@", playlistIdStr);
-      }
-
-      NSString* sortColOrderStr = playlistIdSortParts.lastObject;
-      NSArray<NSString*>* sortColOrderParts = [sortColOrderStr componentsSeparatedByString:@"-"];
-      if (sortColOrderParts.count != 2) {
-        NSLog(@"ArgParser [parsePlaylistSortingOption] error - unexpected format for sorting column + sorting order: %@", sortColOrderStr);
-      }
-      else {
-        NSString* sortColStr = sortColOrderParts.firstObject;
-        PlaylistSortColumnType sortCol = [ArgParser sortColumnForOptionName:sortColStr];
-
-        NSString* sortOrderStr = sortColOrderParts.lastObject;
-        PlaylistSortOrderType sortOrder = [ArgParser sortOrderForOptionName:sortOrderStr];
-
-        if (sortCol == PlaylistSortColumnNull) {
-          NSLog(@"ArgParser [parsePlaylistSortingOption] error - unknown sort column: %@", sortColStr);
-        }
-        else if (sortOrder == PlaylistSortOrderNull) {
-          NSLog(@"ArgParser [parsePlaylistSortingOption] error - unknown sort order: %@", sortOrderStr);
-        }
-        else {
-          NSString* sortColTitle = [Utils titleForPlaylistSortColumn:sortCol];
-          NSString* sortOrderTitle = [Utils titleForPlaylistSortOrder:sortOrder];
-          NSLog(@"ArgParser [parsePlaylistSortingOption] parsed sorting option (Playlist: '%@', Column: '%@', Order: '%@')", [playlistId stringValue], sortColTitle, sortOrderTitle);
-
-          NSDictionary* sortValsDict = [NSDictionary dictionaryWithObjectsAndKeys: @(sortCol), @"column", @(sortOrder), @"order", nil];
-          [playlistSorting setObject:sortValsDict forKey:[playlistId stringValue]];
-        }
-      }
+    error = [ArgParser parsePlaylistSortingOption:sortOption forColumnDictionary:sortColDict andOrderDictionary:sortOrderDict];
+    if (error) {
+      break;
     }
   }
 
-  return playlistSorting;
+  return error;
+}
+
++ (NSError*)parsePlaylistSortingOption:(NSString*)sortOption forColumnDictionary:(NSMutableDictionary*)sortColDict andOrderDictionary:(NSMutableDictionary*)sortOrderDict {
+
+//  NSLog(@"ArgParser [parsePlaylistSortingOption:%@]", sortOption);
+
+  NSError* error;
+  NSInteger errorCode = -1;
+  NSString* errorDescription;
+
+  // part 1 will be {id}, part 2 will be {sort_col}-{sort_order}
+  NSArray<NSString*>* sortOptionParts = [sortOption componentsSeparatedByString:@":"];
+  if (sortOptionParts.count != 2) {
+    errorCode = 1;
+    errorDescription = [NSString stringWithFormat:@"Invalid sorting option format: %@", sortOption];
+  }
+  else {
+    // part 1 will be {sort_col}, part 2 will be {sort_order}
+    NSString* playlistIdStr = sortOptionParts.firstObject;
+    NSString* playlistSortValuesStr = sortOptionParts.lastObject;
+
+    NSDecimalNumber* playlistId = [NSDecimalNumber decimalNumberWithString:playlistIdStr];
+    if (!playlistId) {
+      errorCode = 2;
+      errorDescription = [NSString stringWithFormat:@"Invalid playlist id for sort option part: %@", sortOption];
+    }
+    else {
+      PlaylistSortColumnType sortColumn = PlaylistSortColumnNull;
+      PlaylistSortOrderType sortOrder = PlaylistSortOrderNull;
+      error = [ArgParser parsePlaylistSortingOptionValue:playlistSortValuesStr forColumn:&sortColumn andOrder:&sortOrder];
+      if (error) {
+        return error;
+      }
+      [sortColDict setValue:[Utils titleForPlaylistSortColumn:sortColumn] forKey:[playlistId stringValue]];
+      [sortOrderDict setValue:[Utils titleForPlaylistSortOrder:sortOrder] forKey:[playlistId stringValue]];
+    }
+  }
+
+  if (errorCode >= 0) {
+    if (!errorDescription) {
+      errorDescription = @"Unknown error";
+    }
+    NSDictionary<NSErrorUserInfoKey,id>* errorInfo = [NSDictionary dictionaryWithObjectsAndKeys:errorDescription, NSLocalizedDescriptionKey, nil];
+    error = [NSError errorWithDomain:__MLE__AppBundleIdentifier code:errorCode userInfo:errorInfo];
+  }
+
+  return error;
+}
+
++ (NSError*)parsePlaylistSortingOptionValue:(NSString*)sortOptionValue forColumn:(PlaylistSortColumnType*)aSortColumn andOrder:(PlaylistSortOrderType*)aSortOrder {
+
+//  NSLog(@"ArgParser [parsePlaylistSortingOptionValue:%@]", sortOptionValue);
+
+  NSInteger errorCode = -1;
+  NSString* errorDescription;
+
+  NSArray<NSString*>* sortOptionValueParts = [sortOptionValue componentsSeparatedByString:@"-"];
+  if (sortOptionValueParts.count != 2) {
+    errorCode = 1;
+    errorDescription = [NSString stringWithFormat:@"Invalid sorting option format: %@", sortOptionValue];
+  }
+  else {
+    NSString* sortColStr = sortOptionValueParts.firstObject;
+    NSString* sortOrderStr = sortOptionValueParts.lastObject;
+    PlaylistSortColumnType sortCol = [ArgParser sortColumnForOptionName:sortColStr];
+    PlaylistSortOrderType sortOrder = [ArgParser sortOrderForOptionName:sortOrderStr];
+    if (sortCol == PlaylistSortColumnNull) {
+      errorCode = 3;
+      errorDescription = [NSString stringWithFormat:@"Unknown sort column specifier: %@", sortColStr];
+    }
+    else if (sortOrder == PlaylistSortOrderNull) {
+      errorCode = 4;
+      errorDescription = [NSString stringWithFormat:@"Unknown sort order specifier: %@", sortOrderStr];
+    }
+    else {
+      *aSortColumn = sortCol;
+      *aSortOrder = sortOrder;
+    }
+  }
+
+  NSError* error;
+  if (errorCode >= 0) {
+    if (!errorDescription) {
+      errorDescription = @"Unknown error";
+    }
+    NSDictionary<NSErrorUserInfoKey,id>* errorInfo = [NSDictionary dictionaryWithObjectsAndKeys:errorDescription, NSLocalizedDescriptionKey, nil];
+    error = [NSError errorWithDomain:__MLE__AppBundleIdentifier code:errorCode userInfo:errorInfo];
+  }
+
+  return error;
 }
 
 + (PlaylistSortColumnType)sortColumnForOptionName:(NSString*)sortColumnOption {
