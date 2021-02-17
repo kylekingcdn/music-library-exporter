@@ -30,6 +30,8 @@ typedef NS_ENUM(NSInteger, LGOptionKind) {
 
   // - export only - //
 
+  LGOptionKindMusicMediaDirectory,
+
   LGOptionKindSort,
   LGOptionKindRemapSearch,
   LGOptionKindRemapReplace,

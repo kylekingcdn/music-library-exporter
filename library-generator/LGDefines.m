@@ -35,6 +35,7 @@
         @(LGOptionKindFlatten),
         @(LGOptionKindExcludeInternal),
         @(LGOptionKindExcludeIds),
+        @(LGOptionKindMusicMediaDirectory),
         @(LGOptionKindSort),
         @(LGOptionKindRemapSearch),
         @(LGOptionKindRemapReplace),
@@ -88,6 +89,9 @@
       return @"[-e --exclude_ids]={1,1}";
     }
 
+    case LGOptionKindMusicMediaDirectory: {
+      return @"[-m --music_media_dir]={1,1}";
+    }
     case LGOptionKindSort: {
       return @"[-S --sort]={1,1}";
     }

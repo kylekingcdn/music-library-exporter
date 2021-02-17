@@ -23,6 +23,7 @@
   XPMArgumentSignature* _flattenOptionSig;
   XPMArgumentSignature* _excludeInternalOptionSig;
   XPMArgumentSignature* _excludeIdsOptionSig;
+  XPMArgumentSignature* _musicMediaDirSig;
   XPMArgumentSignature* _sortOptionSig;
   XPMArgumentSignature* _remapSearchOptionSig;
   XPMArgumentSignature* _remapReplaceOptionSig;
@@ -72,6 +73,7 @@
     case LGOptionKindFlatten: { return _flattenOptionSig; }
     case LGOptionKindExcludeInternal: { return _excludeInternalOptionSig; }
     case LGOptionKindExcludeIds: { return _excludeIdsOptionSig; }
+    case LGOptionKindMusicMediaDirectory: { return _musicMediaDirSig; }
     case LGOptionKindSort: { return _sortOptionSig; }
     case LGOptionKindRemapSearch: { return _remapSearchOptionSig; }
     case LGOptionKindRemapReplace: { return _remapReplaceOptionSig; }
@@ -107,6 +109,10 @@
   [configuration setFlattenPlaylistHierarchy:[_package booleanValueForSignature:_flattenOptionSig]];
   [configuration setIncludeInternalPlaylists:![_package booleanValueForSignature:_excludeInternalOptionSig]];
 
+  NSString* musicMediaDir = [_package firstObjectForSignature:_musicMediaDirSig];
+  if (musicMediaDir) {
+    [configuration setMusicLibraryPath:musicMediaDir];
+  }
   NSString* excludedIdsStr = [_package firstObjectForSignature:_excludeIdsOptionSig];
   if (excludedIdsStr) {
     NSSet<NSNumber*>* excludedIds = [ArgParser parsePlaylistIdsOption:excludedIdsStr];
@@ -288,6 +294,8 @@
   _flattenOptionSig = [XPMArgumentSignature argumentSignatureWithFormat:[LGDefines signatureFormatForOption:LGOptionKindFlatten]];
   _excludeInternalOptionSig = [XPMArgumentSignature argumentSignatureWithFormat:[LGDefines signatureFormatForOption:LGOptionKindExcludeInternal]];
   _excludeIdsOptionSig = [XPMArgumentSignature argumentSignatureWithFormat:[LGDefines signatureFormatForOption:LGOptionKindExcludeIds]];
+
+  _musicMediaDirSig = [XPMArgumentSignature argumentSignatureWithFormat:[LGDefines signatureFormatForOption:LGOptionKindMusicMediaDirectory]];
   _sortOptionSig = [XPMArgumentSignature argumentSignatureWithFormat:[LGDefines signatureFormatForOption:LGOptionKindSort]];
   _remapSearchOptionSig = [XPMArgumentSignature argumentSignatureWithFormat:[LGDefines signatureFormatForOption:LGOptionKindRemapSearch]];
   _remapReplaceOptionSig = [XPMArgumentSignature argumentSignatureWithFormat:[LGDefines signatureFormatForOption:LGOptionKindRemapReplace]];
