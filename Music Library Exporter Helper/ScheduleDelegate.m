@@ -10,6 +10,7 @@
 #import <Cocoa/Cocoa.h>
 #import <IOKit/ps/IOPowerSources.h>
 
+#import "Logger.h"
 #import "Defines.h"
 #import "Utils.h"
 #import "UserDefaultsExportConfiguration.h"
@@ -68,7 +69,7 @@
     }
 
     NSTimeInterval intervalSinceLastExport = 0 - [lastExportDate timeIntervalSinceNow];
-    NSLog(@"ScheduleDelegate [determineNextExportDate] %fs since last export", intervalSinceLastExport);
+    MLE_Log_Info(@"ScheduleDelegate [determineNextExportDate] %fs since last export", intervalSinceLastExport);
 
     // overdue, schedule 60s from now
     if (intervalSinceLastExport > ScheduleConfiguration.sharedConfig.scheduleInterval) {
@@ -113,11 +114,11 @@
 
 - (BOOL)isOutputDirectoryBookmarkValid {
 
-  NSLog(@"ScheduleDelegate [isOutputDirectoryBookmarkValid]");
+  MLE_Log_Info(@"ScheduleDelegate [isOutputDirectoryBookmarkValid]");
 
   NSString* outputDirPath = UserDefaultsExportConfiguration.sharedConfig.outputDirectoryPath;
   if (outputDirPath.length == 0) {
-    NSLog(@"ScheduleDelegate [isOutputDirectoryBookmarkValid] output directory has not been set yet");
+    MLE_Log_Info(@"ScheduleDelegate [isOutputDirectoryBookmarkValid] output directory has not been set yet");
     return NO;
   }
 
@@ -126,13 +127,13 @@
   if (outputDirUrl && outputDirUrl.isFileURL) {
 
     if ([outputDirUrl.path isEqualToString:outputDirPath]) {
-      NSLog(@"ScheduleDelegate [isOutputDirectoryBookmarkValid] bookmark is valid");
+      MLE_Log_Info(@"ScheduleDelegate [isOutputDirectoryBookmarkValid] bookmark is valid");
       return YES;
     }
-    NSLog(@"ScheduleDelegate [isOutputDirectoryBookmarkValid] bookmarked path: %@", outputDirUrl.path);
+    MLE_Log_Info(@"ScheduleDelegate [isOutputDirectoryBookmarkValid] bookmarked path: %@", outputDirUrl.path);
   }
 
-  NSLog(@"ScheduleDelegate [isOutputDirectoryBookmarkValid] bookmark is not valid. The helper app must be granted write permission to: %@", outputDirPath);
+  MLE_Log_Info(@"ScheduleDelegate [isOutputDirectoryBookmarkValid] bookmark is not valid. The helper app must be granted write permission to: %@", outputDirPath);
 
   return NO;
 }
@@ -157,7 +158,7 @@
 
 - (void)activateScheduler {
 
-  NSLog(@"ScheduleDelegate [activateScheduler]");
+  MLE_Log_Info(@"ScheduleDelegate [activateScheduler]");
 
   if (_timer) {
     [_timer invalidate];
@@ -165,14 +166,14 @@
   }
 
   NSTimeInterval intervalToNextExport = ScheduleConfiguration.sharedConfig.nextExportAt.timeIntervalSinceNow;
-  NSLog(@"ScheduleDelegate [activateScheduler] next export in %fs", intervalToNextExport);
+  MLE_Log_Info(@"ScheduleDelegate [activateScheduler] next export in %fs", intervalToNextExport);
 
   _timer = [NSTimer scheduledTimerWithTimeInterval:intervalToNextExport target:self selector:@selector(onTimerFinished) userInfo:nil repeats:NO];
 }
 
 - (void)deactivateScheduler {
 
-  NSLog(@"ScheduleDelegate [deactivateScheduler]");
+  MLE_Log_Info(@"ScheduleDelegate [deactivateScheduler]");
 
   if (_timer) {
     [_timer invalidate];
@@ -182,7 +183,7 @@
 
 - (void)onTimerFinished {
 
-  NSLog(@"ScheduleDelegate [onTimerFinished]");
+  MLE_Log_Info(@"ScheduleDelegate [onTimerFinished]");
 
   ExportDeferralReason deferralReason = [self reasonToDeferExport];
   if (deferralReason == ExportNoDeferralReason) {
@@ -193,7 +194,7 @@
   }
 
   else {
-    NSLog(@"ScheduleDelegate [onTimerFinished] export task is being skipped for reason: %@", [Utils descriptionForExportDeferralReason:deferralReason]);
+    MLE_Log_Info(@"ScheduleDelegate [onTimerFinished] export task is being skipped for reason: %@", [Utils descriptionForExportDeferralReason:deferralReason]);
   }
 
   [ScheduleConfiguration.sharedConfig setLastExportedAt:[NSDate date]];
@@ -201,11 +202,11 @@
 
 - (void)updateSchedule {
 
-  NSLog(@"ScheduleDelegate [updateSchedule]");
+  MLE_Log_Info(@"ScheduleDelegate [updateSchedule]");
 
   NSDate* nextExportDate = [self determineNextExportDate];
 
-  NSLog(@"ScheduleDelegate [updateSchedule] next export: %@", nextExportDate.description);
+  MLE_Log_Info(@"ScheduleDelegate [updateSchedule] next export: %@", nextExportDate.description);
 
   [ScheduleConfiguration.sharedConfig setNextExportAt:nextExportDate];
 
@@ -219,7 +220,7 @@
 
 - (void)observeValueForKeyPath:(NSString*)keyPath ofObject:(id)anObject change:(NSDictionary*)aChange context:(void*)aContext {
 
-  NSLog(@"ScheduleDelegate [observeValueForKeyPath:%@]", keyPath);
+  MLE_Log_Info(@"ScheduleDelegate [observeValueForKeyPath:%@]", keyPath);
 
   if ([keyPath isEqualToString:@"ScheduleEnabled"] ||
       [keyPath isEqualToString:@"ScheduleInterval"] ||
@@ -252,15 +253,15 @@
   BOOL outputDirIsSet = (outputDirPath.length > 0);
 
   if (!outputDirIsSet) {
-    NSLog(@"ScheduleDelegate [requestOutputDirectoryPermissionsIfRequired] not prompting for permissions since output path hasn't been set yet");
+    MLE_Log_Info(@"ScheduleDelegate [requestOutputDirectoryPermissionsIfRequired] not prompting for permissions since output path hasn't been set yet");
     return;
   }
   else if (self.isOutputDirectoryBookmarkValid) {
-    NSLog(@"ScheduleDelegate [requestOutputDirectoryPermissionsIfRequired] output dir bookmark is valid, permissions grant not required");
+    MLE_Log_Info(@"ScheduleDelegate [requestOutputDirectoryPermissionsIfRequired] output dir bookmark is valid, permissions grant not required");
 
   }
   else {
-    NSLog(@"ScheduleDelegate [requestOutputDirectoryPermissionsIfRequired] output dir bookmark is either not valid or inconsistent. Triggering prompt for permissions grant");
+    MLE_Log_Info(@"ScheduleDelegate [requestOutputDirectoryPermissionsIfRequired] output dir bookmark is either not valid or inconsistent. Triggering prompt for permissions grant");
     [self requestOutputDirectoryPermissions];
   }
 }

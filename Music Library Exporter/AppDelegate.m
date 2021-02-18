@@ -10,6 +10,7 @@
 #import <ServiceManagement/ServiceManagement.h>
 #import <iTunesLibrary/ITLibrary.h>
 
+#import "Logger.h"
 #import "Utils.h"
 #import "UserDefaultsExportConfiguration.h"
 #import "ScheduleConfiguration.h"
@@ -83,7 +84,7 @@
   NSError *error = nil;
   _library = [ITLibrary libraryWithAPIVersion:@"1.1" error:&error];
   if (!_library) {
-    NSLog(@"AppDelegate [applicationDidFinishLaunching] error - failed to init ITLibrary. error: %@", error.localizedDescription);
+    MLE_Log_Info(@"AppDelegate [applicationDidFinishLaunching] error - failed to init ITLibrary. error: %@", error.localizedDescription);
     return;
   }
 
@@ -103,7 +104,7 @@
   NSError *initLibraryError = nil;
   _library = [ITLibrary libraryWithAPIVersion:@"1.1" error:&initLibraryError];
   if (!_library) {
-    NSLog(@"AppDelegate [applicationDidFinishLaunching]  error - failed to init ITLibrary. error: %@", initLibraryError.localizedDescription);
+    MLE_Log_Info(@"AppDelegate [applicationDidFinishLaunching]  error - failed to init ITLibrary. error: %@", initLibraryError.localizedDescription);
     return;
   }
 
@@ -121,7 +122,7 @@
 
 - (void)observeValueForKeyPath:(NSString *)aKeyPath ofObject:(id)anObject change:(NSDictionary *)aChange context:(void *)aContext {
 
-  NSLog(@"AppDelegate [observeValueForKeyPath:%@]", aKeyPath);
+  MLE_Log_Info(@"AppDelegate [observeValueForKeyPath:%@]", aKeyPath);
 
   if ([aKeyPath isEqualToString:@"ScheduleInterval"] ||
       [aKeyPath isEqualToString:@"LastExportedAt"] ||

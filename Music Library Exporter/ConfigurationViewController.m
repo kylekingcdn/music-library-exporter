@@ -7,6 +7,7 @@
 
 #import "ConfigurationViewController.h"
 
+#import "Logger.h"
 #import "Utils.h"
 #import "HelperDelegate.h"
 #import "UserDefaultsExportConfiguration.h"
@@ -107,7 +108,7 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
 
 - (void)updateFromConfiguration {
 
-  NSLog(@"ConfigurationViewController [updateFromConfiguration]");
+  MLE_Log_Info(@"ConfigurationViewController [updateFromConfiguration]");
 
   [_libraryPathTextField setStringValue:ExportConfiguration.sharedConfig.musicLibraryPath];
   [_outputDirectoryTextField setStringValue:ExportConfiguration.sharedConfig.outputDirectoryUrlPath];
@@ -155,7 +156,7 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
 
 - (IBAction)browseOutputDirectory:(id)sender {
 
-  NSLog(@"ConfigurationViewController [browseOutputDirectory]");
+  MLE_Log_Info(@"ConfigurationViewController [browseOutputDirectory]");
 
   NSOpenPanel* openPanel = [NSOpenPanel openPanel];
   [openPanel setCanChooseDirectories:YES];
@@ -301,7 +302,7 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
   // prepare ExportDelegate members
   BOOL delegateReady = [_exportDelegate prepareForExport];
   if (!delegateReady) {
-    NSLog(@"ConfigurationViewController [exportLibrary] error - failed to prepare export delegate");
+    MLE_Log_Info(@"ConfigurationViewController [exportLibrary] error - failed to prepare export delegate");
     return;
   }
 
@@ -323,7 +324,7 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
 
 - (void)handleTrackExportProgress:(NSUInteger)currentTrack withTotal:(NSUInteger)trackCount {
 
-//  NSLog(@"ConfigurationViewController [handleTrackExportProgress %lu/%lu]", currentTrack, trackCount);
+//  MLE_Log_Info(@"ConfigurationViewController [handleTrackExportProgress %lu/%lu]", currentTrack, trackCount);
   
   dispatch_async(dispatch_get_main_queue(), ^{
     
@@ -338,7 +339,7 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
 
     NSString* stateDescription = [Utils descriptionForExportState:exportState];
 
-    NSLog(@"ConfigurationViewController [handleStateChange: %@]", stateDescription);
+    MLE_Log_Info(@"ConfigurationViewController [handleStateChange: %@]", stateDescription);
 
     BOOL exportAllowed;
 

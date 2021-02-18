@@ -9,6 +9,7 @@
 
 #import <iTunesLibrary/ITLibrary.h>
 
+#import "Logger.h"
 #import "UserDefaultsExportConfiguration.h"
 #import "ExportDelegate.h"
 #import "ScheduleConfiguration.h"
@@ -58,7 +59,7 @@
   NSError *error = nil;
   _library = [ITLibrary libraryWithAPIVersion:@"1.1" error:&error];
   if (!_library) {
-    NSLog(@"AppDelegate [applicationDidFinishLaunching] error - failed to init ITLibrary. error: %@", error.localizedDescription);
+    MLE_Log_Info(@"AppDelegate [applicationDidFinishLaunching] error - failed to init ITLibrary. error: %@", error.localizedDescription);
     return;
   }
 

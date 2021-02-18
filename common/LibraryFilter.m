@@ -13,6 +13,7 @@
 #import <iTunesLibrary/ITLibMediaItem.h>
 #import <iTunesLibrary/ITLibPlaylist.h>
 
+#import "Logger.h"
 #import "OrderedDictionary.h"
 #import "Utils.h"
 #import "ExportConfiguration.h"
@@ -50,7 +51,7 @@
 
 - (NSSet<NSNumber*>*)getIncludedPlaylistKinds {
 
-  NSLog(@"LibraryFilter [getIncludedPlaylistKinds]");
+  MLE_Log_Info(@"LibraryFilter [getIncludedPlaylistKinds]");
 
   NSMutableSet<NSNumber*>* includedPlaylistKinds = [NSMutableSet set];
 
@@ -76,7 +77,7 @@
 
 - (NSArray<ITLibPlaylist*>*)getIncludedPlaylists {
 
-  NSLog(@"LibraryFilter [getIncludedPlaylists]");
+  MLE_Log_Info(@"LibraryFilter [getIncludedPlaylists]");
 
   NSSet<NSNumber*>* includedPlaylistKinds = [self getIncludedPlaylistKinds];
 
@@ -96,15 +97,15 @@
           [includedPlaylists addObject:playlist];
         }
         else {
-          NSLog(@"LibraryFilter [getIncludedPlaylists] playlist was manually excluded by id: %@ - %@", playlist.name, playlist.persistentID);
+          MLE_Log_Info(@"LibraryFilter [getIncludedPlaylists] playlist was manually excluded by id: %@ - %@", playlist.name, playlist.persistentID);
         }
       }
       else {
-        NSLog(@"LibraryFilter [getIncludedPlaylists] excluding folder due to flattened hierarchy : %@ - %@", playlist.name, playlist.persistentID);
+        MLE_Log_Info(@"LibraryFilter [getIncludedPlaylists] excluding folder due to flattened hierarchy : %@ - %@", playlist.name, playlist.persistentID);
       }
     }
     else {
-     NSLog(@"LibraryFilter [getIncludedPlaylists] excluding internal playlist: %@ - %@", playlist.name, playlist.persistentID);
+     MLE_Log_Info(@"LibraryFilter [getIncludedPlaylists] excluding internal playlist: %@ - %@", playlist.name, playlist.persistentID);
     }
   }
 

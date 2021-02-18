@@ -9,6 +9,7 @@
 
 #import <iTunesLibrary/ITLibrary.h>
 
+#import "Logger.h"
 #import "Defines.h"
 #import "Utils.h"
 #import "UserDefaultsExportConfiguration.h"
@@ -56,7 +57,7 @@
 
 - (BOOL)prepareForExport {
 
-  NSLog(@"ExportDelegate [prepareForExport]");
+  MLE_Log_Info(@"ExportDelegate [prepareForExport]");
 
   // validate state
   switch (_state) {
@@ -69,7 +70,7 @@
     case ExportGeneratingTracks:
     case ExportGeneratingPlaylists:
     case ExportWritingToDisk: {
-      NSLog(@"ExportDelegate [prepareForExport] currently busy - state: %@", [Utils descriptionForExportState:_state]);
+      MLE_Log_Info(@"ExportDelegate [prepareForExport] currently busy - state: %@", [Utils descriptionForExportState:_state]);
       return NO;
     }
   }
@@ -78,12 +79,12 @@
 
   // set configuration
   if (!UserDefaultsExportConfiguration.sharedConfig.isOutputDirectoryValid) {
-    NSLog(@"ExportDelegate [prepareForExport] error - invalid output directory url");
+    MLE_Log_Info(@"ExportDelegate [prepareForExport] error - invalid output directory url");
     [self updateState:ExportError];
     return NO;
   }
   if (!UserDefaultsExportConfiguration.sharedConfig.isOutputFileNameValid) {
-    NSLog(@"ExportDelegate [prepareForExport] error - invalid output filename");
+    MLE_Log_Info(@"ExportDelegate [prepareForExport] error - invalid output filename");
     [self updateState:ExportError];
     return NO;
   }
@@ -100,7 +101,7 @@
 
 - (void)exportLibrary {
 
-  NSLog(@"ExportDelegate [exportLibrary]");
+  MLE_Log_Info(@"ExportDelegate [exportLibrary]");
 
   // validate state
   switch (_state) {
@@ -110,33 +111,33 @@
     case ExportStopped:
     case ExportFinished:
     case ExportError: {
-      NSLog(@"ExportDelegate [exportLibrary] error - prepareForExport must be called first - current state: %@", [Utils descriptionForExportState:_state]);
+      MLE_Log_Info(@"ExportDelegate [exportLibrary] error - prepareForExport must be called first - current state: %@", [Utils descriptionForExportState:_state]);
       return;
     }
     case ExportGeneratingTracks:
     case ExportGeneratingPlaylists:
     case ExportWritingToDisk: {
-      NSLog(@"ExportDelegate [exportLibrary] delegate is currently busy - state: %@", [Utils descriptionForExportState:_state]);
+      MLE_Log_Info(@"ExportDelegate [exportLibrary] delegate is currently busy - state: %@", [Utils descriptionForExportState:_state]);
       return;
     }
   }
 
   // serialize tracks
-  NSLog(@"ExportDelegate [exportLibrary] serializing tracks");
+  MLE_Log_Info(@"ExportDelegate [exportLibrary] serializing tracks");
   [self updateState:ExportGeneratingTracks];
   OrderedDictionary* tracks = [_librarySerializer serializeTracks:_includedTracks withProgressCallback:_trackProgressCallback];
 
   // serialize playlists
-  NSLog(@"ExportDelegate [exportLibrary] serializing playlists");
+  MLE_Log_Info(@"ExportDelegate [exportLibrary] serializing playlists");
   [self updateState:ExportGeneratingPlaylists];
   NSArray<OrderedDictionary*>* playlists = [_librarySerializer serializePlaylists:_includedPlaylists];
 
   // serialize library
-  NSLog(@"ExportDelegate [exportLibrary] serializing library");
+  MLE_Log_Info(@"ExportDelegate [exportLibrary] serializing library");
   OrderedDictionary* library = [_librarySerializer serializeLibraryforTracks:tracks andPlaylists:playlists];
 
   // write library
-  NSLog(@"ExportDelegate [exportLibrary] writing library");
+  MLE_Log_Info(@"ExportDelegate [exportLibrary] writing library");
   [self updateState:ExportWritingToDisk];
   BOOL writeSuccess = [self writeDictionary:library];
 
@@ -150,22 +151,22 @@
 
 - (BOOL)writeDictionary:(OrderedDictionary*)libraryDict {
 
-  NSLog(@"ExportDelegate [writeDictionary]");
+  MLE_Log_Info(@"ExportDelegate [writeDictionary]");
 
   NSURL* outputDirectoryUrl = UserDefaultsExportConfiguration.sharedConfig.resolveAndAutoRenewOutputDirectoryUrl;
   if (!outputDirectoryUrl) {
-    NSLog(@"ExportDelegate [writeDictionary] unable to retrieve output directory - a directory must be selected to obtain write permission");
+    MLE_Log_Info(@"ExportDelegate [writeDictionary] unable to retrieve output directory - a directory must be selected to obtain write permission");
     return NO;
   }
 
   // write library
-  NSLog(@"ExportDelegate [writeDictionary] saving to: %@", UserDefaultsExportConfiguration.sharedConfig.outputFileUrl);
+  MLE_Log_Info(@"ExportDelegate [writeDictionary] saving to: %@", UserDefaultsExportConfiguration.sharedConfig.outputFileUrl);
   [outputDirectoryUrl startAccessingSecurityScopedResource];
   BOOL writeSuccess = [libraryDict writeToURL:UserDefaultsExportConfiguration.sharedConfig.outputFileUrl atomically:YES];
   [outputDirectoryUrl stopAccessingSecurityScopedResource];
 
   if (!writeSuccess) {
-    NSLog(@"ExportDelegate [writeDictionary] error writing dictionary");
+    MLE_Log_Info(@"ExportDelegate [writeDictionary] error writing dictionary");
     return NO;
   }
 

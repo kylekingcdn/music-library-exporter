@@ -10,6 +10,7 @@
 #import <iTunesLibrary/ITLibPlaylist.h>
 #import <iTunesLibrary/ITLibrary.h>
 
+#import "Logger.h"
 #import "Utils.h"
 #import "PlaylistNode.h"
 #import "ExportConfiguration.h"
@@ -343,7 +344,7 @@
 
   PlaylistNode* node = [self playlistNodeForCellView:sender];
   if (!node) {
-    NSLog(@"PlaylistsViewController [setPlaylistSorting] error - failed to fetch playlist node");
+    MLE_Log_Info(@"PlaylistsViewController [setPlaylistSorting] error - failed to fetch playlist node");
     return;
   }
 
@@ -353,21 +354,21 @@
 
   // default
   if (itemTag == 101) {
-    NSLog(@"PlaylistsViewController [setPlaylistSorting] Default");
+    MLE_Log_Info(@"PlaylistsViewController [setPlaylistSorting] Default");
     [ExportConfiguration.sharedConfig setDefaultSortingForPlaylist:node.playlist.persistentID];
   }
   // sort column
   else if (itemTag > 200 && itemTag < 300) {
     PlaylistSortColumnType sortColumn = [PlaylistsViewController playlistSortColumnForMenuItemTag:itemTag];
     if (sortColumn == PlaylistSortColumnNull) {
-      NSLog(@"PlaylistsViewController [setPlaylistSorting] error - failed to determine sort column for itemTag:%li", (long)itemTag);
+      MLE_Log_Info(@"PlaylistsViewController [setPlaylistSorting] error - failed to determine sort column for itemTag:%li", (long)itemTag);
     }
     // ignore if no change
     else if (sortColumn == [ExportConfiguration.sharedConfig playlistCustomSortColumn:node.playlist.persistentID]) {
       return;
     }
     else {
-      NSLog(@"PlaylistsViewController [setPlaylistSorting] column: %@", [Utils titleForPlaylistSortColumn:sortColumn]);
+      MLE_Log_Info(@"PlaylistsViewController [setPlaylistSorting] column: %@", [Utils titleForPlaylistSortColumn:sortColumn]);
       [ExportConfiguration.sharedConfig setCustomSortColumn:sortColumn forPlaylist:node.playlist.persistentID];
     }
   }
@@ -375,14 +376,14 @@
   else if (itemTag > 300 && itemTag < 400) {
     PlaylistSortOrderType sortOrder = [PlaylistsViewController playlistSortOrderForMenuItemTag:itemTag];
     if (sortOrder == PlaylistSortOrderNull) {
-      NSLog(@"PlaylistsViewController [setPlaylistSorting] error - failed to determine sort order for itemTag:%li", (long)itemTag);
+      MLE_Log_Info(@"PlaylistsViewController [setPlaylistSorting] error - failed to determine sort order for itemTag:%li", (long)itemTag);
     }
     // ignore if no change
     else if (sortOrder == [ExportConfiguration.sharedConfig playlistCustomSortOrder:node.playlist.persistentID]) {
       return;
     }
     else {
-      NSLog(@"PlaylistsViewController [setPlaylistSorting] order: %@", [Utils titleForPlaylistSortOrder:sortOrder]);
+      MLE_Log_Info(@"PlaylistsViewController [setPlaylistSorting] order: %@", [Utils titleForPlaylistSortOrder:sortOrder]);
       [ExportConfiguration.sharedConfig setCustomSortOrder:sortOrder forPlaylist:node.playlist.persistentID];
     }
   }
@@ -485,7 +486,7 @@
 
     NSTableCellView* cellView = [outlineView makeViewWithIdentifier:cellViewId owner:nil];
     if (!cellView) {
-      NSLog(@"PlaylistsViewController [viewForTableColumn:%@] error - failed to make cell view", tableColumn.identifier);
+      MLE_Log_Info(@"PlaylistsViewController [viewForTableColumn:%@] error - failed to make cell view", tableColumn.identifier);
       return nil;
     }
 
@@ -499,7 +500,7 @@
 
 - (void)observeValueForKeyPath:(NSString *)aKeyPath ofObject:(id)anObject change:(NSDictionary *)aChange context:(void *)aContext {
 
-  NSLog(@"PlaylistsViewController [observeValueForKeyPath:%@]", aKeyPath);
+  MLE_Log_Info(@"PlaylistsViewController [observeValueForKeyPath:%@]", aKeyPath);
 
   if ([aKeyPath isEqualToString:@"FlattenPlaylistHierarchy"] ||
       [aKeyPath isEqualToString:@"IncludeInternalPlaylists"]) {

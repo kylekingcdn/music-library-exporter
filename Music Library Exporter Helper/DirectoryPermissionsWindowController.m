@@ -7,6 +7,7 @@
 
 #import "DirectoryPermissionsWindowController.h"
 
+#import "Logger.h"
 #import "UserDefaultsExportConfiguration.h"
 #import "ScheduleConfiguration.h"
 
@@ -61,7 +62,7 @@
 
 - (void)requestOutputDirectoryPermissions {
 
-  NSLog(@"DirectoryPermissionsWindowController [requestOutputDirectoryPermissions]");
+  MLE_Log_Info(@"DirectoryPermissionsWindowController [requestOutputDirectoryPermissions]");
 
   NSString* outputDirPath = UserDefaultsExportConfiguration.sharedConfig.outputDirectoryPath;
 
@@ -83,27 +84,27 @@
 
       if (outputDirUrl) {
         if (outputDirPath.length == 0 || [outputDirUrl.path isEqualToString:outputDirPath]) {
-          NSLog(@"DirectoryPermissionsWindowController [requestOutputDirectoryPermissions] the correct output directory has been selected");
+          MLE_Log_Info(@"DirectoryPermissionsWindowController [requestOutputDirectoryPermissions] the correct output directory has been selected");
           [UserDefaultsExportConfiguration.sharedConfig setOutputDirectoryUrl:outputDirUrl];
           [[NSApplication sharedApplication] setActivationPolicy:NSApplicationActivationPolicyProhibited];
           return;
         }
         else {
-          NSLog(@"DirectoryPermissionsWindowController [requestOutputDirectoryPermissions] the user has selected a directory that differs from the output directory set with the main app.");
+          MLE_Log_Info(@"DirectoryPermissionsWindowController [requestOutputDirectoryPermissions] the user has selected a directory that differs from the output directory set with the main app.");
           [openPanel orderOut:nil];
           [self showIncorrectDirectoryAlert];
           return;
         }
       }
       else {
-        NSLog(@"DirectoryPermissionsWindowController [requestOutputDirectoryPermissions] the user has cancelled granting permissions. Automated exports will be disabled.");
+        MLE_Log_Info(@"DirectoryPermissionsWindowController [requestOutputDirectoryPermissions] the user has cancelled granting permissions. Automated exports will be disabled.");
         [openPanel orderOut:nil];
         [self showAutomaticExportsDisabledDirectoryAlert];
         return;
       }
     }
     else {
-      NSLog(@"DirectoryPermissionsWindowController [requestOutputDirectoryPermissions] the user has cancelled granting permissions. Automated exports will be disabled.");
+      MLE_Log_Info(@"DirectoryPermissionsWindowController [requestOutputDirectoryPermissions] the user has cancelled granting permissions. Automated exports will be disabled.");
       [openPanel orderOut:nil];
       [self showAutomaticExportsDisabledDirectoryAlert];
       return;

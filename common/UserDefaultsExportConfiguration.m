@@ -7,6 +7,7 @@
 
 #import "UserDefaultsExportConfiguration.h"
 
+#import "Logger.h"
 
 static UserDefaultsExportConfiguration* _sharedConfig;
 
@@ -189,7 +190,7 @@ static UserDefaultsExportConfiguration* _sharedConfig;
 
 - (void)loadPropertiesFromUserDefaults {
 
-  NSLog(@"UserDefaultsExportConfiguration [loadPropertiesFromUserDefaults]");
+  MLE_Log_Info(@"UserDefaultsExportConfiguration [loadPropertiesFromUserDefaults]");
 
   [self registerDefaultValues];
 
@@ -214,7 +215,7 @@ static UserDefaultsExportConfiguration* _sharedConfig;
 
 - (void)registerDefaultValues {
 
-  NSLog(@"UserDefaultsExportConfiguration [registerDefaultValues]");
+  MLE_Log_Info(@"UserDefaultsExportConfiguration [registerDefaultValues]");
 
   [_userDefaults registerDefaults:[self defaultValues]];
 }
@@ -236,18 +237,18 @@ static UserDefaultsExportConfiguration* _sharedConfig;
 
   // error resolving bookmark data
   if (outputDirBookmarkResolutionError) {
-    NSLog(@"UserDefaultsExportConfiguration [fetchAndAutoRenewOutputDirectoryUrl] error resolving output dir bookmark: %@", outputDirBookmarkResolutionError.localizedDescription);
+    MLE_Log_Info(@"UserDefaultsExportConfiguration [fetchAndAutoRenewOutputDirectoryUrl] error resolving output dir bookmark: %@", outputDirBookmarkResolutionError.localizedDescription);
     return nil;
   }
 
   NSAssert(outputDirBookmarkUrl != nil, @"NSURL retreived from bookmark is nil");
-  NSLog(@"UserDefaultsExportConfiguration [fetchAndAutoRenewOutputDirectoryUrl] bookmarked output directory: %@", outputDirBookmarkUrl.path);
+  MLE_Log_Info(@"UserDefaultsExportConfiguration [fetchAndAutoRenewOutputDirectoryUrl] bookmarked output directory: %@", outputDirBookmarkUrl.path);
 
   // bookmark data is stale, attempt to renew
   if (outputDirBookmarkIsStale) {
 
     NSError* outputDirBookmarkRenewError;
-    NSLog(@"UserDefaultsExportConfiguration [fetchAndAutoRenewOutputDirectoryUrl] bookmark is stale, attempting renewal");
+    MLE_Log_Info(@"UserDefaultsExportConfiguration [fetchAndAutoRenewOutputDirectoryUrl] bookmark is stale, attempting renewal");
 
     [outputDirBookmarkUrl startAccessingSecurityScopedResource];
     [outputDirBookmarkUrl bookmarkDataWithOptions:NSURLBookmarkCreationWithSecurityScope includingResourceValuesForKeys:nil relativeToURL:nil error:&outputDirBookmarkRenewError];
@@ -256,12 +257,12 @@ static UserDefaultsExportConfiguration* _sharedConfig;
     [self saveBookmarkForOutputDirectoryUrl:outputDirBookmarkUrl];
 
     if (outputDirBookmarkRenewError) {
-      NSLog(@"UserDefaultsExportConfiguration [fetchAndAutoRenewOutputDirectoryUrl] error renewing bookmark: %@", outputDirBookmarkRenewError.localizedDescription);
+      MLE_Log_Info(@"UserDefaultsExportConfiguration [fetchAndAutoRenewOutputDirectoryUrl] error renewing bookmark: %@", outputDirBookmarkRenewError.localizedDescription);
       return nil;
     }
   }
   else {
-    NSLog(@"UserDefaultsExportConfiguration [fetchAndAutoRenewOutputDirectoryUrl] bookmarked output directory is valid");
+    MLE_Log_Info(@"UserDefaultsExportConfiguration [fetchAndAutoRenewOutputDirectoryUrl] bookmarked output directory is valid");
   }
 
   return outputDirBookmarkUrl;
@@ -269,14 +270,14 @@ static UserDefaultsExportConfiguration* _sharedConfig;
 
 - (BOOL)saveBookmarkForOutputDirectoryUrl:(NSURL*)outputDirUrl {
 
-  NSLog(@"UserDefaultsExportConfiguration [saveBookmarkForOutputDirectoryUrl: %@]", outputDirUrl);
+  MLE_Log_Info(@"UserDefaultsExportConfiguration [saveBookmarkForOutputDirectoryUrl: %@]", outputDirUrl);
 
   NSError* outputDirBookmarkError;
   NSData* outputDirBookmarkData = [outputDirUrl bookmarkDataWithOptions:NSURLBookmarkCreationWithSecurityScope includingResourceValuesForKeys:nil relativeToURL:nil error:&outputDirBookmarkError];
 
   // error generating bookmark
   if (outputDirBookmarkError) {
-    NSLog(@"UserDefaultsExportConfiguration [saveBookmarkForOutputDirectoryUrl] error generating output directory bookmark data: %@", outputDirBookmarkError.localizedDescription);
+    MLE_Log_Info(@"UserDefaultsExportConfiguration [saveBookmarkForOutputDirectoryUrl] error generating output directory bookmark data: %@", outputDirBookmarkError.localizedDescription);
     return NO;
   }
 

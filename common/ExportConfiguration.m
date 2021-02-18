@@ -7,6 +7,7 @@
 
 #import "ExportConfiguration.h"
 
+#import "Logger.h"
 #import "Utils.h"
 
 
@@ -193,24 +194,24 @@ static ExportConfiguration* _sharedConfig;
 
 - (void)dumpProperties {
 
-  NSLog(@"ExportConfiguration [dumpProperties]");
+  MLE_Log_Info(@"ExportConfiguration [dumpProperties]");
 
-  NSLog(@"  MusicLibraryPath:                '%@'", _musicLibraryPath);
+  MLE_Log_Info(@"  MusicLibraryPath:                '%@'", _musicLibraryPath);
 
-  NSLog(@"  OutputDirectoryUrl:              '%@'", _outputDirectoryUrl);
-  NSLog(@"  OutputDirectoryPath:             '%@'", _outputDirectoryPath);
-  NSLog(@"  OutputFileName:                  '%@'", _outputFileName);
+  MLE_Log_Info(@"  OutputDirectoryUrl:              '%@'", _outputDirectoryUrl);
+  MLE_Log_Info(@"  OutputDirectoryPath:             '%@'", _outputDirectoryPath);
+  MLE_Log_Info(@"  OutputFileName:                  '%@'", _outputFileName);
 
-  NSLog(@"  RemapRootDirectory:              '%@'", (_remapRootDirectory ? @"YES" : @"NO"));
-  NSLog(@"  RemapRootDirectoryOriginalPath:  '%@'", _remapRootDirectoryOriginalPath);
-  NSLog(@"  RemapRootDirectoryMappedPath:    '%@'", _remapRootDirectoryMappedPath);
+  MLE_Log_Info(@"  RemapRootDirectory:              '%@'", (_remapRootDirectory ? @"YES" : @"NO"));
+  MLE_Log_Info(@"  RemapRootDirectoryOriginalPath:  '%@'", _remapRootDirectoryOriginalPath);
+  MLE_Log_Info(@"  RemapRootDirectoryMappedPath:    '%@'", _remapRootDirectoryMappedPath);
 
-  NSLog(@"  FlattenPlaylistHierarchy:        '%@'", (_flattenPlaylistHierarchy ? @"YES" : @"NO"));
-  NSLog(@"  IncludeInternalPlaylists:        '%@'", (_includeInternalPlaylists ? @"YES" : @"NO"));
-  NSLog(@"  ExcludedPlaylistPersistentIds:   '%@'", _excludedPlaylistPersistentIds);
+  MLE_Log_Info(@"  FlattenPlaylistHierarchy:        '%@'", (_flattenPlaylistHierarchy ? @"YES" : @"NO"));
+  MLE_Log_Info(@"  IncludeInternalPlaylists:        '%@'", (_includeInternalPlaylists ? @"YES" : @"NO"));
+  MLE_Log_Info(@"  ExcludedPlaylistPersistentIds:   '%@'", _excludedPlaylistPersistentIds);
 
-  NSLog(@"  PlaylistCustomSortColumns:       '%@'", _playlistCustomSortColumnDict);
-  NSLog(@"  PlaylistCustomSortOrders:        '%@'", _playlistCustomSortOrderDict);
+  MLE_Log_Info(@"  PlaylistCustomSortColumns:       '%@'", _playlistCustomSortColumnDict);
+  MLE_Log_Info(@"  PlaylistCustomSortOrders:        '%@'", _playlistCustomSortOrderDict);
 }
 
 
@@ -225,63 +226,63 @@ static ExportConfiguration* _sharedConfig;
 
 - (void)setMusicLibraryPath:(NSString*)musicLibraryPath {
 
-  NSLog(@"ExportConfiguration [setMusicLibraryPath %@]", musicLibraryPath);
+  MLE_Log_Info(@"ExportConfiguration [setMusicLibraryPath %@]", musicLibraryPath);
 
   _musicLibraryPath = musicLibraryPath;
 }
 
 - (void)setOutputDirectoryUrl:(nullable NSURL*)dirUrl {
 
-  NSLog(@"ExportConfiguration [setOutputDirectoryUrl %@]", dirUrl);
+  MLE_Log_Info(@"ExportConfiguration [setOutputDirectoryUrl %@]", dirUrl);
 
   _outputDirectoryUrl = dirUrl;
 }
 
 - (void)setOutputDirectoryPath:(NSString*)dirPath {
 
-  NSLog(@"ExportConfiguration [setOutputDirectoryPath %@]", dirPath);
+  MLE_Log_Info(@"ExportConfiguration [setOutputDirectoryPath %@]", dirPath);
 
   _outputDirectoryPath = dirPath;
 }
 
 - (void)setOutputFileName:(NSString*)fileName {
 
-  NSLog(@"ExportConfiguration [setOutputFileName %@]", fileName);
+  MLE_Log_Info(@"ExportConfiguration [setOutputFileName %@]", fileName);
 
   _outputFileName = fileName;
 }
 
 - (void)setRemapRootDirectory:(BOOL)flag {
 
-  NSLog(@"ExportConfiguration [setRemapRootDirectory %@]", (flag ? @"YES" : @"NO"));
+  MLE_Log_Info(@"ExportConfiguration [setRemapRootDirectory %@]", (flag ? @"YES" : @"NO"));
 
   _remapRootDirectory = flag;
 }
 
 - (void)setRemapRootDirectoryOriginalPath:(NSString*)originalPath {
 
-  NSLog(@"ExportConfiguration [setRemapRootDirectoryOriginalPath %@]", originalPath);
+  MLE_Log_Info(@"ExportConfiguration [setRemapRootDirectoryOriginalPath %@]", originalPath);
 
   _remapRootDirectoryOriginalPath = originalPath;
 }
 
 - (void)setRemapRootDirectoryMappedPath:(NSString*)mappedPath {
 
-  NSLog(@"ExportConfiguration [setRemapRootDirectoryMappedPath %@]", mappedPath);
+  MLE_Log_Info(@"ExportConfiguration [setRemapRootDirectoryMappedPath %@]", mappedPath);
 
   _remapRootDirectoryMappedPath = mappedPath;
 }
 
 - (void)setFlattenPlaylistHierarchy:(BOOL)flag {
 
-  NSLog(@"ExportConfiguration [setFlattenPlaylistHierarchy %@]", (flag ? @"YES" : @"NO"));
+  MLE_Log_Info(@"ExportConfiguration [setFlattenPlaylistHierarchy %@]", (flag ? @"YES" : @"NO"));
 
   _flattenPlaylistHierarchy = flag;
 }
 
 - (void)setIncludeInternalPlaylists:(BOOL)flag {
 
-  NSLog(@"ExportConfiguration [setIncludeInternalPlaylists %@]", (flag ? @"YES" : @"NO"));
+  MLE_Log_Info(@"ExportConfiguration [setIncludeInternalPlaylists %@]", (flag ? @"YES" : @"NO"));
 
   _includeInternalPlaylists = flag;
 }
@@ -293,14 +294,14 @@ static ExportConfiguration* _sharedConfig;
 
 - (void)addExcludedPlaylistPersistentId:(NSNumber*)playlistId {
 
-  NSLog(@"ExportConfiguration [addExcludedPlaylistPersistentId %@]", playlistId);
+  MLE_Log_Info(@"ExportConfiguration [addExcludedPlaylistPersistentId %@]", playlistId);
 
   [_excludedPlaylistPersistentIds addObject:playlistId];
 }
 
 - (void)removeExcludedPlaylistPersistentId:(NSNumber*)playlistId {
 
-  NSLog(@"ExportConfiguration [removeExcludedPlaylistPersistentId %@]", playlistId);
+  MLE_Log_Info(@"ExportConfiguration [removeExcludedPlaylistPersistentId %@]", playlistId);
 
   [_excludedPlaylistPersistentIds removeObject:playlistId];
 }

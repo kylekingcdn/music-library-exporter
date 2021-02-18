@@ -7,6 +7,7 @@
 
 #import "ArgParser.h"
 
+#import "Logger.h"
 #import "Utils.h"
 #import "XPMArguments.h"
 #import "ExportConfiguration.h"
@@ -127,7 +128,7 @@
     NSMutableDictionary* sortOrderDict = [NSMutableDictionary dictionary];
     NSError* sortOptionError = [ArgParser parsePlaylistsSortingOption:playlistSortingOpt forColumnDictionary:sortColumnDict andOrderDictionary:sortOrderDict];
     if (sortOptionError) {
-      NSLog(@"error parsing options - %@", sortOptionError.localizedDescription);
+      MLE_Log_Info(@"error parsing options - %@", sortOptionError.localizedDescription);
       return NO;
     }
 
@@ -164,14 +165,14 @@
 
 - (void)displayHelp {
 
-  NSLog(@"ArgParser [displayHelp]");
+  MLE_Log_Info(@"ArgParser [displayHelp]");
 
 }
 
 - (void)dumpArguments {
 
   if (_processInfo) {
-    NSLog(@"ArgParser [dumpArguments]: %@", NSProcessInfo.processInfo.arguments);
+    MLE_Log_Info(@"ArgParser [dumpArguments]: %@", NSProcessInfo.processInfo.arguments);
   }
 }
 
@@ -185,7 +186,7 @@
 
     NSDecimalNumber* playlistId = [NSDecimalNumber decimalNumberWithString:playlistIdStr];
     if (!playlistId) {
-      NSLog(@"ArgParser [parsePlaylistIdsOption]: error - failed to parse playlist id: %@", playlistIdStr);
+      MLE_Log_Info(@"ArgParser [parsePlaylistIdsOption]: error - failed to parse playlist id: %@", playlistIdStr);
     }
     else {
       [playlistIds addObject:playlistId];
@@ -197,7 +198,7 @@
 
 + (NSError*)parsePlaylistsSortingOption:(NSString*)sortOptions forColumnDictionary:(NSMutableDictionary*)sortColDict andOrderDictionary:(NSMutableDictionary*)sortOrderDict {
 
-//  NSLog(@"ArgParser [parsePlaylistsSortingOption:%@]", sortOptions);
+//  MLE_Log_Info(@"ArgParser [parsePlaylistsSortingOption:%@]", sortOptions);
 
   NSError* error;
 
@@ -217,7 +218,7 @@
 
 + (NSError*)parsePlaylistSortingOption:(NSString*)sortOption forColumnDictionary:(NSMutableDictionary*)sortColDict andOrderDictionary:(NSMutableDictionary*)sortOrderDict {
 
-//  NSLog(@"ArgParser [parsePlaylistSortingOption:%@]", sortOption);
+//  MLE_Log_Info(@"ArgParser [parsePlaylistSortingOption:%@]", sortOption);
 
   NSError* error;
   NSInteger errorCode = -1;
@@ -264,7 +265,7 @@
 
 + (NSError*)parsePlaylistSortingOptionValue:(NSString*)sortOptionValue forColumn:(PlaylistSortColumnType*)aSortColumn andOrder:(PlaylistSortOrderType*)aSortOrder {
 
-//  NSLog(@"ArgParser [parsePlaylistSortingOptionValue:%@]", sortOptionValue);
+//  MLE_Log_Info(@"ArgParser [parsePlaylistSortingOptionValue:%@]", sortOptionValue);
 
   NSInteger errorCode = -1;
   NSString* errorDescription;
@@ -340,7 +341,7 @@
 
 - (void)initMemberSignatures {
 
-  NSLog(@"ArgParser [initMemberSignatures]");
+  MLE_Log_Info(@"ArgParser [initMemberSignatures]");
 
   _helpSig = [XPMArgumentSignature argumentSignatureWithFormat:[LGDefines signatureFormatForCommand:LGCommandKindHelp]];
   
@@ -360,7 +361,7 @@
 
 - (void)parse {
 
-  NSLog(@"ArgParser [parse]");
+  MLE_Log_Info(@"ArgParser [parse]");
 
   NSMutableSet* commandSigs = [NSMutableSet set];
 
@@ -385,7 +386,7 @@
 
 - (BOOL)validateCommand {
 
-  NSLog(@"ArgParser [validateCommand]");
+  MLE_Log_Info(@"ArgParser [validateCommand]");
 
   _commandError = nil;
 
@@ -413,17 +414,17 @@
 
   // command issued is valid
   _command = [commandTypes.anyObject integerValue];
-  NSLog(@"ArgParser [validateCommand] valid command: %@", [LGDefines signatureFormatForCommand:_command]);
+  MLE_Log_Info(@"ArgParser [validateCommand] valid command: %@", [LGDefines signatureFormatForCommand:_command]);
 
   return YES;
 }
 
 - (BOOL)validateOptions {
 
-  NSLog(@"ArgParser [validateOptions]");
+  MLE_Log_Info(@"ArgParser [validateOptions]");
 
   if (_command == LGCommandKindUnknown) {
-    NSLog(@"ArgParser [validateOptions] cannot validate options - command is invalid");
+    MLE_Log_Info(@"ArgParser [validateOptions] cannot validate options - command is invalid");
     _optionsError = @"command is invalid";
     return NO;
   }
@@ -442,7 +443,7 @@
     return NO;
   }
 
-  NSLog(@"ArgParser [validateOptions] options are valid");
+  MLE_Log_Info(@"ArgParser [validateOptions] options are valid");
 
   return YES;
 }

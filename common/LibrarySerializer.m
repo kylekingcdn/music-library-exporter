@@ -13,6 +13,7 @@
 #import <iTunesLibrary/ITLibMediaItem.h>
 #import <iTunesLibrary/ITLibPlaylist.h>
 
+#import "Logger.h"
 #import "OrderedDictionary.h"
 #import "Utils.h"
 #import "ExportConfiguration.h"
@@ -69,7 +70,7 @@
 
 - (void)initSerializeMembers {
 
-  NSLog(@"LibrarySerializer [initSerializeMembers]");
+  MLE_Log_Info(@"LibrarySerializer [initSerializeMembers]");
 
   _entityIdsDict = [NSMutableDictionary dictionary];
   _currentEntityId = 0;
@@ -91,7 +92,7 @@
 
 - (OrderedDictionary*)serializeLibraryforTracks:(OrderedDictionary*)tracks andPlaylists:(NSArray<OrderedDictionary*>*)playlists {
 
-  NSLog(@"LibrarySerializer [serializeLibraryforTracks:(%lu) andPlaylists:(%lu)]", tracks.count, playlists.count);
+  MLE_Log_Info(@"LibrarySerializer [serializeLibraryforTracks:(%lu) andPlaylists:(%lu)]", tracks.count, playlists.count);
 
   MutableOrderedDictionary* libraryDict = [MutableOrderedDictionary dictionary];
 
@@ -117,7 +118,7 @@
 
 - (NSMutableArray<OrderedDictionary*>*)serializePlaylists:(NSArray<ITLibPlaylist*>*)playlists {
 
-  NSLog(@"LibrarySerializer [serializePlaylists:(%lu)]", playlists.count);
+  MLE_Log_Info(@"LibrarySerializer [serializePlaylists:(%lu)]", playlists.count);
 
   NSMutableArray<OrderedDictionary*>* playlistsArray = [NSMutableArray array];
 
@@ -137,7 +138,7 @@
 
 - (OrderedDictionary*)serializePlaylist:(ITLibPlaylist*)playlistItem withId:(NSNumber*)playlistId {
 
-  NSLog(@"LibrarySerializer [serializePlaylist:(%@ - %@)]", playlistItem.name, [LibrarySerializer getHexadecimalPersistentId:playlistItem.persistentID]);
+  MLE_Log_Info(@"LibrarySerializer [serializePlaylist:(%@ - %@)]", playlistItem.name, [LibrarySerializer getHexadecimalPersistentId:playlistItem.persistentID]);
 
   MutableOrderedDictionary* playlistDict = [MutableOrderedDictionary dictionary];
 
@@ -228,9 +229,9 @@
   NSUInteger progressVal = 0;
   NSUInteger callbackInterval = 10;
 
-  NSLog(@"LibrarySerializer [serializeTracks:(%lu)]", trackCount);
+  MLE_Log_Info(@"LibrarySerializer [serializeTracks:(%lu)]", trackCount);
 
-  NSLog(@"LibrarySerializer [serializeTracks] started - %@", [[NSDate date] description]);
+  MLE_Log_Info(@"LibrarySerializer [serializeTracks] started - %@", [[NSDate date] description]);
 
   for (ITLibMediaItem* track in tracks) {
 
@@ -258,7 +259,7 @@
     callback(trackCount);
   }
 
-  NSLog(@"LibrarySerializer [serializeTracks] finished - %@", [[NSDate date] description]);
+  MLE_Log_Info(@"LibrarySerializer [serializeTracks] finished - %@", [[NSDate date] description]);
 
   return tracksDict;
 }

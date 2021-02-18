@@ -12,6 +12,9 @@
 #import <iTunesLibrary/ITLibMediaItem.h>
 #import <iTunesLibrary/ITLibPlaylist.h>
 
+#import "Logger.h"
+
+
 @implementation Utils
 
 + (NSSet<NSString*>*)getAllKeysForDictionary:(NSDictionary*)dict1 andDictionary:(NSDictionary*)dict2 {
@@ -32,10 +35,10 @@
     if (![ignoredKeys containsObject:key]) {
 
       if (![dict2.allKeys containsObject:key]) {
-        NSLog(@"dict2 is missing key: %@", key);
+        MLE_Log_Info(@"dict2 is missing key: %@", key);
       }
       else if (![dict1.allKeys containsObject:key]) {
-        NSLog(@"dict2 has extra key: %@", key);
+        MLE_Log_Info(@"dict2 has extra key: %@", key);
       }
       else {
 
@@ -46,7 +49,7 @@
         if ([dict1Object isKindOfClass:[NSArray class]]) {
 
           if (![dict2Object isKindOfClass:[NSArray class]]) {
-              NSLog(@"dict2 object type should be array for key: %@", key);
+              MLE_Log_Info(@"dict2 object type should be array for key: %@", key);
           }
           else {
   //          NSArray* dict1Array = dict1Object;
@@ -67,7 +70,7 @@
         // standard value
         else {
           if (![dict1Object isEqual:dict2Object]) {
-            NSLog(@"key: '%@' has different values: ['%@', '%@']", key, dict1Object, dict2Object);
+            MLE_Log_Info(@"key: '%@' has different values: ['%@', '%@']", key, dict1Object, dict2Object);
           }
         }
       }
@@ -264,7 +267,7 @@
 
 + (NSArray<ITLibMediaItem*>*)sortMediaItems:(NSArray<ITLibMediaItem*>*)items byProperty:(NSString*)sortProperty withOrder:(PlaylistSortOrderType)order{
 
-  NSLog(@"Utils [sortMediaItems byProperty:%@ withOrder:%@]", sortProperty, [Utils titleForPlaylistSortOrder:order]);
+  MLE_Log_Info(@"Utils [sortMediaItems byProperty:%@ withOrder:%@]", sortProperty, [Utils titleForPlaylistSortOrder:order]);
   
   return [items sortedArrayUsingComparator:^NSComparisonResult(id item1, id item2) {
 

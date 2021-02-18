@@ -9,6 +9,7 @@
 
 #import <ServiceManagement/ServiceManagement.h>
 
+#import "Logger.h"
 #import "Defines.h"
 
 
@@ -67,15 +68,15 @@
 
 - (BOOL)registerHelperWithSystem:(BOOL)flag {
 
-  NSLog(@"HelperDelegate [registerHelperWithSystem:%@]", (flag ? @"YES" : @"NO"));
+  MLE_Log_Info(@"HelperDelegate [registerHelperWithSystem:%@]", (flag ? @"YES" : @"NO"));
 
   BOOL success = SMLoginItemSetEnabled ((__bridge CFStringRef)__MLE__HelperBundleIdentifier, flag);
 
   if (success) {
-    NSLog(@"HelperDelegate [registerHelperWithSystem] succesfully %@ helper", (flag ? @"registered" : @"unregistered"));
+    MLE_Log_Info(@"HelperDelegate [registerHelperWithSystem] succesfully %@ helper", (flag ? @"registered" : @"unregistered"));
   }
   else {
-    NSLog(@"HelperDelegate [registerHelperWithSystem] failed to %@ helper", (flag ? @"register" : @"unregister"));
+    MLE_Log_Info(@"HelperDelegate [registerHelperWithSystem] failed to %@ helper", (flag ? @"register" : @"unregister"));
   }
 
   return success;
@@ -84,11 +85,11 @@
 - (void)updateHelperRegistrationWithScheduleEnabled:(BOOL)scheduleEnabled {
 
 #if HELPER_REGISTRATION_ENABLED == 1
-  NSLog(@"HelperDelegate [updateHelperRegistrationWithScheduleEnabled:%@]", (scheduleEnabled ? @"YES" : @"NO"));
+  MLE_Log_Info(@"HelperDelegate [updateHelperRegistrationWithScheduleEnabled:%@]", (scheduleEnabled ? @"YES" : @"NO"));
 
   BOOL shouldUpdate = (scheduleEnabled != [self isHelperRegisteredWithSystem]);
   if (shouldUpdate) {
-    NSLog(@"HelperDelegate [updateHelperRegistrationIfRequired] updating registration to: %@", (scheduleEnabled ? @"registered" : @"unregistered"));
+    MLE_Log_Info(@"HelperDelegate [updateHelperRegistrationIfRequired] updating registration to: %@", (scheduleEnabled ? @"registered" : @"unregistered"));
     [self registerHelperWithSystem:scheduleEnabled];
   }
 #endif

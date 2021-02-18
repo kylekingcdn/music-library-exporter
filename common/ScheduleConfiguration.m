@@ -9,6 +9,7 @@
 
 #import <ServiceManagement/ServiceManagement.h>
 
+#import "Logger.h"
 #import "Defines.h"
 
 
@@ -89,13 +90,13 @@ static ScheduleConfiguration* _sharedConfig;
 
 - (void)dumpProperties {
 
-  NSLog(@"ScheduleConfiguration [dumpProperties]");
+  MLE_Log_Info(@"ScheduleConfiguration [dumpProperties]");
 
-  NSLog(@"  ScheduleEnabled:                 '%@'", (_scheduleEnabled ? @"YES" : @"NO"));
-  NSLog(@"  ScheduleInterval:                '%f'", _scheduleInterval);
-  NSLog(@"  LastExportedAt:                  '%@'", _lastExportedAt.description);
-  NSLog(@"  NextExportAt:                    '%@'", _nextExportAt.description);
-  NSLog(@"  SkipOnBattery:                   '%@'", (_skipOnBattery ? @"YES" : @"NO"));
+  MLE_Log_Info(@"  ScheduleEnabled:                 '%@'", (_scheduleEnabled ? @"YES" : @"NO"));
+  MLE_Log_Info(@"  ScheduleInterval:                '%f'", _scheduleInterval);
+  MLE_Log_Info(@"  LastExportedAt:                  '%@'", _lastExportedAt.description);
+  MLE_Log_Info(@"  NextExportAt:                    '%@'", _nextExportAt.description);
+  MLE_Log_Info(@"  SkipOnBattery:                   '%@'", (_skipOnBattery ? @"YES" : @"NO"));
 }
 
 
@@ -125,7 +126,7 @@ static ScheduleConfiguration* _sharedConfig;
 
 - (void)setScheduleEnabled:(BOOL)flag {
 
-  NSLog(@"ScheduleConfiguration [setScheduleEnabled:%@]", (flag ? @"YES" : @"NO"));
+  MLE_Log_Info(@"ScheduleConfiguration [setScheduleEnabled:%@]", (flag ? @"YES" : @"NO"));
 
   _scheduleEnabled = flag;
 
@@ -134,7 +135,7 @@ static ScheduleConfiguration* _sharedConfig;
 
 - (void)setScheduleInterval:(NSTimeInterval)interval {
 
-  NSLog(@"ScheduleConfiguration [setScheduleInterval:%ld]", (long)interval);
+  MLE_Log_Info(@"ScheduleConfiguration [setScheduleInterval:%ld]", (long)interval);
 
   if (_scheduleInterval != interval) {
     
@@ -146,7 +147,7 @@ static ScheduleConfiguration* _sharedConfig;
 
 - (void)setLastExportedAt:(nullable NSDate*)timestamp {
 
-  NSLog(@"ScheduleConfiguration [setLastExportedAt:%@]", timestamp.description);
+  MLE_Log_Info(@"ScheduleConfiguration [setLastExportedAt:%@]", timestamp.description);
 
   if (_lastExportedAt != timestamp) {
 
@@ -158,7 +159,7 @@ static ScheduleConfiguration* _sharedConfig;
 
 - (void)setNextExportAt:(nullable NSDate*)timestamp {
 
-  NSLog(@"ScheduleConfiguration [setNextExportAt:%@]", timestamp.description);
+  MLE_Log_Info(@"ScheduleConfiguration [setNextExportAt:%@]", timestamp.description);
 
   if (_nextExportAt != timestamp) {
 
@@ -170,7 +171,7 @@ static ScheduleConfiguration* _sharedConfig;
 
 - (void)setSkipOnBattery:(BOOL)flag {
 
-  NSLog(@"ScheduleConfiguration [setSkipOnBattery:%@]", (flag ? @"YES" : @"NO"));
+  MLE_Log_Info(@"ScheduleConfiguration [setSkipOnBattery:%@]", (flag ? @"YES" : @"NO"));
 
   _skipOnBattery = flag;
 
