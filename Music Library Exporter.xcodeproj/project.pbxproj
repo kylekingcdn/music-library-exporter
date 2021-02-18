@@ -16,6 +16,7 @@
 		2725CA4C25D3F65C002C1203 /* PlaylistsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2725CA4B25D3F65C002C1203 /* PlaylistsView.xib */; };
 		272C8E9825C0E59C003CBF47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27EF9A6925BF23920051CE7B /* Assets.xcassets */; };
 		272D6A0F25D1B104005023CA /* HourNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 272D6A0E25D1B0F7005023CA /* HourNumberFormatter.m */; };
+		2739C5C325DE29E400C57218 /* LibraryGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 2739C5BD25DE29A400C57218 /* LibraryGenerator.m */; };
 		273B523325CA672300421B14 /* Defines.m in Sources */ = {isa = PBXBuildFile; fileRef = 273B522F25CA666000421B14 /* Defines.m */; };
 		273B523725CA672700421B14 /* Defines.m in Sources */ = {isa = PBXBuildFile; fileRef = 273B522F25CA666000421B14 /* Defines.m */; };
 		273E13EE25D1C6710012483C /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 273E13ED25D1C6710012483C /* Sentry */; };
@@ -168,6 +169,8 @@
 		2725CA4B25D3F65C002C1203 /* PlaylistsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaylistsView.xib; sourceTree = "<group>"; };
 		272D6A0D25D1B0F7005023CA /* HourNumberFormatter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HourNumberFormatter.h; sourceTree = "<group>"; };
 		272D6A0E25D1B0F7005023CA /* HourNumberFormatter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HourNumberFormatter.m; sourceTree = "<group>"; };
+		2739C5BC25DE29A400C57218 /* LibraryGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LibraryGenerator.h; sourceTree = "<group>"; };
+		2739C5BD25DE29A400C57218 /* LibraryGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LibraryGenerator.m; sourceTree = "<group>"; };
 		273B522825CA5F3E00421B14 /* ScheduleDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScheduleDelegate.h; path = "Music Library Exporter Helper/ScheduleDelegate.h"; sourceTree = SOURCE_ROOT; };
 		273B522925CA5F3E00421B14 /* ScheduleDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ScheduleDelegate.m; path = "Music Library Exporter Helper/ScheduleDelegate.m"; sourceTree = SOURCE_ROOT; };
 		273B522E25CA666000421B14 /* Defines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Defines.h; sourceTree = "<group>"; };
@@ -400,6 +403,8 @@
 			isa = PBXGroup;
 			children = (
 				2705444825B66A0A00FE6D65 /* main.m */,
+				2739C5BC25DE29A400C57218 /* LibraryGenerator.h */,
+				2739C5BD25DE29A400C57218 /* LibraryGenerator.m */,
 				271DD27225DBA246009BB292 /* LGDefines.h */,
 				271DD27325DBA246009BB292 /* LGDefines.m */,
 				271DD26C25DB9FCF009BB292 /* ArgParser.h */,
@@ -653,6 +658,7 @@
 				2705445925B670E700FE6D65 /* LibrarySerializer.m in Sources */,
 				271DD27425DBA246009BB292 /* LGDefines.m in Sources */,
 				271DD26E25DB9FCF009BB292 /* ArgParser.m in Sources */,
+				2739C5C325DE29E400C57218 /* LibraryGenerator.m in Sources */,
 				2705444925B66A0A00FE6D65 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

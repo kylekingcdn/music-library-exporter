@@ -44,8 +44,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSSet<NSNumber*>*)determineCommandTypes;
 
-- (void)displayHelp;
-
 - (void)dumpArguments;
 
 + (NSSet<NSNumber*>*)playlistIdsForIdsOption:(NSString*)playlistIdsOption;
@@ -57,15 +55,18 @@ NS_ASSUME_NONNULL_BEGIN
 + (PlaylistSortColumnType)sortColumnForOptionName:(NSString*)sortColumnOption;
 + (PlaylistSortOrderType)sortOrderForOptionName:(NSString*)sortOrderOption;
 
+
 #pragma mark - Mutators
 
 - (void)initMemberSignatures;
 
 - (void)parse;
 
+// TODO: change return type to NSError
 - (BOOL)validateCommand;
 - (BOOL)validateOptions;
 
+// TODO: change return type to NSError
 - (BOOL)populateExportConfiguration:(ExportConfiguration*)configuration;
 
 

@@ -163,12 +163,6 @@
   return YES;
 }
 
-- (void)displayHelp {
-
-  MLE_Log_Info(@"ArgParser [displayHelp]");
-
-}
-
 - (void)dumpArguments {
 
   if (_processInfo) {
