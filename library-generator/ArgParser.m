@@ -414,7 +414,7 @@
 
   // command issued is valid
   _command = [commandTypes.anyObject integerValue];
-  MLE_Log_Info(@"ArgParser [validateCommand] valid command: %@", [LGDefines signatureFormatForCommand:_command]);
+  MLE_Log_Info(@"ArgParser [validateCommand] valid command: %@", [LGDefines nameForCommand:_command]);
 
   return YES;
 }

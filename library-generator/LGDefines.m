@@ -51,6 +51,59 @@
   }
 }
 
++ (nullable NSString*)nameForCommand:(LGCommandKind)command {
+
+  switch (command) {
+    case LGCommandKindHelp: {
+      return @"help";
+    }
+    case LGCommandKindPrint: {
+      return @"print";
+    }
+    case LGCommandKindExport: {
+      return @"export";
+    }
+    case LGCommandKindUnknown: {
+      return nil;
+    }
+  }
+}
++ (nullable NSString*)nameForOption:(LGOptionKind)option {
+
+  switch (option) {
+
+    case LGOptionKindHelp: {
+      return @"--help";
+    }
+
+    case LGOptionKindFlatten: {
+      return @"--flatten";
+    }
+    case LGOptionKindExcludeInternal: {
+      return @"--exclude_internal";
+    }
+    case LGOptionKindExcludeIds: {
+      return @"--exclude_ids";
+    }
+
+    case LGOptionKindMusicMediaDirectory: {
+      return @"--music_media_dir";
+    }
+    case LGOptionKindSort: {
+      return @"--sort";
+    }
+    case LGOptionKindRemapSearch: {
+      return @"--remap_search";
+    }
+    case LGOptionKindRemapReplace: {
+      return @"--remap_replace}";
+    }
+    case LGOptionKindOutputPath: {
+      return @"--output_path";
+    }
+  }
+}
+
 + (nullable NSString*)signatureFormatForCommand:(LGCommandKind)command {
 
   switch (command) {
