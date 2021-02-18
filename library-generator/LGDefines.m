@@ -51,6 +51,31 @@
   }
 }
 
++ (NSArray<NSNumber*>*)requiredOptionsForCommand:(LGCommandKind)command {
+
+  switch (command) {
+
+    case LGCommandKindHelp: {
+      return @[ ];
+    }
+
+    case LGCommandKindPrint: {
+      return @[ ];
+    }
+
+    case LGCommandKindExport: {
+      return @[
+        @(LGOptionKindMusicMediaDirectory),
+        @(LGOptionKindOutputPath),
+      ];
+    }
+
+    case LGCommandKindUnknown: {
+      return @[ ];
+    }
+  }
+}
+
 + (nullable NSString*)nameForCommand:(LGCommandKind)command {
 
   switch (command) {

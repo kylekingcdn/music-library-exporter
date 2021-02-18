@@ -450,6 +450,29 @@
     return NO;
   }
 
+  NSArray<NSNumber*>* requiredOptions = [LGDefines requiredOptionsForCommand:_command];
+  NSMutableArray* requiredOptionsMissing = [NSMutableArray array];
+  NSMutableArray* requiredOptionsMissingNames = [NSMutableArray array];
+
+  // validate required options have been specified
+  for (NSNumber* optionType in requiredOptions) {
+
+    LGOptionKind option = [optionType integerValue];
+    XPMArgumentSignature* sig = [self signatureForOption:option];
+    NSUInteger sigCount = [_package countOfSignature:sig];
+    if (sigCount == 0) {
+      MLE_Log_Info(@"ArgParser [validateOptions] missing required option: %@", [LGDefines nameForOption:option]);
+      [requiredOptionsMissing addObject:sig];
+      [requiredOptionsMissingNames addObject:[LGDefines nameForOption:option]];
+    }
+  }
+  if (requiredOptionsMissing.count > 0) {
+    _optionsError = @"required options (or their values) are missing";
+    _optionsWithErrors = requiredOptionsMissingNames  ;
+      return NO;
+  }
+
+
   MLE_Log_Info(@"ArgParser [validateOptions] options are valid");
 
   return YES;

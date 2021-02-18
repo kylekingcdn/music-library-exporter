@@ -43,6 +43,8 @@ typedef NS_ENUM(NSInteger, LGOptionKind) {
 
 + (NSArray<NSNumber*>*)optionsForCommand:(LGCommandKind)command;
 
++ (NSArray<NSNumber*>*)requiredOptionsForCommand:(LGCommandKind)command;
+
 + (nullable NSString*)signatureFormatForCommand:(LGCommandKind)command;
 + (nullable NSString*)signatureFormatForOption:(LGOptionKind)option;
 
