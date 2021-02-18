@@ -394,9 +394,16 @@
 
   // no command found
   if (commandTypes.count == 0) {
-    _commandError = @"please enter a valid command";
-    _command = LGCommandKindUnknown;
-    return NO;
+    // interpret running the program with no arguments and no options as a help command
+    if (_processInfo.arguments.count <= 1) {
+      _command = LGCommandKindHelp;
+      return YES;
+    }
+    else {
+      _commandError = @"please enter a valid command";
+      _command = LGCommandKindUnknown;
+      return NO;
+    }
   }
 
   // help command, this returns valid even if more commands are entered as help messages get priority
