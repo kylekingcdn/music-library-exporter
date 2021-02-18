@@ -437,7 +437,7 @@
   }
 
   if (_package.unknownSwitches.count > 0) {
-    _optionsError = @"unrecognized options for command";
+    _optionsError = @"unrecognized options";
     _optionsWithErrors = _package.unknownSwitches;
     return NO;
   }
