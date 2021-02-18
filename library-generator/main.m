@@ -18,6 +18,14 @@
 #import "ExportDelegate.h"
 #import "ArgParser.h"
 #import "XPMArguments.h"
+#import "Logger.h"
+
+void printStatus(const char* statusMessage) {
+
+  printf("\r%-40s\r","");
+  printf("Status: %s", statusMessage);
+  fflush(stdout);
+}
 
 int main(int argc, const char * argv[]) {
 
@@ -29,7 +37,7 @@ int main(int argc, const char * argv[]) {
     // validate command
     if (![argParser validateCommand]) {
       NSString* error = argParser.commandError;
-      NSLog(@"error parsing command: %@", error);
+      printf("error parsing command: %s\n", error.UTF8String);
       return -1;
     }
 
@@ -44,9 +52,9 @@ int main(int argc, const char * argv[]) {
     // validate options
     if (![argParser validateOptions]) {
       NSString* error = argParser.optionsError;
-      NSLog(@"error interpreting options - %@", error);
+      printf("error interpreting options - %s\n", error.UTF8String);
       if (argParser.optionsWithErrors) {
-        NSLog(@"%@", [argParser.optionsWithErrors componentsJoinedByString:@", "]);
+        printf("%s\n", [argParser.optionsWithErrors componentsJoinedByString:@", "].UTF8String);
       }
 
       return -1;
@@ -55,7 +63,7 @@ int main(int argc, const char * argv[]) {
     // generate ExportConfiguration from options
     ExportConfiguration* configuration = [[ExportConfiguration alloc] init];
     if (![argParser populateExportConfiguration:configuration]) {
-      NSLog(@"an internal error occured while interpreting configuration options");
+      printf("an internal error occured while interpreting configuration options\n");
       return -1;
     }
 
@@ -66,7 +74,7 @@ int main(int argc, const char * argv[]) {
     NSError* error = nil;
     ITLibrary* _library = [ITLibrary libraryWithAPIVersion:@"1.1" error:&error];
     if (!_library) {
-      NSLog(@"error - failed to init ITLibrary. error: %@", error.localizedDescription);
+      printf("error - failed to init ITLibrary. error: %s\n", error.localizedDescription.UTF8String);
       return -1;
     }
 
@@ -78,37 +86,37 @@ int main(int argc, const char * argv[]) {
 
       /* prepare for export */
 
-      NSLog(@"preparing for export");
-
+      printStatus("preparing for export");
       LibrarySerializer* _librarySerializer = [[LibrarySerializer alloc] initWithLibrary:_library];
       [_librarySerializer initSerializeMembers];
 
       /* start export */
 
-      NSLog(@"serializing tracks");
+      printStatus("serializing tracks");
       OrderedDictionary* tracksDict = [_librarySerializer serializeTracks:_includedTracks];
 
-      NSLog(@"serializing playlists");
+      printStatus("serializing playlists");
       NSArray<OrderedDictionary*>* playlistsArr = [_librarySerializer serializePlaylists:_includedPlaylists];
 
-      NSLog(@"serializing library");
+      printStatus("serializing library");
       OrderedDictionary* libraryDict = [_librarySerializer serializeLibraryforTracks:tracksDict andPlaylists:playlistsArr];
 
-      NSLog(@"writing to file");
+      printStatus("writing to file");
       BOOL writeSuccess = [libraryDict writeToURL:configuration.outputFileUrl atomically:YES];
       if (!writeSuccess) {
-        NSLog(@"error writing dictionary");
+        printf("error writing dictionary");
         return -1;
       }
+
+      printStatus("complete\n");
     }
     else if (command == LGCommandKindPrint) {
 
       for (ITLibPlaylist* currPlaylist in _includedPlaylists) {
-        NSLog(@"%@ - %@", currPlaylist.name, currPlaylist.persistentID);
+        printf("%s - %s", currPlaylist.name.UTF8String, currPlaylist.persistentID.stringValue.UTF8String);
       }
     }
   }
 
   return 0;
 }
-
