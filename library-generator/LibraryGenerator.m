@@ -9,6 +9,7 @@
 
 #import <iTunesLibrary/ITLibrary.h>
 #import <iTunesLibrary/ITLibPlaylist.h>
+#import <sys/ioctl.h>
 
 #import "Logger.h"
 #import "ArgParser.h"
@@ -20,15 +21,18 @@
 
 @interface LibraryGenerator ()
 
+- (void)clearBuffer;
 - (void)printStatus:(NSString*)message;
+
+- (void)drawProgressBarWithStatus:(NSString*)status forCurrentValue:(NSUInteger)currentVal andTotalValue:(NSUInteger)totalVal;
 
 @end
 
 
 @implementation LibraryGenerator {
 
-  LGCommandKind _command;
-  ExportConfiguration* _configuration;
+  BOOL _printProgress;
+  NSUInteger _termWidth;
 
   ITLibrary* _library;
 
@@ -45,11 +49,45 @@
 
   self = [super init];
 
+  if ([self isRunningInTerminal]) {
+    
+    _printProgress = YES;
+
+    // get terminal width
+    struct winsize w;
+    ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+    _termWidth = w.ws_col;
+  }
+
+  else {
+    _printProgress = NO;
+  }
+
   return self;
 }
 
 
 #pragma mark - Accessors
+
+- (BOOL)isRunningInTerminal {
+
+  NSString* term = [[[NSProcessInfo processInfo] environment] valueForKey:@"TERM"];
+  if (!term) {
+    return NO;
+  }
+
+  return YES;
+}
+
+- (void)clearBuffer {
+
+  printf("\r");
+
+  NSUInteger bufferLen = MIN(100,_termWidth);
+  for (NSUInteger i=0; i<bufferLen; i++){
+    putchar(' ');
+  }
+}
 
 - (void)printHelp {
 
@@ -59,39 +97,86 @@
 
 - (void)printStatus:(NSString*)message {
 
-  printf("\r%-40s\r","");
-  printf("Status: %s", message.UTF8String);
+  printf("%s...", message.UTF8String);
   fflush(stdout);
+}
+
+- (void)printStatusDone:(NSString*)message {
+
+  if (_printProgress) {
+//    printf("\r%-80s"," ");
+//    [self clearBuffer];
+    printf("\r%s...", message.UTF8String);
+  }
+  printf(" done\n");
+  fflush(stdout);
+}
+
+- (void)drawProgressBarWithStatus:(NSString*)status forCurrentValue:(NSUInteger)currentVal andTotalValue:(NSUInteger)totalVal {
+
+  NSUInteger totalSize = MIN(_termWidth,100);
+
+  NSUInteger statusSize = status.length + 4; // 4 extra for '... '
+
+  NSUInteger totalValueDigits = ceil(log10(totalVal));
+  NSUInteger progressSize = totalValueDigits + 1 + totalValueDigits + 1; // '  4/100 '
+
+  NSUInteger bordersSize = 2; // edges of progress bar: '['']'
+  NSUInteger percentageSize = 5; // ' 100%'
+
+  NSUInteger barSize = totalSize - (statusSize + progressSize + bordersSize + percentageSize) /*borders*/; // todo: dynamic
+
+  NSUInteger barFillAmt = (barSize * currentVal) / totalVal;
+  NSUInteger barEmptyAmt = barSize - barFillAmt;
+
+
+//  NSLog(@"statusSize: %li", statusSize);
+//  NSLog(@"progressSize: %li", progressSize);
+//  NSLog(@"percentageSize: %li", percentageSize);
+
+
+  // progress fraction
+  printf("\r%s... %*li/%li ", status.UTF8String, (int)totalValueDigits, currentVal, totalVal);
+
+  // progress bar
+  putchar('[');
+  for (NSUInteger i=0; i<barFillAmt; i++){
+      putchar('=');
+  }
+  for (NSUInteger i=0; i<barEmptyAmt; i++){
+      putchar(' ');
+  }
+  putchar(']');
+
+  // percentage
+  NSUInteger percentComplete = (100 * currentVal) / totalVal;
+  printf(" %3li%%", percentComplete);
+//  putchar('%');
+
+  fflush(stdout);
+}
+
+- (void)printPlaylists {
+
+  // TODO: handle hierarchy
+  for (ITLibPlaylist* currPlaylist in _includedPlaylists) {
+    printf("%-30s  %s\n", currPlaylist.name.UTF8String, currPlaylist.persistentID.stringValue.UTF8String);
+  }
 }
 
 
 #pragma mark - Mutators -
 
-- (void)run {
-
-  MLE_Log_Info(@"LibraryGenerator [run]");
-
-  NSError* setupError = [self setup];
-  if (setupError) {
-    // temporary workaround for error message response
-    if (setupError.localizedDescription && setupError.code != 100) {
-      printf("%s", setupError.localizedDescription.UTF8String);
-    }
-    return;
-  }
-
-  NSError* execError = [self execute];
-  if (execError) {
-    if (execError.localizedDescription) {
-      printf("%s", execError.localizedDescription.UTF8String);
-    }
-    return;
-  }
-}
-
 - (nullable NSError*)setup {
 
   MLE_Log_Info(@"LibraryGenerator [setup]");
+
+  // init ITLibrary
+  NSError* libraryError;
+  _library = [ITLibrary libraryWithAPIVersion:@"1.1" error:&libraryError];
+  if (!_library) {
+    return libraryError;
+  }
 
   ArgParser* argParser = [ArgParser parserWithProcessInfo:[NSProcessInfo processInfo]];
 
@@ -108,10 +193,7 @@
 
   // display help
   if (_command == LGCommandKindHelp) {
-    [self printHelp];
-    // empty helper error message
-// TODO: add custom error code enum for this so that it's not caught as an actual error by caller
-    return [NSError errorWithDomain:__MLE__AppBundleIdentifier code:100 userInfo:nil];;
+    return nil;
   }
 
 // TODO: use NSError directly
@@ -119,7 +201,7 @@
   if (![argParser validateOptions]) {
     NSString* errorMessage = argParser.optionsError;
     if (argParser.optionsWithErrors) {
-      errorMessage = [NSString stringWithFormat:@"%@: %@", errorMessage, [argParser.optionsWithErrors componentsJoinedByString:@", "]];
+      errorMessage = [NSString stringWithFormat:@"%@:\n  %@", errorMessage, [argParser.optionsWithErrors componentsJoinedByString:@"\n  "]];
     }
     return [NSError errorWithDomain:__MLE__AppBundleIdentifier code:3 userInfo:@{ NSLocalizedDescriptionKey:errorMessage }];
   }
@@ -132,41 +214,6 @@
   }
   [ExportConfiguration initSharedConfig:_configuration];
 
-  [_configuration dumpProperties];
-
-  return nil;
-}
-
-- (nullable NSError*)execute {
-
-  MLE_Log_Info(@"LibraryGenerator [execute]");
-
-  // setup config-dependent members
-  NSError* setupPostValidateMembersError = [self setupPostValidationMembers];
-  if (setupPostValidateMembersError) {
-    return setupPostValidateMembersError;
-  }
-
-  // execute command
-  NSError* commandError = [self handleCommand];
-  if (commandError) {
-    return commandError;
-  }
-
-  return nil;
-}
-
-- (nullable NSError*)setupPostValidationMembers {
-
-  MLE_Log_Info(@"LibraryGenerator [setupPostValidationMembers]");
-
-  // init ITLibrary
-  NSError* libraryError;
-  _library = [ITLibrary libraryWithAPIVersion:@"1.1" error:&libraryError];
-  if (!_library) {
-    return libraryError;
-  }
-
   // init LibraryFilter to fetch included media items
   LibraryFilter* libraryFilter = [[LibraryFilter alloc] initWithLibrary:_library];
   _includedTracks = [libraryFilter getIncludedTracks];
@@ -175,64 +222,51 @@
   return nil;
 }
 
-- (nullable NSError*)handleCommand {
+- (nullable NSError*)exportLibrary {
 
-  switch (_command) {
-    case LGCommandKindExport: {
-      return [self handleExportCommand];
-    }
-    case LGCommandKindPrint: {
-      [self handlePrintCommand];
-      return nil;
-    }
-    case LGCommandKindHelp: {
-      [self printHelp];
-      return nil;
-    }
-    case LGCommandKindUnknown: {
-      return [NSError errorWithDomain:__MLE__AppBundleIdentifier code:1 userInfo:@{ NSLocalizedDescriptionKey:@"Unknown command" }];
-    }
-  }
-}
-
-- (nullable NSError*)handleExportCommand {
-
-  MLE_Log_Info(@"LibraryGenerator [handleExportCommand]");
+  MLE_Log_Info(@"LibraryGenerator [exportLibrary]");
 
   /* prepare for export */
 
   [self printStatus:@"preparing for export"];
   LibrarySerializer* _librarySerializer = [[LibrarySerializer alloc] initWithLibrary:_library];
   [_librarySerializer initSerializeMembers];
+  [self printStatusDone:@"preparing for export"];
 
   /* start export */
+  [self printStatus:@"generating tracks"];
+  OrderedDictionary* tracksDict;
+  if (_printProgress) {
+    // add progress callback
+    NSUInteger totalValue = _includedTracks.count;
+    void (^progressCallback)(NSUInteger) = ^(NSUInteger currentValue){
+      [self drawProgressBarWithStatus:@"generating tracks" forCurrentValue:currentValue andTotalValue:totalValue];
+    };
+    tracksDict = [_librarySerializer serializeTracks:_includedTracks withProgressCallback:progressCallback];
+    [self clearBuffer];
+  }
+  else {
+    tracksDict = [_librarySerializer serializeTracks:_includedTracks];
+  }
+  [self printStatusDone:@"generating tracks"];
 
-  [self printStatus:@"serializing tracks"];
-  OrderedDictionary* tracksDict = [_librarySerializer serializeTracks:_includedTracks];
-
-  [self printStatus:@"serializing playlists"];
+  [self printStatus:@"generating playlists"];
   NSArray<OrderedDictionary*>* playlistsArr = [_librarySerializer serializePlaylists:_includedPlaylists];
-
-  [self printStatus:@"serializing library"];
+  [self printStatusDone:@"generating playlists"];
+  
+  [self printStatus:@"generating library"];
   OrderedDictionary* libraryDict = [_librarySerializer serializeLibraryforTracks:tracksDict andPlaylists:playlistsArr];
+  [self printStatusDone:@"generating library"];
 
   [self printStatus:@"writing to file"];
   BOOL writeSuccess = [libraryDict writeToURL:_configuration.outputFileUrl atomically:YES];
   if (!writeSuccess) {
     return [NSError errorWithDomain:__MLE__AppBundleIdentifier code:4 userInfo:@{ NSLocalizedDescriptionKey:@"failed to write dictionary" }];
   }
-
-  [self printStatus:@"complete\n"];
+  [self printStatusDone:@"writing to file"];
 
   return nil;
 }
 
-- (void)handlePrintCommand {
-
-  // TODO: handle hierarchy
-  for (ITLibPlaylist* currPlaylist in _includedPlaylists) {
-    printf("%-30s  %s\n", currPlaylist.name.UTF8String, currPlaylist.persistentID.stringValue.UTF8String);
-  }
-}
 
 @end

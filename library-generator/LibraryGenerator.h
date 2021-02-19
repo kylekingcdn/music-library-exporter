@@ -9,10 +9,19 @@
 
 #import "LGDefines.h"
 
+@class ExportConfiguration;
+
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface LibraryGenerator : NSObject
+
+
+# pragma mark - Properties
+
+@property (readonly) LGCommandKind command;
+
+@property (nullable, readonly) ExportConfiguration* configuration;
 
 
 #pragma mark - Initializers
@@ -22,20 +31,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Accessors
 
+- (BOOL)isRunningInTerminal;
+
 - (void)printHelp;
+- (void)printPlaylists;
 
 
 #pragma mark - Mutators
 
-- (void)run;
 - (nullable NSError*)setup;
-- (nullable NSError*)execute;
 
-- (nullable NSError*)setupPostValidationMembers;
+- (nullable NSError*)exportLibrary;
 
-- (nullable NSError*)handleCommand;
-- (nullable NSError*)handleExportCommand;
-- (void)handlePrintCommand;
 
 @end
 
