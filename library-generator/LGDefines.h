@@ -9,6 +9,21 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+
+extern NSErrorDomain const __MLE_ErrorDomain_ArgParser;
+
+typedef NS_ENUM(NSInteger, ArgParserErrorCode) {
+  ArgParserErrorUknown,
+  ArgParserErrorInvalidCommand,
+  ArgParserErrorInvalidOption,
+  ArgParserErrorMissingRequiredOption,
+  ArgParserErrorMalformedPlaylistIdOption,
+  ArgParserErrorMalformedSortingOptionFormat,
+  ArgParserErrorUnknownSortColumn,
+  ArgParserErrorUnknownSortOrder,
+};
+
+
 @interface LGDefines : NSObject
 
 typedef NS_ENUM(NSInteger, LGCommandKind) {

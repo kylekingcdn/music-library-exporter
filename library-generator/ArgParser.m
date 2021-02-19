@@ -155,7 +155,7 @@
 
     NSDecimalNumber* playlistId = [NSDecimalNumber decimalNumberWithString:playlistIdStr];
     if (playlistId == nil) {
-        *error = [NSError errorWithDomain:[NSString stringWithFormat:@"%@.ArgParserErrorDomain", __MLE__AppBundleIdentifier] code:11 userInfo:@{
+        *error = [NSError errorWithDomain:__MLE_ErrorDomain_ArgParser code:ArgParserErrorMalformedPlaylistIdOption userInfo:@{
           NSLocalizedDescriptionKey: [NSString stringWithFormat:@"error - invalid playlist id for --exclude_ids option: %@", playlistIdStr],
         }];
         return nil;
@@ -193,7 +193,7 @@
   // part 1 will be {id}, part 2 will be {sort_col}-{sort_order}
   NSArray<NSString*>* sortOptionParts = [sortOption componentsSeparatedByString:@":"];
   if (sortOptionParts.count != 2) {
-    *error = [NSError errorWithDomain:[NSString stringWithFormat:@"%@.ArgParserErrorDomain", __MLE__AppBundleIdentifier] code:10 userInfo:@{
+    *error = [NSError errorWithDomain:__MLE_ErrorDomain_ArgParser code:ArgParserErrorMalformedSortingOptionFormat userInfo:@{
       NSLocalizedDescriptionKey: [NSString stringWithFormat:@"error - invalid sorting option format: %@", sortOption],
     }];
     return NO;
@@ -205,7 +205,7 @@
 
   NSDecimalNumber* playlistId = [NSDecimalNumber decimalNumberWithString:playlistIdStr];
   if (playlistId == nil) {
-    *error = [NSError errorWithDomain:[NSString stringWithFormat:@"%@.ArgParserErrorDomain", __MLE__AppBundleIdentifier] code:11 userInfo:@{
+    *error = [NSError errorWithDomain:__MLE_ErrorDomain_ArgParser code:ArgParserErrorMalformedPlaylistIdOption userInfo:@{
       NSLocalizedDescriptionKey: [NSString stringWithFormat:@"error - invalid playlist id for sort option part: %@", sortOption],
     }];
     return NO;
@@ -231,7 +231,7 @@
   NSArray<NSString*>* sortOptionValueParts = [sortOptionValue componentsSeparatedByString:@"-"];
 
   if (sortOptionValueParts.count != 2) {
-    *error = [NSError errorWithDomain:[NSString stringWithFormat:@"%@.ArgParserErrorDomain", __MLE__AppBundleIdentifier] code:10 userInfo:@{
+    *error = [NSError errorWithDomain:__MLE_ErrorDomain_ArgParser code:ArgParserErrorMalformedSortingOptionFormat userInfo:@{
       NSLocalizedDescriptionKey: [NSString stringWithFormat:@"error - invalid sorting option format: %@", sortOptionValue],
     }];
     return NO;
@@ -241,7 +241,7 @@
   PlaylistSortColumnType sortCol = [ArgParser sortColumnForOptionName:sortColStr];
 
   if (sortCol == PlaylistSortColumnNull) {
-    *error = [NSError errorWithDomain:[NSString stringWithFormat:@"%@.ArgParserErrorDomain", __MLE__AppBundleIdentifier] code:12 userInfo:@{
+    *error = [NSError errorWithDomain:__MLE_ErrorDomain_ArgParser code:ArgParserErrorUnknownSortColumn userInfo:@{
       NSLocalizedDescriptionKey: [NSString stringWithFormat:@"error - unknown sort column specifier: %@", sortColStr],
     }];
     return NO;
@@ -251,7 +251,7 @@
   PlaylistSortOrderType sortOrder = [ArgParser sortOrderForOptionName:sortOrderStr];
 
   if (sortOrder == PlaylistSortOrderNull) {
-    *error = [NSError errorWithDomain:[NSString stringWithFormat:@"%@.ArgParserErrorDomain", __MLE__AppBundleIdentifier] code:13 userInfo:@{
+    *error = [NSError errorWithDomain:__MLE_ErrorDomain_ArgParser code:ArgParserErrorUnknownSortOrder userInfo:@{
       NSLocalizedDescriptionKey: [NSString stringWithFormat:@"error - unknown sort order specifier: %@", sortOrderStr],
     }];
     return NO;
@@ -368,7 +368,7 @@
       return YES;
     }
     else {
-      *error = [NSError errorWithDomain:[NSString stringWithFormat:@"%@.ArgParserErrorDomain", __MLE__AppBundleIdentifier] code:10 userInfo:@{
+      *error = [NSError errorWithDomain:__MLE_ErrorDomain_ArgParser code:ArgParserErrorInvalidCommand userInfo:@{
         NSLocalizedDescriptionKey: [NSString stringWithFormat:@"error - invalid command entered. valid commands: %@", [LGDefines.commandNames componentsJoinedByString:@", "]],
       }];
       _command = LGCommandKindUnknown;
@@ -384,7 +384,7 @@
 
   // multiple commands entered
   if (commandTypes.count > 1) {
-    *error = [NSError errorWithDomain:[NSString stringWithFormat:@"%@.ArgParserErrorDomain", __MLE__AppBundleIdentifier] code:10 userInfo:@{
+    *error = [NSError errorWithDomain:__MLE_ErrorDomain_ArgParser code:ArgParserErrorInvalidCommand userInfo:@{
       NSLocalizedDescriptionKey: [NSString stringWithFormat:@"error - only one command can be specified at a time"],
     }];
     _command = LGCommandKindUnknown;
@@ -405,7 +405,7 @@
   NSAssert(_command != LGCommandKindUnknown, @"validateOptionsAndReturnError called without valid command");
 
   if (_package.unknownSwitches.count > 0) {
-    *error = [NSError errorWithDomain:[NSString stringWithFormat:@"%@.ArgParserErrorDomain", __MLE__AppBundleIdentifier] code:10 userInfo:@{
+    *error = [NSError errorWithDomain:__MLE_ErrorDomain_ArgParser code:ArgParserErrorInvalidOption userInfo:@{
       NSLocalizedDescriptionKey: [NSString stringWithFormat:@"error - unrecognized options: %@", [_package.unknownSwitches componentsJoinedByString:@", "]],
     }];
     return NO;
@@ -414,7 +414,7 @@
   if (_package.uncapturedValues.count > 1) {
     NSMutableArray* trulyUncaptured = [_package.uncapturedValues mutableCopy];
     [trulyUncaptured removeObjectAtIndex:0];
-    *error = [NSError errorWithDomain:[NSString stringWithFormat:@"%@.ArgParserErrorDomain", __MLE__AppBundleIdentifier] code:10 userInfo:@{
+    *error = [NSError errorWithDomain:__MLE_ErrorDomain_ArgParser code:ArgParserErrorInvalidCommand userInfo:@{
       NSLocalizedDescriptionKey: [NSString stringWithFormat:@"error - unexpected arguments: %@", [trulyUncaptured componentsJoinedByString:@", "]],
     }];
     return NO;
@@ -437,7 +437,7 @@
     }
   }
   if (requiredOptionsMissing.count > 0) {
-    *error = [NSError errorWithDomain:[NSString stringWithFormat:@"%@.ArgParserErrorDomain", __MLE__AppBundleIdentifier] code:10 userInfo:@{
+    *error = [NSError errorWithDomain:__MLE_ErrorDomain_ArgParser code:ArgParserErrorMissingRequiredOption userInfo:@{
       NSLocalizedDescriptionKey: [NSString stringWithFormat:@"error - required options are incomplete: %@", [requiredOptionsMissingNames componentsJoinedByString:@", "]],
     }];
     return NO;

@@ -7,6 +7,10 @@
 
 #import "LGDefines.h"
 
+
+NSErrorDomain const __MLE_ErrorDomain_ArgParser = @"com.kylekingcdn.MusicLibraryExporter.ArgParserErrorDomain";
+
+
 @implementation LGDefines
 
 
