@@ -93,6 +93,7 @@
     }
   }
 }
+
 + (nullable NSString*)nameForOption:(LGOptionKind)option {
 
   switch (option) {

@@ -30,8 +30,6 @@
 
   _processInfo = processInfo;
 
-  [self dumpArguments];
-
   [self initMemberSignatures];
 
   return self;

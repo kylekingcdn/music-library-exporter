@@ -104,8 +104,6 @@
 - (void)printStatusDone:(NSString*)message {
 
   if (_printProgress) {
-//    printf("\r%-80s"," ");
-//    [self clearBuffer];
     printf("\r%s...", message.UTF8String);
   }
   printf(" done\n");
@@ -124,16 +122,10 @@
   NSUInteger bordersSize = 2; // edges of progress bar: '['']'
   NSUInteger percentageSize = 4; // ' 100%'
 
-  NSUInteger barSize = totalSize - (statusSize + progressSize + bordersSize + percentageSize) /*borders*/; // todo: dynamic
+  NSUInteger barSize = totalSize - (statusSize + progressSize + bordersSize + percentageSize);
 
   NSUInteger barFillAmt = (barSize * currentVal) / totalVal;
   NSUInteger barEmptyAmt = barSize - barFillAmt;
-
-
-//  NSLog(@"statusSize: %li", statusSize);
-//  NSLog(@"progressSize: %li", progressSize);
-//  NSLog(@"percentageSize: %li", percentageSize);
-
 
   // progress fraction
   printf("\r%s... %*li/%li ", status.UTF8String, (int)totalValueDigits, currentVal, totalVal);
@@ -151,7 +143,6 @@
   // percentage
   NSUInteger percentComplete = (99 * currentVal)/totalVal; // don't let it reach 100%
   printf(" %2li%%", percentComplete);
-//  putchar('%');
 
   fflush(stdout);
 }
