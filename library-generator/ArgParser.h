@@ -49,9 +49,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSSet<NSNumber*>*)playlistIdsForIdsOption:(NSString*)playlistIdsOption;
 
-+ (BOOL)parsePlaylistSortingOption:(NSString*)sortOption forColumnDict:(NSMutableDictionary*)sortColDict andOrderDict:(NSMutableDictionary*)sortOrderDict withError:(NSError**)error;
-+ (BOOL)parsePlaylistSortingSegment:(NSString*)sortOption forColumnDict:(NSMutableDictionary*)sortColDict andOrderDict:(NSMutableDictionary*)sortOrderDict withError:(NSError**)error;
-+ (BOOL)parsePlaylistSortingSegmentValue:(NSString*)sortOptionValue forColumn:(PlaylistSortColumnType*)sortColumn andOrder:(PlaylistSortOrderType*)sortOrder withError:(NSError**)error;
++ (BOOL)parsePlaylistSortingOption:(NSString*)sortOption forColumnDict:(NSMutableDictionary*)sortColDict andOrderDict:(NSMutableDictionary*)sortOrderDict andReturnError:(NSError**)error;
++ (BOOL)parsePlaylistSortingSegment:(NSString*)sortOption forColumnDict:(NSMutableDictionary*)sortColDict andOrderDict:(NSMutableDictionary*)sortOrderDict andReturnError:(NSError**)error;
++ (BOOL)parsePlaylistSortingSegmentValue:(NSString*)sortOptionValue forColumn:(PlaylistSortColumnType*)sortColumn andOrder:(PlaylistSortOrderType*)sortOrder andReturnError:(NSError**)error;
 
 + (PlaylistSortColumnType)sortColumnForOptionName:(NSString*)sortColumnOption;
 + (PlaylistSortOrderType)sortOrderForOptionName:(NSString*)sortOrderOption;
