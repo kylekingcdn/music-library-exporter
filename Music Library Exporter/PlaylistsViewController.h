@@ -49,13 +49,6 @@ typedef NS_ENUM(NSInteger, TableColumnType) {
 
 - (nullable PlaylistNode*)playlistNodeForCellView:(NSView*)cellView;
 
-- (NSArray<ITLibPlaylist*>*)playlistsWithParentId:(nullable NSNumber*)playlistId;
-- (NSArray<ITLibPlaylist*>*)topLevelPlaylists;
-- (NSArray<ITLibPlaylist*>*)childrenForPlaylist:(ITLibPlaylist*)playlist;
-
-- (PlaylistNode*)createRootNode;
-- (PlaylistNode*)createNodeForPlaylist:(ITLibPlaylist*)playlist;
-
 - (void)updateSortingButton:(NSPopUpButton*)button forPlaylist:(ITLibPlaylist*)playlist;
 
 

@@ -13,6 +13,7 @@
 #import "Logger.h"
 #import "Utils.h"
 #import "PlaylistNode.h"
+#import "PlaylistTree.h"
 #import "ExportConfiguration.h"
 #import "LibraryFilter.h"
 #import "CheckBoxTableCellView.h"
@@ -32,10 +33,8 @@
 
   ITLibrary* _library;
 
-  NSArray<ITLibPlaylist*>* _filteredPlaylists;
-
   LibraryFilter* _libraryFilter;
-  PlaylistNode* _rootNode;
+  PlaylistTree* _playlistTree;
 }
 
 
@@ -47,6 +46,8 @@
 
   _library = library;
   _libraryFilter = [[LibraryFilter alloc] initWithLibrary:_library];
+
+  _playlistTree = [[PlaylistTree alloc] init];
 
   // show playlists that have been manually excluded to allow for changing status
   [_libraryFilter setFilterExcludedPlaylistIds:NO];
@@ -217,90 +218,6 @@
   return node;
 }
 
-- (NSArray<ITLibPlaylist*>*)playlistsWithParentId:(nullable NSNumber*)parentId {
-
-  NSMutableArray<ITLibPlaylist*>* children = [NSMutableArray array];
-
-  for (ITLibPlaylist* playlist in _filteredPlaylists) {
-
-    // check if we are not looking for root objects (parameterized parentId != nil) and playlist has a valid parent Id
-    if (parentId && playlist.parentID) {
-      if ([parentId isEqualToNumber:playlist.parentID]) {
-        [children addObject:playlist];
-      }
-    }
-    // The result of the above if-statement failing is that one of the IDs is nil.
-    //   Therefore both must be nil if their pointer values are equal.
-    else if (parentId == playlist.parentID) {
-      [children addObject:playlist];
-    }
-  }
-
-  return children;
-}
-
-- (NSArray<ITLibPlaylist*>*)topLevelPlaylists {
-
-  if (ExportConfiguration.sharedConfig.flattenPlaylistHierarchy) {
-    return _filteredPlaylists;
-  }
-  else {
-    return [self playlistsWithParentId:nil];
-  }
-}
-
-- (NSArray<ITLibPlaylist*>*)childrenForPlaylist:(ITLibPlaylist*)playlist {
-
-  if (playlist.kind == ITLibPlaylistKindFolder) {
-    return [self playlistsWithParentId:playlist.persistentID];
-  }
-  else {
-    return [NSArray array];
-  }
-}
-
-- (PlaylistNode*)createRootNode {
-
-  NSMutableArray<PlaylistNode*>* childNodes = [NSMutableArray array];
-
-  // folders/hierarchy is disabled - all playlists are children of root and none have their own children
-  if (ExportConfiguration.sharedConfig.flattenPlaylistHierarchy) {
-
-    for (ITLibPlaylist* childPlaylist in _filteredPlaylists) {
-      PlaylistNode* childNode = [PlaylistNode nodeWithPlaylist:childPlaylist andChildren:[NSArray array]];
-      [childNodes addObject:childNode];
-    }
-  }
-
-  else {
-
-    NSArray<ITLibPlaylist*>* childPlaylists = [self topLevelPlaylists];
-
-    // recursively generate child nodes for playlist
-    for (ITLibPlaylist* childPlaylist in childPlaylists) {
-      PlaylistNode* childNode = [self createNodeForPlaylist:childPlaylist];
-      [childNodes addObject:childNode];
-    }
-  }
-
-  return [PlaylistNode nodeWithPlaylist:nil andChildren:childNodes];
-}
-
-- (PlaylistNode*)createNodeForPlaylist:(ITLibPlaylist*)playlist {
-
-  NSMutableArray<PlaylistNode*>* childNodes = [NSMutableArray array];
-
-  NSArray<ITLibPlaylist*>* childPlaylists = [self childrenForPlaylist:playlist];
-
-  // recursively generate child nodes for playlist
-  for (ITLibPlaylist* childPlaylist in childPlaylists) {
-    PlaylistNode* childNode = [self createNodeForPlaylist:childPlaylist];
-    [childNodes addObject:childNode];
-  }
-
-  return [PlaylistNode nodeWithPlaylist:playlist andChildren:childNodes];
-}
-
 - (void)updateSortingButton:(NSPopUpButton*)button forPlaylist:(ITLibPlaylist*)playlist {
 
   PlaylistSortColumnType sortColumn = [ExportConfiguration.sharedConfig playlistCustomSortColumn:playlist.persistentID];
@@ -348,9 +265,8 @@
     return;
   }
 
-  _filteredPlaylists = [_libraryFilter getIncludedPlaylists];
-
-  _rootNode = [self createRootNode];
+  [_playlistTree setFlattened:ExportConfiguration.sharedConfig.flattenPlaylistHierarchy];
+  [_playlistTree generateForSourcePlaylists:[_libraryFilter getIncludedPlaylists]];
 }
 
 - (IBAction)setPlaylistExcludedForCellView:(id)sender {
@@ -433,30 +349,30 @@
 
 - (NSInteger)outlineView:(NSOutlineView*)outlineView numberOfChildrenOfItem:(nullable id)item {
 
-  if(!_rootNode) {
+  if(!_playlistTree.rootNode) {
     return 0;
   }
 
   // use rootNode if item is nil
-  PlaylistNode* node = item ? item : _rootNode;
+  PlaylistNode* node = item ? item : _playlistTree.rootNode;
 
   return node.children.count;
 }
 
 - (id)outlineView:(NSOutlineView*)outlineView child:(NSInteger)index ofItem:(nullable id)item {
 
-  PlaylistNode* node = item ? item : _rootNode;
+  PlaylistNode* node = item ? item : _playlistTree.rootNode;
 
   return [node.children objectAtIndex:index];
 }
 
 - (BOOL)outlineView:(NSOutlineView*)outlineView isItemExpandable:(id)item {
 
-  if(!_rootNode) {
+  if (!_playlistTree.rootNode) {
     return NO;
   }
 
-  PlaylistNode* node = item ? item : _rootNode;
+  PlaylistNode* node = item ? item : _playlistTree.rootNode;
 
   return node.children.count > 0;
 }
