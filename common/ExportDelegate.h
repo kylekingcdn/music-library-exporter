@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readonly) ExportState state;
 
-@property (copy) void (^trackProgressCallback)(NSUInteger);
+@property (copy) void (^trackProgressCallback)(NSUInteger,NSUInteger);
 @property (copy) void (^stateCallback)(NSInteger);
 
 @property (readonly) NSArray<ITLibMediaItem*>* includedTracks;

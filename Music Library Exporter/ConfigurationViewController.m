@@ -306,17 +306,14 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
     return;
   }
 
-  NSUInteger trackCount = _exportDelegate.includedTracks.count;
-
   [_exportProgressBar setDoubleValue:0];
   [_exportProgressBar setMinValue:0];
-  [_exportProgressBar setMaxValue:trackCount];
 
   dispatch_async(gcdQueue, ^{
 
     // add progress callback
-    void (^progressCallback)(NSUInteger) = ^(NSUInteger currentTrack){
-      [self handleTrackExportProgress:currentTrack withTotal:trackCount];
+    void (^progressCallback)(NSUInteger,NSUInteger) = ^(NSUInteger trackIndex, NSUInteger trackCount){
+      [self handleTrackExportProgress:trackIndex withTotal:trackCount];
     };
     [self->_exportDelegate setTrackProgressCallback:progressCallback];
 
@@ -329,7 +326,10 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
 //  MLE_Log_Info(@"ConfigurationViewController [handleTrackExportProgress %lu/%lu]", currentTrack, trackCount);
   
   dispatch_async(dispatch_get_main_queue(), ^{
-    
+
+    if (self->_exportProgressBar.maxValue != trackCount) {
+      [self->_exportProgressBar setMaxValue:trackCount];
+    }
     [self->_exportProgressBar setDoubleValue:currentTrack];
     [self->_exportStateLabel setStringValue:[NSString stringWithFormat:@"Generating track %lu/%lu", currentTrack+1, trackCount]];
   });

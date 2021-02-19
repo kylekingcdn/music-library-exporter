@@ -238,9 +238,8 @@
   OrderedDictionary* tracksDict;
   if (_printProgress) {
     // add progress callback
-    NSUInteger totalValue = _includedTracks.count;
-    void (^progressCallback)(NSUInteger) = ^(NSUInteger currentValue){
-      [self drawProgressBarWithStatus:@"generating tracks" forCurrentValue:currentValue andTotalValue:totalValue];
+    void (^progressCallback)(NSUInteger,NSUInteger) = ^(NSUInteger trackIndex, NSUInteger trackCount){
+      [self drawProgressBarWithStatus:@"generating tracks" forCurrentValue:trackIndex andTotalValue:trackCount];
     };
     tracksDict = [_librarySerializer serializeTracks:_includedTracks withProgressCallback:progressCallback];
     [self clearBuffer];
