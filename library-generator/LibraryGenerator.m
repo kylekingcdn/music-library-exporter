@@ -250,7 +250,18 @@
   [self printStatusDone:@"generating tracks"];
 
   [self printStatus:@"generating playlists"];
-  NSArray<OrderedDictionary*>* playlistsArr = [_librarySerializer serializePlaylists:_includedPlaylists];
+  NSArray<OrderedDictionary*>* playlistsArr;
+  if (_printProgress) {
+    // add playlist progress callback
+    void (^playlistProgressCallback)(NSUInteger,NSUInteger) = ^(NSUInteger playlistIndex, NSUInteger playlistCount){
+      [self drawProgressBarWithStatus:@"generating playlists" forCurrentValue:playlistIndex andTotalValue:playlistCount];
+    };
+    playlistsArr = [_librarySerializer serializePlaylists:_includedPlaylists withProgressCallback:playlistProgressCallback];
+    [self clearBuffer];
+  }
+  else {
+    playlistsArr = [_librarySerializer serializePlaylists:_includedPlaylists];
+  }
   [self printStatusDone:@"generating playlists"];
   
   [self printStatus:@"generating library"];

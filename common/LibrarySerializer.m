@@ -118,11 +118,22 @@
 
 - (NSArray<OrderedDictionary*>*)serializePlaylists:(NSArray<ITLibPlaylist*>*)playlists {
 
-  MLE_Log_Info(@"LibrarySerializer [serializePlaylists:(%lu)]", playlists.count);
+  return [self serializePlaylists:playlists withProgressCallback:nil];
+}
+
+- (NSArray<OrderedDictionary*>*)serializePlaylists:(NSArray<ITLibPlaylist*>*)playlists withProgressCallback:(nullable void(^)(NSUInteger,NSUInteger))progressCallback {
 
   NSMutableArray<OrderedDictionary*>* playlistsArray = [NSMutableArray array];
+  NSUInteger playlistCount = playlists.count;
+  NSUInteger playlistIndex = 0;
+
+  MLE_Log_Info(@"LibrarySerializer [serializePlaylists:(%lu)]", playlists.count);
 
   for (ITLibPlaylist* playlist in playlists) {
+
+    if (progressCallback) {
+      progressCallback(playlistIndex, playlistCount);
+    }
 
     NSNumber* playlistId = [self addEntityToIdDict:playlist];
 
@@ -131,6 +142,8 @@
 
     // add playlist dictionary object to playlistsArray
     [playlistsArray addObject:playlistDict];
+
+    playlistIndex++;
   }
 
   return playlistsArray;

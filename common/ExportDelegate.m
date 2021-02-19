@@ -130,7 +130,7 @@
   // serialize playlists
   MLE_Log_Info(@"ExportDelegate [exportLibrary] serializing playlists");
   [self updateState:ExportGeneratingPlaylists];
-  NSArray<OrderedDictionary*>* playlists = [_librarySerializer serializePlaylists:_includedPlaylists];
+  NSArray<OrderedDictionary*>* playlists = [_librarySerializer serializePlaylists:_includedPlaylists withProgressCallback:_playlistProgressCallback];
 
   // serialize library
   MLE_Log_Info(@"ExportDelegate [exportLibrary] serializing library");
