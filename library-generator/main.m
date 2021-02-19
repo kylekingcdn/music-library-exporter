@@ -22,7 +22,7 @@ int main(int argc, const char * argv[]) {
       if (setupError.localizedDescription) {
         printf("%s", setupError.localizedDescription.UTF8String);
       }
-      return -1;
+      return 1;
     }
 
     // generator won't always be initialized (e.g. for help command)
@@ -58,7 +58,7 @@ int main(int argc, const char * argv[]) {
       if (commandError.localizedDescription) {
         printf("%s", commandError.localizedDescription.UTF8String);
       }
-      return -1;
+      return 1;
     }
   }
 
