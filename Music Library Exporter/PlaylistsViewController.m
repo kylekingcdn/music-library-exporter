@@ -239,28 +239,54 @@
   return children;
 }
 
-- (NSArray<ITLibPlaylist*>*)childrenForPlaylist:(nullable ITLibPlaylist*)playlist {
+- (NSArray<ITLibPlaylist*>*)topLevelPlaylists {
 
-  if (playlist) {
-    if (playlist.kind == ITLibPlaylistKindFolder) {
-      return [self playlistsWithParentId:playlist.persistentID];
-    }
-    else {
-      return [NSArray array];
-    }
+  if (ExportConfiguration.sharedConfig.flattenPlaylistHierarchy) {
+    return _filteredPlaylists;
   }
-  // if playlist is nil, we return the root playlists (or all if flatten hierarchy is enabled)
   else {
-    if (ExportConfiguration.sharedConfig.flattenPlaylistHierarchy) {
-      return _filteredPlaylists;
-    }
-    else {
-      return [self playlistsWithParentId:nil];
-    }
+    return [self playlistsWithParentId:nil];
   }
 }
 
-- (PlaylistNode*)createNodeForPlaylist:(nullable ITLibPlaylist*)playlist {
+- (NSArray<ITLibPlaylist*>*)childrenForPlaylist:(ITLibPlaylist*)playlist {
+
+  if (playlist.kind == ITLibPlaylistKindFolder) {
+    return [self playlistsWithParentId:playlist.persistentID];
+  }
+  else {
+    return [NSArray array];
+  }
+}
+
+- (PlaylistNode*)createRootNode {
+
+  NSMutableArray<PlaylistNode*>* childNodes = [NSMutableArray array];
+
+  // folders/hierarchy is disabled - all playlists are children of root and none have their own children
+  if (ExportConfiguration.sharedConfig.flattenPlaylistHierarchy) {
+
+    for (ITLibPlaylist* childPlaylist in _filteredPlaylists) {
+      PlaylistNode* childNode = [PlaylistNode nodeWithPlaylist:childPlaylist andChildren:[NSArray array]];
+      [childNodes addObject:childNode];
+    }
+  }
+
+  else {
+
+    NSArray<ITLibPlaylist*>* childPlaylists = [self topLevelPlaylists];
+
+    // recursively generate child nodes for playlist
+    for (ITLibPlaylist* childPlaylist in childPlaylists) {
+      PlaylistNode* childNode = [self createNodeForPlaylist:childPlaylist];
+      [childNodes addObject:childNode];
+    }
+  }
+
+  return [PlaylistNode nodeWithPlaylist:nil andChildren:childNodes];
+}
+
+- (PlaylistNode*)createNodeForPlaylist:(ITLibPlaylist*)playlist {
 
   NSMutableArray<PlaylistNode*>* childNodes = [NSMutableArray array];
 
@@ -324,7 +350,7 @@
 
   _filteredPlaylists = [_libraryFilter getIncludedPlaylists];
 
-  _rootNode = [self createNodeForPlaylist:nil];
+  _rootNode = [self createRootNode];
 }
 
 - (IBAction)setPlaylistExcludedForCellView:(id)sender {
