@@ -171,6 +171,17 @@
   return optionName;
 }
 
++ (NSArray<NSString*>*)commandNames {
+
+  NSMutableArray<NSString*>* names = [NSMutableArray array];
+
+  for (LGCommandKind command = LGCommandKindHelp; command < LGCommandKindUnknown; command++) {
+    [names addObject:[LGDefines nameForCommand:command]];
+  }
+
+  return names;
+}
+
 + (nullable NSString*)signatureFormatForCommand:(LGCommandKind)command {
 
   switch (command) {
