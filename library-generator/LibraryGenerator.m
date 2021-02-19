@@ -122,7 +122,7 @@
   NSUInteger progressSize = totalValueDigits + 1 + totalValueDigits + 1; // '  4/100 '
 
   NSUInteger bordersSize = 2; // edges of progress bar: '['']'
-  NSUInteger percentageSize = 5; // ' 100%'
+  NSUInteger percentageSize = 4; // ' 100%'
 
   NSUInteger barSize = totalSize - (statusSize + progressSize + bordersSize + percentageSize) /*borders*/; // todo: dynamic
 
@@ -149,8 +149,8 @@
   putchar(']');
 
   // percentage
-  NSUInteger percentComplete = (100 * currentVal) / totalVal;
-  printf(" %3li%%", percentComplete);
+  NSUInteger percentComplete = (99 * currentVal)/totalVal; // don't let it reach 100%
+  printf(" %2li%%", percentComplete);
 //  putchar('%');
 
   fflush(stdout);
