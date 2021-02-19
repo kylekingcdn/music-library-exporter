@@ -311,11 +311,11 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
 
   dispatch_async(gcdQueue, ^{
 
-    // add progress callback
-    void (^progressCallback)(NSUInteger,NSUInteger) = ^(NSUInteger trackIndex, NSUInteger trackCount){
+    // add track progress callback
+    void (^trackProgressCallback)(NSUInteger,NSUInteger) = ^(NSUInteger trackIndex, NSUInteger trackCount){
       [self handleTrackExportProgress:trackIndex withTotal:trackCount];
     };
-    [self->_exportDelegate setTrackProgressCallback:progressCallback];
+    [self->_exportDelegate setTrackProgressCallback:trackProgressCallback];
 
     [self->_exportDelegate exportLibrary];
   });

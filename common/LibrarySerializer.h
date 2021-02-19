@@ -50,7 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSArray<OrderedDictionary*>*)serializePlaylistItems:(NSArray<ITLibMediaItem*>*)trackItems;
 
-- (OrderedDictionary*)serializeTracks:(NSArray<ITLibMediaItem*>*)tracks withProgressCallback:(nullable void(^)(NSUInteger,NSUInteger))callback;
+- (OrderedDictionary*)serializeTracks:(NSArray<ITLibMediaItem*>*)tracks withProgressCallback:(nullable void(^)(NSUInteger,NSUInteger))progressCallback;
 - (OrderedDictionary*)serializeTracks:(NSArray<ITLibMediaItem*>*)tracks;
 - (OrderedDictionary*)serializeTrack:(ITLibMediaItem*)trackItem withId:(NSNumber*)trackId;
 

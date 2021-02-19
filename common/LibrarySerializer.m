@@ -221,7 +221,7 @@
   return [self serializeTracks:tracks withProgressCallback:nil];
 }
 
-- (OrderedDictionary*)serializeTracks:(NSArray<ITLibMediaItem*>*)tracks withProgressCallback:(nullable void(^)(NSUInteger,NSUInteger))callback {
+- (OrderedDictionary*)serializeTracks:(NSArray<ITLibMediaItem*>*)tracks withProgressCallback:(nullable void(^)(NSUInteger,NSUInteger))progressCallback {
 
   MutableOrderedDictionary* tracksDict = [MutableOrderedDictionary dictionary];
   NSUInteger trackCount = tracks.count;
@@ -235,10 +235,10 @@
 
   for (ITLibMediaItem* track in tracks) {
 
-    if (callback) {
+    if (progressCallback) {
       if (progressVal == callbackInterval - 1) {
         progressVal = 0;
-        callback(currentTrack, trackCount);
+        progressCallback(currentTrack, trackCount);
       }
       else {
         progressVal++;
@@ -255,8 +255,8 @@
     currentTrack++;
   }
 
-  if (callback) {
-    callback(trackCount, trackCount);
+  if (progressCallback) {
+    progressCallback(trackCount, trackCount);
   }
 
   MLE_Log_Info(@"LibrarySerializer [serializeTracks] finished - %@", [[NSDate date] description]);
