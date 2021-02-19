@@ -292,7 +292,7 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
 
 - (IBAction)exportLibrary:(id)sender {
 
-  dispatch_queue_attr_t queuePriorityAttr = dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_SERIAL, QOS_CLASS_USER_INITIATED, 0);
+  dispatch_queue_attr_t queuePriorityAttr = dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_SERIAL, QOS_CLASS_UTILITY, 0);
   dispatch_queue_t gcdQueue = dispatch_queue_create("ExportQueue", queuePriorityAttr);
 
   // add state callback immediately
