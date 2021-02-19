@@ -58,7 +58,7 @@
   // init ITLibrary
   NSError *error = nil;
   _library = [ITLibrary libraryWithAPIVersion:@"1.1" error:&error];
-  if (!_library) {
+  if (_library == nil) {
     MLE_Log_Info(@"AppDelegate [applicationDidFinishLaunching] error - failed to init ITLibrary. error: %@", error.localizedDescription);
     return;
   }

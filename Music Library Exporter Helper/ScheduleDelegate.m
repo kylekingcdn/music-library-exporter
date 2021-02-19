@@ -64,7 +64,7 @@
   if (ScheduleConfiguration.sharedConfig.scheduleEnabled) {
 
     // overdue, schedule 60s from now
-    if (!lastExportDate) {
+    if (lastExportDate == nil) {
       return [NSDate dateWithTimeIntervalSinceNow:60];
     }
 
@@ -140,7 +140,7 @@
 
 - (ExportDeferralReason)reasonToDeferExport {
 
-  if (!_exportDelegate) {
+  if (_exportDelegate == nil) {
     return ExportDeferralErrorReason;
   }
   if (ScheduleConfiguration.sharedConfig.skipOnBattery && [ScheduleDelegate isSystemRunningOnBattery]) {

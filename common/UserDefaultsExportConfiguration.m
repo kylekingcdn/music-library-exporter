@@ -64,7 +64,7 @@ static UserDefaultsExportConfiguration* _sharedConfig;
 }
 - (NSString*)outputDirectoryBookmarkKey {
 
-  if (!_outputDirectoryBookmarkKeySuffix || _outputDirectoryBookmarkKeySuffix.length == 0) {
+  if (_outputDirectoryBookmarkKeySuffix == nil || _outputDirectoryBookmarkKeySuffix.length == 0) {
     return @"OutputDirectoryBookmark";
   }
   else {
@@ -226,7 +226,7 @@ static UserDefaultsExportConfiguration* _sharedConfig;
   NSData* outputDirBookmarkData = [self fetchOutputDirectoryBookmarkData];
 
   // no bookmark has been saved yet
-  if (!outputDirBookmarkData) {
+  if (outputDirBookmarkData == nil) {
     return nil;
   }
 

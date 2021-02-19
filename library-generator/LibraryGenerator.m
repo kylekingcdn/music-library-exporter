@@ -72,7 +72,7 @@
 - (BOOL)isRunningInTerminal {
 
   NSString* term = [[[NSProcessInfo processInfo] environment] valueForKey:@"TERM"];
-  if (!term) {
+  if (term == nil) {
     return NO;
   }
 
@@ -174,7 +174,7 @@
   // init ITLibrary
   NSError* libraryError;
   _library = [ITLibrary libraryWithAPIVersion:@"1.1" error:&libraryError];
-  if (!_library) {
+  if (_library == nil) {
     return libraryError;
   }
 

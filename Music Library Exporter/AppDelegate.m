@@ -83,7 +83,7 @@
   // init ITLibrary
   NSError *error = nil;
   _library = [ITLibrary libraryWithAPIVersion:@"1.1" error:&error];
-  if (!_library) {
+  if (_library == nil) {
     MLE_Log_Info(@"AppDelegate [applicationDidFinishLaunching] error - failed to init ITLibrary. error: %@", error.localizedDescription);
     return;
   }
@@ -94,19 +94,10 @@
 
   _configurationViewController = [[ConfigurationViewController alloc] initWithExportDelegate:_exportDelegate
                                                                           forHelperDelegate:_helperDelegate];
-
   // add configurationView to window contentview
   [_configurationViewController.view setFrame:_window.contentView.frame];
   [_window.contentView addSubview:_configurationViewController.view];
   [_window setInitialFirstResponder:_configurationViewController.firstResponderView];
-
-  // init ITLibrary instance
-  NSError *initLibraryError = nil;
-  _library = [ITLibrary libraryWithAPIVersion:@"1.1" error:&initLibraryError];
-  if (!_library) {
-    MLE_Log_Info(@"AppDelegate [applicationDidFinishLaunching]  error - failed to init ITLibrary. error: %@", initLibraryError.localizedDescription);
-    return;
-  }
 
   [_window makeKeyAndOrderFront:NSApp];
 }
@@ -140,7 +131,7 @@
 
 - (void)showPlaylistsView {
 
-  if (!_playlistsViewController) {
+  if (_playlistsViewController == nil) {
 
     // init playlistsView
     _playlistsViewController = [[PlaylistsViewController alloc] initWithLibrary:_library];

@@ -154,7 +154,7 @@
   MLE_Log_Info(@"ExportDelegate [writeDictionary]");
 
   NSURL* outputDirectoryUrl = UserDefaultsExportConfiguration.sharedConfig.resolveAndAutoRenewOutputDirectoryUrl;
-  if (!outputDirectoryUrl) {
+  if (outputDirectoryUrl == nil) {
     MLE_Log_Info(@"ExportDelegate [writeDictionary] unable to retrieve output directory - a directory must be selected to obtain write permission");
     return NO;
   }

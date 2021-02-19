@@ -154,7 +154,7 @@
   for (NSString* playlistIdStr in playlistIdStrings) {
 
     NSDecimalNumber* playlistId = [NSDecimalNumber decimalNumberWithString:playlistIdStr];
-    if (!playlistId) {
+    if (playlistId == nil) {
       MLE_Log_Info(@"ArgParser [parsePlaylistIdsOption]: error - failed to parse playlist id: %@", playlistIdStr);
     }
     else {
@@ -205,7 +205,7 @@
     NSString* playlistSortValuesStr = sortOptionParts.lastObject;
 
     NSDecimalNumber* playlistId = [NSDecimalNumber decimalNumberWithString:playlistIdStr];
-    if (!playlistId) {
+    if (playlistId == nil) {
       errorCode = 2;
       errorDescription = [NSString stringWithFormat:@"Invalid playlist id for sort option part: %@", sortOption];
     }
@@ -222,7 +222,7 @@
   }
 
   if (errorCode >= 0) {
-    if (!errorDescription) {
+    if (errorDescription == nil) {
       errorDescription = @"Unknown error";
     }
     NSDictionary<NSErrorUserInfoKey,id>* errorInfo = [NSDictionary dictionaryWithObjectsAndKeys:errorDescription, NSLocalizedDescriptionKey, nil];
@@ -265,7 +265,7 @@
 
   NSError* error;
   if (errorCode >= 0) {
-    if (!errorDescription) {
+    if (errorDescription == nil) {
       errorDescription = @"Unknown error";
     }
     NSDictionary<NSErrorUserInfoKey,id>* errorInfo = [NSDictionary dictionaryWithObjectsAndKeys:errorDescription, NSLocalizedDescriptionKey, nil];

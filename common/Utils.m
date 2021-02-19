@@ -177,7 +177,7 @@
 
 + (PlaylistSortColumnType)playlistSortColumnForTitle:(nullable NSString*)title {
 
-  if (!title) {
+  if (title == nil) {
     return PlaylistSortColumnNull;
   }
 
@@ -214,7 +214,7 @@
 
 + (PlaylistSortOrderType)playlistSortOrderForTitle:(nullable NSString*)title {
 
-  if (!title) {
+  if (title == nil) {
     return PlaylistSortOrderNull;
   }
 
@@ -274,7 +274,7 @@
     id item1Value = [(ITLibMediaItem*)item1 valueForProperty:sortProperty];
     id item2Value = [(ITLibMediaItem*)item2 valueForProperty:sortProperty];
 
-    if (!item1Value || !item2Value) {
+    if (item1Value == nil || item2Value == nil) {
       if (item1Value == item2Value) {
         return NSOrderedSame;
       }

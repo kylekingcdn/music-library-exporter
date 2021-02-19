@@ -103,7 +103,7 @@
 
 + (nullable NSString*)cellTitleForColumn:(TableColumnType)column andNode:(PlaylistNode*)node {
 
-  if (!node) {
+  if (node == nil) {
     return nil;
   }
 
@@ -318,7 +318,7 @@
 
 - (void)initPlaylistNodes {
 
-  if (!_library) {
+  if (_library == nil) {
     return;
   }
 
@@ -330,7 +330,7 @@
 - (IBAction)setPlaylistExcludedForCellView:(id)sender {
 
   PlaylistNode* node = [self playlistNodeForCellView:sender];
-  if (!node) {
+  if (node == nil) {
     return;
   }
 
@@ -343,7 +343,7 @@
 - (IBAction)setPlaylistSorting:(id)sender {
 
   PlaylistNode* node = [self playlistNodeForCellView:sender];
-  if (!node) {
+  if (node == nil) {
     MLE_Log_Info(@"PlaylistsViewController [setPlaylistSorting] error - failed to fetch playlist node");
     return;
   }
@@ -441,7 +441,7 @@
 - (NSView *)outlineView:(NSOutlineView*)outlineView viewForTableColumn:(NSTableColumn*)tableColumn item:(id)item {
 
   PlaylistNode* node = item;
-  if (!node) {
+  if (node == nil) {
     return nil;
   }
 
@@ -485,7 +485,7 @@
   else if (columnType != NullColumn){
 
     NSTableCellView* cellView = [outlineView makeViewWithIdentifier:cellViewId owner:nil];
-    if (!cellView) {
+    if (cellView == nil) {
       MLE_Log_Info(@"PlaylistsViewController [viewForTableColumn:%@] error - failed to make cell view", tableColumn.identifier);
       return nil;
     }
