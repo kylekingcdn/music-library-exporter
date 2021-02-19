@@ -62,7 +62,7 @@
 
 - (nullable NSNumber*)idForEntity:(ITLibMediaEntity*)entity {
 
-  return [_entityIdsDict valueForKey:[entity.persistentID stringValue]];
+  return [_entityIdsDict objectForKey:entity.persistentID];
 }
 
 
@@ -85,7 +85,7 @@
   NSUInteger entityId = ++_currentEntityId;
   NSNumber* entityIdNum = [NSNumber numberWithUnsignedInteger:entityId];
 
-  [_entityIdsDict setValue:entityIdNum forKey:[mediaEntity.persistentID stringValue]];
+  [_entityIdsDict setObject:entityIdNum forKey:mediaEntity.persistentID];
 
   return entityIdNum;
 }
