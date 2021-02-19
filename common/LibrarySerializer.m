@@ -116,7 +116,7 @@
   return libraryDict;
 }
 
-- (NSMutableArray<OrderedDictionary*>*)serializePlaylists:(NSArray<ITLibPlaylist*>*)playlists {
+- (NSArray<OrderedDictionary*>*)serializePlaylists:(NSArray<ITLibPlaylist*>*)playlists {
 
   MLE_Log_Info(@"LibrarySerializer [serializePlaylists:(%lu)]", playlists.count);
 
@@ -192,7 +192,7 @@
   return playlistDict;
 }
 
-- (NSMutableArray<OrderedDictionary*>*)serializePlaylistItems:(NSArray<ITLibMediaItem*>*)playlistItems {
+- (NSArray<OrderedDictionary*>*)serializePlaylistItems:(NSArray<ITLibMediaItem*>*)playlistItems {
 
   NSMutableArray<OrderedDictionary*>* playlistItemDictsArray = [NSMutableArray array];
 
