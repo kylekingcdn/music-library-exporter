@@ -25,10 +25,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) NSProcessInfo* processInfo;
 
 @property (readonly) LGCommandKind command;
-@property (nullable, readonly) NSString* commandError;
-
-@property (readonly) NSString* optionsError;
-@property (nullable, readonly) NSArray<NSString*>* optionsWithErrors;
 
 
 #pragma mark - Initializers
@@ -45,9 +41,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSSet<NSNumber*>*)determineCommandTypes;
 
+- (BOOL)populateExportConfiguration:(ExportConfiguration*)configuration error:(NSError**)error;
+
 - (void)dumpArguments;
 
-+ (NSSet<NSNumber*>*)playlistIdsForIdsOption:(NSString*)playlistIdsOption;
++ (nullable NSSet<NSNumber*>*)playlistIdsForIdsOption:(NSString*)playlistIdsOption error:(NSError**)error;
 
 + (BOOL)parsePlaylistSortingOption:(NSString*)sortOption forColumnDict:(NSMutableDictionary*)sortColDict andOrderDict:(NSMutableDictionary*)sortOrderDict andReturnError:(NSError**)error;
 + (BOOL)parsePlaylistSortingSegment:(NSString*)sortOption forColumnDict:(NSMutableDictionary*)sortColDict andOrderDict:(NSMutableDictionary*)sortOrderDict andReturnError:(NSError**)error;
@@ -63,12 +61,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)parse;
 
-// TODO: change return type to NSError
-- (BOOL)validateCommand;
-- (BOOL)validateOptions;
-
-// TODO: change return type to NSError
-- (BOOL)populateExportConfiguration:(ExportConfiguration*)configuration;
+- (BOOL)validateCommandAndReturnError:(NSError**)error;
+- (BOOL)validateOptionsAndReturnError:(NSError**)error;
 
 
 @end

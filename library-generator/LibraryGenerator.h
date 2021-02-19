@@ -39,9 +39,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Mutators
 
-- (nullable NSError*)setup;
+- (BOOL)setupAndReturnError:(NSError**)error;
 
-- (nullable NSError*)exportLibrary;
+- (BOOL)exportLibraryAndReturnError:(NSError**)error;
 
 
 @end

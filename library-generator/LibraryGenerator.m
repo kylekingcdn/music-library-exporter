@@ -167,50 +167,43 @@
 
 #pragma mark - Mutators -
 
-- (nullable NSError*)setup {
+- (BOOL)setupAndReturnError:(NSError**)error {
 
-  MLE_Log_Info(@"LibraryGenerator [setup]");
+  MLE_Log_Info(@"LibraryGenerator [setupAndReturnError]");
 
   // init ITLibrary
-  NSError* libraryError;
-  _library = [ITLibrary libraryWithAPIVersion:@"1.1" error:&libraryError];
+  _library = [ITLibrary libraryWithAPIVersion:@"1.1" error:error];
   if (_library == nil) {
-    return libraryError;
+    return NO;
   }
 
   ArgParser* argParser = [ArgParser parserWithProcessInfo:[NSProcessInfo processInfo]];
-
-  // parse args
+  [argParser dumpArguments];
+  
+  // init signatures + XPMArgumentPackage
   [argParser parse];
 
-// TODO: use NSError directly
   // validate command
-  if (![argParser validateCommand]) {
-    return [NSError errorWithDomain:__MLE__AppBundleIdentifier code:3 userInfo:@{ NSLocalizedDescriptionKey:argParser.commandError }];
+  if (![argParser validateCommandAndReturnError:error]) {
+    return NO;
   }
 
   _command = argParser.command;
 
   // display help
   if (_command == LGCommandKindHelp) {
-    return nil;
+    return YES;
   }
 
-// TODO: use NSError directly
   // validate options
-  if (![argParser validateOptions]) {
-    NSString* errorMessage = argParser.optionsError;
-    if (argParser.optionsWithErrors) {
-      errorMessage = [NSString stringWithFormat:@"%@:\n  %@", errorMessage, [argParser.optionsWithErrors componentsJoinedByString:@"\n  "]];
-    }
-    return [NSError errorWithDomain:__MLE__AppBundleIdentifier code:3 userInfo:@{ NSLocalizedDescriptionKey:errorMessage }];
+  if (![argParser validateOptionsAndReturnError:error]) {
+    return NO;
   }
 
-// TODO: use NSError directly
   // generate config
   _configuration = [[ExportConfiguration alloc] init];
-  if (![argParser populateExportConfiguration:_configuration]) {
-    return [NSError errorWithDomain:__MLE__AppBundleIdentifier code:3 userInfo:@{ NSLocalizedDescriptionKey:@"An internal error occured while interpreting configuration options" }];
+  if (![argParser populateExportConfiguration:_configuration error:error]) {
+    return NO;
   }
   [ExportConfiguration initSharedConfig:_configuration];
 
@@ -219,12 +212,12 @@
   _includedTracks = [libraryFilter getIncludedTracks];
   _includedPlaylists = [libraryFilter getIncludedPlaylists];
 
-  return nil;
+  return YES;
 }
 
-- (nullable NSError*)exportLibrary {
+- (BOOL)exportLibraryAndReturnError:(NSError**)error {
 
-  MLE_Log_Info(@"LibraryGenerator [exportLibrary]");
+  MLE_Log_Info(@"LibraryGenerator [exportLibraryAndReturnError]");
 
   /* prepare for export */
 
@@ -269,14 +262,13 @@
   [self printStatusDone:@"generating library"];
 
   [self printStatus:@"writing to file"];
-  NSError* writeError;
-  BOOL writeSuccess = [libraryDict writeToURL:_configuration.outputFileUrl error:&writeError];
+  BOOL writeSuccess = [libraryDict writeToURL:_configuration.outputFileUrl error:error];
   if (!writeSuccess) {
-    return [NSError errorWithDomain:__MLE__AppBundleIdentifier code:4 userInfo:@{ NSLocalizedDescriptionKey:@"failed to write dictionary" }];
+    return NO;
   }
   [self printStatusDone:@"writing to file"];
 
-  return nil;
+  return YES;
 }
 
 

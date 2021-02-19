@@ -17,10 +17,10 @@ int main(int argc, const char * argv[]) {
     LibraryGenerator* generator = [[LibraryGenerator alloc] init];
 
     // parse args and load configuration
-    NSError* setupError = [generator setup];
-    if (setupError) {
-      if (setupError.localizedDescription) {
-        printf("%s", setupError.localizedDescription.UTF8String);
+    NSError* setupError;
+    if (![generator setupAndReturnError:&setupError]) {
+      if (setupError) {
+        fprintf(stderr, "%s\n", setupError.localizedDescription.UTF8String);
       }
       return 1;
     }
@@ -32,10 +32,11 @@ int main(int argc, const char * argv[]) {
 
     // handle command
     NSError* commandError;
+    BOOL commandSuccess = YES;
     switch (generator.command) {
 
       case LGCommandKindExport: {
-        commandError = [generator exportLibrary];
+        commandSuccess = [generator exportLibraryAndReturnError:&commandError];
         break;
       }
 
@@ -54,9 +55,9 @@ int main(int argc, const char * argv[]) {
       case LGCommandKindUnknown: { break; }
     }
 
-    if (commandError) {
-      if (commandError.localizedDescription) {
-        printf("%s", commandError.localizedDescription.UTF8String);
+    if (!commandSuccess) {
+      if (commandError) {
+        fprintf(stderr, "%s\n", commandError.localizedDescription.UTF8String);
       }
       return 1;
     }
