@@ -162,7 +162,8 @@
   // write library
   MLE_Log_Info(@"ExportDelegate [writeDictionary] saving to: %@", UserDefaultsExportConfiguration.sharedConfig.outputFileUrl);
   [outputDirectoryUrl startAccessingSecurityScopedResource];
-  BOOL writeSuccess = [libraryDict writeToURL:UserDefaultsExportConfiguration.sharedConfig.outputFileUrl atomically:YES];
+  NSError* writeError;
+  BOOL writeSuccess = [libraryDict writeToURL:UserDefaultsExportConfiguration.sharedConfig.outputFileUrl error:&writeError];
   [outputDirectoryUrl stopAccessingSecurityScopedResource];
 
   if (!writeSuccess) {

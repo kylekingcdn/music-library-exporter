@@ -327,6 +327,11 @@
     return [[self XMLPlistString] writeToURL:url atomically:atomically encoding:NSUTF8StringEncoding error:NULL];
 }
 
+- (BOOL)writeToURL:(NSURL *)url error:(NSError **)error {
+
+  return [[self XMLPlistString] writeToURL:url atomically:YES encoding:NSUTF8StringEncoding error:error];
+}
+
 @end
 
 

@@ -269,7 +269,8 @@
   [self printStatusDone:@"generating library"];
 
   [self printStatus:@"writing to file"];
-  BOOL writeSuccess = [libraryDict writeToURL:_configuration.outputFileUrl atomically:YES];
+  NSError* writeError;
+  BOOL writeSuccess = [libraryDict writeToURL:_configuration.outputFileUrl error:&writeError];
   if (!writeSuccess) {
     return [NSError errorWithDomain:__MLE__AppBundleIdentifier code:4 userInfo:@{ NSLocalizedDescriptionKey:@"failed to write dictionary" }];
   }
