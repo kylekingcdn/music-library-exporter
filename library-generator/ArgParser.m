@@ -101,7 +101,7 @@
 
     NSMutableDictionary* sortColumnDict = [NSMutableDictionary dictionary];
     NSMutableDictionary* sortOrderDict = [NSMutableDictionary dictionary];
-    NSError* sortOptionError = [ArgParser parsePlaylistsSortingOption:playlistSortingOpt forColumnDictionary:sortColumnDict andOrderDictionary:sortOrderDict];
+    NSError* sortOptionError = [ArgParser parsePlaylistSortingOption:playlistSortingOpt forColumnDict:sortColumnDict andOrderDict:sortOrderDict];
     if (sortOptionError) {
       MLE_Log_Info(@"error parsing options - %@", sortOptionError.localizedDescription);
       return NO;
@@ -165,9 +165,9 @@
   return playlistIds;
 }
 
-+ (NSError*)parsePlaylistsSortingOption:(NSString*)sortOptions forColumnDictionary:(NSMutableDictionary*)sortColDict andOrderDictionary:(NSMutableDictionary*)sortOrderDict {
++ (NSError*)parsePlaylistSortingOption:(NSString*)sortOptions forColumnDict:(NSMutableDictionary*)sortColDict andOrderDict:(NSMutableDictionary*)sortOrderDict {
 
-//  MLE_Log_Info(@"ArgParser [parsePlaylistsSortingOption:%@]", sortOptions);
+//  MLE_Log_Info(@"ArgParser [parsePlaylistSortingOption:%@]", sortOptions);
 
   NSError* error;
 
@@ -176,7 +176,7 @@
 
   for (NSString* sortOption in playlistSortingStrings) {
 
-    error = [ArgParser parsePlaylistSortingOption:sortOption forColumnDictionary:sortColDict andOrderDictionary:sortOrderDict];
+    error = [ArgParser parsePlaylistSortingSegment:sortOption forColumnDict:sortColDict andOrderDict:sortOrderDict];
     if (error) {
       break;
     }
@@ -185,9 +185,9 @@
   return error;
 }
 
-+ (NSError*)parsePlaylistSortingOption:(NSString*)sortOption forColumnDictionary:(NSMutableDictionary*)sortColDict andOrderDictionary:(NSMutableDictionary*)sortOrderDict {
++ (NSError*)parsePlaylistSortingSegment:(NSString*)sortOption forColumnDict:(NSMutableDictionary*)sortColDict andOrderDict:(NSMutableDictionary*)sortOrderDict {
 
-//  MLE_Log_Info(@"ArgParser [parsePlaylistSortingOption:%@]", sortOption);
+//  MLE_Log_Info(@"ArgParser [parsePlaylistSortingSegment:%@]", sortOption);
 
   NSError* error;
   NSInteger errorCode = -1;
@@ -212,7 +212,7 @@
     else {
       PlaylistSortColumnType sortColumn = PlaylistSortColumnNull;
       PlaylistSortOrderType sortOrder = PlaylistSortOrderNull;
-      error = [ArgParser parsePlaylistSortingOptionValue:playlistSortValuesStr forColumn:&sortColumn andOrder:&sortOrder];
+      error = [ArgParser parsePlaylistSortingSegmentValue:playlistSortValuesStr forColumn:&sortColumn andOrder:&sortOrder];
       if (error) {
         return error;
       }
@@ -232,9 +232,9 @@
   return error;
 }
 
-+ (NSError*)parsePlaylistSortingOptionValue:(NSString*)sortOptionValue forColumn:(PlaylistSortColumnType*)aSortColumn andOrder:(PlaylistSortOrderType*)aSortOrder {
++ (NSError*)parsePlaylistSortingSegmentValue:(NSString*)sortOptionValue forColumn:(PlaylistSortColumnType*)aSortColumn andOrder:(PlaylistSortOrderType*)aSortOrder {
 
-//  MLE_Log_Info(@"ArgParser [parsePlaylistSortingOptionValue:%@]", sortOptionValue);
+//  MLE_Log_Info(@"ArgParser [parsePlaylistSortingSegmentValue:%@]", sortOptionValue);
 
   NSInteger errorCode = -1;
   NSString* errorDescription;

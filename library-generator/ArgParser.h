@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class XPMArgumentSignature;
 @class ExportConfiguration;
 
+
 @interface ArgParser : NSObject
 
 
@@ -48,9 +49,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSSet<NSNumber*>*)playlistIdsForIdsOption:(NSString*)playlistIdsOption;
 
-+ (NSError*)parsePlaylistsSortingOption:(NSString*)sortOption forColumnDictionary:(NSMutableDictionary*)sortColDict andOrderDictionary:(NSMutableDictionary*)sortOrderDict;
-+ (NSError*)parsePlaylistSortingOption:(NSString*)sortOption forColumnDictionary:(NSMutableDictionary*)sortColDict andOrderDictionary:(NSMutableDictionary*)sortOrderDict;
-+ (NSError*)parsePlaylistSortingOptionValue:(NSString*)sortOptionValue forColumn:(PlaylistSortColumnType*)sortColumn andOrder:(PlaylistSortOrderType*)sortOrder;
++ (NSError*)parsePlaylistSortingOption:(NSString*)sortOption forColumnDict:(NSMutableDictionary*)sortColDict andOrderDict:(NSMutableDictionary*)sortOrderDict;
++ (NSError*)parsePlaylistSortingSegment:(NSString*)sortOption forColumnDict:(NSMutableDictionary*)sortColDict andOrderDict:(NSMutableDictionary*)sortOrderDict;
++ (NSError*)parsePlaylistSortingSegmentValue:(NSString*)sortOptionValue forColumn:(PlaylistSortColumnType*)sortColumn andOrder:(PlaylistSortOrderType*)sortOrder;
 
 + (PlaylistSortColumnType)sortColumnForOptionName:(NSString*)sortColumnOption;
 + (PlaylistSortOrderType)sortOrderForOptionName:(NSString*)sortOrderOption;
