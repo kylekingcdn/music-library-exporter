@@ -36,6 +36,7 @@ typedef NS_ENUM(NSInteger, LGOptionKind) {
   LGOptionKindRemapSearch,
   LGOptionKindRemapReplace,
   LGOptionKindOutputPath,
+  LGOptionKind_MAX,
 };
 
 + (nullable NSString*)nameForCommand:(LGCommandKind)command;

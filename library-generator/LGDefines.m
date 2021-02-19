@@ -126,6 +126,10 @@
     case LGOptionKindOutputPath: {
       return @"--output_path";
     }
+
+    case LGOptionKind_MAX: {
+      return nil;
+    }
   }
 }
 
@@ -181,6 +185,10 @@
     }
     case LGOptionKindOutputPath: {
       return @"[-o --output_path]={1,1}";
+    }
+
+    case LGOptionKind_MAX: {
+      return nil;
     }
   }
 }

@@ -15,20 +15,10 @@
 
 @implementation ArgParser {
 
+  NSDictionary* _commandSignatures;
+  NSDictionary* _optionSignatures;
+
   XPMArgumentPackage* _package;
-
-  XPMArgumentSignature* _helpSig;
-  XPMArgumentSignature* _printCommandSig;
-  XPMArgumentSignature* _exportCommandSig;
-
-  XPMArgumentSignature* _flattenOptionSig;
-  XPMArgumentSignature* _excludeInternalOptionSig;
-  XPMArgumentSignature* _excludeIdsOptionSig;
-  XPMArgumentSignature* _musicMediaDirSig;
-  XPMArgumentSignature* _sortOptionSig;
-  XPMArgumentSignature* _remapSearchOptionSig;
-  XPMArgumentSignature* _remapReplaceOptionSig;
-  XPMArgumentSignature* _outputPathOptionSig;
 }
 
 
@@ -59,27 +49,12 @@
 
 - (nullable XPMArgumentSignature*)signatureForCommand:(LGCommandKind)command {
 
-  switch (command) {
-    case LGCommandKindHelp: { return _helpSig; }
-    case LGCommandKindPrint: { return _printCommandSig; }
-    case LGCommandKindExport: { return _exportCommandSig; }
-    case LGCommandKindUnknown: { return nil; }
-  }
+  return [_commandSignatures objectForKey:@(command)];
 }
 
 - (nullable XPMArgumentSignature*)signatureForOption:(LGOptionKind)option {
 
-  switch (option) {
-    case LGOptionKindHelp: { return _helpSig; }
-    case LGOptionKindFlatten: { return _flattenOptionSig; }
-    case LGOptionKindExcludeInternal: { return _excludeInternalOptionSig; }
-    case LGOptionKindExcludeIds: { return _excludeIdsOptionSig; }
-    case LGOptionKindMusicMediaDirectory: { return _musicMediaDirSig; }
-    case LGOptionKindSort: { return _sortOptionSig; }
-    case LGOptionKindRemapSearch: { return _remapSearchOptionSig; }
-    case LGOptionKindRemapReplace: { return _remapReplaceOptionSig; }
-    case LGOptionKindOutputPath: { return _outputPathOptionSig; }
-  }
+  return [_optionSignatures objectForKey:@(option)];
 }
 
 - (NSSet<NSNumber*>*)determineCommandTypes {
@@ -107,21 +82,21 @@
 
 - (BOOL)populateExportConfiguration:(ExportConfiguration*)configuration {
 
-  [configuration setFlattenPlaylistHierarchy:[_package booleanValueForSignature:_flattenOptionSig]];
+  [configuration setFlattenPlaylistHierarchy:[_package booleanValueForSignature:[self signatureForOption:LGOptionKindFlatten]]];
 
-  [configuration setIncludeInternalPlaylists:![_package booleanValueForSignature:_excludeInternalOptionSig]];
+  [configuration setIncludeInternalPlaylists:![_package booleanValueForSignature:[self signatureForOption:LGOptionKindExcludeInternal]]];
 
-  NSString* musicMediaDir = [_package firstObjectForSignature:_musicMediaDirSig];
+  NSString* musicMediaDir = [_package firstObjectForSignature:[self signatureForOption:LGOptionKindMusicMediaDirectory]];
   if (musicMediaDir) {
     [configuration setMusicLibraryPath:musicMediaDir];
   }
-  NSString* excludedIdsStr = [_package firstObjectForSignature:_excludeIdsOptionSig];
+  NSString* excludedIdsStr = [_package firstObjectForSignature:[self signatureForOption:LGOptionKindExcludeIds]];
   if (excludedIdsStr) {
     NSSet<NSNumber*>* excludedIds = [ArgParser playlistIdsForIdsOption:excludedIdsStr];
     [configuration setExcludedPlaylistPersistentIds:excludedIds];
   }
 
-  NSString* playlistSortingOpt = [_package firstObjectForSignature:_sortOptionSig];
+  NSString* playlistSortingOpt = [_package firstObjectForSignature:[self signatureForOption:LGOptionKindSort]];
   if (playlistSortingOpt) {
 
     NSMutableDictionary* sortColumnDict = [NSMutableDictionary dictionary];
@@ -136,8 +111,8 @@
     [configuration setCustomSortOrderDict:sortOrderDict];
   }
 
-  NSString* remapSearch = [_package firstObjectForSignature:_remapSearchOptionSig];
-  NSString* remapReplace = [_package firstObjectForSignature:_remapReplaceOptionSig];
+  NSString* remapSearch = [_package firstObjectForSignature:[self signatureForOption:LGOptionKindRemapSearch]];
+  NSString* remapReplace = [_package firstObjectForSignature:[self signatureForOption:LGOptionKindRemapReplace]];
   if (remapSearch && remapReplace) {
     [configuration setRemapRootDirectoryOriginalPath:remapSearch];
     [configuration setRemapRootDirectoryMappedPath:remapReplace];
@@ -147,7 +122,7 @@
     [configuration setRemapRootDirectory:NO];
   }
 
-  NSString* outputFilePath = [_package firstObjectForSignature:_outputPathOptionSig];
+  NSString* outputFilePath = [_package firstObjectForSignature:[self signatureForOption:LGOptionKindOutputPath]];
   if (outputFilePath) {
     NSURL* fileUrl = [NSURL fileURLWithPath:outputFilePath];
 
@@ -337,20 +312,32 @@
 
   MLE_Log_Info(@"ArgParser [initMemberSignatures]");
 
-  _helpSig = [XPMArgumentSignature argumentSignatureWithFormat:[LGDefines signatureFormatForCommand:LGCommandKindHelp]];
-  
-  _printCommandSig = [XPMArgumentSignature argumentSignatureWithFormat:[LGDefines signatureFormatForCommand:LGCommandKindPrint]];
-  _exportCommandSig = [XPMArgumentSignature argumentSignatureWithFormat:[LGDefines signatureFormatForCommand:LGCommandKindExport]];
+  NSMutableDictionary* commandSignatures = [NSMutableDictionary dictionary];
+  NSMutableDictionary* optionSignatures = [NSMutableDictionary dictionary];
 
-  _flattenOptionSig = [XPMArgumentSignature argumentSignatureWithFormat:[LGDefines signatureFormatForOption:LGOptionKindFlatten]];
-  _excludeInternalOptionSig = [XPMArgumentSignature argumentSignatureWithFormat:[LGDefines signatureFormatForOption:LGOptionKindExcludeInternal]];
-  _excludeIdsOptionSig = [XPMArgumentSignature argumentSignatureWithFormat:[LGDefines signatureFormatForOption:LGOptionKindExcludeIds]];
+  // add help signature to both
+  XPMArgumentSignature* helpSignature = [XPMArgumentSignature argumentSignatureWithFormat:[LGDefines signatureFormatForCommand:LGCommandKindHelp]];
+  [commandSignatures setObject:helpSignature forKey:@(LGCommandKindHelp)];
+  [optionSignatures setObject:helpSignature forKey:@(LGOptionKindHelp)];
 
-  _musicMediaDirSig = [XPMArgumentSignature argumentSignatureWithFormat:[LGDefines signatureFormatForOption:LGOptionKindMusicMediaDirectory]];
-  _sortOptionSig = [XPMArgumentSignature argumentSignatureWithFormat:[LGDefines signatureFormatForOption:LGOptionKindSort]];
-  _remapSearchOptionSig = [XPMArgumentSignature argumentSignatureWithFormat:[LGDefines signatureFormatForOption:LGOptionKindRemapSearch]];
-  _remapReplaceOptionSig = [XPMArgumentSignature argumentSignatureWithFormat:[LGDefines signatureFormatForOption:LGOptionKindRemapReplace]];
-  _outputPathOptionSig = [XPMArgumentSignature argumentSignatureWithFormat:[LGDefines signatureFormatForOption:LGOptionKindOutputPath]];
+  // init command signatures dict
+  for (LGCommandKind command = LGCommandKindHelp + 1; command < LGCommandKindUnknown; command++) {
+
+    NSString* signatureFormat = [LGDefines signatureFormatForCommand:command];
+    XPMArgumentSignature* commandSignature = [XPMArgumentSignature argumentSignatureWithFormat:signatureFormat];
+    [commandSignatures setObject:commandSignature forKey:@(command)];
+  }
+
+  // init option signatures dict
+  for (LGOptionKind option = LGOptionKindHelp + 1; option < LGOptionKind_MAX; option++) {
+
+    NSString* signatureFormat = [LGDefines signatureFormatForOption:option];
+    XPMArgumentSignature* optionSignature = [XPMArgumentSignature argumentSignatureWithFormat:signatureFormat];
+    [optionSignatures setObject:optionSignature forKey:@(option)];
+  }
+
+  _commandSignatures = commandSignatures;
+  _optionSignatures = optionSignatures;
 }
 
 - (void)parse {
