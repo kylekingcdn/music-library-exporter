@@ -446,7 +446,7 @@
     if (sigCount == 0) {
       MLE_Log_Info(@"ArgParser [validateOptions] missing required option: %@", [LGDefines nameForOption:option]);
       [requiredOptionsMissing addObject:sig];
-      [requiredOptionsMissingNames addObject:[LGDefines nameForOption:option]];
+      [requiredOptionsMissingNames addObject:[LGDefines nameAndValueForOption:option]];
     }
   }
   if (requiredOptionsMissing.count > 0) {

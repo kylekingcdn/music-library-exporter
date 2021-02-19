@@ -133,6 +133,44 @@
   }
 }
 
++ (nullable NSString*)nameAndValueForOption:(LGOptionKind)option {
+
+  NSString* optionName = [LGDefines nameForOption:option];
+
+  switch (option) {
+
+    case LGOptionKindExcludeIds: {
+      optionName = [optionName stringByAppendingString:@" <playlist_ids>"];
+      break;
+    }
+    case LGOptionKindMusicMediaDirectory: {
+      optionName = [optionName stringByAppendingString:@" <music_dir>"];
+      break;
+    }
+    case LGOptionKindSort: {
+      optionName = [optionName stringByAppendingString:@" <playlist_sorting_value>"];
+      break;
+    }
+    case LGOptionKindRemapSearch: {
+      optionName = [optionName stringByAppendingString:@" <text_to_find>"];
+      break;
+    }
+    case LGOptionKindRemapReplace: {
+      optionName = [optionName stringByAppendingString:@" <replacement_text>"];
+      break;
+    }
+    case LGOptionKindOutputPath: {
+      optionName = [optionName stringByAppendingString:@" <path>"];
+      break;
+    }
+    default: {
+      break;
+    }
+  }
+
+  return optionName;
+}
+
 + (nullable NSString*)signatureFormatForCommand:(LGCommandKind)command {
 
   switch (command) {
