@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface LibraryGenerator : NSObject
 
 
-#pragma mark - Initializers -
+#pragma mark - Initializers
 
 - (instancetype)init;
 
@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)printHelp;
 
 
-#pragma mark - Mutators -
+#pragma mark - Mutators
 
 - (void)run;
 - (nullable NSError*)setup;

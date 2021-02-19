@@ -121,7 +121,7 @@
       return @"--remap_search";
     }
     case LGOptionKindRemapReplace: {
-      return @"--remap_replace}";
+      return @"--remap_replace";
     }
     case LGOptionKindOutputPath: {
       return @"--output_path";

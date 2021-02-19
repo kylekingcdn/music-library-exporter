@@ -409,6 +409,8 @@
 
 - (BOOL)validateOptions {
 
+  _optionsError = @"unexpected return of validateOption: NO";
+
   MLE_Log_Info(@"ArgParser [validateOptions]");
 
   if (_command == LGCommandKindUnknown) {
@@ -448,13 +450,12 @@
     }
   }
   if (requiredOptionsMissing.count > 0) {
-    _optionsError = @"required options (or their values) are missing";
-    _optionsWithErrors = requiredOptionsMissingNames  ;
+    _optionsError = @"required options are incomplete";
+    _optionsWithErrors = requiredOptionsMissingNames ;
       return NO;
   }
 
-
-  MLE_Log_Info(@"ArgParser [validateOptions] options are valid");
+  MLE_Log_Info(@"ArgParser [validateOptions] options seem valid");
 
   return YES;
 }
