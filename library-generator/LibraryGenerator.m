@@ -16,6 +16,8 @@
 #import "ExportConfiguration.h"
 #import "LibraryFilter.h"
 #import "LibrarySerializer.h"
+#import "PlaylistNode.h"
+#import "PlaylistTree.h"
 #import "OrderedDictionary.h"
 
 
@@ -149,9 +151,30 @@
 
 - (void)printPlaylists {
 
-  // TODO: handle hierarchy
-  for (ITLibPlaylist* currPlaylist in _includedPlaylists) {
-    printf("%-30s  %s\n", currPlaylist.name.UTF8String, currPlaylist.persistentID.stringValue.UTF8String);
+  PlaylistTree* playlistTree = [[PlaylistTree alloc] init];
+  [playlistTree setFlattened:_configuration.flattenPlaylistHierarchy];
+  [playlistTree generateForSourcePlaylists:_includedPlaylists];
+
+  return [self printPlaylistNode:playlistTree.rootNode withIndent:0];
+}
+
+- (void)printPlaylistNode:(PlaylistNode*)node withIndent:(NSUInteger)indent {
+
+  // indent
+  for (NSUInteger i=2; i<indent; i++){
+    putchar(' ');
+  }
+
+  int spacing = 30 - (int)indent;
+
+  // root node won't have a playlist
+  if (node.playlist) {
+    // print playlist description
+    printf("- %-*s  %s\n", spacing, node.playlist.name.UTF8String, node.playlist.persistentID.stringValue.UTF8String);
+  }
+  // call recursively on children, increasing indent w/ each level
+  for (PlaylistNode* childNode in node.children) {
+    [self printPlaylistNode:childNode withIndent:indent+2];
   }
 }
 

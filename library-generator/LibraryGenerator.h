@@ -10,6 +10,7 @@
 #import "LGDefines.h"
 
 @class ExportConfiguration;
+@class PlaylistNode;
 
 
 NS_ASSUME_NONNULL_BEGIN
@@ -35,6 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)printHelp;
 - (void)printPlaylists;
+- (void)printPlaylistNode:(PlaylistNode*)node withIndent:(NSUInteger)indent;
 
 
 #pragma mark - Mutators

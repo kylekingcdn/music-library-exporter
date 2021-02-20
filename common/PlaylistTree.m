@@ -34,6 +34,8 @@
 
   self = [super init];
 
+  [self setFlattened:NO];
+
   return self;
 }
 
