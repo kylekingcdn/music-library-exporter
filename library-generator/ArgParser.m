@@ -156,7 +156,7 @@
     NSDecimalNumber* playlistId = [NSDecimalNumber decimalNumberWithString:playlistIdStr];
     if (playlistId == nil) {
         *error = [NSError errorWithDomain:__MLE_ErrorDomain_ArgParser code:ArgParserErrorMalformedPlaylistIdOption userInfo:@{
-          NSLocalizedDescriptionKey: [NSString stringWithFormat:@"error - invalid playlist id for --exclude_ids option: %@", playlistIdStr],
+          NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Invalid playlist id for --exclude_ids option: %@", playlistIdStr],
         }];
         return nil;
     }
@@ -194,7 +194,7 @@
   NSArray<NSString*>* sortOptionParts = [sortOption componentsSeparatedByString:@":"];
   if (sortOptionParts.count != 2) {
     *error = [NSError errorWithDomain:__MLE_ErrorDomain_ArgParser code:ArgParserErrorMalformedSortingOptionFormat userInfo:@{
-      NSLocalizedDescriptionKey: [NSString stringWithFormat:@"error - invalid sorting option format: %@", sortOption],
+      NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Invalid sorting option format: %@", sortOption],
     }];
     return NO;
   }
@@ -206,7 +206,7 @@
   NSDecimalNumber* playlistId = [NSDecimalNumber decimalNumberWithString:playlistIdStr];
   if (playlistId == nil) {
     *error = [NSError errorWithDomain:__MLE_ErrorDomain_ArgParser code:ArgParserErrorMalformedPlaylistIdOption userInfo:@{
-      NSLocalizedDescriptionKey: [NSString stringWithFormat:@"error - invalid playlist id for sort option part: %@", sortOption],
+      NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Invalid playlist id for sort option part: %@", sortOption],
     }];
     return NO;
   }
@@ -232,7 +232,7 @@
 
   if (sortOptionValueParts.count != 2) {
     *error = [NSError errorWithDomain:__MLE_ErrorDomain_ArgParser code:ArgParserErrorMalformedSortingOptionFormat userInfo:@{
-      NSLocalizedDescriptionKey: [NSString stringWithFormat:@"error - invalid sorting option format: %@", sortOptionValue],
+      NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Invalid sorting option format: %@", sortOptionValue],
     }];
     return NO;
   }
@@ -242,7 +242,7 @@
 
   if (sortCol == PlaylistSortColumnNull) {
     *error = [NSError errorWithDomain:__MLE_ErrorDomain_ArgParser code:ArgParserErrorUnknownSortColumn userInfo:@{
-      NSLocalizedDescriptionKey: [NSString stringWithFormat:@"error - unknown sort column specifier: %@", sortColStr],
+      NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Unknown sort column specifier: %@", sortColStr],
     }];
     return NO;
   }
@@ -252,7 +252,7 @@
 
   if (sortOrder == PlaylistSortOrderNull) {
     *error = [NSError errorWithDomain:__MLE_ErrorDomain_ArgParser code:ArgParserErrorUnknownSortOrder userInfo:@{
-      NSLocalizedDescriptionKey: [NSString stringWithFormat:@"error - unknown sort order specifier: %@", sortOrderStr],
+      NSLocalizedDescriptionKey: [NSString stringWithFormat:@"eUnknown sort order specifier: %@", sortOrderStr],
     }];
     return NO;
   }
@@ -369,7 +369,7 @@
     }
     else {
       *error = [NSError errorWithDomain:__MLE_ErrorDomain_ArgParser code:ArgParserErrorInvalidCommand userInfo:@{
-        NSLocalizedDescriptionKey: [NSString stringWithFormat:@"error - invalid command entered. valid commands: %@", [LGDefines.commandNames componentsJoinedByString:@", "]],
+        NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Unknown command\nValid commands:  %@", [LGDefines.commandNames componentsJoinedByString:@", "]],
       }];
       _command = LGCommandKindUnknown;
       return NO;
@@ -385,7 +385,7 @@
   // multiple commands entered
   if (commandTypes.count > 1) {
     *error = [NSError errorWithDomain:__MLE_ErrorDomain_ArgParser code:ArgParserErrorInvalidCommand userInfo:@{
-      NSLocalizedDescriptionKey: [NSString stringWithFormat:@"error - only one command can be specified at a time"],
+      NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Only one command may be specified at a time"],
     }];
     _command = LGCommandKindUnknown;
     return NO;
@@ -406,7 +406,7 @@
 
   if (_package.unknownSwitches.count > 0) {
     *error = [NSError errorWithDomain:__MLE_ErrorDomain_ArgParser code:ArgParserErrorInvalidOption userInfo:@{
-      NSLocalizedDescriptionKey: [NSString stringWithFormat:@"error - unrecognized options: %@", [_package.unknownSwitches componentsJoinedByString:@", "]],
+      NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Unrecognized option(s): %@", [_package.unknownSwitches componentsJoinedByString:@", "]],
     }];
     return NO;
   }
@@ -415,7 +415,7 @@
     NSMutableArray* trulyUncaptured = [_package.uncapturedValues mutableCopy];
     [trulyUncaptured removeObjectAtIndex:0];
     *error = [NSError errorWithDomain:__MLE_ErrorDomain_ArgParser code:ArgParserErrorInvalidCommand userInfo:@{
-      NSLocalizedDescriptionKey: [NSString stringWithFormat:@"error - unexpected arguments: %@", [trulyUncaptured componentsJoinedByString:@", "]],
+      NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Unexpected argument(s): %@", [trulyUncaptured componentsJoinedByString:@", "]],
     }];
     return NO;
   }
@@ -438,7 +438,7 @@
   }
   if (requiredOptionsMissing.count > 0) {
     *error = [NSError errorWithDomain:__MLE_ErrorDomain_ArgParser code:ArgParserErrorMissingRequiredOption userInfo:@{
-      NSLocalizedDescriptionKey: [NSString stringWithFormat:@"error - required options are incomplete: %@", [requiredOptionsMissingNames componentsJoinedByString:@", "]],
+      NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Required options are incomplete:  %@", [requiredOptionsMissingNames componentsJoinedByString:@", "]],
     }];
     return NO;
   }
