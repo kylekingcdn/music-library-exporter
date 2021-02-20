@@ -25,6 +25,7 @@
 
 - (void)clearBuffer;
 - (void)printStatus:(NSString*)message;
+- (void)printStatusDone:(NSString*)message;
 
 - (void)drawProgressBarWithStatus:(NSString*)status forCurrentValue:(NSUInteger)currentVal andTotalValue:(NSUInteger)totalVal;
 
