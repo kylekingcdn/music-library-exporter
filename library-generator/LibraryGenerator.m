@@ -155,7 +155,10 @@
   [playlistTree setFlattened:_configuration.flattenPlaylistHierarchy];
   [playlistTree generateForSourcePlaylists:_includedPlaylists];
 
-  return [self printPlaylistNode:playlistTree.rootNode withIndent:0];
+  // print playlists recursively via top-level
+  for (PlaylistNode* childNode in playlistTree.rootNode.children) {
+    [self printPlaylistNode:childNode withIndent:0];
+  }
 }
 
 - (void)printPlaylistNode:(PlaylistNode*)node withIndent:(NSUInteger)indent {
@@ -167,11 +170,9 @@
 
   int spacing = 30 - (int)indent;
 
-  // root node won't have a playlist
-  if (node.playlist) {
-    // print playlist description
-    printf("- %-*s  %s\n", spacing, node.playlist.name.UTF8String, node.playlist.persistentID.stringValue.UTF8String);
-  }
+  // print playlist description
+  printf("- %-*s  %s\n", spacing, node.playlist.name.UTF8String, node.playlist.persistentID.stringValue.UTF8String);
+
   // call recursively on children, increasing indent w/ each level
   for (PlaylistNode* childNode in node.children) {
     [self printPlaylistNode:childNode withIndent:indent+2];
