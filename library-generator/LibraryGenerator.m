@@ -77,9 +77,94 @@
 #pragma mark - Accessors
 
 - (void)printHelp {
-
-  printf("Usage: library-generator <command> [options]\n");
-  // TODO: finish me
+  printf("library-generator");
+  printf("\n");
+  printf("\nUSAGE");
+  printf("\n");
+  printf("\n    library-generator <command> [options]");
+  printf("\n");
+  printf("\nCOMMANDS");
+  printf("\n");
+  printf("\n    help");
+  printf("\n");
+  printf("\n        Prints this (hopefully) helpful message");
+  printf("\n");
+  printf("\n    print");
+  printf("\n");
+  printf("\n        Prints the list of playlists in your library with their kind and 'Persistent ID'.");
+  printf("\n        This command is essential for determining the ID for a playlist that you want to include in either --exclude_ids or --sort.");
+  printf("\n        The print command also supports the playlist filtering options that are available for the export command (--exclude_ids <playlist_ids>, --exclude_internal, --flatten).");
+  printf("\n        These can be helpful for previewing the list of playlists that will be included in an export when the filter options are applied.");
+  printf("\n");
+  printf("\n        Supported options:");
+  printf("\n            --exclude_ids <playlist_ids>");
+  printf("\n            --exclude_internal");
+  printf("\n            --flatten");
+  printf("\n");
+  printf("\n    export");
+  printf("\n");
+  printf("\n        The export command handles the generation and saving of your XML library.");
+  printf("\n");
+  printf("\n        MANDATORY OPTIONS:");
+  printf("\n            --music_media_dir  <music_media_dir>");
+  printf("\n            --output_path  <path>");
+  printf("\n");
+  printf("\n        Supported options:");
+  printf("\n            --flatten");
+  printf("\n            --exclude_internal ");
+  printf("\n            --exclude_ids  <playlist_ids>");
+  printf("\n            --sort  <playlist_sorting_specifer>");
+  printf("\n            --remap_search  <text_to_find>");
+  printf("\n            --remap_replace  <replacement text>");
+  printf("\n");
+  printf("\nOPTIONS");
+  printf("\n");
+  printf("\n    --flatten, -f");
+  printf("\n");
+  printf("\n        Setting this flag will flatten the generated playlist hierarchy, or in other words, exclude any folders.");
+  printf("\n        The playlists contained in any folders are still included in the exported library, they simply appear 'top-level'.");
+  printf("\n        For an example of what this means, compare the output of 'library-generator print' to the output of 'library-generator print --flatten',");
+  printf("\n        (Note: there will only be an observable difference if you are managing your music library's playlists with folders).");
+  printf("\n");
+  printf("\n    --exclude_internal, -n");
+  printf("\n");
+  printf("\n        If set, this flag will prevent any internal playlists from being included in the exported library.");
+  printf("\n        Internal playlists include (but are not limited to): 'Library', 'Music', 'Downloaded', etc...");
+  printf("\n");
+  printf("\n    --exclude_ids <playlist_ids>, -e <playlist_ids>");
+  printf("\n");
+  printf("\n        A comma separated list of playlist ids that you would like to exclude from the generated library.");
+  printf("\n        Playlist IDs can be determined by running the print command: 'library-generator print'");
+  printf("\n");
+  printf("\n        Example value:");
+  printf("\n            --exclude_ids 1803375142671959318,5128334259688473588,57194740367344335011");
+  printf("\n");
+  printf("\n    --music_media_dir <music_media_dir>, -m <music_media_dir>");
+  printf("\n");
+  printf("\n        The value of this option MUST be set to the corresponding value in your Music app's Preferences.");
+  printf("\n        It can be found under: Preferences > Files > Music Media folder location.");
+  printf("\n        library-generator can NOT validate what is entered for this value, so it is important to ensure that it is accurate.");
+  printf("\n");
+  printf("\n        Example value:");
+  printf("\n             --music_media_dir \"/Macintosh HD/Users/Kyle/Music/Music/Media\"");
+  printf("\n");
+  printf("\n    --output_path <path>, -o <path>");
+  printf("\n");
+  printf("\n        The desired output path of the generated library (directory and filename.");
+  printf("\n        Export behaviour is undetermined when using file extensions other than '.xml'.");
+  printf("\n        If you must change the extension: first run the export command and then run 'mv' afterwards to relocate it to the desired location.");
+  printf("\n");
+  printf("\n        Example value:");
+  printf("\n            --output_path ~/Music/Music/GeneratedLibrary.xml");
+  printf("\n");
+  printf("\n    --sort <playlist_sorting_specifer>, -S <playlist_sorting_specifer>");
+  printf("\n");
+  printf("\n");
+  printf("\n    --remap_search <text_to_find>, -s <text_to_find>");
+  printf("\n");
+  printf("\n");
+  printf("\n    --remap_replace <replacement text>, -r <replacement text>");
+  printf("\n\n");
 }
 
 - (void)printPlaylists {
@@ -130,6 +215,10 @@
 }
 
 - (void)printPlaylistNode:(PlaylistNode*)node withIndent:(NSUInteger)indent {
+
+  // TODO: add additional columns (e.g. kind)
+  // TODO: determine column widths dynamically
+  // TODO: elide column overflow text
 
   // indent
   for (NSUInteger i=2; i<indent; i++){
