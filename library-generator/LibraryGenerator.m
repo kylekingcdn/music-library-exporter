@@ -23,9 +23,13 @@
 
 @interface LibraryGenerator ()
 
+- (BOOL)isRunningInTerminal;
+
 - (void)clearBuffer;
 - (void)printStatus:(NSString*)message;
 - (void)printStatusDone:(NSString*)message;
+
+- (void)printPlaylistNode:(PlaylistNode*)node withIndent:(NSUInteger)indent;
 
 - (void)drawProgressBarWithStatus:(NSString*)status forCurrentValue:(NSUInteger)currentVal andTotalValue:(NSUInteger)totalVal;
 
@@ -72,6 +76,24 @@
 
 #pragma mark - Accessors
 
+- (void)printHelp {
+
+  printf("Usage: library-generator <command> [options]\n");
+  // TODO: finish me
+}
+
+- (void)printPlaylists {
+
+  PlaylistTree* playlistTree = [[PlaylistTree alloc] init];
+  [playlistTree setFlattened:_configuration.flattenPlaylistHierarchy];
+  [playlistTree generateForSourcePlaylists:_includedPlaylists];
+
+  // print playlists recursively via top-level
+  for (PlaylistNode* childNode in playlistTree.rootNode.children) {
+    [self printPlaylistNode:childNode withIndent:0];
+  }
+}
+
 - (BOOL)isRunningInTerminal {
 
   NSString* term = [[[NSProcessInfo processInfo] environment] valueForKey:@"TERM"];
@@ -92,12 +114,6 @@
   }
 }
 
-- (void)printHelp {
-
-  printf("Usage: library-generator <command> [options]\n");
-  // TODO: finish me
-}
-
 - (void)printStatus:(NSString*)message {
 
   printf("%s...", message.UTF8String);
@@ -111,6 +127,24 @@
   }
   printf(" done\n");
   fflush(stdout);
+}
+
+- (void)printPlaylistNode:(PlaylistNode*)node withIndent:(NSUInteger)indent {
+
+  // indent
+  for (NSUInteger i=2; i<indent; i++){
+    putchar(' ');
+  }
+
+  int spacing = 30 - (int)indent;
+
+  // print playlist description
+  printf("- %-*s  %s\n", spacing, node.playlist.name.UTF8String, node.playlist.persistentID.stringValue.UTF8String);
+
+  // call recursively on children, increasing indent w/ each level
+  for (PlaylistNode* childNode in node.children) {
+    [self printPlaylistNode:childNode withIndent:indent+2];
+  }
 }
 
 - (void)drawProgressBarWithStatus:(NSString*)status forCurrentValue:(NSUInteger)currentVal andTotalValue:(NSUInteger)totalVal {
@@ -148,36 +182,6 @@
   printf(" %2li%%", percentComplete);
 
   fflush(stdout);
-}
-
-- (void)printPlaylists {
-
-  PlaylistTree* playlistTree = [[PlaylistTree alloc] init];
-  [playlistTree setFlattened:_configuration.flattenPlaylistHierarchy];
-  [playlistTree generateForSourcePlaylists:_includedPlaylists];
-
-  // print playlists recursively via top-level
-  for (PlaylistNode* childNode in playlistTree.rootNode.children) {
-    [self printPlaylistNode:childNode withIndent:0];
-  }
-}
-
-- (void)printPlaylistNode:(PlaylistNode*)node withIndent:(NSUInteger)indent {
-
-  // indent
-  for (NSUInteger i=2; i<indent; i++){
-    putchar(' ');
-  }
-
-  int spacing = 30 - (int)indent;
-
-  // print playlist description
-  printf("- %-*s  %s\n", spacing, node.playlist.name.UTF8String, node.playlist.persistentID.stringValue.UTF8String);
-
-  // call recursively on children, increasing indent w/ each level
-  for (PlaylistNode* childNode in node.children) {
-    [self printPlaylistNode:childNode withIndent:indent+2];
-  }
 }
 
 

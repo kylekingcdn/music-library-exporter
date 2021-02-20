@@ -32,11 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Accessors
 
-- (BOOL)isRunningInTerminal;
-
 - (void)printHelp;
 - (void)printPlaylists;
-- (void)printPlaylistNode:(PlaylistNode*)node withIndent:(NSUInteger)indent;
 
 
 #pragma mark - Mutators
