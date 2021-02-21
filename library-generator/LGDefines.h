@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 extern NSErrorDomain const __MLE_ErrorDomain_ArgParser;
+extern NSErrorDomain const __MLE_ErrorDomain_LibraryGenerator;
 
 typedef NS_ENUM(NSInteger, ArgParserErrorCode) {
   ArgParserErrorUknown,
@@ -21,6 +22,13 @@ typedef NS_ENUM(NSInteger, ArgParserErrorCode) {
   ArgParserErrorMalformedSortingOptionFormat,
   ArgParserErrorUnknownSortColumn,
   ArgParserErrorUnknownSortOrder,
+};
+
+typedef NS_ENUM(NSInteger, LibraryGeneratorErrorCode) {
+  LibraryGeneratorErrorUknown,
+  LibraryGeneratorErrorInvalidOutputPath,
+  LibraryGeneratorErrorInvalidMusicMediaDirectory,
+  LibraryGeneratorErrorInvalidRemapping,
 };
 
 

@@ -9,6 +9,7 @@
 
 
 NSErrorDomain const __MLE_ErrorDomain_ArgParser = @"com.kylekingcdn.MusicLibraryExporter.ArgParserErrorDomain";
+NSErrorDomain const __MLE_ErrorDomain_LibraryGenerator = @"com.kylekingcdn.MusicLibraryExporter.LibraryGeneratorErrorDomain";
 
 
 @implementation LGDefines
