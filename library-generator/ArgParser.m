@@ -113,13 +113,14 @@
 
   NSString* remapSearch = [_package firstObjectForSignature:[self signatureForOption:LGOptionKindRemapSearch]];
   NSString* remapReplace = [_package firstObjectForSignature:[self signatureForOption:LGOptionKindRemapReplace]];
-  if (remapSearch && remapReplace) {
+  BOOL hasRemapping = (remapSearch || remapReplace);
+
+  [configuration setRemapRootDirectory:hasRemapping];
+  if (remapSearch) {
     [configuration setRemapRootDirectoryOriginalPath:remapSearch];
-    [configuration setRemapRootDirectoryMappedPath:remapReplace];
-    [configuration setRemapRootDirectory:YES];
   }
-  else {
-    [configuration setRemapRootDirectory:NO];
+  if (remapReplace) {
+    [configuration setRemapRootDirectoryMappedPath:remapReplace];
   }
 
   NSString* outputFilePath = [_package firstObjectForSignature:[self signatureForOption:LGOptionKindOutputPath]];
