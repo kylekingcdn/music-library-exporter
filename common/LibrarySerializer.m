@@ -105,7 +105,6 @@
   // FIXME: should remap root library apply to this path as well..?
   if (ExportConfiguration.sharedConfig.musicLibraryPath.length > 0) {
     NSURL* musicLibraryPathUrl = [NSURL fileURLWithPath:ExportConfiguration.sharedConfig.musicLibraryPath];
-    NSLog(@"musicLibraryPathUrl: %@", musicLibraryPathUrl.absoluteString);
     [libraryDict setValue:musicLibraryPathUrl.absoluteString forKey:@"Music Folder"];
   }
 
