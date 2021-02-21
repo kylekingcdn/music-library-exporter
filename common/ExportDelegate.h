@@ -39,10 +39,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Mutators
 
-- (BOOL)prepareForExport;
-- (void)exportLibrary;
+- (BOOL)prepareForExportAndReturnError:(NSError**)error;
+- (BOOL)exportLibraryAndReturnError:(NSError**)error;
 
-- (BOOL)writeDictionary:(OrderedDictionary*)libraryDict;
+- (BOOL)writeDictionary:(OrderedDictionary*)libraryDict error:(NSError**)error;
 
 @end
 

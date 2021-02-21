@@ -54,6 +54,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)handleTrackExportProgress:(NSUInteger)currentTrack withTotal:(NSUInteger)trackCount;
 - (void)handleStateChange:(ExportState)exportState;
 
+- (void)showAlertForError:(NSError*)error;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -188,8 +188,18 @@
   ExportDeferralReason deferralReason = [self reasonToDeferExport];
   if (deferralReason == ExportNoDeferralReason) {
 
-    if ([_exportDelegate prepareForExport]) {
-      [_exportDelegate exportLibrary];
+    NSError* prepareError;
+    BOOL prepareSuccessful = [_exportDelegate prepareForExportAndReturnError:&prepareError];
+    if (!prepareSuccessful) {
+      // ... handle prepare error
+      return;
+    }
+
+    NSError* exportError;
+    BOOL exportSuccessful = [_exportDelegate exportLibraryAndReturnError:&exportError];
+    if (!exportSuccessful) {
+      // ... handle export error
+      return;
     }
   }
 

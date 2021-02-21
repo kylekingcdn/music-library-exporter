@@ -302,9 +302,17 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
   [self->_exportDelegate setStateCallback:stateCallback];
 
   // prepare ExportDelegate members
-  BOOL delegateReady = [_exportDelegate prepareForExport];
-  if (!delegateReady) {
+  NSError* prepareError;
+  BOOL prepareSuccessful = [_exportDelegate prepareForExportAndReturnError:&prepareError];
+  MLE_Log_Info(@"ConfigurationViewController [exportLibrary] prepare successful: %@", (prepareSuccessful ? @"YES" : @"NO"));
+  if (!prepareSuccessful) {
     MLE_Log_Info(@"ConfigurationViewController [exportLibrary] error - failed to prepare export delegate");
+    if (prepareError) {
+      [self showAlertForError:prepareError];
+    }
+    else {
+      MLE_Log_Error(@"ConfigurationViewController [exportLibrary] error - unknown error from exportDelegate->prepareForExport!");
+    }
     return;
   }
 
@@ -319,7 +327,18 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
     };
     [self->_exportDelegate setTrackProgressCallback:trackProgressCallback];
 
-    [self->_exportDelegate exportLibrary];
+    NSError* exportError;
+    BOOL exportSuccessful = [self->_exportDelegate exportLibraryAndReturnError:&exportError];
+    MLE_Log_Info(@"ConfigurationViewController [exportLibrary] export successful: %@", (exportSuccessful ? @"YES" : @"NO"));
+    if (!exportSuccessful) {
+      if (exportError) {
+        [self showAlertForError:exportError];
+      }
+      else {
+        MLE_Log_Error(@"ConfigurationViewController [exportLibrary] error - unknown error from exportDelegate->exportLibrary!");
+      }
+      return;
+    }
   });
 }
 
@@ -364,6 +383,23 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
     [self->_exportStateLabel setStringValue:stateDescription];
     [self->_exportLibraryButton setEnabled:exportAllowed];
 
+  });
+}
+
+- (void)showAlertForError:(NSError*)error {
+
+  dispatch_async(dispatch_get_main_queue(), ^{
+
+    MLE_Log_Info(@"ConfigurationViewController [showAlertForError]");
+
+    if (!error) {
+      MLE_Log_Error(@"ConfigurationViewController [showAlertForError] error parameter is nil!");
+    }
+    else {
+      NSAlert* errorAlert = [NSAlert alertWithError:error];
+      NSModalResponse errorAlertResponse = [errorAlert runModal];
+      MLE_Log_Info(@"ConfigurationViewController [showAlertForError] export error alert reponse: %ld", errorAlertResponse);
+    }
   });
 }
 
