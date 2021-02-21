@@ -30,7 +30,7 @@ static ScheduleConfiguration* _sharedConfig;
 }
 
 
-#pragma mark - Initializers -
+#pragma mark - Initializers
 
 - (instancetype)init {
 
@@ -42,7 +42,7 @@ static ScheduleConfiguration* _sharedConfig;
 }
 
 
-#pragma mark - Accessors -
+#pragma mark - Accessors
 
 + (ScheduleConfiguration*)sharedConfig {
 
@@ -100,7 +100,7 @@ static ScheduleConfiguration* _sharedConfig;
 }
 
 
-#pragma mark - Mutators -
+#pragma mark - Mutators
 
 + (void)initSharedConfig:(ScheduleConfiguration*)sharedConfig {
 

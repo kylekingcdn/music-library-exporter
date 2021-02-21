@@ -13,18 +13,18 @@ NS_ASSUME_NONNULL_BEGIN
 @interface HelperDelegate : NSObject
 
 
-#pragma mark - Initializers -
+#pragma mark - Initializers
 
 - (instancetype)init;
 
 
-#pragma mark - Accessors -
+#pragma mark - Accessors
 
 - (BOOL)isHelperRegisteredWithSystem;
 - (NSString*)errorForHelperRegistration:(BOOL)registerFlag;
 
 
-#pragma mark - Mutators -
+#pragma mark - Mutators
 
 - (BOOL)registerHelperWithSystem:(BOOL)flag;
 - (void)updateHelperRegistrationWithScheduleEnabled:(BOOL)scheduleEnabled;

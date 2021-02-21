@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ExportDelegate : NSObject
 
 
-#pragma mark - Properties -
+#pragma mark - Properties
 
 @property (readonly) ExportState state;
 
@@ -32,12 +32,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) NSArray<ITLibPlaylist*>* includedPlaylists;
 
 
-#pragma mark - Initializers -
+#pragma mark - Initializers
 
 - (instancetype)initWithLibrary:(ITLibrary*)library;
 
 
-#pragma mark - Mutators -
+#pragma mark - Mutators
 
 - (BOOL)prepareForExport;
 - (void)exportLibrary;

@@ -15,12 +15,12 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ExportConfiguration : NSObject
 
 
-#pragma mark - Initializers -
+#pragma mark - Initializers
 
 - (instancetype)init;
 
 
-#pragma mark - Accessors -
+#pragma mark - Accessors
 
 + (ExportConfiguration*)sharedConfig;
 
@@ -56,7 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)dumpProperties;
 
 
-#pragma mark - Mutators -
+#pragma mark - Mutators
 
 + (void)initSharedConfig:(ExportConfiguration*)sharedConfig;
 

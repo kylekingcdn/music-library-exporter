@@ -35,7 +35,7 @@ static ExportConfiguration* _sharedConfig;
 }
 
 
-#pragma mark - Initializers -
+#pragma mark - Initializers
 
 - (instancetype)init {
 
@@ -50,7 +50,7 @@ static ExportConfiguration* _sharedConfig;
 }
 
 
-#pragma mark - Accessors -
+#pragma mark - Accessors
 
 + (ExportConfiguration*)sharedConfig {
 
@@ -215,7 +215,7 @@ static ExportConfiguration* _sharedConfig;
 }
 
 
-#pragma mark - Mutators -
+#pragma mark - Mutators
 
 + (void)initSharedConfig:(ExportConfiguration*)sharedConfig {
 

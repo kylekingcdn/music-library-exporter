@@ -30,7 +30,7 @@
 }
 
 
-#pragma mark - Initializers -
+#pragma mark - Initializers
 
 - (instancetype)initWithExportDelegate:(ExportDelegate*)exportDelegate {
 
@@ -55,7 +55,7 @@
 }
 
 
-#pragma mark - Accessors -
+#pragma mark - Accessors
 
 - (nullable NSDate*)determineNextExportDate {
 
@@ -154,7 +154,7 @@
 }
 
 
-#pragma mark - Mutators -
+#pragma mark - Mutators
 
 - (void)activateScheduler {
 

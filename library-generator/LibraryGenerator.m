@@ -50,7 +50,7 @@
 }
 
 
-#pragma mark - Initializers -
+#pragma mark - Initializers
 
 - (instancetype)init {
 
@@ -274,7 +274,7 @@
 }
 
 
-#pragma mark - Mutators -
+#pragma mark - Mutators
 
 - (BOOL)setupAndReturnError:(NSError**)error {
 

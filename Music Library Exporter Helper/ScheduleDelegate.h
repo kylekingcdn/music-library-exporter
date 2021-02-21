@@ -18,12 +18,12 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ScheduleDelegate : NSObject
 
 
-#pragma mark - Initializers -
+#pragma mark - Initializers
 
 - (instancetype)initWithExportDelegate:(ExportDelegate*)exportDelegate;
 
 
-#pragma mark - Accessors -
+#pragma mark - Accessors
 
 - (nullable NSDate*)determineNextExportDate;
 
@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (ExportDeferralReason)reasonToDeferExport;
 
 
-#pragma mark - Mutators -
+#pragma mark - Mutators
 
 - (void)activateScheduler;
 - (void)deactivateScheduler;

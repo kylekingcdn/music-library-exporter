@@ -16,7 +16,7 @@
 @implementation HelperDelegate
 
 
-#pragma mark - Initializers -
+#pragma mark - Initializers
 
 - (instancetype)init {
 
@@ -26,7 +26,7 @@
 }
 
 
-#pragma mark - Accessors -
+#pragma mark - Accessors
 
 - (BOOL)isHelperRegisteredWithSystem {
 
@@ -64,7 +64,7 @@
 }
 
 
-#pragma mark - Mutators -
+#pragma mark - Mutators
 
 - (BOOL)registerHelperWithSystem:(BOOL)flag {
 

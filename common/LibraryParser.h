@@ -13,12 +13,12 @@ NS_ASSUME_NONNULL_BEGIN
 @interface LibraryParser : NSObject
 
 
-#pragma mark - Properties -
+#pragma mark - Properties
 
 @property NSDictionary* libraryDictionary;
 
 
-#pragma mark - Accessors -
+#pragma mark - Accessors
 
 - (NSArray<NSDictionary*>*)libraryTracks;
 - (NSArray<NSDictionary*>*)libraryPlaylists;
@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSDictionary*)libraryPlaylistsPersistentIdDictionary;
 
 
-#pragma mark - Mutators -
+#pragma mark - Mutators
 
 - (void)setLibraryDictionaryWithPropertyList:(NSString * _Nonnull)plistFilePath;
 

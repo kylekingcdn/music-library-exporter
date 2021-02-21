@@ -25,7 +25,7 @@
 }
 
 
-#pragma mark - Initializers -
+#pragma mark - Initializers
 
 - (instancetype)initWithLibrary:(ITLibrary*)library {
 
@@ -47,7 +47,7 @@
 }
 
 
-#pragma mark - Accessors -
+#pragma mark - Accessors
 
 - (NSSet<NSNumber*>*)getIncludedPlaylistKinds {
 

@@ -17,18 +17,18 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ConfigurationViewController : NSViewController
 
 
-#pragma mark - Initializers -
+#pragma mark - Initializers
 
 - (instancetype)initWithExportDelegate:(ExportDelegate*)exportDelegate
                      forHelperDelegate:(HelperDelegate*)helperDelegate;
 
 
-#pragma mark - Accessors -
+#pragma mark - Accessors
 
 - (id)firstResponderView;
 
 
-#pragma mark - Mutators -
+#pragma mark - Mutators
 
 - (void)updateFromConfiguration;
 

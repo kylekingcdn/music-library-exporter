@@ -17,12 +17,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString* outputDirectoryBookmarkKeySuffix;
 
 
-#pragma mark - Initializers -
+#pragma mark - Initializers
 
 - (instancetype)init;
 
 
-#pragma mark - Accessors -
+#pragma mark - Accessors
 
 + (UserDefaultsExportConfiguration*)sharedConfig;
 
@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable NSData*)fetchOutputDirectoryBookmarkData;
 
 
-#pragma mark - Mutators -
+#pragma mark - Mutators
 
 + (void)initSharedConfig:(UserDefaultsExportConfiguration*)sharedConfig;
 

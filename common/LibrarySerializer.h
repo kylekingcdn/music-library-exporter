@@ -20,24 +20,24 @@ NS_ASSUME_NONNULL_BEGIN
 @interface LibrarySerializer : NSObject
 
 
-#pragma mark - Initializers -
+#pragma mark - Initializers
 
 - (instancetype)initWithLibrary:(ITLibrary*)library;
 
 
-#pragma mark - Utils -
+#pragma mark - Utils
 
 + (NSString*)getHexadecimalPersistentId:(NSNumber*)decimalPersistentId;
 
 
-#pragma mark - Accessors -
+#pragma mark - Accessors
 
 - (NSString*)remapRootMusicDirForFilePath:(NSString*)filePath;
 
 - (nullable NSNumber*)idForEntity:(ITLibMediaEntity*)entity;
 
 
-#pragma mark - Mutators -
+#pragma mark - Mutators
 
 - (void)initSerializeMembers;
 

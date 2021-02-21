@@ -59,7 +59,7 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
 }
 
 
-#pragma mark - Initializers -
+#pragma mark - Initializers
 
 - (instancetype)initWithExportDelegate:(ExportDelegate*)exportDelegate forHelperDelegate:(HelperDelegate*)helperDelegate {
 
@@ -80,7 +80,7 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
 }
 
 
-#pragma mark - Accessors -
+#pragma mark - Accessors
 
 - (id)firstResponderView {
 
@@ -88,7 +88,7 @@ static void *MLEProgressObserverContext = &MLEProgressObserverContext;
 }
 
 
-#pragma mark - Mutators -
+#pragma mark - Mutators
 
 - (void)viewDidLoad {
 

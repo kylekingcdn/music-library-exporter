@@ -10,7 +10,7 @@
 @implementation HourNumberFormatter
 
 
-#pragma mark - Accessors -
+#pragma mark - Accessors
 
 - (BOOL)isPartialStringValid:(NSString *)partialString newEditingString:(NSString * _Nullable * _Nullable)newString errorDescription:(NSString * _Nullable * _Nullable)error {
 

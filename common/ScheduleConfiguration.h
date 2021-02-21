@@ -13,12 +13,12 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ScheduleConfiguration : NSObject
 
 
-#pragma mark - Initializers -
+#pragma mark - Initializers
 
 - (instancetype)init;
 
 
-#pragma mark - Accessors -
+#pragma mark - Accessors
 
 + (ScheduleConfiguration*)sharedConfig;
 
@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)dumpProperties;
 
 
-#pragma mark - Mutators -
+#pragma mark - Mutators
 
 + (void)initSharedConfig:(ScheduleConfiguration*)sharedConfig;
 

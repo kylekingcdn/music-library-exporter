@@ -27,7 +27,7 @@
 }
 
 
-#pragma mark - Initializers -
+#pragma mark - Initializers
 
 - (instancetype)initWithLibrary:(ITLibrary*)library {
 
@@ -44,7 +44,7 @@
 }
 
 
-#pragma mark - Mutators -
+#pragma mark - Mutators
 
 - (void)updateState:(ExportState)state {
 

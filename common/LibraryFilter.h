@@ -17,17 +17,17 @@ NS_ASSUME_NONNULL_BEGIN
 @interface LibraryFilter : NSObject
 
 
-#pragma mark - Properties -
+#pragma mark - Properties
 
 @property BOOL filterExcludedPlaylistIds;
 
 
-#pragma mark - Initializers -
+#pragma mark - Initializers
 
 - (instancetype)initWithLibrary:(ITLibrary*)library;
 
 
-#pragma mark - Accessors -
+#pragma mark - Accessors
 
 - (NSSet<NSNumber*>*)getIncludedPlaylistKinds;
 

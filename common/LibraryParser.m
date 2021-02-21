@@ -13,7 +13,7 @@
 @implementation LibraryParser
 
 
-#pragma mark - Accessors -
+#pragma mark - Accessors
 
 - (NSArray<NSDictionary*>*)libraryTracks {
 
@@ -36,7 +36,7 @@
 }
 
 
-#pragma mark - Mutators -
+#pragma mark - Mutators
 
 - (void)setLibraryDictionaryWithPropertyList:(NSString * _Nonnull)plistFilePath {
 

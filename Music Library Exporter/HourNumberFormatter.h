@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface HourNumberFormatter : NSNumberFormatter
 
 
-#pragma mark - Accessors -
+#pragma mark - Accessors
 
 - (BOOL)isPartialStringValid:(NSString *)partialString newEditingString:(NSString * _Nullable * _Nullable)newString errorDescription:(NSString * _Nullable * _Nullable)error;
 
