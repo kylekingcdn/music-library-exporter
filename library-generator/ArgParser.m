@@ -252,7 +252,7 @@
 
   if (sortOrder == PlaylistSortOrderNull) {
     *error = [NSError errorWithDomain:__MLE_ErrorDomain_ArgParser code:ArgParserErrorUnknownSortOrder userInfo:@{
-      NSLocalizedDescriptionKey: [NSString stringWithFormat:@"eUnknown sort order specifier: %@", sortOrderStr],
+      NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Unknown sort order specifier: %@", sortOrderStr],
     }];
     return NO;
   }
