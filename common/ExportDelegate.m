@@ -83,9 +83,24 @@ NSErrorDomain const __MLE_ErrorDomain_ExportDelegate = @"com.kylekingcdn.MusicLi
 
   [self updateState:ExportPreparing];
 
-  // set configuration
-  if (!UserDefaultsExportConfiguration.sharedConfig.isOutputDirectoryValid) {
-    MLE_Log_Info(@"ExportDelegate [prepareForExportAndReturnError] error - invalid output directory url");
+  // validate output directory set
+  if (!UserDefaultsExportConfiguration.sharedConfig.outputDirectoryUrl || UserDefaultsExportConfiguration.sharedConfig.outputDirectoryUrl.path.length == 0) {
+    MLE_Log_Info(@"ExportDelegate [prepareForExportAndReturnError] output directory is unset");
+    *error = [NSError errorWithDomain:__MLE_ErrorDomain_ExportDelegate code:ExportDelegateErrorOutputDirectoryUnset userInfo:@{
+      NSLocalizedDescriptionKey:@"Output directory is unset",
+      NSLocalizedRecoverySuggestionErrorKey:@"Please select a directory to save your library in.",
+    }];
+    [self updateState:ExportError];
+    return NO;
+  }
+
+  // validate music media dir set
+  if (!UserDefaultsExportConfiguration.sharedConfig.musicLibraryPath || UserDefaultsExportConfiguration.sharedConfig.musicLibraryPath.length == 0) {
+    MLE_Log_Info(@"ExportDelegate [prepareForExportAndReturnError] Music Media location is unset");
+    *error = [NSError errorWithDomain:__MLE_ErrorDomain_ExportDelegate code:ExportDelegateErrorMusicMediaLocationUnset userInfo:@{
+      NSLocalizedDescriptionKey:@"Music Media folder location is unset",
+      NSLocalizedRecoverySuggestionErrorKey:@"Please open the Music application and copy the value (from Preferences > Files) into the corresponding text field.",
+    }];
     [self updateState:ExportError];
     return NO;
   }
