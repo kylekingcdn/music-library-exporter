@@ -24,9 +24,7 @@ read_keys() {
   fi;
 }
 
-main() {
-
-  read_keys;
+upload_dsyms() {
 
   echo -e "\nUploading debug symbols to sentry - $(date)\n";
 
@@ -38,14 +36,41 @@ main() {
     exit -1;
   fi;
 
-  sentry-cli \
-    --auth-token "${SENTRY_AUTH_TOKEN}" upload-dif \
-    --org "${SENTRY_ORG}" \
-    --project "${SENTRY_PROJECT}" \
-    --force-foreground \
-    "${ARCHIVE_DSYMS_PATH}";
+  sentry-cli upload-dif --force-foreground "${ARCHIVE_DSYMS_PATH}";
 
   echo;
+}
+
+create_release() {
+
+  echo -e "\nCreating a sentry release - $(date)\n";
+
+  if [[ -z "${CURRENT_PROJECT_VERSION}" ]]; then
+    echo "error - CURRENT_PROJECT_VERSION is unset!";
+    exit -1;
+  elif [[ -z "${VERSION_BUILD}" ]]; then
+    echo "error - VERSION_BUILD is unset!";
+    exit -1;
+  fi;
+
+  SENTRY_RELEASE_VERSION="${PRODUCT_BUNDLE_IDENTIFIER}@${CURRENT_PROJECT_VERSION}+${VERSION_BUILD}";
+
+  sentry-cli releases new "${SENTRY_RELEASE_VERSION}";
+  sentry-cli releases set-commits --auto "${SENTRY_RELEASE_VERSION}";
+  sentry-cli releases finalize "${SENTRY_RELEASE_VERSION}";
+
+  echo;
+}
+
+main() {
+
+  cd "${SRCROOT}";
+  pwd -P;
+
+  read_keys;
+
+  # upload_dsyms;
+  create_release;
 }
 
 
