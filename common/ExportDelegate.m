@@ -27,6 +27,9 @@
 }
 
 
+NSErrorDomain const __MLE_ErrorDomain_ExportDelegate = @"com.kylekingcdn.MusicLibraryExporter.ExportDelegateErrorDomain";
+
+
 #pragma mark - Initializers
 
 - (instancetype)initWithLibrary:(ITLibrary*)library {

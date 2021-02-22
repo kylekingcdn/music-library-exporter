@@ -20,6 +20,20 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ExportDelegate : NSObject
 
 
+extern NSErrorDomain const __MLE_ErrorDomain_ExportDelegate;
+
+typedef NS_ENUM(NSInteger, ExportDelegateErrorCode) {
+  ExportDelegateErrorUknown,
+  ExportDelegateErrorMusicMediaLocationUnset,
+  ExportDelegateErrorOutputDirectoryUnset,
+  ExportDelegateErrorOutputDirectoryInvalid,
+  ExportDelegateErrorRemappingInvalid,
+  ExportDelegateErrorBusyState,
+  ExportDelegateErrorUnitialized,
+  ExportDelegateErrorWriteError,
+};
+
+
 #pragma mark - Properties
 
 @property (readonly) ExportState state;
