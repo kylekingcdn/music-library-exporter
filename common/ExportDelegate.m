@@ -141,12 +141,19 @@ NSErrorDomain const __MLE_ErrorDomain_ExportDelegate = @"com.kylekingcdn.MusicLi
     case ExportFinished:
     case ExportError: {
       MLE_Log_Info(@"ExportDelegate [exportLibraryAndReturnError] error - prepareForExport must be called first - current state: %@", [Utils descriptionForExportState:_state]);
+      *error = [NSError errorWithDomain:__MLE_ErrorDomain_ExportDelegate code:ExportDelegateErrorUnitialized userInfo:@{
+        NSLocalizedDescriptionKey:@"Internal error",
+        NSLocalizedRecoverySuggestionErrorKey:@"Failed to initialize export handler.",
+      }];
       return NO;
     }
     case ExportGeneratingTracks:
     case ExportGeneratingPlaylists:
     case ExportWritingToDisk: {
       MLE_Log_Info(@"ExportDelegate [exportLibraryAndReturnError] delegate is currently busy - state: %@", [Utils descriptionForExportState:_state]);
+      *error = [NSError errorWithDomain:__MLE_ErrorDomain_ExportDelegate code:ExportDelegateErrorBusyState userInfo:@{
+        NSLocalizedDescriptionKey:@"Export handler is currently busy, please try again.",
+      }];
       return NO;
     }
   }
