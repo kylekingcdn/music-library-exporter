@@ -55,6 +55,7 @@
     [SentrySDK startWithConfigureOptions:^(SentryOptions *options) {
       options.dsn = sentryDsn;
       options.releaseName = [NSString stringWithFormat:@"%@@%@+%d", __MLE__AppBundleIdentifier, CURRENT_PROJECT_VERSION, VERSION_BUILD];
+      options.environment = SENTRY_ENVIRONMENT;
     }];
   }
 #endif
