@@ -191,7 +191,7 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
           dispatch_async(dispatch_get_main_queue(), ^{
 
             NSError* unwritableError = [NSError errorWithDomain:__MLE_ErrorDomain_ConfigurationView code:ConfigurationViewErrorOutputDirectoryUnwritable userInfo:@{
-              NSLocalizedDescriptionKey: @"You do not have permissions to save to this directory.",
+              NSLocalizedDescriptionKey: @"You do not have permission to save to this directory",
               NSLocalizedRecoverySuggestionErrorKey: @"Would you like to select a new directory?",
               NSLocalizedRecoveryOptionsErrorKey: @[ @"Browse", @"Cancel" ],
             }];
