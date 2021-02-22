@@ -10,6 +10,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 
+@interface LGDefines : NSObject
+
+
 extern NSErrorDomain const __MLE_ErrorDomain_ArgParser;
 extern NSErrorDomain const __MLE_ErrorDomain_LibraryGenerator;
 
@@ -30,9 +33,6 @@ typedef NS_ENUM(NSInteger, LibraryGeneratorErrorCode) {
   LibraryGeneratorErrorInvalidMusicMediaDirectory,
   LibraryGeneratorErrorInvalidRemapping,
 };
-
-
-@interface LGDefines : NSObject
 
 typedef NS_ENUM(NSInteger, LGCommandKind) {
   LGCommandKindHelp,

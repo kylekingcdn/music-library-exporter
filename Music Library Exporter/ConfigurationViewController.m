@@ -16,7 +16,6 @@
 #import "HourNumberFormatter.h"
 #import "AppDelegate.h"
 
-static void *MLEProgressObserverContext = &MLEProgressObserverContext;
 
 @interface ConfigurationViewController ()
 
