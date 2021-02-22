@@ -74,6 +74,8 @@
 		27EF9A7025BF23920051CE7B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27EF9A6F25BF23920051CE7B /* main.m */; };
 		27F253E525D8710400243606 /* DirectoryPermissionsWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27F253E425D8710400243606 /* DirectoryPermissionsWindow.xib */; };
 		27F253EB25D87F7700243606 /* DirectoryPermissionsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F253EA25D87F7700243606 /* DirectoryPermissionsWindowController.m */; };
+		27F5865C25E4660D00872731 /* MLESentryHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F5865325E4656D00872731 /* MLESentryHandler.m */; };
+		27F5866025E4661300872731 /* MLESentryHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F5865325E4656D00872731 /* MLESentryHandler.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -240,6 +242,8 @@
 		27F253E425D8710400243606 /* DirectoryPermissionsWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DirectoryPermissionsWindow.xib; sourceTree = "<group>"; };
 		27F253E925D87F7700243606 /* DirectoryPermissionsWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DirectoryPermissionsWindowController.h; sourceTree = "<group>"; };
 		27F253EA25D87F7700243606 /* DirectoryPermissionsWindowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DirectoryPermissionsWindowController.m; sourceTree = "<group>"; };
+		27F5865225E4656D00872731 /* MLESentryHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLESentryHandler.h; sourceTree = "<group>"; };
+		27F5865325E4656D00872731 /* MLESentryHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MLESentryHandler.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -362,6 +366,8 @@
 				273B522F25CA666000421B14 /* Defines.m */,
 				27C52A7225B69C4B00D829F3 /* Utils.h */,
 				27C52A7325B69C4B00D829F3 /* Utils.m */,
+				27F5865225E4656D00872731 /* MLESentryHandler.h */,
+				27F5865325E4656D00872731 /* MLESentryHandler.m */,
 				2749619125CE4F9700B98E11 /* LibraryFilter.h */,
 				2749619225CE4F9700B98E11 /* LibraryFilter.m */,
 				27CDC90B25BADAFC0032BF79 /* LibraryParser.h */,
@@ -687,6 +693,7 @@
 				27A2C08D25C097C000AAD73C /* LibrarySerializer.m in Sources */,
 				279E326425E0795B008F8C56 /* PlaylistNode.m in Sources */,
 				279E326825E0795D008F8C56 /* PlaylistTree.m in Sources */,
+				27F5866025E4661300872731 /* MLESentryHandler.m in Sources */,
 				27EC7C6725C8C41800996E9E /* UserDefaultsExportConfiguration.m in Sources */,
 				27533C2E25CAA21600A3B4D9 /* ExportDelegate.m in Sources */,
 				27C0A0F125CB046500EDDE22 /* ScheduleConfiguration.m in Sources */,
@@ -710,6 +717,7 @@
 				27A2BFC525C085E400AAD73C /* LibrarySerializer.m in Sources */,
 				276B1AD125D40BB3002D7289 /* PlaylistNode.m in Sources */,
 				279E326025E07943008F8C56 /* PlaylistTree.m in Sources */,
+				27F5865C25E4660D00872731 /* MLESentryHandler.m in Sources */,
 				27EC7C6325C8C41300996E9E /* UserDefaultsExportConfiguration.m in Sources */,
 				27533C2A25CAA21300A3B4D9 /* ExportDelegate.m in Sources */,
 				27C0A0F525CB046A00EDDE22 /* ScheduleConfiguration.m in Sources */,

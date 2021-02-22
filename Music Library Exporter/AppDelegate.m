@@ -18,9 +18,8 @@
 #import "HelperDelegate.h"
 #import "ConfigurationViewController.h"
 #import "PlaylistsViewController.h"
-
 #if SENTRY_ENABLED == 1
-@import Sentry;
+#import "MLESentryHandler.h"
 #endif
 
 @interface AppDelegate ()
@@ -52,14 +51,7 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 
 #if SENTRY_ENABLED == 1
-  NSString* sentryDsn = [NSString stringWithFormat:@"https://%@", SENTRY_DSN];
-  if (sentryDsn && sentryDsn.length > 0) {
-    [SentrySDK startWithConfigureOptions:^(SentryOptions *options) {
-      options.dsn = sentryDsn;
-      options.releaseName = [NSString stringWithFormat:@"%@@%@+%d", __MLE__AppBundleIdentifier, CURRENT_PROJECT_VERSION, VERSION_BUILD];
-      options.environment = SENTRY_ENVIRONMENT;
-    }];
-  }
+  [MLESentryHandler setup];
 #endif
 
   // init exportConfiguration
