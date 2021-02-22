@@ -46,7 +46,7 @@ static UserDefaultsExportConfiguration* _sharedConfig;
 
 //  @"",             @"OutputDirectoryBookmark", /* we want this to be nil if it doesn't exist */
     @"",             @"OutputDirectoryPath",
-    @"Library.xml",  @"OutputFileName",
+    @"",             @"OutputFileName",
 
     @NO,             @"RemapRootDirectory",
     @"",             @"RemapRootDirectoryOriginalPath",
