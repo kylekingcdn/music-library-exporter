@@ -79,7 +79,7 @@
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
                title = "Release scripts"
-               scriptText = "&quot;${SRCROOT}/scripts/mle-increment-build-number&quot;;&#10;&quot;${SRCROOT}/scripts/mle-sentry-upload&quot;;&#10;"
+               scriptText = "&quot;${SRCROOT}/scripts/mle-sentry-upload&quot;;&#10;&quot;${SRCROOT}/scripts/mle-increment-build-number&quot;;&#10;"
                shellToInvoke = "/bin/bash">
                <EnvironmentBuildable>
                   <BuildableReference
