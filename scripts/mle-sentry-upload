@@ -68,10 +68,11 @@ main() {
 
   read_keys;
 
-  upload_dsyms;
   create_release;
+
+  upload_dsyms;
 }
 
 
-main "${@}" 2>&1 | tee -a '/tmp/mle-sentry-upload.log';
+main "${@}" 2>&1 | tee -a "${SCRIPT_DIR}/mle-sentry-upload.log";
 
