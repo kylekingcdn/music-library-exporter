@@ -19,7 +19,9 @@
 #import "ConfigurationViewController.h"
 #import "PlaylistsViewController.h"
 
+#if SENTRY_ENABLED == 1
 @import Sentry;
+#endif
 
 @interface AppDelegate ()
 

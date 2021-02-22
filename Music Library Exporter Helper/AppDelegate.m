@@ -15,7 +15,9 @@
 #import "ScheduleConfiguration.h"
 #import "ScheduleDelegate.h"
 
+#if SENTRY_ENABLED == 1
 @import Sentry;
+#endif
 
 @implementation AppDelegate {
 
