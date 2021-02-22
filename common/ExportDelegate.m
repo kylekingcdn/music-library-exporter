@@ -99,7 +99,7 @@ NSErrorDomain const __MLE_ErrorDomain_ExportDelegate = @"com.kylekingcdn.MusicLi
     MLE_Log_Info(@"ExportDelegate [prepareForExportAndReturnError] Music Media location is unset");
     *error = [NSError errorWithDomain:__MLE_ErrorDomain_ExportDelegate code:ExportDelegateErrorMusicMediaLocationUnset userInfo:@{
       NSLocalizedDescriptionKey:@"Music Media folder location is unset",
-      NSLocalizedRecoverySuggestionErrorKey:@"Please open the Music application and copy the value (from Preferences > Files) into the corresponding text field.",
+      NSLocalizedRecoverySuggestionErrorKey:@"This value can be retreived from the Files tab of the Music application's Preferences window.",
     }];
     [self updateState:ExportError];
     return NO;
