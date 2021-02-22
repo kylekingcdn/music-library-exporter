@@ -74,6 +74,9 @@ NSErrorDomain const __MLE_ErrorDomain_ExportDelegate = @"com.kylekingcdn.MusicLi
     case ExportGeneratingPlaylists:
     case ExportWritingToDisk: {
       MLE_Log_Info(@"ExportDelegate [prepareForExportAndReturnError] currently busy - state: %@", [Utils descriptionForExportState:_state]);
+      *error = [NSError errorWithDomain:__MLE_ErrorDomain_ExportDelegate code:ExportDelegateErrorBusyState userInfo:@{
+        NSLocalizedDescriptionKey:@"Export handler is currently busy, please try again.",
+      }];
       return NO;
     }
   }
