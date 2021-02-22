@@ -17,6 +17,14 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ConfigurationViewController : NSViewController
 
 
+extern NSErrorDomain const __MLE_ErrorDomain_ConfigurationView;
+
+typedef NS_ENUM(NSInteger, ConfigurationViewErrorCode) {
+  ConfigurationViewErrorUknown,
+  ConfigurationViewErrorOutputDirectoryUnwritable,
+};
+
+
 #pragma mark - Initializers
 
 - (instancetype)initWithExportDelegate:(ExportDelegate*)exportDelegate

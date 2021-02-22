@@ -58,6 +58,9 @@
 }
 
 
+NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.MusicLibraryExporter.ConfigurationViewErrorDomain";
+
+
 #pragma mark - Initializers
 
 - (instancetype)initWithExportDelegate:(ExportDelegate*)exportDelegate forHelperDelegate:(HelperDelegate*)helperDelegate {
@@ -172,9 +175,40 @@
       NSURL* outputDirUrl = [openPanel URL];
       if (outputDirUrl) {
 
-        [ExportConfiguration.sharedConfig setOutputDirectoryUrl:outputDirUrl];
-        [ExportConfiguration.sharedConfig setOutputDirectoryPath:outputDirUrl.path];
-        [self->_outputDirectoryTextField setStringValue:outputDirUrl.path];
+        BOOL outputDirWritable = [[NSFileManager defaultManager] isWritableFileAtPath:outputDirUrl.path];
+
+        if (outputDirWritable) {
+
+          [ExportConfiguration.sharedConfig setOutputDirectoryUrl:outputDirUrl];
+          [ExportConfiguration.sharedConfig setOutputDirectoryPath:outputDirUrl.path];
+          [self->_outputDirectoryTextField setStringValue:outputDirUrl.path];
+        }
+
+        // selected directory isn't writable, create alert that prompts user to re-select a directory
+        else {
+
+          // run in main queue to allow to panel to close
+          dispatch_async(dispatch_get_main_queue(), ^{
+
+            NSError* unwritableError = [NSError errorWithDomain:__MLE_ErrorDomain_ConfigurationView code:ConfigurationViewErrorOutputDirectoryUnwritable userInfo:@{
+              NSLocalizedDescriptionKey: @"You do not have permissions to save to this directory.",
+              NSLocalizedRecoverySuggestionErrorKey: @"Would you like to select a new directory?",
+              NSLocalizedRecoveryOptionsErrorKey: @[ @"Browse", @"Cancel" ],
+            }];
+
+            NSAlert* errorAlert = [NSAlert alertWithError:unwritableError];
+            NSModalResponse errorAlertResponse = [errorAlert runModal];
+
+            // Browse clicked
+            if (errorAlertResponse == NSAlertFirstButtonReturn) {
+              [self browseOutputDirectory:self];
+            }
+            // Cancel clicked
+            else {
+              MLE_Log_Info(@"ConfigurationViewController [browseOutputDirectory] cancelled browse for output directory");
+            }
+          });
+        }
       }
     }
   }];
