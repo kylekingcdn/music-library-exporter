@@ -83,11 +83,6 @@
     [self updateState:ExportError];
     return NO;
   }
-  if (!UserDefaultsExportConfiguration.sharedConfig.isOutputFileNameValid) {
-    MLE_Log_Info(@"ExportDelegate [prepareForExportAndReturnError] error - invalid output filename");
-    [self updateState:ExportError];
-    return NO;
-  }
 
   // init serializer
   [_librarySerializer initSerializeMembers];
@@ -161,10 +156,18 @@
     return NO;
   }
 
+  NSString* outputFileName = UserDefaultsExportConfiguration.sharedConfig.outputFileName;
+  if (!outputFileName || outputFileName.length == 0) {
+    outputFileName = @"Library.xml"; // fallback to default filename
+    MLE_Log_Info(@"ExportDelegate [writeDictionary] output filename unspecified - falling back to default: %@", outputFileName);
+  }
+
+  NSURL* outputFileUrl = [outputDirectoryUrl URLByAppendingPathComponent:outputFileName];
+
   // write library
-  MLE_Log_Info(@"ExportDelegate [writeDictionary] saving to: %@", UserDefaultsExportConfiguration.sharedConfig.outputFileUrl);
+  MLE_Log_Info(@"ExportDelegate [writeDictionary] saving to: %@", outputFileUrl);
   [outputDirectoryUrl startAccessingSecurityScopedResource];
-  BOOL writeSuccess = [libraryDict writeToURL:UserDefaultsExportConfiguration.sharedConfig.outputFileUrl error:error];
+  BOOL writeSuccess = [libraryDict writeToURL:outputFileUrl error:error];
   [outputDirectoryUrl stopAccessingSecurityScopedResource];
 
   if (!writeSuccess) {
