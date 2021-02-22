@@ -32,10 +32,11 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 
 #if SENTRY_ENABLED == 1
-  NSString* sentryDsn = SENTRY_DSN;
+  NSString* sentryDsn = [NSString stringWithFormat:@"https://%@", SENTRY_DSN];
   if (sentryDsn && sentryDsn.length > 0) {
     [SentrySDK startWithConfigureOptions:^(SentryOptions *options) {
-      options.dsn = [NSString stringWithFormat:@"https://%@", sentryDsn];
+      options.dsn = sentryDsn;
+      options.releaseName = [NSString stringWithFormat:@"%@@%@+%d", __MLE__AppBundleIdentifier, CURRENT_PROJECT_VERSION, VERSION_BUILD];
     }];
   }
 #endif
