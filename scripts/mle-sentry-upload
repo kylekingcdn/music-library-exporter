@@ -65,11 +65,10 @@ create_release() {
 main() {
 
   cd "${SRCROOT}";
-  pwd -P;
 
   read_keys;
 
-  # upload_dsyms;
+  upload_dsyms;
   create_release;
 }
 
