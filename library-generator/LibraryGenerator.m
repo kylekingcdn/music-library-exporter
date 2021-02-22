@@ -25,7 +25,7 @@
 
 - (BOOL)isRunningInTerminal;
 
-- (BOOL)validateConfigurationAndReturnError:(NSError**)error;
+- (BOOL)validateExportConfigurationAndReturnError:(NSError**)error;
 - (BOOL)validateOutputPathAndReturnError:(NSError**)error;
 - (BOOL)validateMusicMediaDirectoryAndReturnError:(NSError**)error;
 - (BOOL)validatePathMappingAndReturnError:(NSError**)error;
@@ -194,7 +194,7 @@
   return YES;
 }
 
-- (BOOL)validateConfigurationAndReturnError:(NSError**)error {
+- (BOOL)validateExportConfigurationAndReturnError:(NSError**)error {
 
   if (![self validateOutputPathAndReturnError:error]) {
     return NO;
@@ -457,9 +457,19 @@
     return NO;
   }
 
-  // validate configuration
-  if (![self validateConfigurationAndReturnError:error]) {
-    return NO;
+  // extended configuration validation
+  switch (_command) {
+    case LGCommandKindHelp:
+    case LGCommandKindPrint:
+    case LGCommandKindUnknown: {
+      break;
+    }
+    case LGCommandKindExport: {
+      if (![self validateExportConfigurationAndReturnError:error]) {
+        return NO;
+      }
+      break;
+    }
   }
 
   // init LibraryFilter to fetch included media items
