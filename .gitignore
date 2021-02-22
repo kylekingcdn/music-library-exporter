@@ -26,3 +26,4 @@ DerivedData/
 /*.gcno
 /Config/Common/Sentry.xcconfig
 /scripts/.sentry.keys
+/scripts/mle-sentry-upload.log
