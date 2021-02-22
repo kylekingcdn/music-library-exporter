@@ -105,6 +105,19 @@ NSErrorDomain const __MLE_ErrorDomain_ExportDelegate = @"com.kylekingcdn.MusicLi
     return NO;
   }
 
+  // validate path re-mapping
+  if (UserDefaultsExportConfiguration.sharedConfig.remapRootDirectory) {
+    if (!UserDefaultsExportConfiguration.sharedConfig.remapRootDirectoryOriginalPath || UserDefaultsExportConfiguration.sharedConfig.remapRootDirectoryOriginalPath.length == 0) {
+      MLE_Log_Info(@"ExportDelegate [prepareForExportAndReturnError] Re-map original path is unset");
+      *error = [NSError errorWithDomain:__MLE_ErrorDomain_ExportDelegate code:ExportDelegateErrorRemappingInvalid userInfo:@{
+        NSLocalizedDescriptionKey:@"Path mapping incomplete",
+        NSLocalizedRecoverySuggestionErrorKey:@"Please complete the missing fields or disable path mapping.",
+      }];
+      [self updateState:ExportError];
+      return NO;
+    }
+  }
+
   // init serializer
   [_librarySerializer initSerializeMembers];
 
