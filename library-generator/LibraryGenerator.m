@@ -232,7 +232,7 @@
 
     if (pathIsDirectory) {
       *error = [NSError errorWithDomain:__MLE_ErrorDomain_LibraryGenerator code:LibraryGeneratorErrorInvalidOutputPath userInfo:@{
-        NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Error: The specified output path is a directory (%@), please include a file name in your output path", filePath],
+        NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Error: The --output_paths option requires a filename. Please include a file name in your output path: %@", filePath],
       }];
       return NO;
     }
@@ -255,14 +255,14 @@
 
     if (!pathParentExists) {
       *error = [NSError errorWithDomain:__MLE_ErrorDomain_LibraryGenerator code:LibraryGeneratorErrorInvalidOutputPath userInfo:@{
-        NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Error: The parent directory for output path doesn't exist (%@)", pathParent],
+        NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Error: The output path's parent directory doesn't exist: %@", pathParent],
       }];
       return NO;
     }
 
     else if (!pathParentIsDirectory) {
       *error = [NSError errorWithDomain:__MLE_ErrorDomain_LibraryGenerator code:LibraryGeneratorErrorInvalidOutputPath userInfo:@{
-        NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Error: The specified output path is not valid as it's parent (%@) is not a directory", pathParent],
+        NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Error: The specified output path is not valid as it's parent is not a directory: %@", pathParent],
       }];
       return NO;
     }
