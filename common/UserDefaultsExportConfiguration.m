@@ -247,19 +247,11 @@ static UserDefaultsExportConfiguration* _sharedConfig;
   // bookmark data is stale, attempt to renew
   if (outputDirBookmarkIsStale) {
 
-    NSError* outputDirBookmarkRenewError;
     MLE_Log_Info(@"UserDefaultsExportConfiguration [fetchAndAutoRenewOutputDirectoryUrl] bookmark is stale, attempting renewal");
 
     [outputDirBookmarkUrl startAccessingSecurityScopedResource];
-    [outputDirBookmarkUrl bookmarkDataWithOptions:NSURLBookmarkCreationWithSecurityScope includingResourceValuesForKeys:nil relativeToURL:nil error:&outputDirBookmarkRenewError];
-    [outputDirBookmarkUrl stopAccessingSecurityScopedResource];
-
     [self saveBookmarkForOutputDirectoryUrl:outputDirBookmarkUrl];
-
-    if (outputDirBookmarkRenewError) {
-      MLE_Log_Info(@"UserDefaultsExportConfiguration [fetchAndAutoRenewOutputDirectoryUrl] error renewing bookmark: %@", outputDirBookmarkRenewError.localizedDescription);
-      return nil;
-    }
+    [outputDirBookmarkUrl stopAccessingSecurityScopedResource];
   }
   else {
     MLE_Log_Info(@"UserDefaultsExportConfiguration [fetchAndAutoRenewOutputDirectoryUrl] bookmarked output directory is valid");
