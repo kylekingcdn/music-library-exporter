@@ -297,25 +297,25 @@
     return NO;
   }
 
-  NSFileManager* fileManager = [NSFileManager defaultManager];
-
-  BOOL pathIsDirectory;
-  BOOL pathExists = [fileManager fileExistsAtPath:musicDirPath isDirectory:&pathIsDirectory];
-
-  // ensure specified file path is writable
-  if (!pathExists) {
-    *error = [NSError errorWithDomain:__MLE_ErrorDomain_LibraryGenerator code:LibraryGeneratorErrorInvalidMusicMediaDirectory userInfo:@{
-      NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Error: The specified music media directory does not exist: %@", musicDirPath],
-    }];
-    return NO;
-  }
-
-  if (!pathIsDirectory) {
-    *error = [NSError errorWithDomain:__MLE_ErrorDomain_LibraryGenerator code:LibraryGeneratorErrorInvalidMusicMediaDirectory userInfo:@{
-      NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Error: The specified music media location is not a directory: %@. Please copy and paste the exact value from Music Preferences. More information can be found by running 'library-generate help'.", musicDirPath],
-    }];
-    return NO;
-  }
+//  NSFileManager* fileManager = [NSFileManager defaultManager];
+//
+//  BOOL pathIsDirectory;
+//  BOOL pathExists = [fileManager fileExistsAtPath:musicDirPath isDirectory:&pathIsDirectory];
+//
+//  // ensure specified file path is writable
+//  if (!pathExists) {
+//    *error = [NSError errorWithDomain:__MLE_ErrorDomain_LibraryGenerator code:LibraryGeneratorErrorInvalidMusicMediaDirectory userInfo:@{
+//      NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Error: The specified music media directory does not exist: %@", musicDirPath],
+//    }];
+//    return NO;
+//  }
+//
+//  if (!pathIsDirectory) {
+//    *error = [NSError errorWithDomain:__MLE_ErrorDomain_LibraryGenerator code:LibraryGeneratorErrorInvalidMusicMediaDirectory userInfo:@{
+//      NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Error: The specified music media location is not a directory: %@. Please copy and paste the exact value from Music Preferences. More information can be found by running 'library-generate help'.", musicDirPath],
+//    }];
+//    return NO;
+//  }
 
   return YES;
 }
