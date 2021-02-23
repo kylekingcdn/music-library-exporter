@@ -45,6 +45,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)dumpArguments;
 
+- (BOOL)verboseOutputEnabled;
+
 + (nullable NSSet<NSNumber*>*)playlistIdsForIdsOption:(NSString*)playlistIdsOption error:(NSError**)error;
 
 + (BOOL)parsePlaylistSortingOption:(NSString*)sortOption forColumnDict:(NSMutableDictionary*)sortColDict andOrderDict:(NSMutableDictionary*)sortOrderDict andReturnError:(NSError**)error;

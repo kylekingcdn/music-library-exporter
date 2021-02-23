@@ -46,6 +46,8 @@
   BOOL _printProgress;
   NSUInteger _termWidth;
 
+  BOOL _verboseOutput;
+
   ITLibrary* _library;
 
   NSArray<ITLibMediaItem*>* _includedTracks;
@@ -102,9 +104,10 @@
   printf("\n        These can be helpful for previewing the list of playlists that will be included in an export when the filter options are applied.");
   printf("\n");
   printf("\n        Supported options:");
-  printf("\n            --exclude_ids <playlist_ids>");
-  printf("\n            --exclude_internal");
+  printf("\n            --verbose");
   printf("\n            --flatten");
+  printf("\n            --exclude_internal");
+  printf("\n            --exclude_ids <playlist_ids>");
   printf("\n");
   printf("\n    export");
   printf("\n");
@@ -115,6 +118,7 @@
   printf("\n            --output_path  <path>");
   printf("\n");
   printf("\n        Supported options:");
+  printf("\n            --verbose");
   printf("\n            --flatten");
   printf("\n            --exclude_internal ");
   printf("\n            --exclude_ids  <playlist_ids>");
@@ -123,6 +127,10 @@
   printf("\n            --remap_replace  <replacement text>");
   printf("\n");
   printf("\nOPTIONS");
+  printf("\n");
+  printf("\n    --verbose, -v");
+  printf("\n");
+  printf("\n        Enables verbose output");
   printf("\n");
   printf("\n    --flatten, -f");
   printf("\n");
@@ -439,6 +447,11 @@
   }
 
   _command = argParser.command;
+  _verboseOutput = argParser.verboseOutputEnabled;
+
+  if (_verboseOutput) {
+    printf("---- verbose output enabled ----\n");
+  }
 
   // display help
   if (_command == LGCommandKindHelp) {

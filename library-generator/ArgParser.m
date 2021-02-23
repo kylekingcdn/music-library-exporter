@@ -78,6 +78,16 @@
   return commmandTypes;
 }
 
+- (BOOL)verboseOutputEnabled {
+
+  XPMArgumentSignature* verboseSignature = [self signatureForOption:LGOptionKindFlatten];
+  if (verboseSignature == nil) {
+    return NO;
+  }
+
+  return [_package booleanValueForSignature:[self signatureForOption:LGOptionKindVerbose]];
+}
+
 - (BOOL)populateExportConfiguration:(ExportConfiguration*)configuration error:(NSError**)error {
 
   [configuration setFlattenPlaylistHierarchy:[_package booleanValueForSignature:[self signatureForOption:LGOptionKindFlatten]]];
