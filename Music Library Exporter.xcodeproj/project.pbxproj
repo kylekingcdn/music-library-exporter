@@ -420,12 +420,12 @@
 			isa = PBXGroup;
 			children = (
 				2705444825B66A0A00FE6D65 /* main.m */,
-				2739C5BC25DE29A400C57218 /* LibraryGenerator.h */,
-				2739C5BD25DE29A400C57218 /* LibraryGenerator.m */,
 				271DD27225DBA246009BB292 /* LGDefines.h */,
 				271DD27325DBA246009BB292 /* LGDefines.m */,
 				271DD26C25DB9FCF009BB292 /* ArgParser.h */,
 				271DD26D25DB9FCF009BB292 /* ArgParser.m */,
+				2739C5BC25DE29A400C57218 /* LibraryGenerator.h */,
+				2739C5BD25DE29A400C57218 /* LibraryGenerator.m */,
 			);
 			path = "library-generator";
 			sourceTree = "<group>";
