@@ -206,6 +206,26 @@
   }
 }
 
+- (BOOL)isNodeExcluded:(nullable PlaylistNode*)node {
+
+  if (node == nil || node.playlistHexId == nil) {
+    return NO;
+  }
+
+  if ([ExportConfiguration.sharedConfig isPlaylistIdExcluded:node.playlistHexId]) {
+    return YES;
+  }
+
+  if (!ExportConfiguration.sharedConfig.flattenPlaylistHierarchy && node.playlist.parentID != nil) {
+    PlaylistNode* parentNode = [self.outlineView parentForItem:node];
+    if (parentNode != nil) {
+      return [self isNodeExcluded:parentNode];
+    }
+  }
+
+  return NO;
+}
+
 - (nullable PlaylistNode*)playlistNodeForCellView:(NSView*)cellView {
 
   NSInteger row = [_outlineView rowForView:cellView];
@@ -283,6 +303,8 @@
   BOOL excluded = ([sender state] == NSControlStateValueOff);
 
   [ExportConfiguration.sharedConfig setExcluded:excluded forPlaylistId:node.playlistHexId];
+
+  [_outlineView reloadItem:node reloadChildren:YES];
 }
 
 - (IBAction)setPlaylistSorting:(id)sender {
@@ -403,7 +425,7 @@
 
     CheckBoxTableCellView* cellView = [outlineView makeViewWithIdentifier:cellViewId owner:nil];
 
-    NSControlStateValue state = [ExportConfiguration.sharedConfig isPlaylistIdExcluded:node.playlistHexId] ? NSControlStateValueOff : NSControlStateValueOn;
+    NSControlStateValue state = [self isNodeExcluded:node] ? NSControlStateValueOff : NSControlStateValueOn;
 
     [cellView.checkbox setAction:@selector(setPlaylistExcludedForCellView:)];
     [cellView.checkbox setTarget:self];
