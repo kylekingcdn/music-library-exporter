@@ -59,8 +59,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)loadPropertiesFromUserDefaults;
 - (void)registerDefaultValues;
 
-- (nullable NSURL*)resolveAndAutoRenewOutputDirectoryUrl;
-- (BOOL)saveBookmarkForOutputDirectoryUrl:(NSURL*)outputDirUrl;
+- (nullable NSURL*)resolveOutputDirectoryBookmarkAndReturnError:(NSError**)error;
+- (BOOL)saveBookmarkForOutputDirectoryUrl:(nullable NSURL*)outputDirUrl;
 
 @end
 

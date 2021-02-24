@@ -122,7 +122,7 @@
     return NO;
   }
 
-  NSURL* outputDirUrl = UserDefaultsExportConfiguration.sharedConfig.resolveAndAutoRenewOutputDirectoryUrl;
+  NSURL* outputDirUrl = [UserDefaultsExportConfiguration.sharedConfig resolveOutputDirectoryBookmarkAndReturnError:nil];
 
   if (outputDirUrl && outputDirUrl.isFileURL) {
 

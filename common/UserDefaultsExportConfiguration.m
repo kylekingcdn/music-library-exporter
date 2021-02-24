@@ -204,7 +204,8 @@ static UserDefaultsExportConfiguration* _sharedConfig;
 
   [super setMusicLibraryPath:[_userDefaults valueForKey:@"MusicLibraryPath"]];
 
-  [super setOutputDirectoryUrl:[self resolveAndAutoRenewOutputDirectoryUrl]];
+  [super setOutputDirectoryUrl: [self resolveOutputDirectoryBookmarkAndReturnError:nil]];
+  // if the bookmark was stale, the above call to resolve would have already updated this value
   [super setOutputDirectoryPath:[_userDefaults valueForKey:@"OutputDirectoryPath"]];
   [super setOutputFileName:[_userDefaults valueForKey:@"OutputFileName"]];
 
@@ -227,51 +228,56 @@ static UserDefaultsExportConfiguration* _sharedConfig;
   [_userDefaults registerDefaults:[self defaultValues]];
 }
 
-- (nullable NSURL*)resolveAndAutoRenewOutputDirectoryUrl {
+- (nullable NSURL*)resolveOutputDirectoryBookmarkAndReturnError:(NSError**)error {
+
+  MLE_Log_Info(@"UserDefaultsExportConfiguration [resolveOutputDirectoryBookmarkAndReturnError]");
 
   // fetch output directory bookmark data
   NSData* outputDirBookmarkData = [self fetchOutputDirectoryBookmarkData];
 
   // no bookmark has been saved yet
   if (outputDirBookmarkData == nil) {
+    MLE_Log_Info(@"UserDefaultsExportConfiguration [resolveOutputDirectoryBookmarkAndReturnError] bookmark is nil");
     return nil;
   }
 
   // resolve output directory URL for bookmark data
   BOOL outputDirBookmarkIsStale;
-  NSError* outputDirBookmarkResolutionError;
-  NSURL* outputDirBookmarkUrl = [NSURL URLByResolvingBookmarkData:outputDirBookmarkData options:NSURLBookmarkResolutionWithSecurityScope relativeToURL:nil bookmarkDataIsStale:&outputDirBookmarkIsStale error:&outputDirBookmarkResolutionError];
+  NSURL* outputDirBookmarkUrl = [NSURL URLByResolvingBookmarkData:outputDirBookmarkData options:NSURLBookmarkResolutionWithSecurityScope relativeToURL:nil bookmarkDataIsStale:&outputDirBookmarkIsStale error:error];
 
   // error resolving bookmark data
-  if (outputDirBookmarkResolutionError) {
-    MLE_Log_Info(@"UserDefaultsExportConfiguration [fetchAndAutoRenewOutputDirectoryUrl] error resolving output dir bookmark: %@", outputDirBookmarkResolutionError.localizedDescription);
+  if (outputDirBookmarkUrl == nil) {
+    if (error) {
+      MLE_Log_Info(@"UserDefaultsExportConfiguration [resolveOutputDirectoryBookmarkAndReturnError] error resolving output dir bookmark: %@", [*error localizedDescription]);
+    }
     [self setOutputDirectoryUrl:nil];
     return nil;
   }
 
-  NSAssert(outputDirBookmarkUrl != nil, @"NSURL retreived from bookmark is nil");
-  MLE_Log_Info(@"UserDefaultsExportConfiguration [fetchAndAutoRenewOutputDirectoryUrl] bookmarked output directory: %@", outputDirBookmarkUrl.path);
-
   // bookmark data is stale, update saved bookmark + output path variable
   if (outputDirBookmarkIsStale) {
 
-    MLE_Log_Info(@"UserDefaultsExportConfiguration [fetchAndAutoRenewOutputDirectoryUrl] bookmark is stale, attempting renewal");
+    MLE_Log_Info(@"UserDefaultsExportConfiguration [resolveOutputDirectoryBookmarkAndReturnError] bookmark is stale, saving new bookmark");
 
     [outputDirBookmarkUrl startAccessingSecurityScopedResource];
     // we call this instead of saveBookmark since it handles updating internal member variables as well as the path variable
     [self setOutputDirectoryUrl:outputDirBookmarkUrl];
     [outputDirBookmarkUrl stopAccessingSecurityScopedResource];
   }
-  else {
-    MLE_Log_Info(@"UserDefaultsExportConfiguration [fetchAndAutoRenewOutputDirectoryUrl] bookmarked output directory is valid");
-  }
+
+  MLE_Log_Info(@"UserDefaultsExportConfiguration [resolveOutputDirectoryBookmarkAndReturnError] bookmarked output directory: %@", outputDirBookmarkUrl.path);
 
   return outputDirBookmarkUrl;
 }
 
-- (BOOL)saveBookmarkForOutputDirectoryUrl:(NSURL*)outputDirUrl {
+- (BOOL)saveBookmarkForOutputDirectoryUrl:(nullable NSURL*)outputDirUrl {
 
   MLE_Log_Info(@"UserDefaultsExportConfiguration [saveBookmarkForOutputDirectoryUrl: %@]", outputDirUrl);
+
+  if (outputDirUrl == nil) {
+    [_userDefaults removeObjectForKey:[self outputDirectoryBookmarkKey]];
+    return YES;
+  }
 
   NSError* outputDirBookmarkError;
   NSData* outputDirBookmarkData = [outputDirUrl bookmarkDataWithOptions:NSURLBookmarkCreationWithSecurityScope includingResourceValuesForKeys:nil relativeToURL:nil error:&outputDirBookmarkError];

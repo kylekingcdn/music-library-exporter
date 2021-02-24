@@ -87,7 +87,7 @@ NSErrorDomain const __MLE_ErrorDomain_ExportDelegate = @"com.kylekingcdn.MusicLi
 
   // validate output directory set
   if (UserDefaultsExportConfiguration.sharedConfig.outputDirectoryUrl == nil || !UserDefaultsExportConfiguration.sharedConfig.outputDirectoryUrl.isFileURL) {
-    MLE_Log_Info(@"ExportDelegate [prepareForExportAndReturnError] output directory is unset");
+    MLE_Log_Info(@"ExportDelegate [prepareForExportAndReturnError] output directory is invalid");
     if (error) {
       *error = [NSError errorWithDomain:__MLE_ErrorDomain_ExportDelegate code:ExportDelegateErrorOutputDirectoryInvalid userInfo:@{
         NSLocalizedDescriptionKey:@"Invalid output directory",
@@ -204,7 +204,7 @@ NSErrorDomain const __MLE_ErrorDomain_ExportDelegate = @"com.kylekingcdn.MusicLi
 
   MLE_Log_Info(@"ExportDelegate [writeDictionary]");
 
-  NSURL* outputDirectoryUrl = UserDefaultsExportConfiguration.sharedConfig.resolveAndAutoRenewOutputDirectoryUrl;
+  NSURL* outputDirectoryUrl = [UserDefaultsExportConfiguration.sharedConfig resolveOutputDirectoryBookmarkAndReturnError:error];
   if (outputDirectoryUrl == nil) {
     MLE_Log_Info(@"ExportDelegate [writeDictionary] unable to retrieve output directory - a directory must be selected to obtain write permission");
     return NO;
