@@ -282,7 +282,7 @@
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <action selector="browseOutputDirectory:" target="-2" id="9Su-Tp-RsA"/>
+                        <action selector="browseAndValidateOutputDirectory:" target="-2" id="SfZ-RQ-CVk"/>
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="U62-bq-Z4J" userLabel="Export button">

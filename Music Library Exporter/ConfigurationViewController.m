@@ -156,61 +156,11 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
   [ExportConfiguration.sharedConfig setMusicLibraryPath:mediaFolder];
 }
 
-- (IBAction)browseOutputDirectory:(id)sender {
+- (IBAction)browseAndValidateOutputDirectory:(id)sender {
 
-  MLE_Log_Info(@"ConfigurationViewController [browseOutputDirectory]");
+  [self browseAndValidateOutputDirectoryWithCallback:^(BOOL isValid) {
 
-  NSOpenPanel* openPanel = [NSOpenPanel openPanel];
-  [openPanel setCanChooseDirectories:YES];
-  [openPanel setCanChooseFiles:NO];
-  [openPanel setAllowsMultipleSelection:NO];
-  [openPanel setMessage:@"Select a location to save the generated library."];
-
-  NSWindow* window = [[self view] window];
-
-  [openPanel beginSheetModalForWindow:window completionHandler:^(NSInteger result) {
-
-    if (result == NSModalResponseOK) {
-
-      NSURL* outputDirUrl = [openPanel URL];
-      if (outputDirUrl) {
-
-        BOOL outputDirWritable = [[NSFileManager defaultManager] isWritableFileAtPath:outputDirUrl.path];
-
-        if (outputDirWritable) {
-
-          [ExportConfiguration.sharedConfig setOutputDirectoryUrl:outputDirUrl];
-          [ExportConfiguration.sharedConfig setOutputDirectoryPath:outputDirUrl.path];
-          [self->_outputDirectoryTextField setStringValue:outputDirUrl.path];
-        }
-
-        // selected directory isn't writable, create alert that prompts user to re-select a directory
-        else {
-
-          // run in main queue to allow to panel to close
-          dispatch_async(dispatch_get_main_queue(), ^{
-
-            NSError* unwritableError = [NSError errorWithDomain:__MLE_ErrorDomain_ConfigurationView code:ConfigurationViewErrorOutputDirectoryUnwritable userInfo:@{
-              NSLocalizedDescriptionKey: @"You do not have permission to save to this directory",
-              NSLocalizedRecoverySuggestionErrorKey: @"Would you like to select a new directory?",
-              NSLocalizedRecoveryOptionsErrorKey: @[ @"Browse", @"Cancel" ],
-            }];
-
-            NSAlert* errorAlert = [NSAlert alertWithError:unwritableError];
-            NSModalResponse errorAlertResponse = [errorAlert runModal];
-
-            // Browse clicked
-            if (errorAlertResponse == NSAlertFirstButtonReturn) {
-              [self browseOutputDirectory:self];
-            }
-            // Cancel clicked
-            else {
-              MLE_Log_Info(@"ConfigurationViewController [browseOutputDirectory] cancelled browse for output directory");
-            }
-          });
-        }
-      }
-    }
+    MLE_Log_Info(@"ConfigurationViewController [browseAndValidateOutputDirectoryWithCallback] valid directory selected: %@", (isValid ? @"YES" : @"NO"));
   }];
 }
 
@@ -325,10 +275,10 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
 
 - (IBAction)exportLibrary:(id)sender {
 
+  // catch any changes made to configuration form before updating UI
   [[[self view] window] makeFirstResponder:self.view.window];
 
-  dispatch_queue_attr_t queuePriorityAttr = dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_SERIAL, QOS_CLASS_UTILITY, 0);
-  dispatch_queue_t gcdQueue = dispatch_queue_create("ExportQueue", queuePriorityAttr);
+  // update UI for any changed values (e.g. stale bookmark)
 
   // add state callback immediately
   void (^stateCallback)(NSInteger) = ^(NSInteger state){ [self handleStateChange:state]; };
@@ -337,18 +287,54 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
   // prepare ExportDelegate members
   NSError* prepareError;
   BOOL prepareSuccessful = [_exportDelegate prepareForExportAndReturnError:&prepareError];
+
   MLE_Log_Info(@"ConfigurationViewController [exportLibrary] prepare successful: %@", (prepareSuccessful ? @"YES" : @"NO"));
+
+  // handle prepare errors
   if (!prepareSuccessful) {
-    MLE_Log_Info(@"ConfigurationViewController [exportLibrary] error - failed to prepare export delegate");
-    if (prepareError) {
-      [self showAlertForError:prepareError];
-    }
-    else {
+
+    // no error object was given
+    if (!prepareError) {
       MLE_Log_Error(@"ConfigurationViewController [exportLibrary] error - unknown error from exportDelegate->prepareForExport!");
+      return;
     }
+
+    MLE_Log_Debug(@"ConfigurationViewController [exportLibrary] error code: %ld", (long)prepareError.code);
+
+    // handle errors with resolution options
+    if (prepareError.code == ExportDelegateErrorOutputDirectoryUnset) {
+
+      MLE_Log_Info(@"ConfigurationViewController [exportLibrary] directory unset error - will prompt for reselect");
+
+      // show alert with response callback
+      [self showAlertForError:prepareError callback:^(NSModalResponse response) {
+
+        MLE_Log_Debug(@"ConfigurationViewController [exportLibrary] alert callback response: %lu", response);
+
+        // browse for new directory selected
+        if (response == NSAlertFirstButtonReturn) {
+          [self browseAndValidateOutputDirectoryWithCallback:^(BOOL isValid) {
+            // new directory is valid - call export again
+            if (isValid) {
+              [self exportLibrary:sender];
+            }
+          }];
+        }
+      }];
+    }
+
+    // show alert for error with no options, therefore no callback
+    else {
+      [self showAlertForError:prepareError callback:nil];
+    }
+
     return;
   }
 
+  dispatch_queue_attr_t queuePriorityAttr = dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_SERIAL, QOS_CLASS_UTILITY, 0);
+  dispatch_queue_t gcdQueue = dispatch_queue_create("ExportQueue", queuePriorityAttr);
+
+  // reset track progress values in main thread first
   [_exportProgressBar setDoubleValue:0];
   [_exportProgressBar setMinValue:0];
 
@@ -360,12 +346,17 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
     };
     [self->_exportDelegate setTrackProgressCallback:trackProgressCallback];
 
+    // do export
     NSError* exportError;
     BOOL exportSuccessful = [self->_exportDelegate exportLibraryAndReturnError:&exportError];
+
     MLE_Log_Info(@"ConfigurationViewController [exportLibrary] export successful: %@", (exportSuccessful ? @"YES" : @"NO"));
+
+    // handle export errors
     if (!exportSuccessful) {
+
       if (exportError) {
-        [self showAlertForError:exportError];
+        [self showAlertForError:exportError callback:nil];
       }
       else {
         MLE_Log_Error(@"ConfigurationViewController [exportLibrary] error - unknown error from exportDelegate->exportLibrary!");
@@ -419,19 +410,135 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
   });
 }
 
-- (void)showAlertForError:(NSError*)error {
+- (BOOL)validateOutputDirectory:(NSURL*)outputDirUrl error:(NSError**)error {
+
+  BOOL outputDirWritable = [[NSFileManager defaultManager] isWritableFileAtPath:outputDirUrl.path];
+
+  // selected directory isn't writable, create alert that prompts user to re-select a directory
+  if (!outputDirWritable) {
+
+    *error = [NSError errorWithDomain:__MLE_ErrorDomain_ConfigurationView code:ConfigurationViewErrorOutputDirectoryUnwritable userInfo:@{
+      NSLocalizedDescriptionKey: @"You do not have permission to save to this directory",
+      NSLocalizedRecoverySuggestionErrorKey: @"Would you like to select a new directory?",
+      NSLocalizedRecoveryOptionsErrorKey: @[ @"Browse", @"Cancel" ],
+    }];
+
+    return NO;
+  }
+
+  return YES;
+}
+
+- (void)browseForOutputDirectoryWithCallback:(nullable void(^)(NSURL* _Nullable outputUrl))callback {
+
+  MLE_Log_Info(@"ConfigurationViewController [browseOutputDirectory]");
+
+  NSOpenPanel* openPanel = [NSOpenPanel openPanel];
+  [openPanel setCanChooseDirectories:YES];
+  [openPanel setCanChooseFiles:NO];
+  [openPanel setAllowsMultipleSelection:NO];
+  [openPanel setMessage:@"Select a location to save the generated library."];
+
+  NSWindow* window = [[self view] window];
+
+  [openPanel beginSheetModalForWindow:window completionHandler:^(NSInteger result) {
+
+    NSURL* outputDirUrl;
+
+    if (result == NSModalResponseOK) {
+      outputDirUrl = [openPanel URL];
+    }
+
+    // if callback is specified, call it with (potentially nil) outputDirUrl
+    if (callback) {
+      callback(outputDirUrl);
+    }
+  }];
+}
+
+- (void)browseAndValidateOutputDirectoryWithCallback:(nullable void(^)(BOOL isValid))callback {
+
+  [self browseForOutputDirectoryWithCallback:^(NSURL* _Nullable outputDirUrl){
+
+    if (outputDirUrl == nil) {
+      if (callback) {
+        callback(NO);
+      }
+      return;
+    }
+
+    NSError* validationError;
+    BOOL outputDirIsValid = [self validateOutputDirectory:outputDirUrl error:&validationError];
+
+    // selected directory is valid
+    if (outputDirIsValid) {
+
+      // update config
+      [ExportConfiguration.sharedConfig setOutputDirectoryUrl:outputDirUrl];
+      [ExportConfiguration.sharedConfig setOutputDirectoryPath:outputDirUrl.path];
+
+      // update text field
+      [self->_outputDirectoryTextField setStringValue:outputDirUrl.path];
+
+      if (callback) {
+        callback(YES);
+      }
+
+      return;
+    }
+
+
+    // -- invalid directory
+
+    // no error given, execute callback and return
+    if (validationError == nil) {
+      if (callback) {
+        callback(NO);
+        return;
+      }
+    }
+
+    // this error gives the option for re-selecting a directory.
+    // Re-call this function, pass (and don't call) the callback if re-select button is clicked
+    if (validationError.code == ConfigurationViewErrorOutputDirectoryUnwritable) {
+
+      [self showAlertForError:validationError callback:^(NSModalResponse response) {
+        if (response == NSAlertFirstButtonReturn) {
+          [self browseAndValidateOutputDirectoryWithCallback:callback];
+          return;
+        }
+        else {
+          if (callback) {
+            callback(NO);
+          }
+        }
+      }];
+    }
+
+    // errors that don't provide user resolution options
+    else {
+      [self showAlertForError:validationError callback:nil];
+      if (callback) {
+        callback(NO);
+      }
+    }
+  }];
+}
+
+- (void)showAlertForError:(NSError*)error callback:(nullable void(^)(NSModalResponse response))callback {
 
   dispatch_async(dispatch_get_main_queue(), ^{
 
-    MLE_Log_Info(@"ConfigurationViewController [showAlertForError]");
+    MLE_Log_Info(@"ConfigurationViewController [showAlertForError: %@]", error.localizedDescription);
 
-    if (!error) {
-      MLE_Log_Error(@"ConfigurationViewController [showAlertForError] error parameter is nil!");
-    }
-    else {
-      NSAlert* errorAlert = [NSAlert alertWithError:error];
-      NSModalResponse errorAlertResponse = [errorAlert runModal];
-      MLE_Log_Info(@"ConfigurationViewController [showAlertForError] export error alert reponse: %ld", errorAlertResponse);
+    NSAlert* errorAlert = [NSAlert alertWithError:error];
+    NSModalResponse errorAlertResponse = [errorAlert runModal];
+
+    MLE_Log_Debug(@"ConfigurationViewController [showAlertForError] error alert response: %ld", errorAlertResponse);
+
+    if (callback) {
+      MLE_Log_Debug(@"ConfigurationViewController [showAlertForError] running callback");
+      callback(errorAlertResponse);
     }
   });
 }

@@ -87,8 +87,9 @@ NSErrorDomain const __MLE_ErrorDomain_ExportDelegate = @"com.kylekingcdn.MusicLi
   if (!UserDefaultsExportConfiguration.sharedConfig.outputDirectoryUrl || UserDefaultsExportConfiguration.sharedConfig.outputDirectoryUrl.path.length == 0) {
     MLE_Log_Info(@"ExportDelegate [prepareForExportAndReturnError] output directory is unset");
     *error = [NSError errorWithDomain:__MLE_ErrorDomain_ExportDelegate code:ExportDelegateErrorOutputDirectoryUnset userInfo:@{
-      NSLocalizedDescriptionKey:@"Output directory is unset",
-      NSLocalizedRecoverySuggestionErrorKey:@"Please select a directory to save your library in.",
+      NSLocalizedDescriptionKey:@"Invalid output directory",
+      NSLocalizedRecoverySuggestionErrorKey: @"Would you like to select a new directory?",
+      NSLocalizedRecoveryOptionsErrorKey: @[ @"Browse", @"Cancel" ],
     }];
     [self updateState:ExportError];
     return NO;

@@ -41,7 +41,7 @@ typedef NS_ENUM(NSInteger, ConfigurationViewErrorCode) {
 - (void)updateFromConfiguration;
 
 - (IBAction)setMediaFolderLocation:(id)sender;
-- (IBAction)browseOutputDirectory:(id)sender;
+- (IBAction)browseAndValidateOutputDirectory:(id)sender;
 - (IBAction)setOutputFileName:(id)sender;
 
 - (IBAction)setRemapRootDirectory:(id)sender;
@@ -62,7 +62,11 @@ typedef NS_ENUM(NSInteger, ConfigurationViewErrorCode) {
 - (void)handleTrackExportProgress:(NSUInteger)currentTrack withTotal:(NSUInteger)trackCount;
 - (void)handleStateChange:(ExportState)exportState;
 
-- (void)showAlertForError:(NSError*)error;
+- (BOOL)validateOutputDirectory:(NSURL*)outputDirUrl error:(NSError**)error;
+- (void)browseForOutputDirectoryWithCallback:(nullable void(^)(NSURL* _Nullable outputUrl))callback;
+- (void)browseAndValidateOutputDirectoryWithCallback:(nullable void(^)(BOOL isValid))callback;
+
+- (void)showAlertForError:(NSError*)error callback:(nullable void(^)(NSModalResponse response))callback;
 
 @end
 
