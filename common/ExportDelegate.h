@@ -25,7 +25,6 @@ extern NSErrorDomain const __MLE_ErrorDomain_ExportDelegate;
 typedef NS_ENUM(NSInteger, ExportDelegateErrorCode) {
   ExportDelegateErrorUknown,
   ExportDelegateErrorMusicMediaLocationUnset,
-  ExportDelegateErrorOutputDirectoryUnset,
   ExportDelegateErrorOutputDirectoryInvalid,
   ExportDelegateErrorRemappingInvalid,
   ExportDelegateErrorBusyState,

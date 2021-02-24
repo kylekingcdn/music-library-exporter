@@ -302,9 +302,9 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
     MLE_Log_Debug(@"ConfigurationViewController [exportLibrary] error code: %ld", (long)prepareError.code);
 
     // handle errors with resolution options
-    if (prepareError.code == ExportDelegateErrorOutputDirectoryUnset) {
+    if (prepareError.code == ExportDelegateErrorOutputDirectoryInvalid) {
 
-      MLE_Log_Info(@"ConfigurationViewController [exportLibrary] directory unset error - will prompt for reselect");
+      MLE_Log_Info(@"ConfigurationViewController [exportLibrary] directory invalid error - will prompt for reselect");
 
       // show alert with response callback
       [self showAlertForError:prepareError callback:^(NSModalResponse response) {
