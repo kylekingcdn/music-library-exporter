@@ -68,7 +68,7 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "--exclude_ids &quot;2098908617431189596,11169671622112643793,7044236994454731450,15257110363737464637,10911737330077117965,15709063814536325674,13949459831021915281&quot;"
+            argument = "--exclude_ids &quot;61C228397823BABA,C1966FCF14A44C91,D3BC250A49809F3D,DA01CE4F23616A2A,9B02A5292DC90AD1,1D20D2445DFE085C,289237FF1A194582,8810661A53F1E3DC,9959E5CACCFF4428,976E4749F19DAE0D&quot;"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
@@ -76,7 +76,7 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "--sort &quot;5285429958683431998:title-a,11050115819915658280:title-a,5788130543452403119:title-a,9755133620711728680:title-a,6824924103082308668:title-a,3622303820935286294:title-a,17249423450916925054:dateadded-d,11961626704075883416:dateadded-d,4600699850141714633:dateadded-d,4624903942494826139:title-a,14251283440720830501:title-a,15422249850076999555:dateadded-d,8836123044206631714:title-a&quot;"
+            argument = "--sort &quot;3245022223634E16:title-a,3FD8F8235DE3C8C9:dateadded-d,402EF5A1C4B52E9B:title-a,49599E8B4488943E:title-a,5053920FFC11B5AF:title-a,5EB7004FCF38F43C:title-a,7AA03717C9945B22:title-a,87613257D6FE2628:title-a,A6003C1CA8450398:dateadded-d,C5C6BAC865926025:title-a,D606D6872F292F83:dateadded-d,EF62433CBC322E7E:dateadded-d&quot;"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
