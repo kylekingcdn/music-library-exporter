@@ -50,7 +50,10 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 
+  _groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
+
 #if SENTRY_ENABLED == 1
+  [_groupDefaults addObserver:self forKeyPath:@"CrashReporting" options:NSKeyValueObservingOptionNew context:NULL];
   [MLESentryHandler setup];
 #endif
 
@@ -70,13 +73,11 @@
   [ScheduleConfiguration initSharedConfig:_scheduleConfiguration];
 
   // detect changes in NSUSerDefaults for app group
-  _groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
   [_groupDefaults addObserver:self forKeyPath:@"ScheduleEnabled" options:NSKeyValueObservingOptionNew context:NULL];
   [_groupDefaults addObserver:self forKeyPath:@"ScheduleInterval" options:NSKeyValueObservingOptionNew context:NULL];
   [_groupDefaults addObserver:self forKeyPath:@"LastExportedAt" options:NSKeyValueObservingOptionNew context:NULL];
   [_groupDefaults addObserver:self forKeyPath:@"NextExportAt" options:NSKeyValueObservingOptionNew context:NULL];
   [_groupDefaults addObserver:self forKeyPath:@"OutputDirectoryPath" options:NSKeyValueObservingOptionNew context:NULL];
-
   // init ITLibrary
   NSError *error = nil;
   _library = [ITLibrary libraryWithAPIVersion:@"1.1" error:&error];
@@ -125,6 +126,12 @@
       [_helperDelegate updateHelperRegistrationWithScheduleEnabled:_scheduleConfiguration.scheduleEnabled];
     }
   }
+#if SENTRY_ENABLED == 1
+  else if ([aKeyPath isEqualToString:@"CrashReporting"]) {
+    BOOL crashReportingEnabled = [[[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier] boolForKey:@"CrashReporting"];
+    [MLESentryHandler setEnabled:crashReportingEnabled];
+  }
+#endif
 }
 
 - (void)showPlaylistsView {
