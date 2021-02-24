@@ -417,11 +417,13 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
   // selected directory isn't writable, create alert that prompts user to re-select a directory
   if (!outputDirWritable) {
 
-    *error = [NSError errorWithDomain:__MLE_ErrorDomain_ConfigurationView code:ConfigurationViewErrorOutputDirectoryUnwritable userInfo:@{
-      NSLocalizedDescriptionKey: @"You do not have permission to save to this directory",
-      NSLocalizedRecoverySuggestionErrorKey: @"Would you like to select a new directory?",
-      NSLocalizedRecoveryOptionsErrorKey: @[ @"Browse", @"Cancel" ],
-    }];
+    if (error) {
+      *error = [NSError errorWithDomain:__MLE_ErrorDomain_ConfigurationView code:ConfigurationViewErrorOutputDirectoryUnwritable userInfo:@{
+        NSLocalizedDescriptionKey: @"You do not have permission to save to this directory",
+        NSLocalizedRecoverySuggestionErrorKey: @"Would you like to select a new directory?",
+        NSLocalizedRecoveryOptionsErrorKey: @[ @"Browse", @"Cancel" ],
+      }];
+    }
 
     return NO;
   }

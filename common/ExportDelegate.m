@@ -74,9 +74,11 @@ NSErrorDomain const __MLE_ErrorDomain_ExportDelegate = @"com.kylekingcdn.MusicLi
     case ExportGeneratingPlaylists:
     case ExportWritingToDisk: {
       MLE_Log_Info(@"ExportDelegate [prepareForExportAndReturnError] currently busy - state: %@", [Utils descriptionForExportState:_state]);
-      *error = [NSError errorWithDomain:__MLE_ErrorDomain_ExportDelegate code:ExportDelegateErrorBusyState userInfo:@{
-        NSLocalizedDescriptionKey:@"Export handler is currently busy, please try again.",
-      }];
+      if (error) {
+        *error = [NSError errorWithDomain:__MLE_ErrorDomain_ExportDelegate code:ExportDelegateErrorBusyState userInfo:@{
+          NSLocalizedDescriptionKey:@"Export handler is currently busy, please try again.",
+        }];
+      }
       return NO;
     }
   }
@@ -86,11 +88,13 @@ NSErrorDomain const __MLE_ErrorDomain_ExportDelegate = @"com.kylekingcdn.MusicLi
   // validate output directory set
   if (!UserDefaultsExportConfiguration.sharedConfig.outputDirectoryUrl || UserDefaultsExportConfiguration.sharedConfig.outputDirectoryUrl.path.length == 0) {
     MLE_Log_Info(@"ExportDelegate [prepareForExportAndReturnError] output directory is unset");
-    *error = [NSError errorWithDomain:__MLE_ErrorDomain_ExportDelegate code:ExportDelegateErrorOutputDirectoryUnset userInfo:@{
-      NSLocalizedDescriptionKey:@"Invalid output directory",
-      NSLocalizedRecoverySuggestionErrorKey: @"Would you like to select a new directory?",
-      NSLocalizedRecoveryOptionsErrorKey: @[ @"Browse", @"Cancel" ],
-    }];
+    if (error) {
+      *error = [NSError errorWithDomain:__MLE_ErrorDomain_ExportDelegate code:ExportDelegateErrorOutputDirectoryUnset userInfo:@{
+        NSLocalizedDescriptionKey:@"Invalid output directory",
+        NSLocalizedRecoverySuggestionErrorKey: @"Would you like to select a new directory?",
+        NSLocalizedRecoveryOptionsErrorKey: @[ @"Browse", @"Cancel" ],
+      }];
+    }
     [self updateState:ExportError];
     return NO;
   }
@@ -98,10 +102,12 @@ NSErrorDomain const __MLE_ErrorDomain_ExportDelegate = @"com.kylekingcdn.MusicLi
   // validate music media dir set
   if (!UserDefaultsExportConfiguration.sharedConfig.musicLibraryPath || UserDefaultsExportConfiguration.sharedConfig.musicLibraryPath.length == 0) {
     MLE_Log_Info(@"ExportDelegate [prepareForExportAndReturnError] Music Media location is unset");
-    *error = [NSError errorWithDomain:__MLE_ErrorDomain_ExportDelegate code:ExportDelegateErrorMusicMediaLocationUnset userInfo:@{
-      NSLocalizedDescriptionKey:@"Music Media folder location is unset",
-      NSLocalizedRecoverySuggestionErrorKey:@"This value can be retreived from the Files tab of the Music application's Preferences window.",
-    }];
+    if (error) {
+      *error = [NSError errorWithDomain:__MLE_ErrorDomain_ExportDelegate code:ExportDelegateErrorMusicMediaLocationUnset userInfo:@{
+        NSLocalizedDescriptionKey:@"Music Media folder location is unset",
+        NSLocalizedRecoverySuggestionErrorKey:@"This value can be retreived from the Files tab of the Music application's Preferences window.",
+      }];
+    }
     [self updateState:ExportError];
     return NO;
   }
@@ -110,10 +116,12 @@ NSErrorDomain const __MLE_ErrorDomain_ExportDelegate = @"com.kylekingcdn.MusicLi
   if (UserDefaultsExportConfiguration.sharedConfig.remapRootDirectory) {
     if (!UserDefaultsExportConfiguration.sharedConfig.remapRootDirectoryOriginalPath || UserDefaultsExportConfiguration.sharedConfig.remapRootDirectoryOriginalPath.length == 0) {
       MLE_Log_Info(@"ExportDelegate [prepareForExportAndReturnError] Re-map original path is unset");
-      *error = [NSError errorWithDomain:__MLE_ErrorDomain_ExportDelegate code:ExportDelegateErrorRemappingInvalid userInfo:@{
-        NSLocalizedDescriptionKey:@"Path mapping incomplete",
-        NSLocalizedRecoverySuggestionErrorKey:@"Please complete the missing fields or disable path mapping.",
-      }];
+      if (error) {
+        *error = [NSError errorWithDomain:__MLE_ErrorDomain_ExportDelegate code:ExportDelegateErrorRemappingInvalid userInfo:@{
+          NSLocalizedDescriptionKey:@"Path mapping incomplete",
+          NSLocalizedRecoverySuggestionErrorKey:@"Please complete the missing fields or disable path mapping.",
+        }];
+      }
       [self updateState:ExportError];
       return NO;
     }
@@ -142,19 +150,23 @@ NSErrorDomain const __MLE_ErrorDomain_ExportDelegate = @"com.kylekingcdn.MusicLi
     case ExportFinished:
     case ExportError: {
       MLE_Log_Info(@"ExportDelegate [exportLibraryAndReturnError] error - prepareForExport must be called first - current state: %@", [Utils descriptionForExportState:_state]);
-      *error = [NSError errorWithDomain:__MLE_ErrorDomain_ExportDelegate code:ExportDelegateErrorUnitialized userInfo:@{
-        NSLocalizedDescriptionKey:@"Internal error",
-        NSLocalizedRecoverySuggestionErrorKey:@"Failed to initialize export handler.",
-      }];
+      if (error) {
+        *error = [NSError errorWithDomain:__MLE_ErrorDomain_ExportDelegate code:ExportDelegateErrorUnitialized userInfo:@{
+          NSLocalizedDescriptionKey:@"Internal error",
+          NSLocalizedRecoverySuggestionErrorKey:@"Failed to initialize export handler.",
+        }];
+      }
       return NO;
     }
     case ExportGeneratingTracks:
     case ExportGeneratingPlaylists:
     case ExportWritingToDisk: {
       MLE_Log_Info(@"ExportDelegate [exportLibraryAndReturnError] delegate is currently busy - state: %@", [Utils descriptionForExportState:_state]);
-      *error = [NSError errorWithDomain:__MLE_ErrorDomain_ExportDelegate code:ExportDelegateErrorBusyState userInfo:@{
-        NSLocalizedDescriptionKey:@"Export handler is currently busy, please try again.",
-      }];
+      if (error) {
+        *error = [NSError errorWithDomain:__MLE_ErrorDomain_ExportDelegate code:ExportDelegateErrorBusyState userInfo:@{
+          NSLocalizedDescriptionKey:@"Export handler is currently busy, please try again.",
+        }];
+      }
       return NO;
     }
   }

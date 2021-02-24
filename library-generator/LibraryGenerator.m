@@ -225,9 +225,11 @@
 
   NSString* filePath = filePathUrl.path;
   if (!filePath || filePath.length == 0) {
-    *error = [NSError errorWithDomain:__MLE_ErrorDomain_LibraryGenerator code:LibraryGeneratorErrorInvalidOutputPath userInfo:@{
-      NSLocalizedDescriptionKey:@"Error: The value for --output_path is empty",
-    }];
+    if (error) {
+      *error = [NSError errorWithDomain:__MLE_ErrorDomain_LibraryGenerator code:LibraryGeneratorErrorInvalidOutputPath userInfo:@{
+        NSLocalizedDescriptionKey:@"Error: The value for --output_path is empty",
+      }];
+    }
     return NO;
   }
 
@@ -239,17 +241,21 @@
   if (pathExists) {
 
     if (pathIsDirectory) {
-      *error = [NSError errorWithDomain:__MLE_ErrorDomain_LibraryGenerator code:LibraryGeneratorErrorInvalidOutputPath userInfo:@{
-        NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Error: The --output_paths option requires a filename. Please include a file name in your output path: %@", filePath],
-      }];
+      if (error) {
+        *error = [NSError errorWithDomain:__MLE_ErrorDomain_LibraryGenerator code:LibraryGeneratorErrorInvalidOutputPath userInfo:@{
+          NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Error: The --output_paths option requires a filename. Please include a file name in your output path: %@", filePath],
+        }];
+      }
       return NO;
     }
 
     BOOL pathIsWritable = [fileManager isWritableFileAtPath:filePath];
     if (!pathIsWritable) {
-      *error = [NSError errorWithDomain:__MLE_ErrorDomain_LibraryGenerator code:LibraryGeneratorErrorInvalidOutputPath userInfo:@{
-        NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Error: The specified output path is not writable: %@", filePath],
-      }];
+      if (error) {
+        *error = [NSError errorWithDomain:__MLE_ErrorDomain_LibraryGenerator code:LibraryGeneratorErrorInvalidOutputPath userInfo:@{
+          NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Error: The specified output path is not writable: %@", filePath],
+        }];
+      }
       return NO;
     }
 
@@ -262,24 +268,30 @@
     BOOL pathParentExists = [fileManager fileExistsAtPath:pathParent isDirectory:&pathParentIsDirectory];
 
     if (!pathParentExists) {
-      *error = [NSError errorWithDomain:__MLE_ErrorDomain_LibraryGenerator code:LibraryGeneratorErrorInvalidOutputPath userInfo:@{
-        NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Error: The output path's parent directory doesn't exist: %@", pathParent],
-      }];
+      if (error) {
+        *error = [NSError errorWithDomain:__MLE_ErrorDomain_LibraryGenerator code:LibraryGeneratorErrorInvalidOutputPath userInfo:@{
+          NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Error: The output path's parent directory doesn't exist: %@", pathParent],
+        }];
+      }
       return NO;
     }
 
     else if (!pathParentIsDirectory) {
-      *error = [NSError errorWithDomain:__MLE_ErrorDomain_LibraryGenerator code:LibraryGeneratorErrorInvalidOutputPath userInfo:@{
-        NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Error: The specified output path is not valid as it's parent is not a directory: %@", pathParent],
-      }];
+      if (error) {
+        *error = [NSError errorWithDomain:__MLE_ErrorDomain_LibraryGenerator code:LibraryGeneratorErrorInvalidOutputPath userInfo:@{
+          NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Error: The specified output path is not valid as it's parent is not a directory: %@", pathParent],
+        }];
+      }
       return NO;
     }
 
     BOOL pathParentIsWritable = [fileManager isWritableFileAtPath:pathParent];
     if (!pathParentIsWritable) {
-      *error = [NSError errorWithDomain:__MLE_ErrorDomain_LibraryGenerator code:LibraryGeneratorErrorInvalidOutputPath userInfo:@{
-        NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Error: The parent directory of the specified output path is not writable: %@", pathParent],
-      }];
+      if (error) {
+        *error = [NSError errorWithDomain:__MLE_ErrorDomain_LibraryGenerator code:LibraryGeneratorErrorInvalidOutputPath userInfo:@{
+          NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Error: The parent directory of the specified output path is not writable: %@", pathParent],
+        }];
+      }
       return NO;
     }
   }
@@ -291,9 +303,11 @@
 
   NSString* musicDirPath = _configuration.musicLibraryPath;
   if (!musicDirPath || musicDirPath.length == 0) {
-    *error = [NSError errorWithDomain:__MLE_ErrorDomain_LibraryGenerator code:LibraryGeneratorErrorInvalidMusicMediaDirectory userInfo:@{
-      NSLocalizedDescriptionKey:@"Error: The value for --music_media_dir is empty",
-    }];
+    if (error) {
+      *error = [NSError errorWithDomain:__MLE_ErrorDomain_LibraryGenerator code:LibraryGeneratorErrorInvalidMusicMediaDirectory userInfo:@{
+        NSLocalizedDescriptionKey:@"Error: The value for --music_media_dir is empty",
+      }];
+    }
     return NO;
   }
 
@@ -304,16 +318,20 @@
 //
 //  // ensure specified file path is writable
 //  if (!pathExists) {
-//    *error = [NSError errorWithDomain:__MLE_ErrorDomain_LibraryGenerator code:LibraryGeneratorErrorInvalidMusicMediaDirectory userInfo:@{
-//      NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Error: The specified music media directory does not exist: %@", musicDirPath],
-//    }];
+//    if (error) {
+//      *error = [NSError errorWithDomain:__MLE_ErrorDomain_LibraryGenerator code:LibraryGeneratorErrorInvalidMusicMediaDirectory userInfo:@{
+//        NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Error: The specified music media directory does not exist: %@", musicDirPath],
+//      }];
+//    }
 //    return NO;
 //  }
 //
 //  if (!pathIsDirectory) {
-//    *error = [NSError errorWithDomain:__MLE_ErrorDomain_LibraryGenerator code:LibraryGeneratorErrorInvalidMusicMediaDirectory userInfo:@{
-//      NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Error: The specified music media location is not a directory: %@. Please copy and paste the exact value from Music Preferences. More information can be found by running 'library-generate help'.", musicDirPath],
-//    }];
+//    if (error) {
+//      *error = [NSError errorWithDomain:__MLE_ErrorDomain_LibraryGenerator code:LibraryGeneratorErrorInvalidMusicMediaDirectory userInfo:@{
+//        NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Error: The specified music media location is not a directory: %@. Please copy and paste the exact value from Music Preferences. More information can be found by running 'library-generate help'.", musicDirPath],
+//      }];
+//    }
 //    return NO;
 //  }
 
@@ -329,9 +347,11 @@
   BOOL hasMappedPath = (remapMappedPath && remapMappedPath.length > 0);
 
   if (hasMappedPath && !hasSearchPath) {
-    *error = [NSError errorWithDomain:__MLE_ErrorDomain_LibraryGenerator code:LibraryGeneratorErrorInvalidMusicMediaDirectory userInfo:@{
-      NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Error: A value for --remap_search is required if a value for --remap_replace (%@) is given. Please specify the text to find (--remap_search) along with your replacement text (--remap_replace)", remapMappedPath],
-    }];
+    if (error) {
+      *error = [NSError errorWithDomain:__MLE_ErrorDomain_LibraryGenerator code:LibraryGeneratorErrorInvalidMusicMediaDirectory userInfo:@{
+        NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Error: A value for --remap_search is required if a value for --remap_replace (%@) is given. Please specify the text to find (--remap_search) along with your replacement text (--remap_replace)", remapMappedPath],
+      }];
+    }
     return NO;
   }
 
