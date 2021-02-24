@@ -75,6 +75,7 @@
   [_groupDefaults addObserver:self forKeyPath:@"ScheduleInterval" options:NSKeyValueObservingOptionNew context:NULL];
   [_groupDefaults addObserver:self forKeyPath:@"LastExportedAt" options:NSKeyValueObservingOptionNew context:NULL];
   [_groupDefaults addObserver:self forKeyPath:@"NextExportAt" options:NSKeyValueObservingOptionNew context:NULL];
+  [_groupDefaults addObserver:self forKeyPath:@"OutputDirectoryPath" options:NSKeyValueObservingOptionNew context:NULL];
 
   // init ITLibrary
   NSError *error = nil;
@@ -114,7 +115,8 @@
   if ([aKeyPath isEqualToString:@"ScheduleInterval"] ||
       [aKeyPath isEqualToString:@"LastExportedAt"] ||
       [aKeyPath isEqualToString:@"NextExportAt"] ||
-      [aKeyPath isEqualToString:@"ScheduleEnabled"]) {
+      [aKeyPath isEqualToString:@"ScheduleEnabled"] ||
+      [aKeyPath isEqualToString:@"OutputDirectoryPath"]) {
 
     [_scheduleConfiguration loadPropertiesFromUserDefaults];
     [_configurationViewController updateFromConfiguration];
