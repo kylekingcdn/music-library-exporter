@@ -99,9 +99,17 @@ static UserDefaultsExportConfiguration* _sharedConfig;
 
 - (void)setOutputDirectoryUrl:(nullable NSURL*)dirUrl {
 
-  [super setOutputDirectoryUrl:dirUrl];
+  NSString* outputDirPath;
+  // update path variable
+  if (dirUrl && dirUrl.isFileURL) {
+    outputDirPath = dirUrl.path;
+  }
 
+  [super setOutputDirectoryUrl:dirUrl];
   [self saveBookmarkForOutputDirectoryUrl:dirUrl];
+
+  // since this is being observed by KVO, call it after the bookmark and member variables for the URL have been updated
+  [self setOutputDirectoryPath:outputDirPath];
 }
 
 - (void)setOutputDirectoryPath:(NSString*)dirPath {
@@ -210,7 +218,6 @@ static UserDefaultsExportConfiguration* _sharedConfig;
 
   [super setCustomSortColumnDict:[_userDefaults dictionaryForKey:@"PlaylistCustomSortColumns"]];
   [super setCustomSortOrderDict:[_userDefaults dictionaryForKey:@"PlaylistCustomSortOrders"]];
-
 }
 
 - (void)registerDefaultValues {
@@ -238,19 +245,21 @@ static UserDefaultsExportConfiguration* _sharedConfig;
   // error resolving bookmark data
   if (outputDirBookmarkResolutionError) {
     MLE_Log_Info(@"UserDefaultsExportConfiguration [fetchAndAutoRenewOutputDirectoryUrl] error resolving output dir bookmark: %@", outputDirBookmarkResolutionError.localizedDescription);
+    [self setOutputDirectoryUrl:nil];
     return nil;
   }
 
   NSAssert(outputDirBookmarkUrl != nil, @"NSURL retreived from bookmark is nil");
   MLE_Log_Info(@"UserDefaultsExportConfiguration [fetchAndAutoRenewOutputDirectoryUrl] bookmarked output directory: %@", outputDirBookmarkUrl.path);
 
-  // bookmark data is stale, attempt to renew
+  // bookmark data is stale, update saved bookmark + output path variable
   if (outputDirBookmarkIsStale) {
 
     MLE_Log_Info(@"UserDefaultsExportConfiguration [fetchAndAutoRenewOutputDirectoryUrl] bookmark is stale, attempting renewal");
 
     [outputDirBookmarkUrl startAccessingSecurityScopedResource];
-    [self saveBookmarkForOutputDirectoryUrl:outputDirBookmarkUrl];
+    // we call this instead of saveBookmark since it handles updating internal member variables as well as the path variable
+    [self setOutputDirectoryUrl:outputDirBookmarkUrl];
     [outputDirBookmarkUrl stopAccessingSecurityScopedResource];
   }
   else {
@@ -275,10 +284,7 @@ static UserDefaultsExportConfiguration* _sharedConfig;
 
   // save bookmark data to user defaults
   else {
-
     [_userDefaults setValue:outputDirBookmarkData forKey:[self outputDirectoryBookmarkKey]];
-    [super setOutputDirectoryUrl:outputDirUrl];
-
     return YES;
   }
 }

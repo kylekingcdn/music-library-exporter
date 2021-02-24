@@ -143,7 +143,6 @@
 
     [configuration setOutputFileName:fileName];
     [configuration setOutputDirectoryUrl:fileDirUrl];
-    [configuration setOutputDirectoryPath:fileDirStr];
   }
 
   return YES;
@@ -184,7 +183,6 @@
 + (BOOL)parsePlaylistSortingOption:(NSString*)sortOptions forColumnDict:(NSMutableDictionary*)sortColDict andOrderDict:(NSMutableDictionary*)sortOrderDict andReturnError:(NSError**)error {
 
 //  MLE_Log_Info(@"ArgParser [parsePlaylistSortingOption:%@]", sortOptions);
-
 
   // each will be in form of {id}:{sort_col}-{sort_order}
   NSArray<NSString*>* playlistSortingStrings = [sortOptions componentsSeparatedByString:@","];

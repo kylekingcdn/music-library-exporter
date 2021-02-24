@@ -477,7 +477,6 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
 
       // update config
       [ExportConfiguration.sharedConfig setOutputDirectoryUrl:outputDirUrl];
-      [ExportConfiguration.sharedConfig setOutputDirectoryPath:outputDirUrl.path];
 
       // update text field
       [self->_outputDirectoryTextField setStringValue:outputDirUrl.path];
@@ -488,7 +487,6 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
 
       return;
     }
-
 
     // -- invalid directory
 
