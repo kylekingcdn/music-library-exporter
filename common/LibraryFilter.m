@@ -85,6 +85,8 @@
 
   for (ITLibPlaylist* playlist in _library.allPlaylists) {
 
+    NSString* playlistHexId = [Utils getHexadecimalPersistentId:playlist.persistentID];
+
     // ignore excluded playlist kinds
     if ([includedPlaylistKinds containsObject:[NSNumber numberWithUnsignedInteger:playlist.distinguishedKind]] && (!playlist.master || ExportConfiguration.sharedConfig.includeInternalPlaylists)) {
 
@@ -92,20 +94,19 @@
       if (playlist.kind != ITLibPlaylistKindFolder || !ExportConfiguration.sharedConfig.flattenPlaylistHierarchy) {
 
         // excluded manually specified playlists if desired
-        if (!_filterExcludedPlaylistIds || ![ExportConfiguration.sharedConfig isPlaylistIdExcluded:[Utils getHexadecimalPersistentId:playlist.persistentID]]) {
-
+        if (!_filterExcludedPlaylistIds || ![ExportConfiguration.sharedConfig isPlaylistIdExcluded:playlistHexId]) {
           [includedPlaylists addObject:playlist];
         }
         else {
-          MLE_Log_Info(@"LibraryFilter [getIncludedPlaylists] playlist was manually excluded by id: %@ - %@", playlist.name, playlist.persistentID);
+          MLE_Log_Info(@"LibraryFilter [getIncludedPlaylists] playlist was manually excluded by id: %@ - %@", playlist.name, playlistHexId);
         }
       }
       else {
-        MLE_Log_Info(@"LibraryFilter [getIncludedPlaylists] excluding folder due to flattened hierarchy : %@ - %@", playlist.name, playlist.persistentID);
+        MLE_Log_Info(@"LibraryFilter [getIncludedPlaylists] excluding folder due to flattened hierarchy : %@ - %@", playlist.name, playlistHexId);
       }
     }
     else {
-     MLE_Log_Info(@"LibraryFilter [getIncludedPlaylists] excluding internal playlist: %@ - %@", playlist.name, playlist.persistentID);
+     MLE_Log_Info(@"LibraryFilter [getIncludedPlaylists] excluding internal playlist: %@ - %@", playlist.name, playlistHexId);
     }
   }
 
