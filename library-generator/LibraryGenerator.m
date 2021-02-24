@@ -224,7 +224,7 @@
   NSURL* filePathUrl = _configuration.outputFileUrl;
 
   NSString* filePath = filePathUrl.path;
-  if (!filePath || filePath.length == 0) {
+  if (filePath == nil || filePath.length == 0) {
     if (error) {
       *error = [NSError errorWithDomain:__MLE_ErrorDomain_LibraryGenerator code:LibraryGeneratorErrorInvalidOutputPath userInfo:@{
         NSLocalizedDescriptionKey:@"Error: The value for --output_path is empty",
@@ -302,7 +302,7 @@
 - (BOOL)validateMusicMediaDirectoryAndReturnError:(NSError**)error {
 
   NSString* musicDirPath = _configuration.musicLibraryPath;
-  if (!musicDirPath || musicDirPath.length == 0) {
+  if (musicDirPath == nil || musicDirPath.length == 0) {
     if (error) {
       *error = [NSError errorWithDomain:__MLE_ErrorDomain_LibraryGenerator code:LibraryGeneratorErrorInvalidMusicMediaDirectory userInfo:@{
         NSLocalizedDescriptionKey:@"Error: The value for --music_media_dir is empty",

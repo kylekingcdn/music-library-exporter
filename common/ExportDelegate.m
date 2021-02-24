@@ -86,7 +86,7 @@ NSErrorDomain const __MLE_ErrorDomain_ExportDelegate = @"com.kylekingcdn.MusicLi
   [self updateState:ExportPreparing];
 
   // validate output directory set
-  if (!UserDefaultsExportConfiguration.sharedConfig.outputDirectoryUrl || UserDefaultsExportConfiguration.sharedConfig.outputDirectoryUrl.path.length == 0) {
+  if (UserDefaultsExportConfiguration.sharedConfig.outputDirectoryUrl == nil || !UserDefaultsExportConfiguration.sharedConfig.outputDirectoryUrl.isFileURL) {
     MLE_Log_Info(@"ExportDelegate [prepareForExportAndReturnError] output directory is unset");
     if (error) {
       *error = [NSError errorWithDomain:__MLE_ErrorDomain_ExportDelegate code:ExportDelegateErrorOutputDirectoryUnset userInfo:@{
@@ -100,7 +100,7 @@ NSErrorDomain const __MLE_ErrorDomain_ExportDelegate = @"com.kylekingcdn.MusicLi
   }
 
   // validate music media dir set
-  if (!UserDefaultsExportConfiguration.sharedConfig.musicLibraryPath || UserDefaultsExportConfiguration.sharedConfig.musicLibraryPath.length == 0) {
+  if (UserDefaultsExportConfiguration.sharedConfig.musicLibraryPath == nil || UserDefaultsExportConfiguration.sharedConfig.musicLibraryPath.length == 0) {
     MLE_Log_Info(@"ExportDelegate [prepareForExportAndReturnError] Music Media location is unset");
     if (error) {
       *error = [NSError errorWithDomain:__MLE_ErrorDomain_ExportDelegate code:ExportDelegateErrorMusicMediaLocationUnset userInfo:@{
@@ -114,7 +114,7 @@ NSErrorDomain const __MLE_ErrorDomain_ExportDelegate = @"com.kylekingcdn.MusicLi
 
   // validate path re-mapping
   if (UserDefaultsExportConfiguration.sharedConfig.remapRootDirectory) {
-    if (!UserDefaultsExportConfiguration.sharedConfig.remapRootDirectoryOriginalPath || UserDefaultsExportConfiguration.sharedConfig.remapRootDirectoryOriginalPath.length == 0) {
+    if (UserDefaultsExportConfiguration.sharedConfig.remapRootDirectoryOriginalPath == nil || UserDefaultsExportConfiguration.sharedConfig.remapRootDirectoryOriginalPath.length == 0) {
       MLE_Log_Info(@"ExportDelegate [prepareForExportAndReturnError] Re-map original path is unset");
       if (error) {
         *error = [NSError errorWithDomain:__MLE_ErrorDomain_ExportDelegate code:ExportDelegateErrorRemappingInvalid userInfo:@{
@@ -211,7 +211,7 @@ NSErrorDomain const __MLE_ErrorDomain_ExportDelegate = @"com.kylekingcdn.MusicLi
   }
 
   NSString* outputFileName = UserDefaultsExportConfiguration.sharedConfig.outputFileName;
-  if (!outputFileName || outputFileName.length == 0) {
+  if (outputFileName == nil || outputFileName.length == 0) {
     outputFileName = @"Library.xml"; // fallback to default filename
     MLE_Log_Info(@"ExportDelegate [writeDictionary] output filename unspecified - falling back to default: %@", outputFileName);
   }

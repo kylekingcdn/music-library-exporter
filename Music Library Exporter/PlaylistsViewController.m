@@ -368,7 +368,7 @@
 
 - (BOOL)outlineView:(NSOutlineView*)outlineView isItemExpandable:(id)item {
 
-  if (!_playlistTree.rootNode) {
+  if (_playlistTree.rootNode == nil) {
     return NO;
   }
 
