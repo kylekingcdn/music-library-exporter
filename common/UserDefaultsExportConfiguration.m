@@ -112,7 +112,7 @@ static UserDefaultsExportConfiguration* _sharedConfig;
   [self setOutputDirectoryPath:outputDirPath];
 }
 
-- (void)setOutputDirectoryPath:(NSString*)dirPath {
+- (void)setOutputDirectoryPath:(nullable NSString*)dirPath {
 
   [super setOutputDirectoryPath:dirPath];
 

@@ -238,7 +238,7 @@ static ExportConfiguration* _sharedConfig;
   _outputDirectoryUrl = dirUrl;
 }
 
-- (void)setOutputDirectoryPath:(NSString*)dirPath {
+- (void)setOutputDirectoryPath:(nullable NSString*)dirPath {
 
   MLE_Log_Info(@"ExportConfiguration [setOutputDirectoryPath %@]", dirPath);
 
