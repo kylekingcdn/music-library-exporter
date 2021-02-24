@@ -390,7 +390,7 @@
   // TODO: elide column overflow text
 
   // indent
-  for (NSUInteger i=2; i<indent; i++){
+  for (NSUInteger i=0; i<indent; i++){
     putchar(' ');
   }
 
