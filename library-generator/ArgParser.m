@@ -100,7 +100,7 @@
   }
   NSString* excludedIdsStr = [_package firstObjectForSignature:[self signatureForOption:LGOptionKindExcludeIds]];
   if (excludedIdsStr) {
-    NSSet<NSNumber*>* excludedIds = [ArgParser playlistIdsForIdsOption:excludedIdsStr error:error];
+    NSSet<NSString*>* excludedIds = [ArgParser playlistIdsForIdsOption:excludedIdsStr error:error];
     if (excludedIds == nil) {
       return NO;
     }
@@ -155,29 +155,10 @@
   }
 }
 
-+ (NSSet<NSNumber*>*)playlistIdsForIdsOption:(NSString*)playlistIdsOption error:(NSError**)error{
++ (NSSet<NSString*>*)playlistIdsForIdsOption:(NSString*)playlistIdsOption error:(NSError**)error{
 
-  NSMutableSet<NSNumber*>* playlistIds = [NSMutableSet set];
+  return [NSSet setWithArray:[playlistIdsOption componentsSeparatedByString:@","]];
 
-  NSArray<NSString*>* playlistIdStrings = [playlistIdsOption componentsSeparatedByString:@","];
-
-  for (NSString* playlistIdStr in playlistIdStrings) {
-
-    NSDecimalNumber* playlistId = [NSDecimalNumber decimalNumberWithString:playlistIdStr];
-    if (playlistId == nil) {
-      if (error) {
-        *error = [NSError errorWithDomain:__MLE_ErrorDomain_ArgParser code:ArgParserErrorMalformedPlaylistIdOption userInfo:@{
-          NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Invalid playlist id for --exclude_ids option: %@", playlistIdStr],
-        }];
-      }
-      return nil;
-    }
-    else {
-      [playlistIds addObject:playlistId];
-    }
-  }
-
-  return playlistIds;
 }
 
 + (BOOL)parsePlaylistSortingOption:(NSString*)sortOptions forColumnDict:(NSMutableDictionary*)sortColDict andOrderDict:(NSMutableDictionary*)sortOrderDict andReturnError:(NSError**)error {
@@ -213,18 +194,8 @@
   }
 
   // part 1 will be {sort_col}, part 2 will be {sort_order}
-  NSString* playlistIdStr = sortOptionParts.firstObject;
+  NSString* playlistId = sortOptionParts.firstObject;
   NSString* playlistSortValuesStr = sortOptionParts.lastObject;
-
-  NSDecimalNumber* playlistId = [NSDecimalNumber decimalNumberWithString:playlistIdStr];
-  if (playlistId == nil) {
-    if (error) {
-      *error = [NSError errorWithDomain:__MLE_ErrorDomain_ArgParser code:ArgParserErrorMalformedPlaylistIdOption userInfo:@{
-        NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Invalid playlist id for sort option part: %@", sortOption],
-      }];
-    }
-    return NO;
-  }
 
   PlaylistSortColumnType sortColumn = PlaylistSortColumnNull;
   PlaylistSortOrderType sortOrder = PlaylistSortOrderNull;
@@ -233,8 +204,8 @@
     return NO;
   }
 
-  [sortColDict setValue:[Utils titleForPlaylistSortColumn:sortColumn] forKey:[playlistId stringValue]];
-  [sortOrderDict setValue:[Utils titleForPlaylistSortOrder:sortOrder] forKey:[playlistId stringValue]];
+  [sortColDict setValue:[Utils titleForPlaylistSortColumn:sortColumn] forKey:playlistId];
+  [sortOrderDict setValue:[Utils titleForPlaylistSortOrder:sortOrder] forKey:playlistId];
 
   return YES;
 }

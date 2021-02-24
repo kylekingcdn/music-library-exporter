@@ -397,7 +397,7 @@
   int spacing = 30 - (int)indent;
 
   // print playlist description
-  printf("- %-*s  %s\n", spacing, node.playlist.name.UTF8String, node.playlist.persistentID.stringValue.UTF8String);
+  printf("- %-*s  %s\n", spacing, node.playlist.name.UTF8String, node.playlistHexId.UTF8String);
 
   // call recursively on children, increasing indent w/ each level
   for (PlaylistNode* childNode in node.children) {

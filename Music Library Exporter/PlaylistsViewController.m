@@ -218,10 +218,14 @@
   return node;
 }
 
-- (void)updateSortingButton:(NSPopUpButton*)button forPlaylist:(ITLibPlaylist*)playlist {
+- (void)updateSortingButton:(NSPopUpButton*)button forNode:(PlaylistNode*)node {
 
-  PlaylistSortColumnType sortColumn = [ExportConfiguration.sharedConfig playlistCustomSortColumn:playlist.persistentID];
-  PlaylistSortOrderType sortOrder = [ExportConfiguration.sharedConfig playlistCustomSortOrder:playlist.persistentID];
+  if (node == nil) {
+    return;
+  }
+
+  PlaylistSortColumnType sortColumn = [ExportConfiguration.sharedConfig playlistCustomSortColumn:node.playlistHexId];
+  PlaylistSortOrderType sortOrder = [ExportConfiguration.sharedConfig playlistCustomSortOrder:node.playlistHexId];
 
   BOOL isDefault = (sortColumn == PlaylistSortColumnNull);
 
@@ -277,9 +281,8 @@
   }
 
   BOOL excluded = ([sender state] == NSControlStateValueOff);
-  NSNumber* playlistId = node.playlist.persistentID;
 
-  [ExportConfiguration.sharedConfig setExcluded:excluded forPlaylistId:playlistId];
+  [ExportConfiguration.sharedConfig setExcluded:excluded forPlaylistId:node.playlistHexId];
 }
 
 - (IBAction)setPlaylistSorting:(id)sender {
@@ -297,7 +300,7 @@
   // default
   if (itemTag == 101) {
     MLE_Log_Info(@"PlaylistsViewController [setPlaylistSorting] Default");
-    [ExportConfiguration.sharedConfig setDefaultSortingForPlaylist:node.playlist.persistentID];
+    [ExportConfiguration.sharedConfig setDefaultSortingForPlaylist:node.playlistHexId];
   }
   // sort column
   else if (itemTag > 200 && itemTag < 300) {
@@ -306,12 +309,12 @@
       MLE_Log_Info(@"PlaylistsViewController [setPlaylistSorting] error - failed to determine sort column for itemTag:%li", (long)itemTag);
     }
     // ignore if no change
-    else if (sortColumn == [ExportConfiguration.sharedConfig playlistCustomSortColumn:node.playlist.persistentID]) {
+    else if (sortColumn == [ExportConfiguration.sharedConfig playlistCustomSortColumn:node.playlistHexId]) {
       return;
     }
     else {
       MLE_Log_Info(@"PlaylistsViewController [setPlaylistSorting] column: %@", [Utils titleForPlaylistSortColumn:sortColumn]);
-      [ExportConfiguration.sharedConfig setCustomSortColumn:sortColumn forPlaylist:node.playlist.persistentID];
+      [ExportConfiguration.sharedConfig setCustomSortColumn:sortColumn forPlaylist:node.playlistHexId];
     }
   }
   // sort order
@@ -321,16 +324,16 @@
       MLE_Log_Info(@"PlaylistsViewController [setPlaylistSorting] error - failed to determine sort order for itemTag:%li", (long)itemTag);
     }
     // ignore if no change
-    else if (sortOrder == [ExportConfiguration.sharedConfig playlistCustomSortOrder:node.playlist.persistentID]) {
+    else if (sortOrder == [ExportConfiguration.sharedConfig playlistCustomSortOrder:node.playlistHexId]) {
       return;
     }
     else {
       MLE_Log_Info(@"PlaylistsViewController [setPlaylistSorting] order: %@", [Utils titleForPlaylistSortOrder:sortOrder]);
-      [ExportConfiguration.sharedConfig setCustomSortOrder:sortOrder forPlaylist:node.playlist.persistentID];
+      [ExportConfiguration.sharedConfig setCustomSortOrder:sortOrder forPlaylist:node.playlistHexId];
     }
   }
 
-  [self updateSortingButton:popupButton forPlaylist:node.playlist];
+  [self updateSortingButton:popupButton forNode:node];
 }
 
 
@@ -400,7 +403,7 @@
 
     CheckBoxTableCellView* cellView = [outlineView makeViewWithIdentifier:cellViewId owner:nil];
 
-    NSControlStateValue state = [ExportConfiguration.sharedConfig isPlaylistIdExcluded:node.playlist.persistentID] ? NSControlStateValueOff : NSControlStateValueOn;
+    NSControlStateValue state = [ExportConfiguration.sharedConfig isPlaylistIdExcluded:node.playlistHexId] ? NSControlStateValueOff : NSControlStateValueOn;
 
     [cellView.checkbox setAction:@selector(setPlaylistExcludedForCellView:)];
     [cellView.checkbox setTarget:self];
@@ -418,7 +421,7 @@
     [cellView.button setAction:@selector(setPlaylistSorting:)];
     [cellView.button setTarget:self];
 
-    [self updateSortingButton:cellView.button forPlaylist:node.playlist];
+    [self updateSortingButton:cellView.button forNode:node];
 
     return cellView;
   }

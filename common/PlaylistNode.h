@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nullable) ITLibPlaylist* playlist;
 @property NSArray<PlaylistNode*>* children;
+@property (nullable,readonly) NSString* playlistHexId;
 
 
 #pragma mark - Initializers

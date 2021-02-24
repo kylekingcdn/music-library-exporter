@@ -44,14 +44,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)flattenPlaylistHierarchy;
 - (BOOL)includeInternalPlaylists;
-- (NSSet<NSNumber*>*)excludedPlaylistPersistentIds;
-- (BOOL)isPlaylistIdExcluded:(NSNumber*)playlistId;
+- (NSSet<NSString*>*)excludedPlaylistPersistentIds;
+- (BOOL)isPlaylistIdExcluded:(NSString*)playlistId;
 
 - (NSDictionary*)playlistCustomSortColumnDict;
 - (NSDictionary*)playlistCustomSortOrderDict;
 
-- (PlaylistSortColumnType)playlistCustomSortColumn:(NSNumber*)playlistId;
-- (PlaylistSortOrderType)playlistCustomSortOrder:(NSNumber*)playlistId;
+- (PlaylistSortColumnType)playlistCustomSortColumn:(NSString*)playlistId;
+- (PlaylistSortOrderType)playlistCustomSortOrder:(NSString*)playlistId;
 
 - (void)dumpProperties;
 
@@ -73,17 +73,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setFlattenPlaylistHierarchy:(BOOL)flag;
 - (void)setIncludeInternalPlaylists:(BOOL)flag;
 
-- (void)setExcludedPlaylistPersistentIds:(NSSet<NSNumber*>*)excludedIds;
-- (void)addExcludedPlaylistPersistentId:(NSNumber*)playlistId;
-- (void)removeExcludedPlaylistPersistentId:(NSNumber*)playlistId;
-- (void)setExcluded:(BOOL)excluded forPlaylistId:(NSNumber*)playlistId;
+- (void)setExcludedPlaylistPersistentIds:(NSSet<NSString*>*)excludedIds;
+- (void)addExcludedPlaylistPersistentId:(NSString*)playlistId;
+- (void)removeExcludedPlaylistPersistentId:(NSString*)playlistId;
+- (void)setExcluded:(BOOL)excluded forPlaylistId:(NSString*)playlistId;
 
 - (void)setCustomSortColumnDict:(NSDictionary*)dict;
 - (void)setCustomSortOrderDict:(NSDictionary*)dict;
 
-- (void)setDefaultSortingForPlaylist:(NSNumber*)playlistId;
-- (void)setCustomSortColumn:(PlaylistSortColumnType)sortColumn forPlaylist:(NSNumber*)playlistId;
-- (void)setCustomSortOrder:(PlaylistSortOrderType)sortOrder forPlaylist:(NSNumber*)playlistId;
+- (void)setDefaultSortingForPlaylist:(NSString*)playlistId;
+- (void)setCustomSortColumn:(PlaylistSortColumnType)sortColumn forPlaylist:(NSString*)playlistId;
+- (void)setCustomSortOrder:(PlaylistSortOrderType)sortOrder forPlaylist:(NSString*)playlistId;
 
 @end
 

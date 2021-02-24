@@ -92,7 +92,7 @@
       if (playlist.kind != ITLibPlaylistKindFolder || !ExportConfiguration.sharedConfig.flattenPlaylistHierarchy) {
 
         // excluded manually specified playlists if desired
-        if (!_filterExcludedPlaylistIds || ![ExportConfiguration.sharedConfig isPlaylistIdExcluded:playlist.persistentID]) {
+        if (!_filterExcludedPlaylistIds || ![ExportConfiguration.sharedConfig isPlaylistIdExcluded:[Utils getHexadecimalPersistentId:playlist.persistentID]]) {
 
           [includedPlaylists addObject:playlist];
         }

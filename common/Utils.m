@@ -78,6 +78,11 @@
   }
 }
 
++ (NSString*)getHexadecimalPersistentId:(NSNumber*)decimalPersistentId {
+
+  return [[NSString stringWithFormat:@"%016lx", decimalPersistentId.unsignedIntegerValue] uppercaseString];
+}
+
 + (NSDictionary*)createPersistentIdDictionaryForItems:(NSArray<NSDictionary*>*)itemsArray withPersistentIdKey:(NSString*)persistentIdKey {
 
   NSMutableDictionary* persistentIdDict = [NSMutableDictionary dictionary];

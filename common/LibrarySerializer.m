@@ -44,14 +44,6 @@
 }
 
 
-#pragma mark - Utils
-
-+ (NSString*)getHexadecimalPersistentId:(NSNumber*)decimalPersistentId {
-
-  return [[NSString stringWithFormat:@"%016lx", decimalPersistentId.unsignedIntegerValue] uppercaseString];
-}
-
-
 #pragma mark - Accessors
 
 - (NSString*)remapRootMusicDirForFilePath:(NSString*)filePath {
@@ -152,7 +144,9 @@
 
 - (OrderedDictionary*)serializePlaylist:(ITLibPlaylist*)playlistItem withId:(NSNumber*)playlistId {
 
-  MLE_Log_Info(@"LibrarySerializer [serializePlaylist:(%@ - %@)]", playlistItem.name, [LibrarySerializer getHexadecimalPersistentId:playlistItem.persistentID]);
+  NSString* playlistHexId = [Utils getHexadecimalPersistentId:playlistItem.persistentID];
+
+  MLE_Log_Info(@"LibrarySerializer [serializePlaylist:(%@ - %@)]", playlistItem.name, playlistHexId);
 
   MutableOrderedDictionary* playlistDict = [MutableOrderedDictionary dictionary];
 
@@ -163,10 +157,10 @@
     [playlistDict setValue:[NSNumber numberWithBool:NO] forKey:@"Visible"];
   }
   [playlistDict setValue:playlistId forKey:@"Playlist ID"];
-  [playlistDict setValue:[LibrarySerializer getHexadecimalPersistentId:playlistItem.persistentID] forKey:@"Playlist Persistent ID"];
+  [playlistDict setValue:playlistHexId forKey:@"Playlist Persistent ID"];
 
   if (playlistItem.parentID && !ExportConfiguration.sharedConfig.flattenPlaylistHierarchy) {
-    [playlistDict setValue:[LibrarySerializer getHexadecimalPersistentId:playlistItem.parentID] forKey:@"Parent Persistent ID"];
+    [playlistDict setValue:[Utils getHexadecimalPersistentId:playlistItem.parentID] forKey:@"Parent Persistent ID"];
   }
   if (playlistItem.distinguishedKind > ITLibDistinguishedPlaylistKindNone) {
     [playlistDict setValue:[NSNumber numberWithUnsignedInteger:playlistItem.distinguishedKind] forKey:@"Distinguished Kind"];
@@ -183,13 +177,13 @@
   }
 
   NSArray<ITLibMediaItem*>* playlistItems = playlistItem.items;
-  PlaylistSortColumnType sortColumn = [ExportConfiguration.sharedConfig playlistCustomSortColumn:playlistItem.persistentID];
+  PlaylistSortColumnType sortColumn = [ExportConfiguration.sharedConfig playlistCustomSortColumn:playlistHexId];
 
   // custom sorting
   if (sortColumn != PlaylistSortColumnNull) {
 
     NSString* sortColumnProperty = [Utils mediaItemPropertyForSortColumn:sortColumn];
-    PlaylistSortOrderType sortOrder = [ExportConfiguration.sharedConfig playlistCustomSortOrder:playlistItem.persistentID];
+    PlaylistSortOrderType sortOrder = [ExportConfiguration.sharedConfig playlistCustomSortOrder:playlistHexId];
 
     if (sortOrder == PlaylistSortOrderNull) {
       // fallback to ascending
@@ -412,7 +406,7 @@
     [trackDict setValue:[NSNumber numberWithBool:YES] forKey:@"Disabled"];
   }
 
-  [trackDict setValue:[LibrarySerializer getHexadecimalPersistentId:trackItem.persistentID] forKey:@"Persistent ID"];
+  [trackDict setValue:[Utils getHexadecimalPersistentId:trackItem.persistentID] forKey:@"Persistent ID"];
 
   // add boolean attributes for media kind
   switch (trackItem.mediaKind) {

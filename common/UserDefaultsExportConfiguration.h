@@ -49,9 +49,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setFlattenPlaylistHierarchy:(BOOL)flag;
 - (void)setIncludeInternalPlaylists:(BOOL)flag;
 
-- (void)setExcludedPlaylistPersistentIds:(NSSet<NSNumber*>*)excludedIds;
-- (void)addExcludedPlaylistPersistentId:(NSNumber*)playlistId;
-- (void)removeExcludedPlaylistPersistentId:(NSNumber*)playlistId;
+- (void)setExcludedPlaylistPersistentIds:(NSSet<NSString*>*)excludedIds;
+- (void)addExcludedPlaylistPersistentId:(NSString*)playlistId;
+- (void)removeExcludedPlaylistPersistentId:(NSString*)playlistId;
 
 - (void)setCustomSortColumnDict:(NSDictionary*)dict;
 - (void)setCustomSortOrderDict:(NSDictionary*)dict;

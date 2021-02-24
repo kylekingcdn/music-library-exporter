@@ -49,7 +49,7 @@ typedef NS_ENUM(NSInteger, TableColumnType) {
 
 - (nullable PlaylistNode*)playlistNodeForCellView:(NSView*)cellView;
 
-- (void)updateSortingButton:(NSPopUpButton*)button forPlaylist:(ITLibPlaylist*)playlist;
+- (void)updateSortingButton:(NSPopUpButton*)button forNode:(PlaylistNode*)node;
 
 
 #pragma mark - Mutators

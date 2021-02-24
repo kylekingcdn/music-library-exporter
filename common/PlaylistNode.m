@@ -9,6 +9,8 @@
 
 #import <iTunesLibrary/ITLibPlaylist.h>
 
+#import "Utils.h"
+
 
 @implementation PlaylistNode
 
@@ -28,6 +30,12 @@
 
   [node setPlaylist:playlist];
   [node setChildren:childNodes];
+  if (playlist != nil) {
+    node->_playlistHexId = [Utils getHexadecimalPersistentId:playlist.persistentID];
+  }
+  else {
+    node->_playlistHexId = nil;
+  }
 
   return node;
 }

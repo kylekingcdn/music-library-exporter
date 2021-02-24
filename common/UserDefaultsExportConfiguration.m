@@ -161,21 +161,21 @@ static UserDefaultsExportConfiguration* _sharedConfig;
   [_userDefaults setBool:flag forKey:@"IncludeInternalPlaylists"];
 }
 
-- (void)setExcludedPlaylistPersistentIds:(NSSet<NSNumber*>*)excludedIds {
+- (void)setExcludedPlaylistPersistentIds:(NSSet<NSString*>*)excludedIds {
 
   [super setExcludedPlaylistPersistentIds:excludedIds];
 
   [_userDefaults setObject:[excludedIds allObjects] forKey:@"ExcludedPlaylistPersistentIds"];
 }
 
-- (void)addExcludedPlaylistPersistentId:(NSNumber*)playlistId {
+- (void)addExcludedPlaylistPersistentId:(NSString*)playlistId {
 
   [super addExcludedPlaylistPersistentId:playlistId];
   
   [_userDefaults setObject:[[super excludedPlaylistPersistentIds] allObjects] forKey:@"ExcludedPlaylistPersistentIds"];
 }
 
-- (void)removeExcludedPlaylistPersistentId:(NSNumber*)playlistId {
+- (void)removeExcludedPlaylistPersistentId:(NSString*)playlistId {
 
   [super removeExcludedPlaylistPersistentId:playlistId];
 

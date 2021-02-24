@@ -25,11 +25,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithLibrary:(ITLibrary*)library;
 
 
-#pragma mark - Utils
-
-+ (NSString*)getHexadecimalPersistentId:(NSNumber*)decimalPersistentId;
-
-
 #pragma mark - Accessors
 
 - (NSString*)remapRootMusicDirForFilePath:(NSString*)filePath;
