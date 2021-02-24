@@ -16,12 +16,12 @@
 
 + (void)setup {
 
-  NSString* sentryDsn = [NSString stringWithFormat:@"https://%@", SENTRY_DSN];
+  NSString* sentryDsn = SENTRY_DSN;
 
   if (sentryDsn && sentryDsn.length > 0) {
 
     [SentrySDK startWithConfigureOptions:^(SentryOptions *options) {
-      options.dsn = sentryDsn;
+      options.dsn = [NSString stringWithFormat:@"https://%@", sentryDsn];
       options.releaseName = [NSString stringWithFormat:@"%@@%@+%d", __MLE__AppBundleIdentifier, CURRENT_PROJECT_VERSION, VERSION_BUILD];
       options.environment = SENTRY_ENVIRONMENT;
     }];
