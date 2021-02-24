@@ -139,7 +139,6 @@
 
     NSString* fileName = [fileUrl lastPathComponent];
     NSURL* fileDirUrl = [fileUrl URLByDeletingLastPathComponent];
-    NSString* fileDirStr = [fileDirUrl path];
 
     [configuration setOutputFileName:fileName];
     [configuration setOutputDirectoryUrl:fileDirUrl];
