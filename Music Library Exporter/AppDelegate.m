@@ -18,6 +18,7 @@
 #import "HelperDelegate.h"
 #import "ConfigurationViewController.h"
 #import "PlaylistsViewController.h"
+#import "PreferencesWindowController.h"
 #if SENTRY_ENABLED == 1
 #import "MLESentryHandler.h"
 #endif
@@ -45,8 +46,9 @@
   ConfigurationViewController* _configurationViewController;
   PlaylistsViewController* _playlistsViewController;
   NSWindow* _playlistsViewWindow;
-}
 
+  PreferencesWindowController* _preferencesWindowController;
+}
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 
@@ -157,6 +159,21 @@
 - (void)hidePlaylistsView {
 
   [_playlistsViewWindow orderOut:NSApp];
+}
+
+- (IBAction)showPreferencesWindow:(id)sender {
+
+  if (_preferencesWindowController && !_preferencesWindowController.window.isVisible) {
+    [_preferencesWindowController.window close];
+    _preferencesWindowController = nil;
+  }
+
+  if (_preferencesWindowController == nil) {
+    _preferencesWindowController = [[PreferencesWindowController alloc] initWithWindowNibName:@"PreferencesWindow"];
+    [_preferencesWindowController.window setFrameTopLeftPoint:CGPointMake(_window.frame.origin.x, _window.frame.origin.y+_window.frame.size.height)];
+  }
+
+  [_preferencesWindowController.window makeKeyAndOrderFront:self];
 }
 
 - (IBAction)openMusicLibraryExporterWebsite:(id)sender {

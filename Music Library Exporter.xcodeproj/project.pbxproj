@@ -66,6 +66,8 @@
 		27D56E5425D85B2700A87B1F /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 27D56E4C25D85A5B00A87B1F /* Credits.rtf */; };
 		27D56E5825D85B2700A87B1F /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 27D56E4C25D85A5B00A87B1F /* Credits.rtf */; };
 		27D6827525D9055300BBF8FE /* Defines.m in Sources */ = {isa = PBXBuildFile; fileRef = 273B522F25CA666000421B14 /* Defines.m */; };
+		27DBB9A925E6E746003BE889 /* PreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27DBB9A825E6E746003BE889 /* PreferencesWindow.xib */; };
+		27DBB9B725E6E91E003BE889 /* PreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DBB9B625E6E91E003BE889 /* PreferencesWindowController.m */; };
 		27EC7C6325C8C41300996E9E /* UserDefaultsExportConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 27EC7C6225C8C3E500996E9E /* UserDefaultsExportConfiguration.m */; };
 		27EC7C6725C8C41800996E9E /* UserDefaultsExportConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 27EC7C6225C8C3E500996E9E /* UserDefaultsExportConfiguration.m */; };
 		27EF9A6825BF23910051CE7B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27EF9A6725BF23910051CE7B /* AppDelegate.m */; };
@@ -228,6 +230,9 @@
 		27CDC90B25BADAFC0032BF79 /* LibraryParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LibraryParser.h; sourceTree = "<group>"; };
 		27CDC90C25BADAFC0032BF79 /* LibraryParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LibraryParser.m; sourceTree = "<group>"; };
 		27D56E4C25D85A5B00A87B1F /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
+		27DBB9A825E6E746003BE889 /* PreferencesWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreferencesWindow.xib; sourceTree = "<group>"; };
+		27DBB9B525E6E91E003BE889 /* PreferencesWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreferencesWindowController.h; sourceTree = "<group>"; };
+		27DBB9B625E6E91E003BE889 /* PreferencesWindowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreferencesWindowController.m; sourceTree = "<group>"; };
 		27EC7C6125C8C3E500996E9E /* UserDefaultsExportConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserDefaultsExportConfiguration.h; sourceTree = "<group>"; };
 		27EC7C6225C8C3E500996E9E /* UserDefaultsExportConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserDefaultsExportConfiguration.m; sourceTree = "<group>"; };
 		27EF9A6425BF23910051CE7B /* Music Library Exporter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Music Library Exporter.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -460,6 +465,9 @@
 				2725CA4525D3F2D7002C1203 /* PlaylistsViewController.h */,
 				2725CA4625D3F2D7002C1203 /* PlaylistsViewController.m */,
 				2725CA4B25D3F65C002C1203 /* PlaylistsView.xib */,
+				27DBB9B525E6E91E003BE889 /* PreferencesWindowController.h */,
+				27DBB9B625E6E91E003BE889 /* PreferencesWindowController.m */,
+				27DBB9A825E6E746003BE889 /* PreferencesWindow.xib */,
 				27EF9A6B25BF23920051CE7B /* MainMenu.xib */,
 				27EF9A8225BF24010051CE7B /* Supporting Files */,
 			);
@@ -653,6 +661,7 @@
 				27D56E5425D85B2700A87B1F /* Credits.rtf in Resources */,
 				2783C74925C4FAF2002ED7B7 /* ConfigurationView.xib in Resources */,
 				2725CA4C25D3F65C002C1203 /* PlaylistsView.xib in Resources */,
+				27DBB9A925E6E746003BE889 /* PreferencesWindow.xib in Resources */,
 				27EF9A6D25BF23920051CE7B /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -712,6 +721,7 @@
 				27A2BFC325C085E400AAD73C /* Utils.m in Sources */,
 				27A2BFC625C085E400AAD73C /* OrderedDictionary.m in Sources */,
 				2783C76725C518CC002ED7B7 /* ExportConfiguration.m in Sources */,
+				27DBB9B725E6E91E003BE889 /* PreferencesWindowController.m in Sources */,
 				2749619325CE4FA400B98E11 /* LibraryFilter.m in Sources */,
 				27A2BFC425C085E400AAD73C /* LibraryParser.m in Sources */,
 				27A2BFC525C085E400AAD73C /* LibrarySerializer.m in Sources */,
