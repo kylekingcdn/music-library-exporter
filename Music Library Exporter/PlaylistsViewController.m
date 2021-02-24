@@ -216,14 +216,22 @@
     return YES;
   }
 
-  if (!ExportConfiguration.sharedConfig.flattenPlaylistHierarchy && node.playlist.parentID != nil) {
-    PlaylistNode* parentNode = [self.outlineView parentForItem:node];
-    if (parentNode != nil) {
-      return [self isNodeExcluded:parentNode];
-    }
+  if (!ExportConfiguration.sharedConfig.flattenPlaylistHierarchy) {
+    return [self isNodeParentExcluded:node];
   }
 
   return NO;
+}
+
+- (BOOL)isNodeParentExcluded:(nullable PlaylistNode*)node {
+
+  if (node == nil || node.playlist == nil || node.playlist.parentID == nil) {
+    return NO;
+  }
+
+  PlaylistNode* parentNode = [self.outlineView parentForItem:node];
+
+  return parentNode != nil && [self isNodeExcluded:parentNode];
 }
 
 - (nullable PlaylistNode*)playlistNodeForCellView:(NSView*)cellView {
@@ -426,10 +434,14 @@
     CheckBoxTableCellView* cellView = [outlineView makeViewWithIdentifier:cellViewId owner:nil];
 
     NSControlStateValue state = [self isNodeExcluded:node] ? NSControlStateValueOff : NSControlStateValueOn;
-
+    BOOL checkBoxEnabled = YES;
+    if (!ExportConfiguration.sharedConfig.flattenPlaylistHierarchy && [self isNodeParentExcluded:node]) {
+      checkBoxEnabled = NO;
+    }
     [cellView.checkbox setAction:@selector(setPlaylistExcludedForCellView:)];
     [cellView.checkbox setTarget:self];
     [cellView.checkbox setState:state];
+    [cellView.checkbox setEnabled:checkBoxEnabled];
     [cellView.checkbox setTitle:cellViewTitle];
 
     return cellView;

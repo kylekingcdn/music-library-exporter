@@ -47,6 +47,7 @@ typedef NS_ENUM(NSInteger, TableColumnType) {
 + (NSInteger)menuItemTagForPlaylistSortColumn:(PlaylistSortColumnType)sortColumn;
 + (NSInteger)menuItemTagForPlaylistSortOrder:(PlaylistSortOrderType)sortOrder;
 
+- (BOOL)isNodeParentExcluded:(nullable PlaylistNode*)node;
 - (BOOL)isNodeExcluded:(nullable PlaylistNode*)node;
 
 - (nullable PlaylistNode*)playlistNodeForCellView:(NSView*)cellView;
