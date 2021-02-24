@@ -142,6 +142,7 @@
 
     [configuration setOutputFileName:fileName];
     [configuration setOutputDirectoryUrl:fileDirUrl];
+    [configuration setOutputDirectoryPath:fileDirUrl.path];
   }
 
   return YES;
