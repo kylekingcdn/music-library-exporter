@@ -85,6 +85,9 @@ NSErrorDomain const __MLE_ErrorDomain_ExportDelegate = @"com.kylekingcdn.MusicLi
 
   [self updateState:ExportPreparing];
 
+  // this will reload member variables and re-resolve the bookmark. If it is stale and invalid, the next if statement will catch it
+  [UserDefaultsExportConfiguration.sharedConfig validateOutputDirectoryBookmarkAndReturnError:nil];
+
   // validate output directory set
   if (UserDefaultsExportConfiguration.sharedConfig.outputDirectoryUrl == nil || !UserDefaultsExportConfiguration.sharedConfig.outputDirectoryUrl.isFileURL) {
     MLE_Log_Info(@"ExportDelegate [prepareForExportAndReturnError] output directory is invalid");
