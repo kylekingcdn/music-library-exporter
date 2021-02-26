@@ -12,5 +12,7 @@
 - (void)showPlaylistsView;
 - (void)hidePlaylistsView;
 
+- (IBAction)showPreferencesWindow:(id)sender;
+
 @end
 
