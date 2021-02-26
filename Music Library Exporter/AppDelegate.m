@@ -146,14 +146,8 @@
     // init playlistsView
     _playlistsViewController = [[PlaylistsViewController alloc] initWithLibrary:_library];
     _playlistsViewWindow = [NSWindow windowWithContentViewController:_playlistsViewController];
+    [_playlistsViewWindow setFrameAutosaveName:@"PlaylistsWindow"];
     [_playlistsViewWindow setTitle:@"Playlists"];
-  }
-
-  if (!_playlistsViewWindow.isVisible) {
-    // update playlists window frame
-    NSRect playlistsViewWindowFrame = _window.frame;
-    playlistsViewWindowFrame.origin.x += (_window.frame.size.width + 20);
-    [_playlistsViewWindow setFrame:playlistsViewWindowFrame display:YES];
   }
 
   [_playlistsViewWindow makeKeyAndOrderFront:NSApp];
@@ -173,7 +167,6 @@
 
   if (_preferencesWindowController == nil) {
     _preferencesWindowController = [[PreferencesWindowController alloc] initWithWindowNibName:@"PreferencesWindow"];
-    [_preferencesWindowController.window setFrameTopLeftPoint:CGPointMake(_window.frame.origin.x, _window.frame.origin.y+_window.frame.size.height)];
   }
 
   [_preferencesWindowController.window makeKeyAndOrderFront:self];

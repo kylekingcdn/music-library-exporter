@@ -253,6 +253,7 @@
   }
 
   _permissionsWindowController = [[DirectoryPermissionsWindowController alloc] initWithWindowNibName:@"DirectoryPermissionsWindow"];
+  [_permissionsWindowController.window center];
   [_permissionsWindowController.window makeKeyAndOrderFront:self];
 }
 
