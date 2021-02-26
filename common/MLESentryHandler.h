@@ -7,13 +7,41 @@
 
 #import <Foundation/Foundation.h>
 
+@class SentrySDK;
+
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MLESentryHandler : NSObject
 
-+ (void)setup;
 
-+ (void)setEnabled:(BOOL)flag;
+#pragma mark - Properties
+
+@property (nullable, readonly) SentrySDK* sentrySdk;
+
+
+#pragma mark - Initializers
+
+- (instancetype)init;
+
+
+#pragma mark - Accessors
+
++ (MLESentryHandler*)sharedSentryHandler;
+
+- (BOOL)userHasEnabledCrashReporting;
+- (BOOL)userHasBeenPromptedForCrashReportingPermissions;
+
+
+#pragma mark - Mutators
+
+- (void)setupSentry;
+
+- (void)setUserHasBeenPromptedForCrashReportingPermissions:(BOOL)flag;
+
++ (void)setCrashReportingEnabled:(BOOL)flag;
+
+
 
 @end
 

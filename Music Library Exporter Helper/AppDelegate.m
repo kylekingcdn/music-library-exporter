@@ -33,7 +33,7 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 
 #if SENTRY_ENABLED == 1
-  [MLESentryHandler setup];
+  [[MLESentryHandler sharedSentryHandler] setupSentry];
 #endif
 
   // init exportConfiguration

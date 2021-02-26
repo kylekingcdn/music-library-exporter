@@ -17,7 +17,6 @@
 #import "ExportDelegate.h"
 #import "ScheduleConfiguration.h"
 #import "DirectoryPermissionsWindowController.h"
-#import "MLESentryHandler.h"
 
 @implementation ScheduleDelegate {
 
@@ -43,9 +42,6 @@
   [_groupDefaults addObserver:self forKeyPath:@"ScheduleInterval" options:NSKeyValueObservingOptionNew context:NULL];
   [_groupDefaults addObserver:self forKeyPath:@"LastExportedAt" options:NSKeyValueObservingOptionNew context:NULL];
   [_groupDefaults addObserver:self forKeyPath:@"OutputDirectoryPath" options:NSKeyValueObservingOptionNew context:NULL];
-#if SENTRY_ENABLED == 1
-  [_groupDefaults addObserver:self forKeyPath:@"CrashReporting" options:NSKeyValueObservingOptionNew context:NULL];
-#endif
   _exportDelegate = exportDelegate;
 
   // update schedule
@@ -247,12 +243,6 @@
     [self requestOutputDirectoryPermissionsIfRequired];
     [self updateSchedule];
   }
-#if SENTRY_ENABLED == 1
-  else if ([keyPath isEqualToString:@"CrashReporting"]) {
-    BOOL crashReportingEnabled = [[[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier] boolForKey:@"CrashReporting"];
-    [MLESentryHandler setEnabled:crashReportingEnabled];
-  }
-#endif
 }
 
 - (void)requestOutputDirectoryPermissions {

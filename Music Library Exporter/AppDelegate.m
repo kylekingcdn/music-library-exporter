@@ -55,8 +55,7 @@
   _groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
 
 #if SENTRY_ENABLED == 1
-  [_groupDefaults addObserver:self forKeyPath:@"CrashReporting" options:NSKeyValueObservingOptionNew context:NULL];
-  [MLESentryHandler setup];
+  [[MLESentryHandler sharedSentryHandler] setupSentry];
 #endif
 
   // init exportConfiguration
@@ -128,12 +127,6 @@
       [_helperDelegate updateHelperRegistrationWithScheduleEnabled:_scheduleConfiguration.scheduleEnabled];
     }
   }
-#if SENTRY_ENABLED == 1
-  else if ([aKeyPath isEqualToString:@"CrashReporting"]) {
-    BOOL crashReportingEnabled = [[[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier] boolForKey:@"CrashReporting"];
-    [MLESentryHandler setEnabled:crashReportingEnabled];
-  }
-#endif
 }
 
 - (void)showPlaylistsView {

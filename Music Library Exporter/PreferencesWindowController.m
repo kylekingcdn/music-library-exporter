@@ -10,6 +10,10 @@
 #import "Logger.h"
 #import "Defines.h"
 
+#if SENTRY_ENABLED == 1
+#import "MLESentryHandler.h"
+#endif
+
 
 @interface PreferencesWindowController ()
 
@@ -24,19 +28,28 @@
 
   [super windowDidLoad];
 
-  BOOL crashReportingEnabled = [[[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier] boolForKey:@"CrashReporting"];
+  BOOL sentryEnabled = NO;
+  BOOL crashReportingEnabled = NO;
 
+#if SENTRY_ENABLED == 1
+  sentryEnabled = YES;
+  crashReportingEnabled = [[MLESentryHandler sharedSentryHandler] userHasEnabledCrashReporting];
+#endif
+
+  [_crashReportingCheckBox setEnabled:sentryEnabled];
   [_crashReportingCheckBox setState:(crashReportingEnabled ? NSControlStateValueOn : NSControlStateValueOff)];
 }
 
 - (IBAction)setCrashReportingEnabled:(id)sender {
 
+#if SENTRY_ENABLED == 1
   NSControlStateValue flagState = [sender state];
   BOOL flag = (flagState == NSControlStateValueOn);
 
   MLE_Log_Info(@"PreferencesWindowController [setCrashReportingEnabled:%@]", (flag ? @"YES" : @"NO"));
-  
-  [[[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier] setBool:flag forKey:@"CrashReporting"];
+
+  [MLESentryHandler setCrashReportingEnabled:flag];
+#endif
 }
 
 @end
