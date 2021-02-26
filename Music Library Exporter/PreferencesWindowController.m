@@ -8,7 +8,6 @@
 #import "PreferencesWindowController.h"
 
 #import "Logger.h"
-#import "Defines.h"
 
 #if SENTRY_ENABLED == 1
 #import "MLESentryHandler.h"
