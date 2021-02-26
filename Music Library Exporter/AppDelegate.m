@@ -99,6 +99,8 @@
   [_window setInitialFirstResponder:_configurationViewController.firstResponderView];
 
   [_window makeKeyAndOrderFront:NSApp];
+
+  [self incrementLaunchCount];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
@@ -177,6 +179,25 @@
 - (IBAction)contactSupport:(id)sender {
 
   [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"mailto:support@music-exporter.app"]];
+}
+
+- (NSInteger)launchCount {
+
+  [_groupDefaults registerDefaults:@{ @"LaunchCount":@0 }];
+
+  return [_groupDefaults integerForKey:@"LaunchCount"];
+}
+
+- (BOOL)isFirstLaunch {
+
+  return [self launchCount] == 0;
+}
+
+- (void)incrementLaunchCount {
+
+  NSInteger launchCount = [self launchCount];
+  launchCount++;
+  [_groupDefaults setInteger:launchCount forKey:@"LaunchCount"];
 }
 
 @end

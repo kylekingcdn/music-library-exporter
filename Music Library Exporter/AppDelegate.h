@@ -14,5 +14,9 @@
 
 - (IBAction)showPreferencesWindow:(id)sender;
 
+- (NSInteger)launchCount;
+- (BOOL)isFirstLaunch;
+- (void)incrementLaunchCount;
+
 @end
 
