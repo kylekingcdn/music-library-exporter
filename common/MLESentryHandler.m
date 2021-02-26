@@ -44,6 +44,7 @@ static MLESentryHandler* _sharedSentryHandler;
 
   _groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
   [_groupDefaults registerDefaults:@{ [MLESentryHandler crashReportingDefaultsKey]:@NO }];
+  [_groupDefaults registerDefaults:@{ [MLESentryHandler promptedForPermissionsDefaultsKey]:@NO }];
   [_groupDefaults addObserver:self forKeyPath:[MLESentryHandler crashReportingDefaultsKey] options:NSKeyValueObservingOptionNew context:NULL];
 
   return self;
