@@ -34,7 +34,9 @@
 - (void)printStatus:(NSString*)message;
 - (void)printStatusDone:(NSString*)message;
 
-- (void)printPlaylistNode:(PlaylistNode*)node withIndent:(NSUInteger)indent;
+- (NSUInteger)playlistColumnWidthForTree:(PlaylistTree*)playlistTree;
+- (NSUInteger)playlistColumnWidthForNode:(PlaylistNode*)node forIndent:(NSUInteger)indent;
+- (void)printPlaylistNode:(PlaylistNode*)node withIndent:(NSUInteger)indent forTitleColumnWidth:(NSUInteger)titleColumnWidth;
 
 - (void)drawProgressBarWithStatus:(NSString*)status forCurrentValue:(NSUInteger)currentVal andTotalValue:(NSUInteger)totalVal;
 
@@ -55,6 +57,10 @@
 
   LibrarySerializer* _librarySerializer;
 }
+
+NSUInteger const __MLE_PlaylistTableIndentPerLevel = 2;
+NSUInteger const __MLE_PlaylistTableMaxWidth = 100;
+NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
 
 
 #pragma mark - Initializers
@@ -187,9 +193,23 @@
   [playlistTree setFlattened:_configuration.flattenPlaylistHierarchy];
   [playlistTree generateForSourcePlaylists:_includedPlaylists];
 
-  // print playlists recursively via top-level
+  NSUInteger tableWidth = MIN(_termWidth, __MLE_PlaylistTableMaxWidth);
+  NSUInteger idColumnWidth = __MLE_PlaylistTableColumnMargin + 16 + __MLE_PlaylistTableColumnMargin;
+  NSUInteger kindColumnWidth = __MLE_PlaylistTableColumnMargin + 14 + __MLE_PlaylistTableColumnMargin;
+  NSUInteger titleColumnMaxWidth = tableWidth - idColumnWidth - kindColumnWidth;
+  NSUInteger titleColumnWidth = MIN([self playlistColumnWidthForTree:playlistTree], titleColumnMaxWidth);
+  tableWidth = MIN(tableWidth, titleColumnWidth + idColumnWidth + kindColumnWidth);
+
+  // print header row
+  printf(" %-*s|  %-*s|  %-*s|\n", (int)titleColumnWidth-2, "Title", (int)idColumnWidth-3, "Playlist ID", (int)kindColumnWidth-3, "Playlist Kind");
+  for (int  i=0; i<tableWidth; i++) {
+    putchar('-');
+  }
+  printf("\n");
+
+
   for (PlaylistNode* childNode in playlistTree.rootNode.children) {
-    [self printPlaylistNode:childNode withIndent:0];
+    [self printPlaylistNode:childNode withIndent:0 forTitleColumnWidth:titleColumnWidth];
   }
 }
 
@@ -384,25 +404,54 @@
   fflush(stdout);
 }
 
-- (void)printPlaylistNode:(PlaylistNode*)node withIndent:(NSUInteger)indent {
+- (NSUInteger)playlistColumnWidthForTree:(PlaylistTree*)playlistTree {
 
-  // TODO: add additional columns (e.g. kind)
-  // TODO: determine column widths dynamically
-  // TODO: elide column overflow text
+  return [self playlistColumnWidthForNode:playlistTree.rootNode forIndent:0];
+}
+
+- (NSUInteger)playlistColumnWidthForNode:(PlaylistNode*)node forIndent:(NSUInteger)indent {
+
+  NSUInteger widthForNode = 0;
+  if (node.playlist) {
+    widthForNode = indent + node.playlist.name.length + 2; // + 2 for '- ' prefix
+  }
+
+  for (PlaylistNode* childNode in node.children) {
+    widthForNode = MAX(widthForNode, [self playlistColumnWidthForNode:childNode forIndent:indent + __MLE_PlaylistTableIndentPerLevel]);
+  }
+
+  return widthForNode;
+}
+
+- (void)printPlaylistNode:(PlaylistNode*)node withIndent:(NSUInteger)indent forTitleColumnWidth:(NSUInteger)titleColumnWidth {
 
   // indent
   for (NSUInteger i=0; i<indent; i++){
     putchar(' ');
   }
 
-  int spacing = 30 - (int)indent;
+  NSUInteger titleLength = MAX(4,  (titleColumnWidth - indent - 3));
+  NSString* formattedTitle = node.playlist.name;
+  if (formattedTitle.length > titleLength) {
+    formattedTitle = [NSString stringWithFormat:@"%@...",[node.playlist.name substringToIndex:titleLength-3]];
+  }
 
-  // print playlist description
-  printf("- %-*s  %s\n", spacing, node.playlist.name.UTF8String, node.playlistHexId.UTF8String);
+  // title
+  printf(" - %-*s", (int)titleLength, formattedTitle.UTF8String);
+
+  // id
+  for (int i=0; i<__MLE_PlaylistTableColumnMargin; i++) { putchar(' '); }
+  printf("%-*s", 16 + (int)__MLE_PlaylistTableColumnMargin, node.playlistHexId.UTF8String);
+
+  // kind
+  for (int i=0; i<__MLE_PlaylistTableColumnMargin; i++) { putchar(' '); }
+  printf("%-*s", 14 + (int)__MLE_PlaylistTableColumnMargin, node.kindDescription.UTF8String);
+
+  printf("\n");
 
   // call recursively on children, increasing indent w/ each level
   for (PlaylistNode* childNode in node.children) {
-    [self printPlaylistNode:childNode withIndent:indent+2];
+    [self printPlaylistNode:childNode withIndent:indent+__MLE_PlaylistTableIndentPerLevel forTitleColumnWidth:titleColumnWidth];
   }
 }
 

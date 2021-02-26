@@ -51,7 +51,7 @@
 - (NSString*)kindDescription {
 
   if (_playlist.distinguishedKind != ITLibDistinguishedPlaylistKindNone || _playlist.isMaster) {
-    return @"Internal Playlist";
+    return @"Internal";
   }
 
   switch (_playlist.kind) {
