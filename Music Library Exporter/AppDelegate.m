@@ -100,6 +100,14 @@
 
   [_window makeKeyAndOrderFront:NSApp];
 
+#if SENTRY_ENABLED == 1
+  // prompt for crash reporting permissions if not prompted yet and not first launch
+  if (!self.isFirstLaunch && !MLESentryHandler.sharedSentryHandler.userHasBeenPromptedForCrashReportingPermissions) {
+    [self showCrashReportingPermissionsWindow];
+    [[MLESentryHandler sharedSentryHandler] setUserHasBeenPromptedForCrashReportingPermissions:YES];
+  }
+#endif
+
   [self incrementLaunchCount];
 }
 
@@ -198,6 +206,28 @@
   NSInteger launchCount = [self launchCount];
   launchCount++;
   [_groupDefaults setInteger:launchCount forKey:@"LaunchCount"];
+}
+
+- (void)showCrashReportingPermissionsWindow {
+#if SENTRY_ENABLED == 1
+  MLE_Log_Info(@"AppDelegate [showCrashReportingPermissionsWindow]");
+
+  // show alert
+  NSAlert* crashReportingPermissionAlert = [[NSAlert alloc] init];
+  [crashReportingPermissionAlert setAlertStyle:NSAlertStyleInformational];
+  [crashReportingPermissionAlert setMessageText:@"Enable automatic crash reporting?"];
+  [crashReportingPermissionAlert setInformativeText:
+   @"Sending us crash reports helps us improve our software.\n\n"
+   "Reports are anonymous. They do not contain any personally identifiable information.\n\n"
+   "This can be changed at any time from the application's preferences."];
+  [crashReportingPermissionAlert addButtonWithTitle:@"Yes"];
+  [[crashReportingPermissionAlert addButtonWithTitle:@"No"] setKeyEquivalent:@"\e"];
+  NSModalResponse response = [crashReportingPermissionAlert runModal];
+
+  // update preference
+  BOOL enableCrashReporting = (response == NSAlertFirstButtonReturn);
+  [MLESentryHandler setCrashReportingEnabled:enableCrashReporting];
+#endif
 }
 
 @end

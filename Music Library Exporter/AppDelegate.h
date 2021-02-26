@@ -18,5 +18,7 @@
 - (BOOL)isFirstLaunch;
 - (void)incrementLaunchCount;
 
+- (void)showCrashReportingPermissionsWindow;
+
 @end
 
