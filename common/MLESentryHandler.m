@@ -131,7 +131,7 @@ static MLESentryHandler* _sharedSentryHandler;
   MLE_Log_Info(@"MLESentryHandler [setupSentry] enabled:%@ release:%@ environment:%@", (sentryEnabled ? @"YES" : @"NO"), sentryReleaseName, sentryEnvironment);
 
   [SentrySDK startWithConfigureOptions:^(SentryOptions *options) {
-    options.dsn = [NSString stringWithFormat:@"https://%@", sentryDsn];
+    options.dsn = sentryDsn;
     options.enabled = sentryEnabled;
     options.releaseName = sentryReleaseName;
     options.environment = sentryEnvironment;
