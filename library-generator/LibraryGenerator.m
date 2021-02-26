@@ -75,6 +75,7 @@
 
   else {
     _printProgress = NO;
+    _termWidth = 100;
   }
 
   return self;
