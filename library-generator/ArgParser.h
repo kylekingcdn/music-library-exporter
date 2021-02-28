@@ -42,6 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSSet<NSNumber*>*)determineCommandTypes;
 
 - (BOOL)populateExportConfiguration:(ExportConfiguration*)configuration error:(NSError**)error;
+- (BOOL)populateExportConfigurationFromAppPreferences:(ExportConfiguration*)configuration error:(NSError**)error;
 
 - (void)dumpArguments;
 

@@ -25,6 +25,7 @@ typedef NS_ENUM(NSInteger, ArgParserErrorCode) {
   ArgParserErrorMalformedSortingOptionFormat,
   ArgParserErrorUnknownSortColumn,
   ArgParserErrorUnknownSortOrder,
+  ArgParserErrorAppPrefsPropertyListInvalid,
 };
 
 typedef NS_ENUM(NSInteger, LibraryGeneratorErrorCode) {

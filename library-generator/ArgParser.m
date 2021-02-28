@@ -148,6 +148,39 @@
   return YES;
 }
 
+- (BOOL)populateExportConfigurationFromAppPreferences:(ExportConfiguration*)configuration error:(NSError**)error {
+
+  NSURL* prefsPlistUrl = [LGDefines fileUrlForAppPreferences];
+  NSString* prefsPlistPath = prefsPlistUrl.path;
+
+  if (![[NSFileManager defaultManager] fileExistsAtPath:prefsPlistPath]) {
+    if (error) {
+      *error = [NSError errorWithDomain:__MLE_ErrorDomain_ArgParser code:ArgParserErrorAppPrefsPropertyListInvalid userInfo:@{
+        NSLocalizedDescriptionKey:[NSString stringWithFormat:@"App preferences property list not found at expected path: %@", prefsPlistPath],
+      }];
+    }
+    return NO;
+  }
+
+  if (![[NSFileManager defaultManager] isReadableFileAtPath:prefsPlistPath]) {
+    if (error) {
+      *error = [NSError errorWithDomain:__MLE_ErrorDomain_ArgParser code:ArgParserErrorAppPrefsPropertyListInvalid userInfo:@{
+        NSLocalizedDescriptionKey:[NSString stringWithFormat:@"App preferences property not readable at expected path: %@", prefsPlistPath],
+      }];
+    }
+    return NO;
+  }
+
+  NSDictionary* prefsPlistDict = [NSDictionary dictionaryWithContentsOfURL:prefsPlistUrl error:error];
+  if (prefsPlistDict == nil) {
+    return NO;
+  }
+
+  [configuration loadValuesFromDictionary:prefsPlistDict];
+
+  return YES;
+}
+
 - (void)dumpArguments {
 
   if (_processInfo) {
