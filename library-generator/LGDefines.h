@@ -49,6 +49,8 @@ typedef NS_ENUM(NSInteger, LGOptionKind) {
 
   LGOptionKindVerbose,
 
+  LGOptionKindReadPrefs,
+
   LGOptionKindFlatten,
   LGOptionKindExcludeInternal,
   LGOptionKindExcludeIds,
