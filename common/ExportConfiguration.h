@@ -85,6 +85,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setCustomSortColumn:(PlaylistSortColumnType)sortColumn forPlaylist:(NSString*)playlistId;
 - (void)setCustomSortOrder:(PlaylistSortOrderType)sortOrder forPlaylist:(NSString*)playlistId;
 
+- (void)loadValuesFromDictionary:(NSDictionary*)dict;
+
 @end
 
 NS_ASSUME_NONNULL_END

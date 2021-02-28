@@ -362,4 +362,47 @@ static ExportConfiguration* _sharedConfig;
   [self setCustomSortOrderDict:sortOrderDict];
 }
 
+- (void)loadValuesFromDictionary:(NSDictionary*)dict {
+
+  MLE_Log_Info(@"ExportConfiguration [loadValuesFromDictionary] (dict key count:%lu)", dict.count);
+
+  if ([dict objectForKey:@"MusicLibraryPath"]) {
+    [self setMusicLibraryPath:[dict valueForKey:@"MusicLibraryPath"]];
+  }
+
+  if ([dict objectForKey:@"OutputDirectoryPath"]) {
+    [self setOutputDirectoryPath:[dict valueForKey:@"OutputDirectoryPath"]];
+  }
+  if ([dict objectForKey:@"OutputFileName"]) {
+    [self setOutputFileName:[dict valueForKey:@"OutputFileName"]];
+  }
+
+  if ([dict objectForKey:@"RemapRootDirectory"]) {
+    [self setRemapRootDirectory:[[dict objectForKey:@"RemapRootDirectory"] boolValue]];
+  }
+  if ([dict objectForKey:@"RemapRootDirectoryOriginalPath"]) {
+    [self setRemapRootDirectoryOriginalPath:[dict valueForKey:@"RemapRootDirectoryOriginalPath"]];
+  }
+  if ([dict objectForKey:@"RemapRootDirectoryMappedPath"]) {
+    [self setRemapRootDirectoryMappedPath:[dict valueForKey:@"RemapRootDirectoryMappedPath"]];
+  }
+
+  if ([dict objectForKey:@"FlattenPlaylistHierarchy"]) {
+    [self setFlattenPlaylistHierarchy:[[dict objectForKey:@"FlattenPlaylistHierarchy"] boolValue]];
+  }
+  if ([dict objectForKey:@"IncludeInternalPlaylists"]) {
+    [self setIncludeInternalPlaylists:[[dict objectForKey:@"IncludeInternalPlaylists"] boolValue]];
+  }
+  if ([dict objectForKey:@"ExcludedPlaylistPersistentIds"]) {
+    [self setExcludedPlaylistPersistentIds:[NSSet setWithArray:[dict valueForKey:@"ExcludedPlaylistPersistentIds"]]];
+  }
+
+  if ([dict objectForKey:@"PlaylistCustomSortColumns"]) {
+    [self setCustomSortColumnDict:[dict valueForKey:@"PlaylistCustomSortColumns"]];
+  }
+  if ([dict objectForKey:@"PlaylistCustomSortOrders"]) {
+    [self setCustomSortOrderDict:[dict valueForKey:@"PlaylistCustomSortOrders"]];
+  }
+}
+
 @end

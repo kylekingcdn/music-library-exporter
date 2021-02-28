@@ -202,23 +202,9 @@ static UserDefaultsExportConfiguration* _sharedConfig;
 
   [self registerDefaultValues];
 
-  [super setMusicLibraryPath:[_userDefaults valueForKey:@"MusicLibraryPath"]];
-
   [super setOutputDirectoryUrl: [self resolveOutputDirectoryBookmarkAndReturnError:nil]];
-  // if the bookmark was stale, the above call to resolve would have already updated this value
-  [super setOutputDirectoryPath:[_userDefaults valueForKey:@"OutputDirectoryPath"]];
-  [super setOutputFileName:[_userDefaults valueForKey:@"OutputFileName"]];
 
-  [super setRemapRootDirectory:[_userDefaults boolForKey:@"RemapRootDirectory"]];
-  [super setRemapRootDirectoryOriginalPath:[_userDefaults valueForKey:@"RemapRootDirectoryOriginalPath"]];
-  [super setRemapRootDirectoryMappedPath:[_userDefaults valueForKey:@"RemapRootDirectoryMappedPath"]];
-
-  [super setFlattenPlaylistHierarchy:[_userDefaults boolForKey:@"FlattenPlaylistHierarchy"]];
-  [super setIncludeInternalPlaylists:[_userDefaults boolForKey:@"IncludeInternalPlaylists"]];
-  [super setExcludedPlaylistPersistentIds:[NSSet setWithArray:[_userDefaults arrayForKey:@"ExcludedPlaylistPersistentIds"]]];
-
-  [super setCustomSortColumnDict:[_userDefaults dictionaryForKey:@"PlaylistCustomSortColumns"]];
-  [super setCustomSortOrderDict:[_userDefaults dictionaryForKey:@"PlaylistCustomSortOrders"]];
+  [super loadValuesFromDictionary:[_userDefaults dictionaryRepresentation]];
 }
 
 - (void)registerDefaultValues {
