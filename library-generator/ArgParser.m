@@ -88,7 +88,22 @@
   return [_package booleanValueForSignature:verboseSignature];
 }
 
+- (BOOL)readPrefsEnabled {
+
+  XPMArgumentSignature* readPrefsSignature = [self signatureForOption:LGOptionKindReadPrefs];
+  if (readPrefsSignature == nil) {
+    return NO;
+  }
+
+  return [_package booleanValueForSignature:readPrefsSignature];
+}
+
 - (BOOL)populateExportConfiguration:(ExportConfiguration*)configuration error:(NSError**)error {
+
+  // populate config from app prefs
+  if ([self readPrefsEnabled]) {
+    return [self populateExportConfigurationFromAppPreferences:configuration error:error];
+  }
 
   [configuration setFlattenPlaylistHierarchy:[_package booleanValueForSignature:[self signatureForOption:LGOptionKindFlatten]]];
 
