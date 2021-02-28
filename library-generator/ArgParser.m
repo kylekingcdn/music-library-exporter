@@ -80,12 +80,12 @@
 
 - (BOOL)verboseOutputEnabled {
 
-  XPMArgumentSignature* verboseSignature = [self signatureForOption:LGOptionKindFlatten];
+  XPMArgumentSignature* verboseSignature = [self signatureForOption:LGOptionKindVerbose];
   if (verboseSignature == nil) {
     return NO;
   }
 
-  return [_package booleanValueForSignature:[self signatureForOption:LGOptionKindVerbose]];
+  return [_package booleanValueForSignature:verboseSignature];
 }
 
 - (BOOL)populateExportConfiguration:(ExportConfiguration*)configuration error:(NSError**)error {
