@@ -240,7 +240,7 @@ NSErrorDomain const __MLE_ErrorDomain_LibraryGenerator = @"com.kylekingcdn.Music
       return @"[-m --music_media_dir]={1,1}";
     }
     case LGOptionKindSort: {
-      return @"[-S --sort]={1,1}";
+      return @"[--sort]={1,1}";
     }
     case LGOptionKindRemapSearch: {
       return @"[-s --remap_search]={1,1}";

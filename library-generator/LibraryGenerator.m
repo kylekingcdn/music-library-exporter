@@ -177,7 +177,7 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
   printf("\n        Example value:");
   printf("\n            --output_path ~/Music/Music/GeneratedLibrary.xml");
   printf("\n");
-  printf("\n    --sort <playlist_sorting_specifer>, -S <playlist_sorting_specifer>");
+  printf("\n    --sort <playlist_sorting_specifer>");
   printf("\n");
   printf("\n");
   printf("\n    --remap_search <text_to_find>, -s <text_to_find>");
