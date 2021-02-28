@@ -268,4 +268,19 @@ NSErrorDomain const __MLE_ErrorDomain_LibraryGenerator = @"com.kylekingcdn.Music
   }
 }
 
++ (NSURL*)fileUrlForAppPreferences {
+
+  NSArray<NSString*>* pathComponents = @[
+    NSFileManager.defaultManager.homeDirectoryForCurrentUser.path,
+    @"Library",
+    @"Group Containers",
+    @"group.9YLM7HTV6V.com.MusicLibraryExporter",
+    @"Library",
+    @"Preferences",
+    @"group.9YLM7HTV6V.com.MusicLibraryExporter.plist",
+  ];
+
+  return [NSURL fileURLWithPathComponents:pathComponents];
+}
+
 @end

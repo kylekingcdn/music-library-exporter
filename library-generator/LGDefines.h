@@ -82,6 +82,8 @@ typedef NS_ENUM(NSInteger, LGOptionKind) {
 + (nullable NSString*)signatureFormatForCommand:(LGCommandKind)command;
 + (nullable NSString*)signatureFormatForOption:(LGOptionKind)option;
 
++ (NSURL*)fileUrlForAppPreferences;
+
 @end
 
 NS_ASSUME_NONNULL_END
