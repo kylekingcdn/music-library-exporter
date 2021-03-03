@@ -242,6 +242,9 @@
 
   [configuration loadValuesFromDictionary:prefsPlistDict];
 
+  // output dir url must be set manually from the outputDirPath since the app uses bookmarks
+  [configuration setOutputDirectoryUrl:[NSURL fileURLWithPath:configuration.outputDirectoryPath]];
+
   return YES;
 }
 
