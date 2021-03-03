@@ -117,59 +117,95 @@
     return [self populateExportConfigurationFromAppPreferences:configuration error:error];
   }
 
-  [configuration setFlattenPlaylistHierarchy:[_package booleanValueForSignature:[self signatureForOption:LGOptionKindFlatten]]];
+  // --flatten
+  if ([self isOptionSet:LGOptionKindFlatten]) {
 
-  [configuration setIncludeInternalPlaylists:![_package booleanValueForSignature:[self signatureForOption:LGOptionKindExcludeInternal]]];
-
-  NSString* musicMediaDir = [_package firstObjectForSignature:[self signatureForOption:LGOptionKindMusicMediaDirectory]];
-  if (musicMediaDir) {
-    [configuration setMusicLibraryPath:musicMediaDir];
+    [configuration setFlattenPlaylistHierarchy:[_package booleanValueForSignature:[self signatureForOption:LGOptionKindFlatten]]];
   }
-  NSString* excludedIdsStr = [_package firstObjectForSignature:[self signatureForOption:LGOptionKindExcludeIds]];
-  if (excludedIdsStr) {
-    NSSet<NSString*>* excludedIds = [ArgParser playlistIdsForIdsOption:excludedIdsStr error:error];
-    if (excludedIds == nil) {
-      return NO;
+
+  // --exclude_internal
+  if ([self isOptionSet:LGOptionKindExcludeInternal]) {
+
+    [configuration setIncludeInternalPlaylists:![_package booleanValueForSignature:[self signatureForOption:LGOptionKindExcludeInternal]]];
+  }
+
+  // --exclude_ids
+  if ([self isOptionSet:LGOptionKindExcludeIds]) {
+
+    NSString* excludedIdsStr = [_package firstObjectForSignature:[self signatureForOption:LGOptionKindExcludeIds]];
+
+    if (excludedIdsStr) {
+
+      NSSet<NSString*>* excludedIds = [ArgParser playlistIdsForIdsOption:excludedIdsStr error:error];
+      if (excludedIds == nil) {
+        return NO;
+      }
+
+      [configuration setExcludedPlaylistPersistentIds:excludedIds];
     }
-    [configuration setExcludedPlaylistPersistentIds:excludedIds];
   }
 
-  NSString* playlistSortingOpt = [_package firstObjectForSignature:[self signatureForOption:LGOptionKindSort]];
-  if (playlistSortingOpt) {
+  // --music_media_dir
+  if ([self isOptionSet:LGOptionKindMusicMediaDirectory]) {
 
-    NSMutableDictionary* sortColumnDict = [NSMutableDictionary dictionary];
-    NSMutableDictionary* sortOrderDict = [NSMutableDictionary dictionary];
-    BOOL sortingOptionParsed = [ArgParser parsePlaylistSortingOption:playlistSortingOpt forColumnDict:sortColumnDict andOrderDict:sortOrderDict andReturnError:error];
-    if (!sortingOptionParsed) {
-      return NO;
+    NSString* musicMediaDir = [_package firstObjectForSignature:[self signatureForOption:LGOptionKindMusicMediaDirectory]];
+
+    if (musicMediaDir) {
+      [configuration setMusicLibraryPath:musicMediaDir];
+    }
+  }
+
+  // --sort
+  if ([self isOptionSet:LGOptionKindSort]) {
+
+    NSString* playlistSortingOpt = [_package firstObjectForSignature:[self signatureForOption:LGOptionKindSort]];
+    if (playlistSortingOpt) {
+
+      NSMutableDictionary* sortColumnDict = [NSMutableDictionary dictionary];
+      NSMutableDictionary* sortOrderDict = [NSMutableDictionary dictionary];
+      BOOL sortingOptionParsed = [ArgParser parsePlaylistSortingOption:playlistSortingOpt forColumnDict:sortColumnDict andOrderDict:sortOrderDict andReturnError:error];
+
+      if (!sortingOptionParsed) {
+        return NO;
+      }
+
+      [configuration setCustomSortColumnDict:sortColumnDict];
+      [configuration setCustomSortOrderDict:sortOrderDict];
+    }
+  }
+
+  // --remap-*
+  if ([self isOptionSet:LGOptionKindRemapSearch] || [self isOptionSet:LGOptionKindRemapReplace]) {
+
+    [configuration setRemapRootDirectory:YES];
+
+    NSString* remapSearch = [_package firstObjectForSignature:[self signatureForOption:LGOptionKindRemapSearch]];
+    NSString* remapReplace = [_package firstObjectForSignature:[self signatureForOption:LGOptionKindRemapReplace]];
+    
+    if (remapSearch) {
+      [configuration setRemapRootDirectoryOriginalPath:remapSearch];
     }
 
-    [configuration setCustomSortColumnDict:sortColumnDict];
-    [configuration setCustomSortOrderDict:sortOrderDict];
+    if (remapReplace) {
+      [configuration setRemapRootDirectoryMappedPath:remapReplace];
+    }
   }
 
-  NSString* remapSearch = [_package firstObjectForSignature:[self signatureForOption:LGOptionKindRemapSearch]];
-  NSString* remapReplace = [_package firstObjectForSignature:[self signatureForOption:LGOptionKindRemapReplace]];
-  BOOL hasRemapping = (remapSearch || remapReplace);
+  // --output_path
+  if ([self isOptionSet:LGOptionKindOutputPath]) {
 
-  [configuration setRemapRootDirectory:hasRemapping];
-  if (remapSearch) {
-    [configuration setRemapRootDirectoryOriginalPath:remapSearch];
-  }
-  if (remapReplace) {
-    [configuration setRemapRootDirectoryMappedPath:remapReplace];
-  }
+    NSString* outputFilePath = [_package firstObjectForSignature:[self signatureForOption:LGOptionKindOutputPath]];
 
-  NSString* outputFilePath = [_package firstObjectForSignature:[self signatureForOption:LGOptionKindOutputPath]];
-  if (outputFilePath) {
-    NSURL* fileUrl = [NSURL fileURLWithPath:outputFilePath];
+    if (outputFilePath) {
 
-    NSString* fileName = [fileUrl lastPathComponent];
-    NSURL* fileDirUrl = [fileUrl URLByDeletingLastPathComponent];
+      NSURL* fileUrl = [NSURL fileURLWithPath:outputFilePath];
+      NSString* fileName = [fileUrl lastPathComponent];
+      NSURL* fileDirUrl = [fileUrl URLByDeletingLastPathComponent];
 
-    [configuration setOutputFileName:fileName];
-    [configuration setOutputDirectoryUrl:fileDirUrl];
-    [configuration setOutputDirectoryPath:fileDirUrl.path];
+      [configuration setOutputFileName:fileName];
+      [configuration setOutputDirectoryUrl:fileDirUrl];
+      [configuration setOutputDirectoryPath:fileDirUrl.path];
+    }
   }
 
   return YES;
