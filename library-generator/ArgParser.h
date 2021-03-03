@@ -47,6 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)populateExportConfigurationFromAppPreferences:(ExportConfiguration*)configuration error:(NSError**)error;
 
 - (void)dumpArguments;
+- (void)dumpOptions;
 
 - (BOOL)verboseOutputEnabled;
 - (BOOL)readPrefsEnabled;

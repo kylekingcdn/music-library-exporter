@@ -215,6 +215,18 @@
   }
 }
 
+- (void)dumpOptions {
+
+  NSLog(@"Options:");
+
+  for (LGOptionKind option = LGOptionKindHelp; option < LGOptionKind_MAX; option++) {
+
+    BOOL isSet = [self isOptionSet:option];
+
+    NSLog(@"  %@: %@", [LGDefines nameForOption:option], (isSet ? @"Yes" : @"No"));
+  }
+}
+
 + (NSSet<NSString*>*)playlistIdsForIdsOption:(NSString*)playlistIdsOption error:(NSError**)error{
 
   return [NSSet setWithArray:[playlistIdsOption componentsSeparatedByString:@","]];
