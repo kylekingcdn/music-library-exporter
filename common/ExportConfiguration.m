@@ -41,6 +41,10 @@ static ExportConfiguration* _sharedConfig;
 
   self = [super init];
 
+  _remapRootDirectory = NO;
+
+  _flattenPlaylistHierarchy = NO;
+  _includeInternalPlaylists = YES;
   _excludedPlaylistPersistentIds = [NSMutableSet set];
 
   _playlistCustomSortColumnDict = [NSDictionary dictionary];
