@@ -39,6 +39,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable XPMArgumentSignature*)signatureForCommand:(LGCommandKind)command;
 - (nullable XPMArgumentSignature*)signatureForOption:(LGOptionKind)option;
 
+- (BOOL)isOptionSet:(LGOptionKind)option;
+
 - (NSSet<NSNumber*>*)determineCommandTypes;
 
 - (BOOL)populateExportConfiguration:(ExportConfiguration*)configuration error:(NSError**)error;

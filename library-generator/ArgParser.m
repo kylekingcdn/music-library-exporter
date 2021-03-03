@@ -55,6 +55,18 @@
   return [_optionSignatures objectForKey:@(option)];
 }
 
+- (BOOL)isOptionSet:(LGOptionKind)option {
+
+  if (option == LGOptionKind_MAX) {
+    return NO;
+  }
+
+  XPMArgumentSignature* signature = [self signatureForOption:option];
+  NSUInteger signatureCount = [_package countOfSignature:signature];
+
+  return (signatureCount != NSNotFound && signatureCount > 0);
+}
+
 - (NSSet<NSNumber*>*)determineCommandTypes {
 
   NSMutableSet<NSNumber*>* commmandTypes = [NSMutableSet set];
