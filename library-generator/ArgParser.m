@@ -182,7 +182,7 @@
 
     NSString* remapSearch = [_package firstObjectForSignature:[self signatureForOption:LGOptionKindRemapSearch]];
     NSString* remapReplace = [_package firstObjectForSignature:[self signatureForOption:LGOptionKindRemapReplace]];
-    
+
     if (remapSearch) {
       [configuration setRemapRootDirectoryOriginalPath:remapSearch];
     }

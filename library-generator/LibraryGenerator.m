@@ -264,7 +264,7 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
     if (pathIsDirectory) {
       if (error) {
         *error = [NSError errorWithDomain:__MLE_ErrorDomain_LibraryGenerator code:LibraryGeneratorErrorInvalidOutputPath userInfo:@{
-          NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Error: The --output_paths option requires a filename. Please include a file name in your output path: %@", filePath],
+          NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Error: The --output_path option requires a filename. Please include a file name in your output path: %@", filePath],
         }];
       }
       return NO;
@@ -519,10 +519,6 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
   _command = argParser.command;
   _verboseOutput = argParser.verboseOutputEnabled;
 
-  if (_verboseOutput) {
-    printf("---- verbose output enabled ----\n");
-  }
-
   // display help
   if (_command == LGCommandKindHelp) {
     return YES;
@@ -536,6 +532,7 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
   // generate config
   _configuration = [[ExportConfiguration alloc] init];
   [ExportConfiguration initSharedConfig:_configuration];
+  
   if (![argParser populateExportConfiguration:_configuration error:error]) {
     return NO;
   }
