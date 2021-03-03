@@ -114,7 +114,8 @@
 
   // populate config from app prefs
   if ([self readPrefsEnabled]) {
-    return [self populateExportConfigurationFromAppPreferences:configuration error:error];
+
+    [self populateExportConfigurationFromAppPreferences:configuration error:error];
   }
 
   // --flatten
