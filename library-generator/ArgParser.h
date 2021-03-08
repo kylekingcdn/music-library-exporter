@@ -49,7 +49,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)dumpArguments;
 - (void)dumpOptions;
 
-- (BOOL)verboseOutputEnabled;
 - (BOOL)readPrefsEnabled;
 
 + (nullable NSSet<NSString*>*)playlistIdsForIdsOption:(NSString*)playlistIdsOption error:(NSError**)error;

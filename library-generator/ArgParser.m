@@ -90,16 +90,6 @@
   return commmandTypes;
 }
 
-- (BOOL)verboseOutputEnabled {
-
-  XPMArgumentSignature* verboseSignature = [self signatureForOption:LGOptionKindVerbose];
-  if (verboseSignature == nil) {
-    return NO;
-  }
-
-  return [_package booleanValueForSignature:verboseSignature];
-}
-
 - (BOOL)readPrefsEnabled {
 
   XPMArgumentSignature* readPrefsSignature = [self signatureForOption:LGOptionKindReadPrefs];
