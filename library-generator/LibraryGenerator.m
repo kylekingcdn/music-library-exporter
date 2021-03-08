@@ -195,8 +195,18 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
   printf("\n");
   printf("\n    --remap_search <text_to_find>, -s <text_to_find>");
   printf("\n");
+  printf("\n        Specify the text you would like removed/replaced in each song's filepath.");
+  printf("\n        Using the remap option allows you to change the the root music directory in the filepath for each track in your library.");
+  printf("\n        This is especially useful when you are using your generted XML library in a remote or containerized environment (e.g. Plex)");
+  printf("\n");
+  printf("\n        Example value:");
+  printf("\n            --remap_search \"/Users/Kyle/Music/Music/Media.localized/Music\" --remap_replace \"/data/music\"");
   printf("\n");
   printf("\n    --remap_replace <replacement text>, -r <replacement text>");
+  printf("\n");
+  printf("\n        Specify the new text you would like to use in each song's filepath.");
+  printf("\n        If included, you must also specify the --remap_search option.");
+  printf("\n        For example usage, please see the information for the --remap_search option above.");
   printf("\n\n");
 }
 
