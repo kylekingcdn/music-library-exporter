@@ -56,6 +56,15 @@ The library is exported in an XML format, and is compatible with other applicati
 1. Build!
 
 
+## Support
+
+Have a question, comment or suggestion?
+
+Please feel free to send us an [email](mailto:support@music-exporter.app) or [open an issue](https://github.com/kylekingcdn/music-library-exporter/issues/new).
+
+We would love to hear from you!
+
+
 ## License
 
 This project is licensed under the **GNU General Public License v3.0**. See [`LICENSE`](https://github.com/kylekingcdn/music-library-exporter/blob/master/LICENSE) for more information.
