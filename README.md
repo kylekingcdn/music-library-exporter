@@ -18,6 +18,7 @@
 
 
 ## Information
+
 Music Library Exporter allows you to export your library and playlists from the native macOS Music app.
 
 The library is exported in an XML format, and is compatible with other applications, services, and tools that rely on the Music (previously iTunes) XML library format.
@@ -26,6 +27,7 @@ The library is exported in an XML format, and is compatible with other applicati
 
 
 ## Features
+
 - Automatically export your library with a custom set schedule (even when the app is closed!)
 - Manually exclude specific playlists
 - Customize playlist sorting
@@ -35,6 +37,7 @@ The library is exported in an XML format, and is compatible with other applicati
 
 
 ## Setup
+
 1. Clone the repo
    ```
    git clone --recurse-submodules 'https://github.com/kylekingcdn/music-library-exporter.git'
@@ -54,9 +57,11 @@ The library is exported in an XML format, and is compatible with other applicati
 
 
 ## License
+
 This project is licensed under the **GNU General Public License v3.0**. See [`LICENSE`](https://github.com/kylekingcdn/music-library-exporter/blob/master/LICENSE) for more information.
 
 
 ## Acknowledgements
-* [OrderedDictionary](https://github.com/nicklockwood/OrderedDictionary)
-* [XPMArgumentParser](https://github.com/mysteriouspants/ArgumentParser)
+
+- [OrderedDictionary](https://github.com/nicklockwood/OrderedDictionary)
+- [XPMArgumentParser](https://github.com/mysteriouspants/ArgumentParser)
