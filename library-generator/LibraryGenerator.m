@@ -192,7 +192,6 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
   printf("\n        Example value:");
   printf("\n            --sort \"3245022223634E16:title-a,3FD8F8235DE3C8C9:dateadded-d\"");
   printf("\n");
-  printf("\n");
   printf("\n    --remap_search <text_to_find>, -s <text_to_find>");
   printf("\n");
   printf("\n        Specify the text you would like removed/replaced in each song's filepath.");
