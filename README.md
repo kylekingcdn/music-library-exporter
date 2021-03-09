@@ -122,7 +122,7 @@ More information on launchd services can be found [here](https://www.launchd.inf
 **`--read_prefs`**
 
 > Allows for importing settings from the Music Library Exporter app's preferences.
-> Specifying additional option will override the corresponding app preference.
+> You may override any of the app's preferences by suppolying the corresponding option for the preference.
 
 **`--music_media_dir <music_media_dir>, -m <music_media_dir>`**
 
