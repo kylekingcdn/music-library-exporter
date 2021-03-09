@@ -148,7 +148,7 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
   printf("\n");
   printf("\n    --output_path <path>, -o <path>");
   printf("\n");
-  printf("\n        The desired output path of the generated library (directory and filename.");
+  printf("\n        The desired output path of the generated library (directory and filename).");
   printf("\n        Export behaviour is undetermined when using file extensions other than '.xml'.");
   printf("\n        If you must change the extension: first run the export command and then run 'mv' afterwards to relocate it to the desired location.");
   printf("\n        NOTE: This option is mandatory unless the value is being imported via --read_prefs.");
