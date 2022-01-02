@@ -138,6 +138,12 @@ static MLESentryHandler* _sharedSentryHandler;
   }];
 }
 
+- (void)restartSentry {
+
+  [SentrySDK close];
+  [self setupSentry];
+}
+
 - (void)setUserHasEnabledCrashReporting:(BOOL)flag {
 
   [_groupDefaults setBool:flag forKey:[MLESentryHandler crashReportingDefaultsKey]];
@@ -148,20 +154,12 @@ static MLESentryHandler* _sharedSentryHandler;
   [_groupDefaults setBool:flag forKey:[MLESentryHandler promptedForPermissionsDefaultsKey]];
 }
 
-- (void)setSentryEnabled:(BOOL)flag {
-
-  MLE_Log_Info(@"MLESentryHandler [setSentryEnabled:%@]", (flag ? @"YES" : @"NO"));
-
-  [SentrySDK.currentHub.getClient.options setEnabled:NO];
-}
-
 - (void)observeValueForKeyPath:(NSString *)aKeyPath ofObject:(id)anObject change:(NSDictionary *)aChange context:(void *)aContext {
 
   MLE_Log_Info(@"MLESentryHandler [observeValueForKeyPath:%@]", aKeyPath);
 
   if ([aKeyPath isEqualToString:[MLESentryHandler crashReportingDefaultsKey]]) {
-    BOOL crashReportingEnabled = [self userHasEnabledCrashReporting];
-    [self setSentryEnabled: crashReportingEnabled];
+    [_sharedSentryHandler restartSentry];
   }
 }
 
@@ -171,8 +169,8 @@ static MLESentryHandler* _sharedSentryHandler;
 
     MLE_Log_Info(@"MLESentryHandler [setCrashReportingEnabled:%@]", (flag ? @"YES" : @"NO"));
 
-    [_sharedSentryHandler setSentryEnabled:flag];
     [_sharedSentryHandler setUserHasEnabledCrashReporting:flag];
+    [_sharedSentryHandler restartSentry];
   }
 }
 

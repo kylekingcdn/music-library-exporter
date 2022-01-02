@@ -36,6 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Mutators
 
 - (void)setupSentry;
+- (void)restartSentry;
 
 - (void)setUserHasBeenPromptedForCrashReportingPermissions:(BOOL)flag;
 
