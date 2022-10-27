@@ -214,6 +214,10 @@ static UserDefaultsExportConfiguration* _sharedConfig;
   [super setOutputDirectoryUrl: [self resolveOutputDirectoryBookmarkAndReturnError:nil]];
 
   [super loadValuesFromDictionary:[_userDefaults dictionaryRepresentation]];
+
+  if ([self generatedPersistentLibraryId] == nil) {
+    [self setGeneratedPersistentLibraryId:[self generatePersistentLibraryId]];
+  }
 }
 
 - (void)registerDefaultValues {
