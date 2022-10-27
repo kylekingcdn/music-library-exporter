@@ -65,7 +65,7 @@ static ExportConfiguration* _sharedConfig;
 
 - (NSString*)musicLibraryPath {
 
-    return _musicLibraryPath;
+  return _musicLibraryPath;
 }
 
 - (NSURL*)outputDirectoryUrl {
