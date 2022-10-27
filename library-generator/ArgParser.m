@@ -108,6 +108,11 @@
     [self populateExportConfigurationFromAppPreferences:configuration error:error];
   }
 
+  // generate new persistent library id if not set
+  if (configuration.generatedPersistentLibraryId == nil) {
+    [configuration setGeneratedPersistentLibraryId:[configuration generatePersistentLibraryId]];
+  }
+
   // --flatten
   if ([self isOptionSet:LGOptionKindFlatten]) {
 
