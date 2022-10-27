@@ -196,6 +196,14 @@ static ExportConfiguration* _sharedConfig;
   return sortOrder;
 }
 
+- (NSString*)generatePersistentLibraryId {
+
+  NSArray<NSString*>* uuidParts = [[NSUUID UUID].UUIDString componentsSeparatedByString:@"-"];
+  NSString* newLibraryId = [NSString stringWithFormat:@"%@%@", [uuidParts objectAtIndex:uuidParts.count-2], [uuidParts lastObject]];
+
+  return newLibraryId;
+}
+
 - (void)dumpProperties {
 
   MLE_Log_Info(@"ExportConfiguration [dumpProperties]");
