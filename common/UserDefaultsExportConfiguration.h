@@ -38,6 +38,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setMusicLibraryPath:(NSString*)musicLibraryPath;
 
+- (void)setGeneratedPersistentLibraryId:(NSString*)generatedPersistentLibraryId;
+
 - (void)setOutputDirectoryUrl:(nullable NSURL*)dirUrl;
 - (void)setOutputDirectoryPath:(nullable NSString*)dirPath;
 - (void)setOutputFileName:(NSString*)fileName;

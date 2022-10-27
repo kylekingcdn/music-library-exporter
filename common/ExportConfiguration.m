@@ -18,6 +18,8 @@ static ExportConfiguration* _sharedConfig;
 
   NSString* _musicLibraryPath;
 
+  NSString* _generatedPersistentLibraryId;
+
   NSURL* _outputDirectoryUrl;
   NSString* _outputDirectoryPath;
   NSString* _outputFileName;
@@ -66,6 +68,11 @@ static ExportConfiguration* _sharedConfig;
 - (NSString*)musicLibraryPath {
 
   return _musicLibraryPath;
+}
+
+- (NSString*)generatedPersistentLibraryId {
+
+  return _generatedPersistentLibraryId;
 }
 
 - (NSURL*)outputDirectoryUrl {
@@ -210,6 +217,8 @@ static ExportConfiguration* _sharedConfig;
 
   MLE_Log_Info(@"  MusicLibraryPath:                '%@'", _musicLibraryPath);
 
+  MLE_Log_Info(@"  GeneratedPersistentLibraryId:    '%@'", _generatedPersistentLibraryId);
+
   MLE_Log_Info(@"  OutputDirectoryUrl:              '%@'", _outputDirectoryUrl);
   MLE_Log_Info(@"  OutputDirectoryPath:             '%@'", _outputDirectoryPath);
   MLE_Log_Info(@"  OutputFileName:                  '%@'", _outputFileName);
@@ -241,6 +250,13 @@ static ExportConfiguration* _sharedConfig;
   MLE_Log_Info(@"ExportConfiguration [setMusicLibraryPath %@]", musicLibraryPath);
 
   _musicLibraryPath = musicLibraryPath;
+}
+
+- (void)setGeneratedPersistentLibraryId:(NSString*)generatedPersistentLibraryId {
+
+  MLE_Log_Info(@"ExportConfiguration [setGeneratedPersistentLibraryId %@]", generatedPersistentLibraryId);
+
+  _generatedPersistentLibraryId = generatedPersistentLibraryId;
 }
 
 - (void)setOutputDirectoryUrl:(nullable NSURL*)dirUrl {
@@ -380,6 +396,10 @@ static ExportConfiguration* _sharedConfig;
 
   if ([dict objectForKey:@"MusicLibraryPath"]) {
     [self setMusicLibraryPath:[dict valueForKey:@"MusicLibraryPath"]];
+  }
+  
+  if ([dict objectForKey:@"GeneratedPersistentLibraryId"]) {
+    [self setGeneratedPersistentLibraryId:[dict valueForKey:@"GeneratedPersistentLibraryId"]];
   }
 
   if ([dict objectForKey:@"OutputDirectoryPath"]) {

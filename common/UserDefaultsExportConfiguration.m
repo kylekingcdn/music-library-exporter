@@ -44,6 +44,8 @@ static UserDefaultsExportConfiguration* _sharedConfig;
   return [NSDictionary dictionaryWithObjectsAndKeys:
     @"",             @"MusicLibraryPath",
 
+//  @"",             @"GeneratedPersistentLibraryId", /* we want this to be nil if it doesn't exist */
+
 //  @"",             @"OutputDirectoryBookmark", /* we want this to be nil if it doesn't exist */
     @"",             @"OutputDirectoryPath",
     @"",             @"OutputFileName",
@@ -95,6 +97,13 @@ static UserDefaultsExportConfiguration* _sharedConfig;
   [super setMusicLibraryPath:musicLibraryPath];
 
   [_userDefaults setValue:musicLibraryPath forKey:@"MusicLibraryPath"];
+}
+
+- (void)setGeneratedPersistentLibraryId:(NSString*)generatedPersistentLibraryId {
+
+  [super setGeneratedPersistentLibraryId:generatedPersistentLibraryId];
+
+  [_userDefaults setValue:generatedPersistentLibraryId forKey:@"GeneratedPersistentLibraryId"];
 }
 
 - (void)setOutputDirectoryUrl:(nullable NSURL*)dirUrl {

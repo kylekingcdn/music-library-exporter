@@ -26,6 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString*)musicLibraryPath;
 
+- (NSString*)generatedPersistentLibraryId;
+
 - (nullable NSURL*)outputDirectoryUrl;
 - (NSString*)outputDirectoryPath;
 - (NSString*)outputDirectoryUrlPath;
@@ -61,6 +63,8 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Mutators
 
 + (void)initSharedConfig:(ExportConfiguration*)sharedConfig;
+
+- (void)setGeneratedPersistentLibraryId:(NSString*)generatedPersistentLibraryId;
 
 - (void)setMusicLibraryPath:(NSString*)musicLibraryPath;
 
