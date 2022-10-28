@@ -33,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Accessors
 
 - (void)printHelp;
+- (void)printVersion;
 - (void)printPlaylists;
 
 

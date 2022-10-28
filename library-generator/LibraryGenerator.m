@@ -101,6 +101,10 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
   printf("\n");
   printf("\n        Prints this message");
   printf("\n");
+  printf("\n    version");
+  printf("\n");
+  printf("\n        Displays the current version of library-generator.");
+  printf("\n");
   printf("\n    print");
   printf("\n");
   printf("\n        Prints the list of playlists in your library with their kind and 'Persistent ID'.");
@@ -207,6 +211,11 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
   printf("\n        If included, you must also specify the --remap_search option.");
   printf("\n        For example usage, please see the information for the --remap_search option above.");
   printf("\n\n");
+}
+
+- (void)printVersion {
+
+  printf("library-generator %s\n", [LG_VERSION UTF8String]);
 }
 
 - (void)printPlaylists {
@@ -545,6 +554,11 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
     return YES;
   }
 
+  // display version
+  if (_command == LGCommandKindVersion) {
+    return YES;
+  }
+
   // validate options
   if (![argParser validateOptionsAndReturnError:error]) {
     return NO;
@@ -562,6 +576,7 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
   switch (_command) {
     case LGCommandKindHelp:
     case LGCommandKindPrint:
+    case LGCommandKindVersion:
     case LGCommandKindUnknown: {
       break;
     }

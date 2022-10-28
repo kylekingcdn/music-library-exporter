@@ -37,6 +37,7 @@ typedef NS_ENUM(NSInteger, LibraryGeneratorErrorCode) {
 
 typedef NS_ENUM(NSInteger, LGCommandKind) {
   LGCommandKindHelp,
+  LGCommandKindVersion,
   LGCommandKindPrint,
   LGCommandKindExport,
   LGCommandKindUnknown,
@@ -47,6 +48,8 @@ typedef NS_ENUM(NSInteger, LGOptionKind) {
   // - shared - //
 
   LGOptionKindHelp,
+
+  LGOptionKindVersion,
 
   LGOptionKindReadPrefs,
 

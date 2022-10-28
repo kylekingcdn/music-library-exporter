@@ -25,6 +25,12 @@ NSErrorDomain const __MLE_ErrorDomain_LibraryGenerator = @"com.kylekingcdn.Music
       ];
     }
 
+    case LGCommandKindVersion: {
+      return @[
+        @(LGOptionKindVersion)
+      ];
+    }
+
     case LGCommandKindPrint: {
       return @[
         @(LGOptionKindHelp),
@@ -66,6 +72,10 @@ NSErrorDomain const __MLE_ErrorDomain_LibraryGenerator = @"com.kylekingcdn.Music
       return @[ ];
     }
 
+    case LGCommandKindVersion: {
+      return @[ ];
+    }
+
     case LGCommandKindPrint: {
       return @[ ];
     }
@@ -89,6 +99,9 @@ NSErrorDomain const __MLE_ErrorDomain_LibraryGenerator = @"com.kylekingcdn.Music
     case LGCommandKindHelp: {
       return @"help";
     }
+    case LGCommandKindVersion: {
+      return @"version";
+    }
     case LGCommandKindPrint: {
       return @"print";
     }
@@ -107,6 +120,9 @@ NSErrorDomain const __MLE_ErrorDomain_LibraryGenerator = @"com.kylekingcdn.Music
 
     case LGOptionKindHelp: {
       return @"--help";
+    }
+    case LGOptionKindVersion: {
+      return @"--version";
     }
 
     case LGOptionKindReadPrefs: {
@@ -201,6 +217,9 @@ NSErrorDomain const __MLE_ErrorDomain_LibraryGenerator = @"com.kylekingcdn.Music
     case LGCommandKindHelp: {
       return @"[-h --help help]";
     }
+    case LGCommandKindVersion: {
+      return @"[-v --version version]";
+    }
     case LGCommandKindPrint: {
       return @"[print]";
     }
@@ -220,6 +239,10 @@ NSErrorDomain const __MLE_ErrorDomain_LibraryGenerator = @"com.kylekingcdn.Music
 
     case LGOptionKindHelp: {
       return [LGDefines signatureFormatForCommand:LGCommandKindHelp];
+    }
+
+    case LGOptionKindVersion: {
+      return [LGDefines signatureFormatForCommand:LGCommandKindVersion];
     }
 
     case LGOptionKindReadPrefs: {

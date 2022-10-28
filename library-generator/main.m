@@ -50,6 +50,11 @@ int main(int argc, const char * argv[]) {
         break;
       }
 
+      case LGCommandKindVersion: {
+        [generator printVersion];
+        break;
+      }
+
       // This is included despite setup throwing an error even if it is the case.
       // This allows for potential IDE warnings for any added command types in the future.
       case LGCommandKindUnknown: { break; }
