@@ -501,9 +501,10 @@
 
 - (NSString *)XMLEscapedString
 {
-    return [[[self stringByReplacingOccurrencesOfString:@"&" withString:@"&#60;"]
-             stringByReplacingOccurrencesOfString:@"<" withString:@"&#60;"]
-            stringByReplacingOccurrencesOfString:@">" withString:@"&#62;"];
+    return [[[[self stringByReplacingOccurrencesOfString:@"&" withString:@"&#60;"]
+              stringByReplacingOccurrencesOfString:@"<" withString:@"&#60;"]
+             stringByReplacingOccurrencesOfString:@">" withString:@"&#62;"]
+            stringByReplacingOccurrencesOfString:@"\0" withString:@" "];
 }
 
 - (NSString *)XMLPlistStringWithIndent:(__unused NSString *)indent
