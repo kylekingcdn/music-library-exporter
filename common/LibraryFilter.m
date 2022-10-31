@@ -17,11 +17,22 @@
 #import "OrderedDictionary.h"
 #import "Utils.h"
 #import "ExportConfiguration.h"
-
+#import "MediaItemKindFilter.h"
+#import "MediaItemFilterGroup.h"
+#import "PlaylistKindFilter.h"
+#import "PlaylistDistinguishedKindFilter.h"
+#import "PlaylistMasterFilter.h"
+#import "PlaylistIDFilter.h"
+#import "PlaylistParentIDFilter.h"
+#import "PlaylistFilterGroup.h"
 
 @implementation LibraryFilter {
 
   ITLibrary* _library;
+  MediaItemFilterGroup* _mediaItemFilters;
+  PlaylistFilterGroup* _playlistFilters;
+  PlaylistIDFilter* _playlistIDFilter;
+  PlaylistParentIDFilter* _playlistParentIDFilter;
 }
 
 
@@ -32,6 +43,8 @@
   self = [super init];
 
   _library = library;
+
+  _mediaItemFilters = [[MediaItemFilterGroup alloc] init];
 
   [self setFilterExcludedPlaylistIds:YES];
 
@@ -49,78 +62,22 @@
 
 #pragma mark - Accessors
 
-- (NSSet<NSNumber*>*)getIncludedPlaylistKinds {
-
-  MLE_Log_Info(@"LibraryFilter [getIncludedPlaylistKinds]");
-
-  NSMutableSet<NSNumber*>* includedPlaylistKinds = [NSMutableSet set];
-
-  // add non-distinguished playlist kind
-  [includedPlaylistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindNone]];
-
-  if (ExportConfiguration.sharedConfig.includeInternalPlaylists) {
-
-    // and internal music playlists
-    [includedPlaylistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindMusic]];
-    [includedPlaylistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindPurchases]];
-    [includedPlaylistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKind90sMusic]];
-    [includedPlaylistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindMyTopRated]];
-    [includedPlaylistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindTop25MostPlayed]];
-    [includedPlaylistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindRecentlyPlayed]];
-    [includedPlaylistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindRecentlyAdded]];
-    [includedPlaylistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindClassicalMusic]];
-    [includedPlaylistKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindLovedSongs]];
-  }
-
-  return includedPlaylistKinds;
-}
-
 - (NSArray<ITLibPlaylist*>*)getIncludedPlaylists {
 
-  MLE_Log_Info(@"LibraryFilter [getIncludedPlaylists]");
-
-  NSMutableSet<NSString*>* allExcludedPlaylistIds = [ExportConfiguration.sharedConfig.excludedPlaylistPersistentIds mutableCopy];
-
-  NSSet<NSNumber*>* includedPlaylistKinds = [self getIncludedPlaylistKinds];
+  [self initPlaylistFilters];
 
   NSMutableArray<ITLibPlaylist*>* includedPlaylists = [NSMutableArray array];
 
   for (ITLibPlaylist* playlist in _library.allPlaylists) {
 
-    NSString* playlistHexId = [Utils hexStringForPersistentId:playlist.persistentID];
-
-    // ignore excluded playlist kinds
-    if ([includedPlaylistKinds containsObject:[NSNumber numberWithUnsignedInteger:playlist.distinguishedKind]] && (!playlist.master || ExportConfiguration.sharedConfig.includeInternalPlaylists)) {
-
-      // ignore folders when flattened
-      if (playlist.kind != ITLibPlaylistKindFolder || !ExportConfiguration.sharedConfig.flattenPlaylistHierarchy) {
-
-        NSString* parentPlaylistHexId = [Utils hexStringForPersistentId:playlist.parentID];
-        
-        // filtering by playlist id is enabled
-        if (_filterExcludedPlaylistIds) {
-          if ([allExcludedPlaylistIds containsObject:playlistHexId]) {
-            MLE_Log_Info(@"LibraryFilter [getIncludedPlaylists] playlist was manually excluded by id: %@ - %@", playlist.name, playlistHexId);
-          }
-          // if folders are enabled and the playlists parent folder is excluded, exclude it as well
-          else if (!ExportConfiguration.sharedConfig.flattenPlaylistHierarchy && parentPlaylistHexId != nil && [allExcludedPlaylistIds containsObject:parentPlaylistHexId]) {
-            MLE_Log_Info(@"LibraryFilter [getIncludedPlaylists] parent for playlist was excluded: %@ - %@ (parent: %@)", playlist.name, playlistHexId, parentPlaylistHexId);
-            [allExcludedPlaylistIds addObject:playlistHexId];
-          }
-          else {
-            [includedPlaylists addObject:playlist];
-          }
-        }
-        else {
-          [includedPlaylists addObject:playlist];
-        }
-      }
-      else {
-        MLE_Log_Info(@"LibraryFilter [getIncludedPlaylists] excluding folder due to flattened hierarchy : %@ - %@", playlist.name, playlistHexId);
-      }
+    // include
+    if ([_playlistFilters filtersPassForPlaylist:playlist]) {
+      [includedPlaylists addObject:playlist];
     }
+    // exclude playlist
     else {
-     MLE_Log_Info(@"LibraryFilter [getIncludedPlaylists] excluding internal playlist: %@ - %@", playlist.name, playlistHexId);
+      // add playlist to excluded parent playlist filter
+      [_playlistParentIDFilter addExcludedID:playlist.persistentID];
     }
   }
 
@@ -129,18 +86,81 @@
 
 - (NSArray<ITLibMediaItem*>*)getIncludedTracks {
 
+  [self initMediaItemFilters];
+
   NSMutableArray<ITLibMediaItem*>* includedTracks = [NSMutableArray array];
 
   for (ITLibMediaItem* track in _library.allMediaItems) {
 
-    // ignore excluded media kinds
-    if (track.mediaKind == ITLibMediaItemMediaKindSong) {
-
+    if ([_mediaItemFilters filtersPassForItem:track]) {
       [includedTracks addObject:track];
     }
   }
 
   return includedTracks;
+}
+
+
+#pragma mark - Mutators
+
+- (void)initMediaItemFilters {
+
+  MediaItemKindFilter* mediaItemKindFilter = [[MediaItemKindFilter alloc] init];
+  [mediaItemKindFilter addKind:ITLibMediaItemMediaKindSong];
+
+  _mediaItemFilters = [[MediaItemFilterGroup alloc] init];
+  [_mediaItemFilters addFilter:mediaItemKindFilter];
+}
+
+- (void)initPlaylistFilters {
+
+  _playlistFilters = [[PlaylistFilterGroup alloc] init];
+
+  PlaylistDistinguishedKindFilter* playlistDistinguishedKindFilter = [[PlaylistDistinguishedKindFilter alloc] init];
+  [playlistDistinguishedKindFilter addKind:ITLibDistinguishedPlaylistKindNone];
+
+  PlaylistKindFilter* playlistKindFilter = [[PlaylistKindFilter alloc] init];
+  [playlistKindFilter addKind:ITLibPlaylistKindRegular];
+  [playlistKindFilter addKind:ITLibPlaylistKindSmart];
+
+  // include folders
+  if (!ExportConfiguration.sharedConfig.flattenPlaylistHierarchy) {
+    [playlistKindFilter addKind:ITLibPlaylistKindFolder];
+  }
+
+  [_playlistFilters addFilter:playlistKindFilter];
+
+  // exclude internal playlists
+  if (!ExportConfiguration.sharedConfig.includeInternalPlaylists) {
+
+    [_playlistFilters addFilter:[[PlaylistMasterFilter alloc] init]];
+  }
+  // include internal playlists
+  else {
+    [playlistDistinguishedKindFilter addKind:ITLibDistinguishedPlaylistKindMusic];
+    [playlistDistinguishedKindFilter addKind:ITLibDistinguishedPlaylistKindPurchases];
+    [playlistDistinguishedKindFilter addKind:ITLibDistinguishedPlaylistKind90sMusic];
+    [playlistDistinguishedKindFilter addKind:ITLibDistinguishedPlaylistKindMyTopRated];
+    [playlistDistinguishedKindFilter addKind:ITLibDistinguishedPlaylistKindTop25MostPlayed];
+    [playlistDistinguishedKindFilter addKind:ITLibDistinguishedPlaylistKindRecentlyPlayed];
+    [playlistDistinguishedKindFilter addKind:ITLibDistinguishedPlaylistKindRecentlyAdded];
+    [playlistDistinguishedKindFilter addKind:ITLibDistinguishedPlaylistKindClassicalMusic];
+    [playlistDistinguishedKindFilter addKind:ITLibDistinguishedPlaylistKindLovedSongs];
+  }
+
+  [_playlistFilters addFilter:playlistDistinguishedKindFilter];
+
+  _playlistIDFilter = [[PlaylistIDFilter alloc] initWithExcludedIDs:ExportConfiguration.sharedConfig.excludedPlaylistPersistentIds];
+  _playlistParentIDFilter = [[PlaylistParentIDFilter alloc] initWithExcludedIDs:ExportConfiguration.sharedConfig.excludedPlaylistPersistentIds];
+
+  if (_filterExcludedPlaylistIds) {
+    [_playlistFilters addFilter:_playlistIDFilter];
+
+    // don't include children when a parent playlist is excluded
+    if (!ExportConfiguration.sharedConfig.flattenPlaylistHierarchy) {
+      [_playlistFilters addFilter:_playlistParentIDFilter];
+    }
+  }
 }
 
 @end

@@ -29,11 +29,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Accessors
 
-- (NSSet<NSNumber*>*)getIncludedPlaylistKinds;
-
 - (NSArray<ITLibMediaItem*>*)getIncludedTracks;
 - (NSArray<ITLibPlaylist*>*)getIncludedPlaylists;
 
+
+#pragma mark - Mutators
+
+- (void)initMediaItemFilters;
+- (void)initPlaylistFilters;
 
 @end
 
