@@ -95,14 +95,16 @@
       // ignore folders when flattened
       if (playlist.kind != ITLibPlaylistKindFolder || !ExportConfiguration.sharedConfig.flattenPlaylistHierarchy) {
 
+        NSString* parentPlaylistHexId = [Utils hexStringForPersistentId:playlist.parentID];
+        
         // filtering by playlist id is enabled
         if (_filterExcludedPlaylistIds) {
           if ([allExcludedPlaylistIds containsObject:playlistHexId]) {
             MLE_Log_Info(@"LibraryFilter [getIncludedPlaylists] playlist was manually excluded by id: %@ - %@", playlist.name, playlistHexId);
           }
           // if folders are enabled and the playlists parent folder is excluded, exclude it as well
-          else if (!ExportConfiguration.sharedConfig.flattenPlaylistHierarchy && playlist.parentID != nil && [allExcludedPlaylistIds containsObject:[Utils hexStringForPersistentId:playlist.parentID]]) {
-            MLE_Log_Info(@"LibraryFilter [getIncludedPlaylists] parent for playlist was excluded: %@ - %@ (parent: %@)", playlist.name, playlistHexId, [Utils hexStringForPersistentId:playlist.parentID]);
+          else if (!ExportConfiguration.sharedConfig.flattenPlaylistHierarchy && parentPlaylistHexId != nil && [allExcludedPlaylistIds containsObject:parentPlaylistHexId]) {
+            MLE_Log_Info(@"LibraryFilter [getIncludedPlaylists] parent for playlist was excluded: %@ - %@ (parent: %@)", playlist.name, playlistHexId, parentPlaylistHexId);
             [allExcludedPlaylistIds addObject:playlistHexId];
           }
           else {
