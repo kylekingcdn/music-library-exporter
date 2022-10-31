@@ -20,6 +20,8 @@
 
   self = [super init];
 
+  _excludedIDs = [NSMutableSet set];
+
   return self;
 }
 

@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PlaylistFilterGroup : NSObject
 
+- (instancetype)init;
 - (instancetype)initWithFilters:(NSArray<NSObject<PlaylistFiltering>*>*)filters;
 
 - (void)addFilter:(NSObject<PlaylistFiltering>*)filter;

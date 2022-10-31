@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MediaItemFilterGroup : NSObject
 
+- (instancetype)init;
 - (instancetype)initWithFilters:(NSArray<NSObject<MediaItemFiltering>*>*)filters;
 
 - (void)addFilter:(NSObject<MediaItemFiltering>*)filter;

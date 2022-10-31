@@ -16,6 +16,17 @@
   NSMutableArray<NSObject<MediaItemFiltering>*>* _filters;
 }
 
+- (instancetype)init {
+
+  if (self = [super init]) {
+    _filters = [NSMutableArray array];
+    return self;
+  }
+  else {
+    return nil;
+  }
+}
+
 - (instancetype)initWithFilters:(NSArray<NSObject<MediaItemFiltering>*>*)filters {
 
   if (self = [super init]) {

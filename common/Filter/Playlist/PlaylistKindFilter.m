@@ -16,7 +16,7 @@
 
   self = [super init];
 
-  _includedKinds = [[NSMutableSet alloc] init];
+  _includedKinds = [NSMutableSet set];
 
   return self;
 }
