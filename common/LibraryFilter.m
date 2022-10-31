@@ -43,8 +43,6 @@
 
   _library = library;
 
-  _mediaItemFilters = [[MediaItemFilterGroup alloc] init];
-
   [self setFilterExcludedPlaylistIds:YES];
 
   return self;
