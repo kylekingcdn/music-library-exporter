@@ -60,6 +60,27 @@
 		27C0A0F525CB046A00EDDE22 /* ScheduleConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C0A0EF25CB045C00EDDE22 /* ScheduleConfiguration.m */; };
 		27C0A10425CB0BF100EDDE22 /* HelperDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C0A10325CB0BF100EDDE22 /* HelperDelegate.m */; };
 		27C52A7425B69C4B00D829F3 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C52A7325B69C4B00D829F3 /* Utils.m */; };
+		27CAC205290FEA37008D4313 /* MediaItemKindFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC1FF290FE8DE008D4313 /* MediaItemKindFilter.m */; };
+		27CAC20A290FF05C008D4313 /* PlaylistDistinguishedKindFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC209290FF05A008D4313 /* PlaylistDistinguishedKindFilter.m */; };
+		27CAC20C290FF05F008D4313 /* PlaylistKindFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC206290FF055008D4313 /* PlaylistKindFilter.m */; };
+		27CAC20F290FF359008D4313 /* PlaylistFilterGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC20E290FF359008D4313 /* PlaylistFilterGroup.m */; };
+		27CAC212290FF4C6008D4313 /* MediaItemFilterGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC211290FF4C6008D4313 /* MediaItemFilterGroup.m */; };
+		27CAC215290FF796008D4313 /* PlaylistMasterFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC214290FF796008D4313 /* PlaylistMasterFilter.m */; };
+		27CAC218290FF874008D4313 /* PlaylistIDFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC217290FF874008D4313 /* PlaylistIDFilter.m */; };
+		27CAC21929100502008D4313 /* PlaylistFilterGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC20E290FF359008D4313 /* PlaylistFilterGroup.m */; };
+		27CAC21A29100502008D4313 /* PlaylistDistinguishedKindFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC209290FF05A008D4313 /* PlaylistDistinguishedKindFilter.m */; };
+		27CAC21B29100502008D4313 /* PlaylistMasterFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC214290FF796008D4313 /* PlaylistMasterFilter.m */; };
+		27CAC21C29100502008D4313 /* PlaylistIDFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC217290FF874008D4313 /* PlaylistIDFilter.m */; };
+		27CAC21D29100502008D4313 /* PlaylistKindFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC206290FF055008D4313 /* PlaylistKindFilter.m */; };
+		27CAC21E29100503008D4313 /* PlaylistFilterGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC20E290FF359008D4313 /* PlaylistFilterGroup.m */; };
+		27CAC21F29100503008D4313 /* PlaylistDistinguishedKindFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC209290FF05A008D4313 /* PlaylistDistinguishedKindFilter.m */; };
+		27CAC22029100503008D4313 /* PlaylistMasterFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC214290FF796008D4313 /* PlaylistMasterFilter.m */; };
+		27CAC22129100503008D4313 /* PlaylistIDFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC217290FF874008D4313 /* PlaylistIDFilter.m */; };
+		27CAC22229100503008D4313 /* PlaylistKindFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC206290FF055008D4313 /* PlaylistKindFilter.m */; };
+		27CAC22329100507008D4313 /* MediaItemKindFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC1FF290FE8DE008D4313 /* MediaItemKindFilter.m */; };
+		27CAC22429100507008D4313 /* MediaItemFilterGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC211290FF4C6008D4313 /* MediaItemFilterGroup.m */; };
+		27CAC22529100507008D4313 /* MediaItemKindFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC1FF290FE8DE008D4313 /* MediaItemKindFilter.m */; };
+		27CAC22629100507008D4313 /* MediaItemFilterGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC211290FF4C6008D4313 /* MediaItemFilterGroup.m */; };
 		27D56E5425D85B2700A87B1F /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 27D56E4C25D85A5B00A87B1F /* Credits.rtf */; };
 		27D56E5825D85B2700A87B1F /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 27D56E4C25D85A5B00A87B1F /* Credits.rtf */; };
 		27D6827525D9055300BBF8FE /* Defines.m in Sources */ = {isa = PBXBuildFile; fileRef = 273B522F25CA666000421B14 /* Defines.m */; };
@@ -224,6 +245,22 @@
 		27C0A10325CB0BF100EDDE22 /* HelperDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HelperDelegate.m; path = "Music Library Exporter/HelperDelegate.m"; sourceTree = SOURCE_ROOT; };
 		27C52A7225B69C4B00D829F3 /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		27C52A7325B69C4B00D829F3 /* Utils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
+		27CAC1F6290FD5F2008D4313 /* MediaItemFiltering.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MediaItemFiltering.h; sourceTree = "<group>"; };
+		27CAC1F7290FD870008D4313 /* PlaylistFiltering.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaylistFiltering.h; sourceTree = "<group>"; };
+		27CAC1FE290FE8DE008D4313 /* MediaItemKindFilter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MediaItemKindFilter.h; sourceTree = "<group>"; };
+		27CAC1FF290FE8DE008D4313 /* MediaItemKindFilter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MediaItemKindFilter.m; sourceTree = "<group>"; };
+		27CAC206290FF055008D4313 /* PlaylistKindFilter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaylistKindFilter.m; sourceTree = "<group>"; };
+		27CAC207290FF055008D4313 /* PlaylistKindFilter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaylistKindFilter.h; sourceTree = "<group>"; };
+		27CAC208290FF05A008D4313 /* PlaylistDistinguishedKindFilter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaylistDistinguishedKindFilter.h; sourceTree = "<group>"; };
+		27CAC209290FF05A008D4313 /* PlaylistDistinguishedKindFilter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaylistDistinguishedKindFilter.m; sourceTree = "<group>"; };
+		27CAC20D290FF359008D4313 /* PlaylistFilterGroup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaylistFilterGroup.h; sourceTree = "<group>"; };
+		27CAC20E290FF359008D4313 /* PlaylistFilterGroup.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaylistFilterGroup.m; sourceTree = "<group>"; };
+		27CAC210290FF4C6008D4313 /* MediaItemFilterGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaItemFilterGroup.h; sourceTree = "<group>"; };
+		27CAC211290FF4C6008D4313 /* MediaItemFilterGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaItemFilterGroup.m; sourceTree = "<group>"; };
+		27CAC213290FF796008D4313 /* PlaylistMasterFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaylistMasterFilter.h; sourceTree = "<group>"; };
+		27CAC214290FF796008D4313 /* PlaylistMasterFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaylistMasterFilter.m; sourceTree = "<group>"; };
+		27CAC216290FF873008D4313 /* PlaylistIDFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaylistIDFilter.h; sourceTree = "<group>"; };
+		27CAC217290FF874008D4313 /* PlaylistIDFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaylistIDFilter.m; sourceTree = "<group>"; };
 		27D56E4C25D85A5B00A87B1F /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		27DBB9A825E6E746003BE889 /* PreferencesWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreferencesWindow.xib; sourceTree = "<group>"; };
 		27DBB9B525E6E91E003BE889 /* PreferencesWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreferencesWindowController.h; sourceTree = "<group>"; };
@@ -361,6 +398,7 @@
 		27A2BFBE25C0851B00AAD73C /* common */ = {
 			isa = PBXGroup;
 			children = (
+				27CAC1F5290FD113008D4313 /* Filter */,
 				27A4496725DE026B00C770E8 /* Logger.h */,
 				273B522E25CA666000421B14 /* Defines.h */,
 				273B522F25CA666000421B14 /* Defines.m */,
@@ -412,6 +450,45 @@
 				27A2C06225C0934B00AAD73C /* Music_Library_Exporter_Helper.entitlements */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		27CAC1F5290FD113008D4313 /* Filter */ = {
+			isa = PBXGroup;
+			children = (
+				27CAC1FB290FD961008D4313 /* Playlist */,
+				27CAC1FA290FD951008D4313 /* MediaItem */,
+			);
+			path = Filter;
+			sourceTree = "<group>";
+		};
+		27CAC1FA290FD951008D4313 /* MediaItem */ = {
+			isa = PBXGroup;
+			children = (
+				27CAC1F6290FD5F2008D4313 /* MediaItemFiltering.h */,
+				27CAC1FE290FE8DE008D4313 /* MediaItemKindFilter.h */,
+				27CAC1FF290FE8DE008D4313 /* MediaItemKindFilter.m */,
+				27CAC210290FF4C6008D4313 /* MediaItemFilterGroup.h */,
+				27CAC211290FF4C6008D4313 /* MediaItemFilterGroup.m */,
+			);
+			path = MediaItem;
+			sourceTree = "<group>";
+		};
+		27CAC1FB290FD961008D4313 /* Playlist */ = {
+			isa = PBXGroup;
+			children = (
+				27CAC1F7290FD870008D4313 /* PlaylistFiltering.h */,
+				27CAC207290FF055008D4313 /* PlaylistKindFilter.h */,
+				27CAC206290FF055008D4313 /* PlaylistKindFilter.m */,
+				27CAC208290FF05A008D4313 /* PlaylistDistinguishedKindFilter.h */,
+				27CAC209290FF05A008D4313 /* PlaylistDistinguishedKindFilter.m */,
+				27CAC213290FF796008D4313 /* PlaylistMasterFilter.h */,
+				27CAC214290FF796008D4313 /* PlaylistMasterFilter.m */,
+				27CAC216290FF873008D4313 /* PlaylistIDFilter.h */,
+				27CAC217290FF874008D4313 /* PlaylistIDFilter.m */,
+				27CAC20D290FF359008D4313 /* PlaylistFilterGroup.h */,
+				27CAC20E290FF359008D4313 /* PlaylistFilterGroup.m */,
+			);
+			path = Playlist;
 			sourceTree = "<group>";
 		};
 		27EF9A3D25BF20C60051CE7B /* library-generator */ = {
@@ -668,15 +745,22 @@
 			files = (
 				27D6827525D9055300BBF8FE /* Defines.m in Sources */,
 				27C52A7425B69C4B00D829F3 /* Utils.m in Sources */,
+				27CAC22229100503008D4313 /* PlaylistKindFilter.m in Sources */,
+				27CAC22129100503008D4313 /* PlaylistIDFilter.m in Sources */,
+				27CAC22029100503008D4313 /* PlaylistMasterFilter.m in Sources */,
 				276442A225BD3F7600EE217C /* OrderedDictionary.m in Sources */,
 				2783C76925C518CC002ED7B7 /* ExportConfiguration.m in Sources */,
 				2749619B25CE4FB000B98E11 /* LibraryFilter.m in Sources */,
+				27CAC21E29100503008D4313 /* PlaylistFilterGroup.m in Sources */,
 				2705445925B670E700FE6D65 /* LibrarySerializer.m in Sources */,
 				279E326C25E07971008F8C56 /* PlaylistNode.m in Sources */,
 				279E327025E07976008F8C56 /* PlaylistTree.m in Sources */,
 				271DD27425DBA246009BB292 /* LGDefines.m in Sources */,
+				27CAC22629100507008D4313 /* MediaItemFilterGroup.m in Sources */,
+				27CAC22529100507008D4313 /* MediaItemKindFilter.m in Sources */,
 				271DD26E25DB9FCF009BB292 /* ArgParser.m in Sources */,
 				2739C5C325DE29E400C57218 /* LibraryGenerator.m in Sources */,
+				27CAC21F29100503008D4313 /* PlaylistDistinguishedKindFilter.m in Sources */,
 				2705444925B66A0A00FE6D65 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -687,6 +771,7 @@
 			files = (
 				273B523325CA672300421B14 /* Defines.m in Sources */,
 				27A2C08B25C097C000AAD73C /* Utils.m in Sources */,
+				27CAC21B29100502008D4313 /* PlaylistMasterFilter.m in Sources */,
 				27A2C08725C097B600AAD73C /* OrderedDictionary.m in Sources */,
 				2783C76825C518CC002ED7B7 /* ExportConfiguration.m in Sources */,
 				2749619725CE4FAA00B98E11 /* LibraryFilter.m in Sources */,
@@ -694,12 +779,18 @@
 				279E326425E0795B008F8C56 /* PlaylistNode.m in Sources */,
 				279E326825E0795D008F8C56 /* PlaylistTree.m in Sources */,
 				27F5866025E4661300872731 /* MLESentryHandler.m in Sources */,
+				27CAC22429100507008D4313 /* MediaItemFilterGroup.m in Sources */,
 				27EC7C6725C8C41800996E9E /* UserDefaultsExportConfiguration.m in Sources */,
+				27CAC22329100507008D4313 /* MediaItemKindFilter.m in Sources */,
+				27CAC21929100502008D4313 /* PlaylistFilterGroup.m in Sources */,
 				27533C2E25CAA21600A3B4D9 /* ExportDelegate.m in Sources */,
 				27C0A0F125CB046500EDDE22 /* ScheduleConfiguration.m in Sources */,
 				27F253EB25D87F7700243606 /* DirectoryPermissionsWindowController.m in Sources */,
+				27CAC21D29100502008D4313 /* PlaylistKindFilter.m in Sources */,
 				27934B5925CB13D500488944 /* ScheduleDelegate.m in Sources */,
 				27A2C05925C0934A00AAD73C /* AppDelegate.m in Sources */,
+				27CAC21A29100502008D4313 /* PlaylistDistinguishedKindFilter.m in Sources */,
+				27CAC21C29100502008D4313 /* PlaylistIDFilter.m in Sources */,
 				27A2C06125C0934B00AAD73C /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -708,6 +799,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27CAC20F290FF359008D4313 /* PlaylistFilterGroup.m in Sources */,
 				273B523725CA672700421B14 /* Defines.m in Sources */,
 				27A2BFC325C085E400AAD73C /* Utils.m in Sources */,
 				27A2BFC625C085E400AAD73C /* OrderedDictionary.m in Sources */,
@@ -719,14 +811,20 @@
 				27F5865C25E4660D00872731 /* MLESentryHandler.m in Sources */,
 				27EC7C6325C8C41300996E9E /* UserDefaultsExportConfiguration.m in Sources */,
 				27533C2A25CAA21300A3B4D9 /* ExportDelegate.m in Sources */,
+				27CAC205290FEA37008D4313 /* MediaItemKindFilter.m in Sources */,
 				27C0A0F525CB046A00EDDE22 /* ScheduleConfiguration.m in Sources */,
 				272D6A0F25D1B104005023CA /* HourNumberFormatter.m in Sources */,
 				276B1AD825D415A2002D7289 /* CheckBoxTableCellView.m in Sources */,
+				27CAC20A290FF05C008D4313 /* PlaylistDistinguishedKindFilter.m in Sources */,
+				27CAC215290FF796008D4313 /* PlaylistMasterFilter.m in Sources */,
+				27CAC218290FF874008D4313 /* PlaylistIDFilter.m in Sources */,
 				276B1AE125D42453002D7289 /* PopupButtonTableCellView.m in Sources */,
 				2725CA4725D3F2D7002C1203 /* PlaylistsViewController.m in Sources */,
 				2783C75825C4FB60002ED7B7 /* ConfigurationViewController.m in Sources */,
 				27DBB9B725E6E91E003BE889 /* PreferencesWindowController.m in Sources */,
+				27CAC212290FF4C6008D4313 /* MediaItemFilterGroup.m in Sources */,
 				27C0A10425CB0BF100EDDE22 /* HelperDelegate.m in Sources */,
+				27CAC20C290FF05F008D4313 /* PlaylistKindFilter.m in Sources */,
 				27EF9A6825BF23910051CE7B /* AppDelegate.m in Sources */,
 				27EF9A7025BF23920051CE7B /* main.m in Sources */,
 			);
