@@ -31,7 +31,6 @@
   ITLibrary* _library;
   MediaItemFilterGroup* _mediaItemFilters;
   PlaylistFilterGroup* _playlistFilters;
-  PlaylistIDFilter* _playlistIDFilter;
   PlaylistParentIDFilter* _playlistParentIDFilter;
 }
 
@@ -150,11 +149,11 @@
 
   [_playlistFilters addFilter:playlistDistinguishedKindFilter];
 
-  _playlistIDFilter = [[PlaylistIDFilter alloc] initWithExcludedIDs:ExportConfiguration.sharedConfig.excludedPlaylistPersistentIds];
+  PlaylistIDFilter* playlistIDFilter = [[PlaylistIDFilter alloc] initWithExcludedIDs:ExportConfiguration.sharedConfig.excludedPlaylistPersistentIds];
   _playlistParentIDFilter = [[PlaylistParentIDFilter alloc] initWithExcludedIDs:ExportConfiguration.sharedConfig.excludedPlaylistPersistentIds];
 
   if (_filterExcludedPlaylistIds) {
-    [_playlistFilters addFilter:_playlistIDFilter];
+    [_playlistFilters addFilter:playlistIDFilter];
 
     // don't include children when a parent playlist is excluded
     if (!ExportConfiguration.sharedConfig.flattenPlaylistHierarchy) {
