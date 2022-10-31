@@ -69,7 +69,7 @@
 
   for (ITLibPlaylist* playlist in _library.allPlaylists) {
 
-    // include
+    // include playlist
     if ([_playlistFilters filtersPassForPlaylist:playlist]) {
       [includedPlaylists addObject:playlist];
     }
