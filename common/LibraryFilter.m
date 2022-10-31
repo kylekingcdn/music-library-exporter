@@ -87,7 +87,7 @@
 
   for (ITLibPlaylist* playlist in _library.allPlaylists) {
 
-    NSString* playlistHexId = [Utils getHexadecimalPersistentId:playlist.persistentID];
+    NSString* playlistHexId = [Utils hexStringForPersistentId:playlist.persistentID];
 
     // ignore excluded playlist kinds
     if ([includedPlaylistKinds containsObject:[NSNumber numberWithUnsignedInteger:playlist.distinguishedKind]] && (!playlist.master || ExportConfiguration.sharedConfig.includeInternalPlaylists)) {
@@ -101,8 +101,8 @@
             MLE_Log_Info(@"LibraryFilter [getIncludedPlaylists] playlist was manually excluded by id: %@ - %@", playlist.name, playlistHexId);
           }
           // if folders are enabled and the playlists parent folder is excluded, exclude it as well
-          else if (!ExportConfiguration.sharedConfig.flattenPlaylistHierarchy && playlist.parentID != nil && [allExcludedPlaylistIds containsObject:[Utils getHexadecimalPersistentId:playlist.parentID]]) {
-            MLE_Log_Info(@"LibraryFilter [getIncludedPlaylists] parent for playlist was excluded: %@ - %@ (parent: %@)", playlist.name, playlistHexId, [Utils getHexadecimalPersistentId:playlist.parentID]);
+          else if (!ExportConfiguration.sharedConfig.flattenPlaylistHierarchy && playlist.parentID != nil && [allExcludedPlaylistIds containsObject:[Utils hexStringForPersistentId:playlist.parentID]]) {
+            MLE_Log_Info(@"LibraryFilter [getIncludedPlaylists] parent for playlist was excluded: %@ - %@ (parent: %@)", playlist.name, playlistHexId, [Utils hexStringForPersistentId:playlist.parentID]);
             [allExcludedPlaylistIds addObject:playlistHexId];
           }
           else {

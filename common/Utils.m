@@ -78,9 +78,13 @@
   }
 }
 
-+ (NSString*)getHexadecimalPersistentId:(NSNumber*)decimalPersistentId {
++ (nullable NSString*)hexStringForPersistentId:(nullable NSNumber*)persistentId {
 
-  return [[NSString stringWithFormat:@"%016lx", decimalPersistentId.unsignedIntegerValue] uppercaseString];
+  if (persistentId == nil) {
+    return nil;
+  }
+  
+  return [NSString stringWithFormat:@"%016llX", persistentId.unsignedLongLongValue];
 }
 
 + (NSDictionary*)createPersistentIdDictionaryForItems:(NSArray<NSDictionary*>*)itemsArray withPersistentIdKey:(NSString*)persistentIdKey {

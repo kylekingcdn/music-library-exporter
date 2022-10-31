@@ -145,7 +145,7 @@
 
 - (OrderedDictionary*)serializePlaylist:(ITLibPlaylist*)playlistItem withId:(NSNumber*)playlistId {
 
-  NSString* playlistHexId = [Utils getHexadecimalPersistentId:playlistItem.persistentID];
+  NSString* playlistHexId = [Utils hexStringForPersistentId:playlistItem.persistentID];
 
   MLE_Log_Info(@"LibrarySerializer [serializePlaylist:(%@ - %@)]", playlistItem.name, playlistHexId);
 
@@ -161,7 +161,7 @@
   [playlistDict setValue:playlistHexId forKey:@"Playlist Persistent ID"];
 
   if (playlistItem.parentID && !ExportConfiguration.sharedConfig.flattenPlaylistHierarchy) {
-    [playlistDict setValue:[Utils getHexadecimalPersistentId:playlistItem.parentID] forKey:@"Parent Persistent ID"];
+    [playlistDict setValue:[Utils hexStringForPersistentId:playlistItem.parentID] forKey:@"Parent Persistent ID"];
   }
   if (playlistItem.distinguishedKind > ITLibDistinguishedPlaylistKindNone) {
     [playlistDict setValue:[NSNumber numberWithUnsignedInteger:playlistItem.distinguishedKind] forKey:@"Distinguished Kind"];
@@ -407,7 +407,7 @@
     [trackDict setValue:[NSNumber numberWithBool:YES] forKey:@"Disabled"];
   }
 
-  [trackDict setValue:[Utils getHexadecimalPersistentId:trackItem.persistentID] forKey:@"Persistent ID"];
+  [trackDict setValue:[Utils hexStringForPersistentId:trackItem.persistentID] forKey:@"Persistent ID"];
 
   // add boolean attributes for media kind
   switch (trackItem.mediaKind) {
