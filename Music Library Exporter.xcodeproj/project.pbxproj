@@ -43,7 +43,6 @@
 		279E326C25E07971008F8C56 /* PlaylistNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B1ACF25D40BB3002D7289 /* PlaylistNode.m */; };
 		279E327025E07976008F8C56 /* PlaylistTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 279E325725E077B7008F8C56 /* PlaylistTree.m */; };
 		27A2BFC325C085E400AAD73C /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C52A7325B69C4B00D829F3 /* Utils.m */; };
-		27A2BFC425C085E400AAD73C /* LibraryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CDC90C25BADAFC0032BF79 /* LibraryParser.m */; };
 		27A2BFC525C085E400AAD73C /* LibrarySerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2705445825B670E700FE6D65 /* LibrarySerializer.m */; };
 		27A2BFC625C085E400AAD73C /* OrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 276442A125BD3F7600EE217C /* OrderedDictionary.m */; };
 		27A2BFC925C0860700AAD73C /* iTunesLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2705445125B66B7A00FE6D65 /* iTunesLibrary.framework */; };
@@ -54,7 +53,6 @@
 		27A2C07225C0943C00AAD73C /* Music Library Exporter Helper.app in Copy Helper App */ = {isa = PBXBuildFile; fileRef = 27A2C05525C0934A00AAD73C /* Music Library Exporter Helper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		27A2C08725C097B600AAD73C /* OrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 276442A125BD3F7600EE217C /* OrderedDictionary.m */; };
 		27A2C08B25C097C000AAD73C /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C52A7325B69C4B00D829F3 /* Utils.m */; };
-		27A2C08C25C097C000AAD73C /* LibraryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CDC90C25BADAFC0032BF79 /* LibraryParser.m */; };
 		27A2C08D25C097C000AAD73C /* LibrarySerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2705445825B670E700FE6D65 /* LibrarySerializer.m */; };
 		27A2C09125C097DF00AAD73C /* iTunesLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2705445125B66B7A00FE6D65 /* iTunesLibrary.framework */; };
 		27B07F9A25DD8195003F3378 /* libArgumentParser-Static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 271DD26625DB9F3D009BB292 /* libArgumentParser-Static.a */; };
@@ -62,7 +60,6 @@
 		27C0A0F525CB046A00EDDE22 /* ScheduleConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C0A0EF25CB045C00EDDE22 /* ScheduleConfiguration.m */; };
 		27C0A10425CB0BF100EDDE22 /* HelperDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C0A10325CB0BF100EDDE22 /* HelperDelegate.m */; };
 		27C52A7425B69C4B00D829F3 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C52A7325B69C4B00D829F3 /* Utils.m */; };
-		27CDC90D25BADAFC0032BF79 /* LibraryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CDC90C25BADAFC0032BF79 /* LibraryParser.m */; };
 		27D56E5425D85B2700A87B1F /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 27D56E4C25D85A5B00A87B1F /* Credits.rtf */; };
 		27D56E5825D85B2700A87B1F /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 27D56E4C25D85A5B00A87B1F /* Credits.rtf */; };
 		27D6827525D9055300BBF8FE /* Defines.m in Sources */ = {isa = PBXBuildFile; fileRef = 273B522F25CA666000421B14 /* Defines.m */; };
@@ -227,8 +224,6 @@
 		27C0A10325CB0BF100EDDE22 /* HelperDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HelperDelegate.m; path = "Music Library Exporter/HelperDelegate.m"; sourceTree = SOURCE_ROOT; };
 		27C52A7225B69C4B00D829F3 /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		27C52A7325B69C4B00D829F3 /* Utils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
-		27CDC90B25BADAFC0032BF79 /* LibraryParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LibraryParser.h; sourceTree = "<group>"; };
-		27CDC90C25BADAFC0032BF79 /* LibraryParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LibraryParser.m; sourceTree = "<group>"; };
 		27D56E4C25D85A5B00A87B1F /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		27DBB9A825E6E746003BE889 /* PreferencesWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreferencesWindow.xib; sourceTree = "<group>"; };
 		27DBB9B525E6E91E003BE889 /* PreferencesWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreferencesWindowController.h; sourceTree = "<group>"; };
@@ -375,8 +370,6 @@
 				27F5865325E4656D00872731 /* MLESentryHandler.m */,
 				2749619125CE4F9700B98E11 /* LibraryFilter.h */,
 				2749619225CE4F9700B98E11 /* LibraryFilter.m */,
-				27CDC90B25BADAFC0032BF79 /* LibraryParser.h */,
-				27CDC90C25BADAFC0032BF79 /* LibraryParser.m */,
 				2705445725B670E700FE6D65 /* LibrarySerializer.h */,
 				2705445825B670E700FE6D65 /* LibrarySerializer.m */,
 				279E325625E077B7008F8C56 /* PlaylistTree.h */,
@@ -678,7 +671,6 @@
 				276442A225BD3F7600EE217C /* OrderedDictionary.m in Sources */,
 				2783C76925C518CC002ED7B7 /* ExportConfiguration.m in Sources */,
 				2749619B25CE4FB000B98E11 /* LibraryFilter.m in Sources */,
-				27CDC90D25BADAFC0032BF79 /* LibraryParser.m in Sources */,
 				2705445925B670E700FE6D65 /* LibrarySerializer.m in Sources */,
 				279E326C25E07971008F8C56 /* PlaylistNode.m in Sources */,
 				279E327025E07976008F8C56 /* PlaylistTree.m in Sources */,
@@ -698,7 +690,6 @@
 				27A2C08725C097B600AAD73C /* OrderedDictionary.m in Sources */,
 				2783C76825C518CC002ED7B7 /* ExportConfiguration.m in Sources */,
 				2749619725CE4FAA00B98E11 /* LibraryFilter.m in Sources */,
-				27A2C08C25C097C000AAD73C /* LibraryParser.m in Sources */,
 				27A2C08D25C097C000AAD73C /* LibrarySerializer.m in Sources */,
 				279E326425E0795B008F8C56 /* PlaylistNode.m in Sources */,
 				279E326825E0795D008F8C56 /* PlaylistTree.m in Sources */,
@@ -722,7 +713,6 @@
 				27A2BFC625C085E400AAD73C /* OrderedDictionary.m in Sources */,
 				2783C76725C518CC002ED7B7 /* ExportConfiguration.m in Sources */,
 				2749619325CE4FA400B98E11 /* LibraryFilter.m in Sources */,
-				27A2BFC425C085E400AAD73C /* LibraryParser.m in Sources */,
 				27A2BFC525C085E400AAD73C /* LibrarySerializer.m in Sources */,
 				276B1AD125D40BB3002D7289 /* PlaylistNode.m in Sources */,
 				279E326025E07943008F8C56 /* PlaylistTree.m in Sources */,
