@@ -10,7 +10,9 @@
 #import "Utils.h"
 
 
-@implementation PlaylistNode
+@implementation PlaylistNode {
+  ITLibPlaylist* _playlist;
+}
 
 
 #pragma mark - Initializers
@@ -36,7 +38,7 @@
 
   PlaylistNode* node = [[PlaylistNode alloc] init];
 
-  [node setPlaylist:playlist];
+  node->_playlist = playlist;
   [node setChildren:childNodes];
 
   if (playlist != nil) {
