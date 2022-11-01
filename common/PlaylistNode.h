@@ -6,8 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@class ITLibPlaylist;
+#import <iTunesLibrary/ITLibPlaylist.h>
 
 
 NS_ASSUME_NONNULL_BEGIN
@@ -19,7 +18,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nullable) ITLibPlaylist* playlist;
 @property NSArray<PlaylistNode*>* children;
+
 @property (nullable, readonly, nonatomic, copy) NSString* playlistPersistentHexID;
+@property (nullable, readonly, nonatomic, copy) NSString* playlistParentPersistentHexID;
+@property (nullable, readonly, nonatomic, copy) NSString* playlistName;
+@property (readonly, nonatomic, assign) ITLibDistinguishedPlaylistKind playlistDistinguishedKind;
+@property (readonly, nonatomic, assign) ITLibPlaylistKind playlistKind;
+@property (readonly, nonatomic, assign, getter=isMaster) BOOL playlistMaster;
 
 
 #pragma mark - Initializers

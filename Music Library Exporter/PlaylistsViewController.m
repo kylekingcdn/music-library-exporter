@@ -110,7 +110,7 @@
 
   switch (column) {
     case TitleColumn: {
-      return node.playlist.name;
+      return node.playlistName;
     }
     case KindColumn: {
       return node.kindDescription;
@@ -225,7 +225,7 @@
 
 - (BOOL)isNodeParentExcluded:(nullable PlaylistNode*)node {
 
-  if (node == nil || node.playlist == nil || node.playlist.parentID == nil) {
+  if (node == nil || node.playlistParentPersistentHexID == nil) {
     return NO;
   }
 

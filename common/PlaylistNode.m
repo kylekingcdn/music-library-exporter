@@ -7,8 +7,6 @@
 
 #import "PlaylistNode.h"
 
-#import <iTunesLibrary/ITLibPlaylist.h>
-
 #import "Utils.h"
 
 
@@ -21,6 +19,16 @@
 
   self = [super init];
 
+  _playlist = nil;
+  _children = [NSArray array];
+
+  _playlistPersistentHexID = nil;
+  _playlistParentPersistentHexID = nil;
+  _playlistName = nil;
+  _playlistDistinguishedKind = ITLibDistinguishedPlaylistKindNone;
+  _playlistKind = ITLibPlaylistKindRegular;
+  _playlistMaster = NO;
+  
   return self;
 }
 
@@ -30,8 +38,14 @@
 
   [node setPlaylist:playlist];
   [node setChildren:childNodes];
+
   if (playlist != nil) {
     node->_playlistPersistentHexID = [Utils hexStringForPersistentId:playlist.persistentID];
+    node->_playlistParentPersistentHexID = [Utils hexStringForPersistentId:playlist.parentID];
+    node->_playlistName = playlist.name;
+    node->_playlistDistinguishedKind = playlist.distinguishedKind;
+    node->_playlistKind = playlist.kind;
+    node->_playlistMaster = playlist.isMaster;
   }
   else {
     node->_playlistPersistentHexID = nil;
@@ -45,11 +59,11 @@
 
 - (NSString*)kindDescription {
 
-  if (_playlist.distinguishedKind != ITLibDistinguishedPlaylistKindNone || _playlist.isMaster) {
+  if (_playlistDistinguishedKind != ITLibDistinguishedPlaylistKindNone || _playlistMaster) {
     return @"Internal";
   }
 
-  switch (_playlist.kind) {
+  switch (_playlistKind) {
     case ITLibPlaylistKindRegular: {
       return @"Playlist";
     }
@@ -70,7 +84,7 @@
 
 - (NSString*)itemsDescription {
 
-  switch (_playlist.kind) {
+  switch (_playlistKind) {
     case ITLibPlaylistKindFolder: {
       return [NSString stringWithFormat:@"%lu playlists", _children.count];
     }

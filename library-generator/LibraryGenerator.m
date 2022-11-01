@@ -445,8 +445,8 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
 - (NSUInteger)playlistColumnWidthForNode:(PlaylistNode*)node forIndent:(NSUInteger)indent {
 
   NSUInteger widthForNode = 0;
-  if (node.playlist) {
-    widthForNode = indent + node.playlist.name.length + 2; // + 2 for '- ' prefix
+  if (node.playlistName) {
+    widthForNode = indent + node.playlistName.length + 2; // + 2 for '- ' prefix
   }
 
   for (PlaylistNode* childNode in node.children) {
@@ -464,9 +464,9 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
   }
 
   NSUInteger titleLength = MAX(4,  (titleColumnWidth - indent - 3));
-  NSString* formattedTitle = node.playlist.name;
+  NSString* formattedTitle = node.playlistName;
   if (formattedTitle.length > titleLength) {
-    formattedTitle = [NSString stringWithFormat:@"%@...",[node.playlist.name substringToIndex:titleLength-3]];
+    formattedTitle = [NSString stringWithFormat:@"%@...",[node.playlistName substringToIndex:titleLength-3]];
   }
 
   // title
@@ -474,7 +474,7 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
 
   // id
   for (int i=0; i<__MLE_PlaylistTableColumnMargin; i++) { putchar(' '); }
-  printf("%-*s", 16 + (int)__MLE_PlaylistTableColumnMargin, node.playlistHexId.UTF8String);
+  printf("%-*s", 16 + (int)__MLE_PlaylistTableColumnMargin, node.playlistPersistentHexID.UTF8String);
 
   // kind
   for (int i=0; i<__MLE_PlaylistTableColumnMargin; i++) { putchar(' '); }
