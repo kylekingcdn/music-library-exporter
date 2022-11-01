@@ -43,11 +43,6 @@
 
 #pragma mark - Accessors
 
-- (BOOL)isLeaf {
-
-  return _playlist && _playlist.kind != ITLibPlaylistKindFolder;
-}
-
 - (NSString*)kindDescription {
 
   if (_playlist.distinguishedKind != ITLibDistinguishedPlaylistKindNone || _playlist.isMaster) {
