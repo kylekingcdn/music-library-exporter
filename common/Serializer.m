@@ -5,7 +5,7 @@
 //  Created by Kyle King on 2021-01-18.
 //
 
-#import "LibrarySerializer.h"
+#import "Serializer.h"
 
 #import <iTunesLibrary/ITLibrary.h>
 #import <iTunesLibrary/ITLibAlbum.h>
@@ -20,7 +20,7 @@
 #import "LibraryFilter.h"
 
 
-@implementation LibrarySerializer {
+@implementation Serializer {
 
   ITLibrary* _library;
 
@@ -62,7 +62,7 @@
 
 - (void)initSerializeMembers {
 
-  MLE_Log_Info(@"LibrarySerializer [initSerializeMembers]");
+  MLE_Log_Info(@"Serializer [initSerializeMembers]");
 
   _entityIdsDict = [NSMutableDictionary dictionary];
   _currentEntityId = 0;
@@ -84,7 +84,7 @@
 
 - (OrderedDictionary*)serializeLibraryforTracks:(OrderedDictionary*)tracks andPlaylists:(NSArray<OrderedDictionary*>*)playlists {
 
-  MLE_Log_Info(@"LibrarySerializer [serializeLibraryforTracks:(%lu) andPlaylists:(%lu)]", tracks.count, playlists.count);
+  MLE_Log_Info(@"Serializer [serializeLibraryforTracks:(%lu) andPlaylists:(%lu)]", tracks.count, playlists.count);
 
   MutableOrderedDictionary* libraryDict = [MutableOrderedDictionary dictionary];
 
@@ -121,7 +121,7 @@
   NSUInteger playlistCount = playlists.count;
   NSUInteger playlistIndex = 0;
 
-  MLE_Log_Info(@"LibrarySerializer [serializePlaylists:(%lu)]", playlists.count);
+  MLE_Log_Info(@"Serializer [serializePlaylists:(%lu)]", playlists.count);
 
   for (ITLibPlaylist* playlist in playlists) {
 
@@ -147,7 +147,7 @@
 
   NSString* playlistHexId = [Utils hexStringForPersistentId:playlistItem.persistentID];
 
-  MLE_Log_Info(@"LibrarySerializer [serializePlaylist:(%@ - %@)]", playlistItem.name, playlistHexId);
+  MLE_Log_Info(@"Serializer [serializePlaylist:(%@ - %@)]", playlistItem.name, playlistHexId);
 
   MutableOrderedDictionary* playlistDict = [MutableOrderedDictionary dictionary];
 
@@ -238,9 +238,9 @@
   NSUInteger progressVal = 0;
   NSUInteger callbackInterval = 10;
 
-  MLE_Log_Info(@"LibrarySerializer [serializeTracks:(%lu)]", trackCount);
+  MLE_Log_Info(@"Serializer [serializeTracks:(%lu)]", trackCount);
 
-  MLE_Log_Info(@"LibrarySerializer [serializeTracks] started - %@", [[NSDate date] description]);
+  MLE_Log_Info(@"Serializer [serializeTracks] started - %@", [[NSDate date] description]);
 
   for (ITLibMediaItem* track in tracks) {
 
@@ -268,7 +268,7 @@
     progressCallback(trackCount, trackCount);
   }
 
-  MLE_Log_Info(@"LibrarySerializer [serializeTracks] finished - %@", [[NSDate date] description]);
+  MLE_Log_Info(@"Serializer [serializeTracks] finished - %@", [[NSDate date] description]);
 
   return tracksDict;
 }

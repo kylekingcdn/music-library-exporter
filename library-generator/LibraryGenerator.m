@@ -15,7 +15,7 @@
 #import "ArgParser.h"
 #import "ExportConfiguration.h"
 #import "LibraryFilter.h"
-#import "LibrarySerializer.h"
+#import "Serializer.h"
 #import "PlaylistNode.h"
 #import "PlaylistTree.h"
 #import "OrderedDictionary.h"
@@ -53,7 +53,7 @@
   NSArray<ITLibMediaItem*>* _includedTracks;
   NSArray<ITLibPlaylist*>* _includedPlaylists;
 
-  LibrarySerializer* _librarySerializer;
+  Serializer* _serializer;
 }
 
 NSUInteger const __MLE_PlaylistTableIndentPerLevel = 2;
@@ -609,8 +609,8 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
   /* prepare for export */
 
   [self printStatus:@"preparing for export"];
-  LibrarySerializer* _librarySerializer = [[LibrarySerializer alloc] initWithLibrary:_library];
-  [_librarySerializer initSerializeMembers];
+  Serializer* _serializer = [[Serializer alloc] initWithLibrary:_library];
+  [_serializer initSerializeMembers];
   [self printStatusDone:@"preparing for export"];
 
   /* start export */
@@ -621,11 +621,11 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
     void (^trackProgressCallback)(NSUInteger,NSUInteger) = ^(NSUInteger trackIndex, NSUInteger trackCount){
       [self drawProgressBarWithStatus:@"generating tracks" forCurrentValue:trackIndex andTotalValue:trackCount];
     };
-    tracksDict = [_librarySerializer serializeTracks:_includedTracks withProgressCallback:trackProgressCallback];
+    tracksDict = [_serializer serializeTracks:_includedTracks withProgressCallback:trackProgressCallback];
     [self clearBuffer];
   }
   else {
-    tracksDict = [_librarySerializer serializeTracks:_includedTracks];
+    tracksDict = [_serializer serializeTracks:_includedTracks];
   }
   [self printStatusDone:@"generating tracks"];
 
@@ -636,16 +636,16 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
     void (^playlistProgressCallback)(NSUInteger,NSUInteger) = ^(NSUInteger playlistIndex, NSUInteger playlistCount){
       [self drawProgressBarWithStatus:@"generating playlists" forCurrentValue:playlistIndex andTotalValue:playlistCount];
     };
-    playlistsArr = [_librarySerializer serializePlaylists:_includedPlaylists withProgressCallback:playlistProgressCallback];
+    playlistsArr = [_serializer serializePlaylists:_includedPlaylists withProgressCallback:playlistProgressCallback];
     [self clearBuffer];
   }
   else {
-    playlistsArr = [_librarySerializer serializePlaylists:_includedPlaylists];
+    playlistsArr = [_serializer serializePlaylists:_includedPlaylists];
   }
   [self printStatusDone:@"generating playlists"];
   
   [self printStatus:@"generating library"];
-  OrderedDictionary* libraryDict = [_librarySerializer serializeLibraryforTracks:tracksDict andPlaylists:playlistsArr];
+  OrderedDictionary* libraryDict = [_serializer serializeLibraryforTracks:tracksDict andPlaylists:playlistsArr];
   [self printStatusDone:@"generating library"];
 
   // unload ITLibrary data

@@ -14,7 +14,7 @@
 #import "Utils.h"
 #import "UserDefaultsExportConfiguration.h"
 #import "LibraryFilter.h"
-#import "LibrarySerializer.h"
+#import "Serializer.h"
 #import "OrderedDictionary.h"
 
 
@@ -23,7 +23,7 @@
   ITLibrary* _library;
 
   LibraryFilter* _libraryFilter;
-  LibrarySerializer* _librarySerializer;
+  Serializer* _serializer;
 }
 
 
@@ -41,7 +41,7 @@ NSErrorDomain const __MLE_ErrorDomain_ExportDelegate = @"com.kylekingcdn.MusicLi
   _library = library;
 
   _libraryFilter = [[LibraryFilter alloc] initWithLibrary:_library];
-  _librarySerializer = [[LibrarySerializer alloc] initWithLibrary:_library];
+  _serializer = [[Serializer alloc] initWithLibrary:_library];
 
   return self;
 }
@@ -131,7 +131,7 @@ NSErrorDomain const __MLE_ErrorDomain_ExportDelegate = @"com.kylekingcdn.MusicLi
   }
 
   // init serializer
-  [_librarySerializer initSerializeMembers];
+  [_serializer initSerializeMembers];
 
   // load library data
   [_library reloadData];
@@ -184,16 +184,16 @@ NSErrorDomain const __MLE_ErrorDomain_ExportDelegate = @"com.kylekingcdn.MusicLi
   // serialize tracks
   MLE_Log_Info(@"ExportDelegate [exportLibraryAndReturnError] serializing tracks");
   [self updateState:ExportGeneratingTracks];
-  OrderedDictionary* tracksDict = [_librarySerializer serializeTracks:_includedTracks withProgressCallback:_trackProgressCallback];
+  OrderedDictionary* tracksDict = [_serializer serializeTracks:_includedTracks withProgressCallback:_trackProgressCallback];
 
   // serialize playlists
   MLE_Log_Info(@"ExportDelegate [exportLibraryAndReturnError] serializing playlists");
   [self updateState:ExportGeneratingPlaylists];
-  NSArray<OrderedDictionary*>* playlistsDicts = [_librarySerializer serializePlaylists:_includedPlaylists withProgressCallback:_playlistProgressCallback];
+  NSArray<OrderedDictionary*>* playlistsDicts = [_serializer serializePlaylists:_includedPlaylists withProgressCallback:_playlistProgressCallback];
 
   // serialize library
   MLE_Log_Info(@"ExportDelegate [exportLibraryAndReturnError] serializing library");
-  OrderedDictionary* libraryDict = [_librarySerializer serializeLibraryforTracks:tracksDict andPlaylists:playlistsDicts];
+  OrderedDictionary* libraryDict = [_serializer serializeLibraryforTracks:tracksDict andPlaylists:playlistsDicts];
 
   // write library
   MLE_Log_Info(@"ExportDelegate [exportLibraryAndReturnError] writing library");
