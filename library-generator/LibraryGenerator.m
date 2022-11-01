@@ -533,7 +533,7 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
   MLE_Log_Info(@"LibraryGenerator [setupAndReturnError]");
 
   // init ITLibrary
-  _library = [ITLibrary libraryWithAPIVersion:@"1.1" error:error];
+  _library = [ITLibrary libraryWithAPIVersion:@"1.1" options:ITLibInitOptionLazyLoadData error:error];
   if (_library == nil) {
     return NO;
   }
