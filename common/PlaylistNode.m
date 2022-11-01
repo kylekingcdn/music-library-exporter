@@ -31,10 +31,10 @@
   [node setPlaylist:playlist];
   [node setChildren:childNodes];
   if (playlist != nil) {
-    node->_playlistHexId = [Utils hexStringForPersistentId:playlist.persistentID];
+    node->_playlistPersistentHexID = [Utils hexStringForPersistentId:playlist.persistentID];
   }
   else {
-    node->_playlistHexId = nil;
+    node->_playlistPersistentHexID = nil;
   }
 
   return node;
