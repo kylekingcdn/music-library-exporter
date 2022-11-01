@@ -592,6 +592,10 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
 
   // init LibraryFilter to fetch included media items
   LibraryFilter* libraryFilter = [[LibraryFilter alloc] initWithLibrary:_library];
+
+  // reload ITLibrary data
+  [_library reloadData];
+
   _includedTracks = [libraryFilter getIncludedTracks];
   _includedPlaylists = [libraryFilter getIncludedPlaylists];
 
@@ -643,6 +647,9 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
   [self printStatus:@"generating library"];
   OrderedDictionary* libraryDict = [_librarySerializer serializeLibraryforTracks:tracksDict andPlaylists:playlistsArr];
   [self printStatusDone:@"generating library"];
+
+  // unload ITLibrary data
+  [_library unloadData];
 
   [self printStatus:@"writing to file"];
   BOOL writeSuccess = [libraryDict writeToURL:_configuration.outputFileUrl error:error];
