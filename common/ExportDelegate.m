@@ -235,5 +235,13 @@ NSErrorDomain const __MLE_ErrorDomain_ExportDelegate = @"com.kylekingcdn.MusicLi
   return YES;
 }
 
+- (void)unloadLibraryData {
+
+  _includedTracks = [NSArray array];
+  _includedPlaylists = [NSArray array];
+
+  [_library unloadData];
+}
+
 @end
 

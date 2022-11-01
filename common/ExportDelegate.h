@@ -57,6 +57,8 @@ typedef NS_ENUM(NSInteger, ExportDelegateErrorCode) {
 
 - (BOOL)writeDictionary:(OrderedDictionary*)libraryDict error:(NSError**)error;
 
+- (void)unloadLibraryData;
+
 @end
 
 NS_ASSUME_NONNULL_END
