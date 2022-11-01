@@ -27,13 +27,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init;
 
 
-#pragma mark - Accessors
-
-- (NSArray<ITLibPlaylist*>*)playlistsWithParentId:(nullable NSNumber*)playlistId;
-- (NSArray<ITLibPlaylist*>*)topLevelPlaylists;
-- (NSArray<ITLibPlaylist*>*)childrenForPlaylist:(ITLibPlaylist*)playlist;
-
-
 #pragma mark - Mutators
 
 - (void)generateForSourcePlaylists:(NSArray<ITLibPlaylist*>*)sourcePlaylists;

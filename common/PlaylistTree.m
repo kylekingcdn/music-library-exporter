@@ -13,6 +13,12 @@
 
 @interface PlaylistTree ()
 
+#pragma mark - Private Accessors
+
+- (NSArray<ITLibPlaylist*>*)playlistsWithParentId:(nullable NSNumber*)playlistId;
+- (NSArray<ITLibPlaylist*>*)topLevelPlaylists;
+- (NSArray<ITLibPlaylist*>*)childrenForPlaylist:(ITLibPlaylist*)playlist;
+
 #pragma mark - Private Mutators
 
 - (PlaylistNode*)createRootNode;
