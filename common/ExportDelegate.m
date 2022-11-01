@@ -133,6 +133,9 @@ NSErrorDomain const __MLE_ErrorDomain_ExportDelegate = @"com.kylekingcdn.MusicLi
   // init serializer
   [_librarySerializer initSerializeMembers];
 
+  // load library data
+  [_library reloadData];
+
   // get included items
   _includedTracks = [_libraryFilter getIncludedTracks];
   _includedPlaylists = [_libraryFilter getIncludedPlaylists];
@@ -159,6 +162,8 @@ NSErrorDomain const __MLE_ErrorDomain_ExportDelegate = @"com.kylekingcdn.MusicLi
           NSLocalizedRecoverySuggestionErrorKey:@"Failed to initialize export handler.",
         }];
       }
+      // unload library data
+      [self unloadLibraryData];
       return NO;
     }
     case ExportGeneratingTracks:
@@ -170,6 +175,8 @@ NSErrorDomain const __MLE_ErrorDomain_ExportDelegate = @"com.kylekingcdn.MusicLi
           NSLocalizedDescriptionKey:@"Export handler is currently busy, please try again.",
         }];
       }
+      // unload library data
+      [self unloadLibraryData];
       return NO;
     }
   }
@@ -193,6 +200,10 @@ NSErrorDomain const __MLE_ErrorDomain_ExportDelegate = @"com.kylekingcdn.MusicLi
   [self updateState:ExportWritingToDisk];
 
   BOOL writeSuccess = [self writeDictionary:libraryDict error:error];
+
+  // unload library data
+  [self unloadLibraryData];
+
   if (writeSuccess) {
     [self updateState:ExportFinished];
     return YES;
