@@ -7,7 +7,6 @@
 
 #import "PlaylistsViewController.h"
 
-#import <iTunesLibrary/ITLibPlaylist.h>
 #import <iTunesLibrary/ITLibrary.h>
 
 #import "Logger.h"
@@ -297,8 +296,14 @@
     return;
   }
 
+  // reload library data
+  [_library reloadData];
+
   [_playlistTree setFlattened:ExportConfiguration.sharedConfig.flattenPlaylistHierarchy];
   [_playlistTree generateForSourcePlaylists:[_libraryFilter getIncludedPlaylists]];
+
+  // unload library data
+  [_library unloadData];
 }
 
 - (IBAction)setPlaylistExcludedForCellView:(id)sender {
