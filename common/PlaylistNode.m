@@ -10,10 +10,7 @@
 #import "Utils.h"
 
 
-@implementation PlaylistNode {
-  ITLibPlaylist* _playlist;
-}
-
+@implementation PlaylistNode
 
 #pragma mark - Initializers
 
@@ -21,7 +18,6 @@
 
   self = [super init];
 
-  _playlist = nil;
   _children = [NSArray array];
 
   _playlistPersistentHexID = nil;
@@ -38,7 +34,6 @@
 
   PlaylistNode* node = [[PlaylistNode alloc] init];
 
-  node->_playlist = playlist;
   [node setChildren:childNodes];
 
   if (playlist != nil) {
