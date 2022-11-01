@@ -596,7 +596,7 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
   // reload ITLibrary data
   [_library reloadData];
 
-  _includedTracks = [libraryFilter getIncludedTracks];
+  _includedTracks = [libraryFilter getIncludedMediaItems];
   _includedPlaylists = [libraryFilter getIncludedPlaylists];
 
   return YES;

@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Accessors
 
-- (NSArray<ITLibMediaItem*>*)getIncludedTracks;
+- (NSArray<ITLibMediaItem*>*)getIncludedMediaItems;
 - (NSArray<ITLibPlaylist*>*)getIncludedPlaylists;
 
 

@@ -59,6 +59,23 @@
 
 #pragma mark - Accessors
 
+- (NSArray<ITLibMediaItem*>*)getIncludedMediaItems {
+
+  [self initMediaItemFilters];
+
+  NSMutableArray<ITLibMediaItem*>* includedMediaItems = [NSMutableArray array];
+
+  for (ITLibMediaItem* mediaItem in _library.allMediaItems) {
+
+    // include media item
+    if ([_mediaItemFilters filtersPassForItem:mediaItem]) {
+      [includedMediaItems addObject:mediaItem];
+    }
+  }
+
+  return includedMediaItems;
+}
+
 - (NSArray<ITLibPlaylist*>*)getIncludedPlaylists {
 
   [self initPlaylistFilters];
@@ -79,22 +96,6 @@
   }
 
   return includedPlaylists;
-}
-
-- (NSArray<ITLibMediaItem*>*)getIncludedTracks {
-
-  [self initMediaItemFilters];
-
-  NSMutableArray<ITLibMediaItem*>* includedTracks = [NSMutableArray array];
-
-  for (ITLibMediaItem* track in _library.allMediaItems) {
-
-    if ([_mediaItemFilters filtersPassForItem:track]) {
-      [includedTracks addObject:track];
-    }
-  }
-
-  return includedTracks;
 }
 
 

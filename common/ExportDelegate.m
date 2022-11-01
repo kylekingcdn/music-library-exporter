@@ -137,7 +137,7 @@ NSErrorDomain const __MLE_ErrorDomain_ExportDelegate = @"com.kylekingcdn.MusicLi
   [_library reloadData];
 
   // get included items
-  _includedTracks = [_libraryFilter getIncludedTracks];
+  _includedTracks = [_libraryFilter getIncludedMediaItems];
   _includedPlaylists = [_libraryFilter getIncludedPlaylists];
 
   return YES;
