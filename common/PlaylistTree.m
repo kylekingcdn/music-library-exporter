@@ -101,7 +101,7 @@
   _rootNode = [self createRootNode];
 
   // clear filtered playlists
-  _filteredPlaylists = nil;
+  _filteredPlaylists = [NSArray array];
 }
 
 - (PlaylistNode*)createRootNode {
