@@ -59,6 +59,9 @@
 		27B07F9A25DD8195003F3378 /* libArgumentParser-Static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 271DD26625DB9F3D009BB292 /* libArgumentParser-Static.a */; };
 		27B54A9F29126B2200BEC366 /* PathMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 27642A63291129D2006FEF7B /* PathMapper.m */; };
 		27B54AA029126B2200BEC366 /* PathMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 27642A63291129D2006FEF7B /* PathMapper.m */; };
+		27B54AA529126B2900BEC366 /* MediaItemSorter.m in Sources */ = {isa = PBXBuildFile; fileRef = 27642A59291119BA006FEF7B /* MediaItemSorter.m */; };
+		27B54AAA29126B2900BEC366 /* MediaItemSorter.m in Sources */ = {isa = PBXBuildFile; fileRef = 27642A59291119BA006FEF7B /* MediaItemSorter.m */; };
+		27B54AAD29126B2B00BEC366 /* MediaItemSorter.m in Sources */ = {isa = PBXBuildFile; fileRef = 27642A59291119BA006FEF7B /* MediaItemSorter.m */; };
 		27C0A0F125CB046500EDDE22 /* ScheduleConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C0A0EF25CB045C00EDDE22 /* ScheduleConfiguration.m */; };
 		27C0A0F525CB046A00EDDE22 /* ScheduleConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C0A0EF25CB045C00EDDE22 /* ScheduleConfiguration.m */; };
 		27C0A10425CB0BF100EDDE22 /* HelperDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C0A10325CB0BF100EDDE22 /* HelperDelegate.m */; };
@@ -221,6 +224,8 @@
 		27533C2225CAA03C00A3B4D9 /* ExportDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExportDelegate.h; sourceTree = "<group>"; };
 		27533C2325CAA03C00A3B4D9 /* ExportDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExportDelegate.m; sourceTree = "<group>"; };
 		275917E425CE847F0052E94C /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		27642A58291119BA006FEF7B /* MediaItemSorter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MediaItemSorter.h; sourceTree = "<group>"; };
+		27642A59291119BA006FEF7B /* MediaItemSorter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MediaItemSorter.m; sourceTree = "<group>"; };
 		27642A62291129D2006FEF7B /* PathMapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PathMapper.h; sourceTree = "<group>"; };
 		27642A63291129D2006FEF7B /* PathMapper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PathMapper.m; sourceTree = "<group>"; };
 		276442A025BD3F7600EE217C /* OrderedDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderedDictionary.h; sourceTree = "<group>"; };
@@ -405,10 +410,20 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		27642A572911199A006FEF7B /* Sorter */ = {
+			isa = PBXGroup;
+			children = (
+				27642A58291119BA006FEF7B /* MediaItemSorter.h */,
+				27642A59291119BA006FEF7B /* MediaItemSorter.m */,
+			);
+			path = Sorter;
+			sourceTree = "<group>";
+		};
 		27A2BFBE25C0851B00AAD73C /* common */ = {
 			isa = PBXGroup;
 			children = (
 				27CAC1F5290FD113008D4313 /* Filter */,
+				27642A572911199A006FEF7B /* Sorter */,
 				27642A62291129D2006FEF7B /* PathMapper.h */,
 				27642A63291129D2006FEF7B /* PathMapper.m */,
 				27A4496725DE026B00C770E8 /* Logger.h */,
@@ -762,6 +777,7 @@
 				27CAC22229100503008D4313 /* PlaylistKindFilter.m in Sources */,
 				27CAC22129100503008D4313 /* PlaylistIDFilter.m in Sources */,
 				27CAC22029100503008D4313 /* PlaylistMasterFilter.m in Sources */,
+				27B54AA529126B2900BEC366 /* MediaItemSorter.m in Sources */,
 				27B54A9F29126B2200BEC366 /* PathMapper.m in Sources */,
 				276442A225BD3F7600EE217C /* OrderedDictionary.m in Sources */,
 				2783C76925C518CC002ED7B7 /* ExportConfiguration.m in Sources */,
@@ -807,6 +823,7 @@
 				27CAC23329101576008D4313 /* PlaylistParentIDFilter.m in Sources */,
 				27934B5925CB13D500488944 /* ScheduleDelegate.m in Sources */,
 				27A2C05925C0934A00AAD73C /* AppDelegate.m in Sources */,
+				27B54AAA29126B2900BEC366 /* MediaItemSorter.m in Sources */,
 				27CAC21A29100502008D4313 /* PlaylistDistinguishedKindFilter.m in Sources */,
 				27CAC21C29100502008D4313 /* PlaylistIDFilter.m in Sources */,
 				27A2C06125C0934B00AAD73C /* main.m in Sources */,
@@ -833,6 +850,7 @@
 				27533C2A25CAA21300A3B4D9 /* ExportDelegate.m in Sources */,
 				27CAC205290FEA37008D4313 /* MediaItemKindFilter.m in Sources */,
 				27C0A0F525CB046A00EDDE22 /* ScheduleConfiguration.m in Sources */,
+				27B54AAD29126B2B00BEC366 /* MediaItemSorter.m in Sources */,
 				272D6A0F25D1B104005023CA /* HourNumberFormatter.m in Sources */,
 				276B1AD825D415A2002D7289 /* CheckBoxTableCellView.m in Sources */,
 				27CAC20A290FF05C008D4313 /* PlaylistDistinguishedKindFilter.m in Sources */,
