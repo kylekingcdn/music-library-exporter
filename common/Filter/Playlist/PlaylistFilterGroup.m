@@ -28,12 +28,17 @@
 - (instancetype)initWithFilters:(NSArray<NSObject<PlaylistFiltering>*>*)filters {
 
   if (self = [super init]) {
-    _filters = [filters mutableCopy];
+    [self setFilters:filters];
     return self;
   }
   else {
     return nil;
   }
+}
+
+- (void)setFilters:(NSArray<NSObject<PlaylistFiltering>*>*)filters {
+
+  _filters = [filters mutableCopy];
 }
 
 - (void)addFilter:(NSObject<PlaylistFiltering>*)filter {

@@ -30,12 +30,17 @@
 - (instancetype)initWithFilters:(NSArray<NSObject<MediaItemFiltering>*>*)filters {
 
   if (self = [super init]) {
-    _filters = [filters mutableCopy];
+    [self setFilters:filters];
     return self;
   }
   else {
     return nil;
   }
+}
+
+- (void)setFilters:(NSArray<NSObject<MediaItemFiltering>*>*)filters {
+
+  _filters = [filters mutableCopy];
 }
 
 - (void)addFilter:(NSObject<MediaItemFiltering>*)filter {
