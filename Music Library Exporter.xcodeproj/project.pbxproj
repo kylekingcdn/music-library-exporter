@@ -27,6 +27,7 @@
 		27533C2A25CAA21300A3B4D9 /* ExportDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27533C2325CAA03C00A3B4D9 /* ExportDelegate.m */; };
 		27533C2E25CAA21600A3B4D9 /* ExportDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27533C2325CAA03C00A3B4D9 /* ExportDelegate.m */; };
 		275917EA25CE84980052E94C /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 275917E425CE847F0052E94C /* IOKit.framework */; };
+		27642A5E29111CB7006FEF7B /* MediaEntityRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 27642A5529111980006FEF7B /* MediaEntityRepository.m */; };
 		27642A64291129D2006FEF7B /* PathMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 27642A63291129D2006FEF7B /* PathMapper.m */; };
 		276442A225BD3F7600EE217C /* OrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 276442A125BD3F7600EE217C /* OrderedDictionary.m */; };
 		276B1AD125D40BB3002D7289 /* PlaylistNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B1ACF25D40BB3002D7289 /* PlaylistNode.m */; };
@@ -59,6 +60,8 @@
 		27B07F9A25DD8195003F3378 /* libArgumentParser-Static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 271DD26625DB9F3D009BB292 /* libArgumentParser-Static.a */; };
 		27B54A9F29126B2200BEC366 /* PathMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 27642A63291129D2006FEF7B /* PathMapper.m */; };
 		27B54AA029126B2200BEC366 /* PathMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 27642A63291129D2006FEF7B /* PathMapper.m */; };
+		27B54AA129126B2400BEC366 /* MediaEntityRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 27642A5529111980006FEF7B /* MediaEntityRepository.m */; };
+		27B54AA229126B2400BEC366 /* MediaEntityRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 27642A5529111980006FEF7B /* MediaEntityRepository.m */; };
 		27B54AA529126B2900BEC366 /* MediaItemSorter.m in Sources */ = {isa = PBXBuildFile; fileRef = 27642A59291119BA006FEF7B /* MediaItemSorter.m */; };
 		27B54AAA29126B2900BEC366 /* MediaItemSorter.m in Sources */ = {isa = PBXBuildFile; fileRef = 27642A59291119BA006FEF7B /* MediaItemSorter.m */; };
 		27B54AAD29126B2B00BEC366 /* MediaItemSorter.m in Sources */ = {isa = PBXBuildFile; fileRef = 27642A59291119BA006FEF7B /* MediaItemSorter.m */; };
@@ -224,6 +227,8 @@
 		27533C2225CAA03C00A3B4D9 /* ExportDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExportDelegate.h; sourceTree = "<group>"; };
 		27533C2325CAA03C00A3B4D9 /* ExportDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExportDelegate.m; sourceTree = "<group>"; };
 		275917E425CE847F0052E94C /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		27642A5429111980006FEF7B /* MediaEntityRepository.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MediaEntityRepository.h; sourceTree = "<group>"; };
+		27642A5529111980006FEF7B /* MediaEntityRepository.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MediaEntityRepository.m; sourceTree = "<group>"; };
 		27642A58291119BA006FEF7B /* MediaItemSorter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MediaItemSorter.h; sourceTree = "<group>"; };
 		27642A59291119BA006FEF7B /* MediaItemSorter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MediaItemSorter.m; sourceTree = "<group>"; };
 		27642A62291129D2006FEF7B /* PathMapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PathMapper.h; sourceTree = "<group>"; };
@@ -419,11 +424,14 @@
 			path = Sorter;
 			sourceTree = "<group>";
 		};
+				27642A5A291119DC006FEF7B /* ExportManager.h */,
 		27A2BFBE25C0851B00AAD73C /* common */ = {
 			isa = PBXGroup;
 			children = (
 				27CAC1F5290FD113008D4313 /* Filter */,
 				27642A572911199A006FEF7B /* Sorter */,
+				27642A5429111980006FEF7B /* MediaEntityRepository.h */,
+				27642A5529111980006FEF7B /* MediaEntityRepository.m */,
 				27642A62291129D2006FEF7B /* PathMapper.h */,
 				27642A63291129D2006FEF7B /* PathMapper.m */,
 				27A4496725DE026B00C770E8 /* Logger.h */,
@@ -792,6 +800,7 @@
 				271DD26E25DB9FCF009BB292 /* ArgParser.m in Sources */,
 				2739C5C325DE29E400C57218 /* LibraryGenerator.m in Sources */,
 				27CAC21F29100503008D4313 /* PlaylistDistinguishedKindFilter.m in Sources */,
+				27B54AA129126B2400BEC366 /* MediaEntityRepository.m in Sources */,
 				27CAC23429101576008D4313 /* PlaylistParentIDFilter.m in Sources */,
 				2705444925B66A0A00FE6D65 /* main.m in Sources */,
 			);
@@ -827,6 +836,7 @@
 				27CAC21A29100502008D4313 /* PlaylistDistinguishedKindFilter.m in Sources */,
 				27CAC21C29100502008D4313 /* PlaylistIDFilter.m in Sources */,
 				27A2C06125C0934B00AAD73C /* main.m in Sources */,
+				27B54AA229126B2400BEC366 /* MediaEntityRepository.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -857,6 +867,7 @@
 				27CAC215290FF796008D4313 /* PlaylistMasterFilter.m in Sources */,
 				27CAC218290FF874008D4313 /* PlaylistIDFilter.m in Sources */,
 				276B1AE125D42453002D7289 /* PopupButtonTableCellView.m in Sources */,
+				27642A5E29111CB7006FEF7B /* MediaEntityRepository.m in Sources */,
 				2725CA4725D3F2D7002C1203 /* PlaylistsViewController.m in Sources */,
 				2783C75825C4FB60002ED7B7 /* ConfigurationViewController.m in Sources */,
 				27DBB9B725E6E91E003BE889 /* PreferencesWindowController.m in Sources */,
