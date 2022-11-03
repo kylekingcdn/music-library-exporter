@@ -501,9 +501,9 @@
 
 - (NSString *)XMLEscapedString
 {
-    return [[[[self stringByReplacingOccurrencesOfString:@"&" withString:@"&#60;"]
-              stringByReplacingOccurrencesOfString:@"<" withString:@"&#60;"]
-             stringByReplacingOccurrencesOfString:@">" withString:@"&#62;"]
+    return [[[[self stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"]
+              stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"]
+             stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"]
             stringByReplacingOccurrencesOfString:@"\0" withString:@" "];
 }
 
