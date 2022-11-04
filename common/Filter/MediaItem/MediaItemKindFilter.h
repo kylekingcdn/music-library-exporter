@@ -15,6 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MediaItemKindFilter : NSObject<MediaItemFiltering>
 
 - (instancetype)init;
+- (instancetype)initWithKinds:(NSSet<NSNumber*>*)kinds;
+
+- (instancetype)initWithBaseKinds;
 
 - (void)addKind:(ITLibMediaItemMediaKind)kind;
 - (void)removeKind:(ITLibMediaItemMediaKind)kind;

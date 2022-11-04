@@ -26,9 +26,7 @@
 
   NSMutableArray<NSObject<MediaItemFiltering>*>* baseFilters = [NSMutableArray array];
 
-  MediaItemKindFilter* mediaItemKindFilter = [[MediaItemKindFilter alloc] init];
-  [mediaItemKindFilter addKind:ITLibMediaItemMediaKindSong];
-  [baseFilters addObject:mediaItemKindFilter];
+  [baseFilters addObject:[[MediaItemKindFilter alloc] initWithBaseKinds]];
 
   return [self initWithFilters:baseFilters];
 }

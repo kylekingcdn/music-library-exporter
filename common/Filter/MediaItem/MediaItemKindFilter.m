@@ -14,11 +14,24 @@
 
 - (instancetype)init {
 
+  return [self initWithKinds:[NSSet set]];
+}
+
+- (instancetype)initWithKinds:(NSSet<NSNumber*>*)kinds {
+
   self = [super init];
 
-  _includedKinds = [NSMutableSet set];
+  _includedKinds = [kinds mutableCopy];
 
   return self;
+}
+
+- (instancetype)initWithBaseKinds {
+
+  NSMutableSet<NSNumber*>* baseKinds = [NSMutableSet set];
+  [baseKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindSong]];
+
+  return [self initWithKinds:baseKinds];
 }
 
 - (void)addKind:(ITLibMediaItemMediaKind)kind {
