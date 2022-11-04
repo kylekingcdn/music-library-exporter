@@ -7,6 +7,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import "PlaylistSerializerDelegate.h"
+
 @class ITLibMediaItem;
 @class ITLibPlaylist;
 @class MediaEntityRepository;
@@ -15,13 +17,6 @@
 @class PlaylistFilterGroup;
 
 NS_ASSUME_NONNULL_BEGIN
-
-@protocol PlaylistSerializerDelegate <NSObject>
-@optional
-
-- (void)serializedPlaylists:(NSUInteger)serialized ofTotal:(NSUInteger)total;
-
-@end
 
 @interface PlaylistSerializer : NSObject
 

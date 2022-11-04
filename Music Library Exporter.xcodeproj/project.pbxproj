@@ -306,6 +306,8 @@
 		27DBB9A825E6E746003BE889 /* PreferencesWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreferencesWindow.xib; sourceTree = "<group>"; };
 		27DBB9B525E6E91E003BE889 /* PreferencesWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreferencesWindowController.h; sourceTree = "<group>"; };
 		27DBB9B625E6E91E003BE889 /* PreferencesWindowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreferencesWindowController.m; sourceTree = "<group>"; };
+		27E9D5D02914F15F0050F44A /* PlaylistSerializerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaylistSerializerDelegate.h; sourceTree = "<group>"; };
+		27E9D5D62914F17C0050F44A /* MediaItemSerializerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MediaItemSerializerDelegate.h; sourceTree = "<group>"; };
 		27EC7C6125C8C3E500996E9E /* UserDefaultsExportConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserDefaultsExportConfiguration.h; sourceTree = "<group>"; };
 		27EC7C6225C8C3E500996E9E /* UserDefaultsExportConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserDefaultsExportConfiguration.m; sourceTree = "<group>"; };
 		27EF9A6425BF23910051CE7B /* Music Library Exporter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Music Library Exporter.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -443,8 +445,10 @@
 				27642A532911194E006FEF7B /* LibrarySerializer.m */,
 				27642A4C2911187E006FEF7B /* MediaItemSerializer.h */,
 				27642A4D2911187E006FEF7B /* MediaItemSerializer.m */,
+				27E9D5D62914F17C0050F44A /* MediaItemSerializerDelegate.h */,
 				27642A4E2911188F006FEF7B /* PlaylistSerializer.h */,
 				27642A4F2911188F006FEF7B /* PlaylistSerializer.m */,
+				27E9D5D02914F15F0050F44A /* PlaylistSerializerDelegate.h */,
 			);
 			path = Serializer;
 			sourceTree = "<group>";

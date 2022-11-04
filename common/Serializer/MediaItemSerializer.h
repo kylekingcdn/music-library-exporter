@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MediaItemSerializerDelegate.h"
 
 @class ITLibMediaItem;
 @class MediaEntityRepository;
@@ -14,13 +15,6 @@
 @class OrderedDictionary;
 
 NS_ASSUME_NONNULL_BEGIN
-
-@protocol MediaItemSerializerDelegate <NSObject>
-@optional
-
-- (void)serializedItems:(NSUInteger)serialized ofTotal:(NSUInteger)total;
-
-@end
 
 @interface MediaItemSerializer : NSObject
 

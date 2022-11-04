@@ -9,8 +9,8 @@
 
 #import "Defines.h"
 #import "ExportManagerDelegate.h"
-#import "MediaItemSerializer.h"
-#import "PlaylistSerializer.h"
+#import "MediaItemSerializerDelegate.h"
+#import "PlaylistSerializerDelegate.h"
 
 @class OrderedDictionary;
 

@@ -105,7 +105,7 @@
 
     // ignore excluded media items
     if (_itemFilters == nil || [_itemFilters filtersPassForItem:item]) {
-
+      
       MutableOrderedDictionary* itemDict = [MutableOrderedDictionary dictionary];
       [itemDict setValue:[_entityRepository getIDForEntity:item] forKey:@"Track ID"];
 
