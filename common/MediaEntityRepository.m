@@ -36,7 +36,7 @@
 
   // not stored yet
   if (entityID == nil) {
-    entityID = [NSNumber numberWithUnsignedInteger:++_currentEntityID];
+    entityID = [NSNumber numberWithUnsignedInteger:_currentEntityID++];
     [_entityIDs setObject:entityID forKey:entity.persistentID];
   }
 
