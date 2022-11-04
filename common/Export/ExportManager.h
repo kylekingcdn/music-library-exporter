@@ -12,20 +12,20 @@
 #import "MediaItemSerializerDelegate.h"
 #import "PlaylistSerializerDelegate.h"
 
+@class ExportConfiguration;
 @class OrderedDictionary;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ExportManager : NSObject <MediaItemSerializerDelegate,PlaylistSerializerDelegate>
 
-@property (readonly) ExportState state;
 @property (nullable, weak) NSObject<ExportManagerDelegate>* delegate;
+@property (readonly) ExportState state;
+@property NSURL* outputFileURL;
 
-- (instancetype)init;
-- (instancetype)initWithDelegate:(nullable NSObject<ExportManagerDelegate>*)delegate;
+- (instancetype)initWithConfiguration:(ExportConfiguration*)configuration;
 
 - (BOOL)exportLibrary;
-
 - (BOOL)writeLibrary:(OrderedDictionary*)libraryDict error:(NSError**)error;
 
 

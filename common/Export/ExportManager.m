@@ -9,7 +9,7 @@
 
 #import <iTunesLibrary/ITLibrary.h>
 
-#import "UserDefaultsExportConfiguration.h"
+#import "ExportConfiguration.h"
 #import "LibrarySerializer.h"
 #import "Logger.h"
 #import "MediaEntityRepository.h"
@@ -18,49 +18,29 @@
 #import "OrderedDictionary.h"
 #import "PathMapper.h"
 #import "PlaylistFilterGroup.h"
+#import "PlaylistKindFilter.h"
+#import "PlaylistDistinguishedKindFilter.h"
+#import "PlaylistMasterFilter.h"
+#import "PlaylistIDFilter.h"
+#import "PlaylistParentIDFilter.h"
 #import "PlaylistSerializer.h"
 
 @implementation ExportManager {
 
   MediaEntityRepository* _entityRepository;
 
-  PathMapper* _pathMapper;
-
-  PlaylistFilterGroup* _playlistFilters;
-  MediaItemFilterGroup* _itemFilters;
+  ExportConfiguration* _configuration;
 }
 
-- (instancetype)init {
-
-  return [self initWithDelegate:nil];
-}
-
-- (instancetype)initWithDelegate:(nullable NSObject<ExportManagerDelegate> *)delegate {
+- (instancetype)initWithConfiguration:(ExportConfiguration *)configuration {
 
   self = [super init];
 
-  [self setDelegate:delegate];
-
   _entityRepository = [[MediaEntityRepository alloc] init];
 
-  _pathMapper = [[PathMapper alloc] init];
-
-  _playlistFilters = [[PlaylistFilterGroup alloc] init];
-  _itemFilters = [[MediaItemFilterGroup alloc] init];
+  _configuration = configuration;
 
   return self;
-}
-
-- (void)configure {
-
-  NSArray<NSObject<PlaylistFiltering>*>* playlistFilters = [NSArray array]; // TODO: configure
-  [_playlistFilters setFilters:playlistFilters];
-
-  NSArray<NSObject<MediaItemFiltering>*>* itemFilters = [NSArray array]; // TODO: configure
-  [_itemFilters setFilters:itemFilters];
-
-  [_pathMapper setSearchString:@""]; // TODO: configure
-  [_pathMapper setReplaceString:@""]; // TODO: configure
 }
 
 - (BOOL)exportLibrary {
@@ -73,19 +53,55 @@
     return NO;
   }
 
+  // filters
+  NSArray<NSObject<PlaylistFiltering>*>* playlistFilters = [NSArray array];
+
+  PlaylistFilterGroup* playlistFilterGroup = [[PlaylistFilterGroup alloc] initWithFilters:playlistFilters];
+
+  PlaylistIDFilter* playlistIDFilter = [[PlaylistIDFilter alloc] initWithExcludedIDs:_configuration.excludedPlaylistPersistentIds];
+  [playlistFilterGroup addFilter:playlistIDFilter];
+
+  PlaylistParentIDFilter* playlistParentIDFilter = [[PlaylistParentIDFilter alloc] initWithExcludedIDs:_configuration.excludedPlaylistPersistentIds];
+  // TODO: handle recursive parent id exclusion
+
+  if (_configuration.includeInternalPlaylists) {
+    [playlistFilterGroup addFilter:[[PlaylistDistinguishedKindFilter alloc] initWithInternalKinds]];
+  }
+  else {
+    [playlistFilterGroup addFilter:[[PlaylistDistinguishedKindFilter alloc] initWithBaseKinds]];
+    [playlistFilterGroup addFilter:[[PlaylistMasterFilter alloc] init]];
+  }
+
+  PlaylistKindFilter* playlistKindFilter = [[PlaylistKindFilter alloc] initWithBaseKinds];
+  // include folders
+  if (!_configuration.flattenPlaylistHierarchy) {
+    [playlistKindFilter addKind:ITLibPlaylistKindFolder];
+    [playlistFilterGroup addFilter:playlistParentIDFilter];
+  }
+  [playlistFilterGroup addFilter:playlistKindFilter];
+
+  MediaItemFilterGroup* itemFilterGroup = [[MediaItemFilterGroup alloc] initWithBaseFilters];
+
+  // directory mapping
+  PathMapper* pathMapper = [[PathMapper alloc] init];
+  if (_configuration.remapRootDirectory) {
+    [pathMapper setSearchString:_configuration.remapRootDirectoryOriginalPath];
+    [pathMapper setReplaceString:_configuration.remapRootDirectoryMappedPath];
+  }
+
   MediaItemSerializer* itemSerializer = [[MediaItemSerializer alloc] initWithEntityRepository:_entityRepository];
   [itemSerializer setDelegate:self];
-  [itemSerializer setItemFilters:_itemFilters];
-  [itemSerializer setPathMapper:_pathMapper];
+  [itemSerializer setItemFilters:itemFilterGroup];
+  [itemSerializer setPathMapper:pathMapper];
 
   PlaylistSerializer* playlistSerializer = [[PlaylistSerializer alloc] initWithEntityRepository:_entityRepository];
   [playlistSerializer setDelegate:self];
-  [playlistSerializer setPlaylistFilters:_playlistFilters];
-  [playlistSerializer setFlattenFolders:NO]; // TODO: configure
+  [playlistSerializer setPlaylistFilters:playlistFilterGroup];
+  [playlistSerializer setFlattenFolders:_configuration.flattenPlaylistHierarchy];
 
   LibrarySerializer* librarySerializer = [[LibrarySerializer alloc] init];
-  [librarySerializer setPersistentID:@""]; // TODO: configure
-  [librarySerializer setMusicLibraryDir:@""]; // TODO: configure
+  [librarySerializer setPersistentID:_configuration.generatedPersistentLibraryId];
+  [librarySerializer setMusicLibraryDir:_configuration.musicLibraryPath];
 
   OrderedDictionary* libraryDict = [librarySerializer serializeLibrary:library
                                                              withItems:[itemSerializer serializeItems:library.allMediaItems]
@@ -98,25 +114,9 @@
 
   MLE_Log_Info(@"ExportManager [writeLibrary]");
 
-  NSURL* outputDirectoryUrl = [UserDefaultsExportConfiguration.sharedConfig resolveOutputDirectoryBookmarkAndReturnError:error];
-  if (outputDirectoryUrl == nil) {
-    MLE_Log_Info(@"ExportManager [writeLibrary] unable to retrieve output directory - a directory must be selected to obtain write permission");
-    return NO;
-  }
-
-  NSString* outputFileName = UserDefaultsExportConfiguration.sharedConfig.outputFileName;
-  if (outputFileName == nil || outputFileName.length == 0) {
-    outputFileName = @"Library.xml"; // fallback to default filename
-    MLE_Log_Info(@"ExportManager [writeLibrary] output filename unspecified - falling back to default: %@", outputFileName);
-  }
-
-  NSURL* outputFileUrl = [outputDirectoryUrl URLByAppendingPathComponent:outputFileName];
-
   // write library
-  MLE_Log_Info(@"ExportManager [writeLibrary] saving to: %@", outputFileUrl);
-  [outputDirectoryUrl startAccessingSecurityScopedResource];
-  BOOL writeSuccess = [libraryDict writeToURL:outputFileUrl error:error];
-  [outputDirectoryUrl stopAccessingSecurityScopedResource];
+  MLE_Log_Info(@"ExportManager [writeLibrary] saving to: %@", _outputFileURL);
+  BOOL writeSuccess = [libraryDict writeToURL:_outputFileURL error:error];
 
   if (!writeSuccess) {
     MLE_Log_Info(@"ExportManager [writeLibrary] error writing dictionary");
