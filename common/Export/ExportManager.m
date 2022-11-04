@@ -106,6 +106,7 @@
   PlaylistSerializer* playlistSerializer = [[PlaylistSerializer alloc] initWithEntityRepository:_entityRepository];
   [playlistSerializer setDelegate:self];
   [playlistSerializer setPlaylistFilters:playlistFilterGroup];
+  [playlistSerializer setItemFilters:itemFilterGroup];
   [playlistSerializer setFlattenFolders:_configuration.flattenPlaylistHierarchy];
 
   LibrarySerializer* librarySerializer = [[LibrarySerializer alloc] init];
@@ -115,17 +116,9 @@
   OrderedDictionary* libraryDict = [librarySerializer serializeLibrary:library
                                                              withItems:[itemSerializer serializeItems:library.allMediaItems]
                                                           andPlaylists:[playlistSerializer serializePlaylists:library.allPlaylists]];
-
-  return [self writeLibrary:libraryDict error:&error];
-}
-
-- (BOOL)writeLibrary:(OrderedDictionary*)libraryDict error:(NSError**)error {
-
-  MLE_Log_Info(@"ExportManager [writeLibrary]");
-
   // write library
   MLE_Log_Info(@"ExportManager [writeLibrary] saving to: %@", _outputFileURL);
-  BOOL writeSuccess = [libraryDict writeToURL:_outputFileURL error:error];
+  BOOL writeSuccess = [libraryDict writeToURL:_outputFileURL error:&error];
 
   if (!writeSuccess) {
     MLE_Log_Info(@"ExportManager [writeLibrary] error writing dictionary");

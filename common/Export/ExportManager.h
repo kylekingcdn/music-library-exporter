@@ -26,7 +26,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithConfiguration:(ExportConfiguration*)configuration;
 
 - (BOOL)exportLibrary;
-- (BOOL)writeLibrary:(OrderedDictionary*)libraryDict error:(NSError**)error;
 
 
 @end
