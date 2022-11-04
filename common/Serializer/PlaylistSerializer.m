@@ -103,7 +103,7 @@
 
   NSMutableArray<OrderedDictionary*>* itemsArray = [NSMutableArray array];
 
-  for (ITLibMediaItem* item in itemsArray) {
+  for (ITLibMediaItem* item in items) {
 
     // ignore excluded media items
     if (_itemFilters == nil || [_itemFilters filtersPassForItem:item]) {
