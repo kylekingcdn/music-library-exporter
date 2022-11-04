@@ -139,10 +139,12 @@
 
 - (void)serializedItems:(NSUInteger)serialized ofTotal:(NSUInteger)total {
 
-  MLE_Log_Info(@"ExportManager [serializedItems] serializing items %lu/%lu", (unsigned long)serialized, total);
+  if (serialized % 10 == 0 || serialized == total) {
+    MLE_Log_Info(@"ExportManager [serializedItems] serializing items %lu/%lu", (unsigned long)serialized, total);
 
-  if (_delegate != nil && [_delegate respondsToSelector:@selector(exportedItems:ofTotal:)]) {
-    [_delegate exportedItems:serialized ofTotal:total];
+    if (_delegate != nil && [_delegate respondsToSelector:@selector(exportedItems:ofTotal:)]) {
+      [_delegate exportedItems:serialized ofTotal:total];
+    }
   }
 }
 
