@@ -16,13 +16,7 @@
 
 - (instancetype)init {
 
-  if (self = [super init]) {
-    _filters = [NSMutableArray array];
-    return self;
-  }
-  else {
-    return nil;
-  }
+  return [self initWithFilters:[NSArray array]];
 }
 
 - (instancetype)initWithFilters:(NSArray<NSObject<PlaylistFiltering>*>*)filters {
@@ -59,6 +53,7 @@
 
   for (NSObject<PlaylistFiltering>* filter in _filters) {
     if (![filter filterPassesForPlaylist:playlist]) {
+      
       return NO;
     }
   }

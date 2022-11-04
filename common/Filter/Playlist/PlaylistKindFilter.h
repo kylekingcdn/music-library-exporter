@@ -15,6 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface PlaylistKindFilter : NSObject<PlaylistFiltering>
 
 - (instancetype)init;
+- (instancetype)initWithKinds:(NSSet<NSNumber*>*)kinds;
+
+- (instancetype)initWithBaseKinds;
 
 - (void)addKind:(ITLibPlaylistKind)kind;
 - (void)removeKind:(ITLibPlaylistKind)kind;

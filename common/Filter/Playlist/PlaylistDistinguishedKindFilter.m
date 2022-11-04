@@ -14,11 +14,41 @@
 
 - (instancetype)init {
 
+  return [self initWithKinds:[NSSet set]];
+}
+
+- (instancetype)initWithKinds:(NSSet<NSNumber*>*)kinds {
+
   self = [super init];
 
-  _includedKinds = [NSMutableSet set];
+  _includedKinds = [kinds mutableCopy];
 
   return self;
+}
+
+- (instancetype)initWithBaseKinds {
+
+  NSMutableSet<NSNumber*>* baseKinds;
+  [baseKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindNone]];
+
+  return [self initWithKinds:baseKinds];
+}
+
+- (instancetype)initWithInternalKinds {
+
+  NSMutableSet<NSNumber*>* internalKinds;
+  [internalKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindNone]];
+  [internalKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindMusic]];
+  [internalKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindPurchases]];
+  [internalKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKind90sMusic]];
+  [internalKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindMyTopRated]];
+  [internalKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindTop25MostPlayed]];
+  [internalKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindRecentlyPlayed]];
+  [internalKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindRecentlyAdded]];
+  [internalKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindClassicalMusic]];
+  [internalKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindLovedSongs]];
+
+  return [self initWithKinds:internalKinds];
 }
 
 - (void)addKind:(ITLibDistinguishedPlaylistKind)kind {
