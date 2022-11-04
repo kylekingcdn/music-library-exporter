@@ -46,6 +46,9 @@
 
       [playlistsArray addObject:[self serializePlaylist:playlist]];
     }
+    else if (_delegate != nil && [_delegate respondsToSelector:@selector(excludedPlaylist:)]) {
+      [_delegate excludedPlaylist:playlist];
+    }
 
     serializedPlaylists++;
 
@@ -59,7 +62,6 @@
 
 - (OrderedDictionary*)serializePlaylist:(ITLibPlaylist*)playlist {
 
-  
   MutableOrderedDictionary* playlistDict = [MutableOrderedDictionary dictionary];
 
   [playlistDict setValue:playlist.name forKey:@"Name"];

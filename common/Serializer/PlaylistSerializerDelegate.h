@@ -7,12 +7,16 @@
 
 #import <Foundation/Foundation.h>
 
+@class ITLibPlaylist;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol PlaylistSerializerDelegate <NSObject>
 @optional
 
 - (void)serializedPlaylists:(NSUInteger)serialized ofTotal:(NSUInteger)total;
+
+- (void)excludedPlaylist:(ITLibPlaylist*)playlist;
 
 @end
 

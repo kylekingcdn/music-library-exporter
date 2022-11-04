@@ -30,6 +30,8 @@
   MediaEntityRepository* _entityRepository;
 
   ExportConfiguration* _configuration;
+
+  PlaylistParentIDFilter* _playlistParentIDFilter;
 }
 
 - (instancetype)initWithConfiguration:(ExportConfiguration *)configuration {
@@ -40,7 +42,38 @@
 
   _configuration = configuration;
 
+  _playlistParentIDFilter = nil;
+
   return self;
+}
+
+- (PlaylistFilterGroup*) generatePlaylistFilters {
+
+  NSArray<NSObject<PlaylistFiltering>*>* playlistFilters = [NSArray array];
+
+  PlaylistFilterGroup* playlistFilterGroup = [[PlaylistFilterGroup alloc] initWithFilters:playlistFilters];
+
+  PlaylistIDFilter* playlistIDFilter = [[PlaylistIDFilter alloc] initWithExcludedIDs:_configuration.excludedPlaylistPersistentIds];
+  [playlistFilterGroup addFilter:playlistIDFilter];
+
+  if (_configuration.includeInternalPlaylists) {
+    [playlistFilterGroup addFilter:[[PlaylistDistinguishedKindFilter alloc] initWithInternalKinds]];
+  }
+  else {
+    [playlistFilterGroup addFilter:[[PlaylistDistinguishedKindFilter alloc] initWithBaseKinds]];
+    [playlistFilterGroup addFilter:[[PlaylistMasterFilter alloc] init]];
+  }
+
+  PlaylistKindFilter* playlistKindFilter = [[PlaylistKindFilter alloc] initWithBaseKinds];
+  if (!_configuration.flattenPlaylistHierarchy) {
+    [playlistKindFilter addKind:ITLibPlaylistKindFolder];
+
+    _playlistParentIDFilter = [[PlaylistParentIDFilter alloc] initWithExcludedIDs:_configuration.excludedPlaylistPersistentIds];
+    [playlistFilterGroup addFilter:_playlistParentIDFilter];
+  }
+  [playlistFilterGroup addFilter:playlistKindFilter];
+
+  return playlistFilterGroup;
 }
 
 - (BOOL)exportLibrary {
@@ -54,32 +87,7 @@
   }
 
   // filters
-  NSArray<NSObject<PlaylistFiltering>*>* playlistFilters = [NSArray array];
-
-  PlaylistFilterGroup* playlistFilterGroup = [[PlaylistFilterGroup alloc] initWithFilters:playlistFilters];
-
-  PlaylistIDFilter* playlistIDFilter = [[PlaylistIDFilter alloc] initWithExcludedIDs:_configuration.excludedPlaylistPersistentIds];
-  [playlistFilterGroup addFilter:playlistIDFilter];
-
-  PlaylistParentIDFilter* playlistParentIDFilter = [[PlaylistParentIDFilter alloc] initWithExcludedIDs:_configuration.excludedPlaylistPersistentIds];
-  // TODO: handle recursive parent id exclusion
-
-  if (_configuration.includeInternalPlaylists) {
-    [playlistFilterGroup addFilter:[[PlaylistDistinguishedKindFilter alloc] initWithInternalKinds]];
-  }
-  else {
-    [playlistFilterGroup addFilter:[[PlaylistDistinguishedKindFilter alloc] initWithBaseKinds]];
-    [playlistFilterGroup addFilter:[[PlaylistMasterFilter alloc] init]];
-  }
-
-  PlaylistKindFilter* playlistKindFilter = [[PlaylistKindFilter alloc] initWithBaseKinds];
-  // include folders
-  if (!_configuration.flattenPlaylistHierarchy) {
-    [playlistKindFilter addKind:ITLibPlaylistKindFolder];
-    [playlistFilterGroup addFilter:playlistParentIDFilter];
-  }
-  [playlistFilterGroup addFilter:playlistKindFilter];
-
+  PlaylistFilterGroup* playlistFilterGroup = [self generatePlaylistFilters];
   MediaItemFilterGroup* itemFilterGroup = [[MediaItemFilterGroup alloc] initWithBaseFilters];
 
   // directory mapping
@@ -89,6 +97,7 @@
     [pathMapper setReplaceString:_configuration.remapRootDirectoryMappedPath];
   }
 
+  // configure serializers
   MediaItemSerializer* itemSerializer = [[MediaItemSerializer alloc] initWithEntityRepository:_entityRepository];
   [itemSerializer setDelegate:self];
   [itemSerializer setItemFilters:itemFilterGroup];
@@ -150,6 +159,13 @@
 
   if (_delegate != nil && [_delegate respondsToSelector:@selector(exportedPlaylists:ofTotal:)]) {
     [_delegate exportedPlaylists:serialized ofTotal:total];
+  }
+}
+
+- (void)excludedPlaylist:(ITLibPlaylist*)playlist {
+
+  if (_playlistParentIDFilter != nil) {
+    [_playlistParentIDFilter addExcludedID:playlist.persistentID];
   }
 }
 
