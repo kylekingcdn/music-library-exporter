@@ -28,7 +28,7 @@
 
 - (instancetype)initWithBaseKinds {
 
-  NSMutableSet<NSNumber*>* baseKinds;
+  NSMutableSet<NSNumber*>* baseKinds = [NSMutableSet set];
   [baseKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibPlaylistKindRegular]];
   [baseKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibPlaylistKindSmart]];
 

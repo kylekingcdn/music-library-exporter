@@ -28,7 +28,7 @@
 
 - (instancetype)initWithBaseKinds {
 
-  NSMutableSet<NSNumber*>* baseKinds;
+  NSMutableSet<NSNumber*>* baseKinds = [NSMutableSet set];
   [baseKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindNone]];
 
   return [self initWithKinds:baseKinds];
@@ -36,7 +36,7 @@
 
 - (instancetype)initWithInternalKinds {
 
-  NSMutableSet<NSNumber*>* internalKinds;
+  NSMutableSet<NSNumber*>* internalKinds = [NSMutableSet set];
   [internalKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindNone]];
   [internalKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindMusic]];
   [internalKinds addObject:[NSNumber numberWithUnsignedInteger:ITLibDistinguishedPlaylistKindPurchases]];
