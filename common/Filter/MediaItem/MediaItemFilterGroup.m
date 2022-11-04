@@ -10,6 +10,7 @@
 #import <iTunesLibrary/ITLibMediaItem.h>
 
 #import "MediaItemFiltering.h"
+#import "MediaItemKindFilter.h"
 
 @implementation MediaItemFilterGroup {
 
@@ -18,13 +19,18 @@
 
 - (instancetype)init {
 
-  if (self = [super init]) {
-    _filters = [NSMutableArray array];
-    return self;
-  }
-  else {
-    return nil;
-  }
+  return [self initWithFilters:[NSArray array]];
+}
+
+- (instancetype)initWithBaseFilters {
+
+  NSMutableArray<NSObject<MediaItemFiltering>*>* baseFilters;
+
+  MediaItemKindFilter* mediaItemKindFilter = [[MediaItemKindFilter alloc] init];
+  [mediaItemKindFilter addKind:ITLibMediaItemMediaKindSong];
+  [baseFilters addObject:mediaItemKindFilter];
+
+  return [self initWithFilters:baseFilters];
 }
 
 - (instancetype)initWithFilters:(NSArray<NSObject<MediaItemFiltering>*>*)filters {
