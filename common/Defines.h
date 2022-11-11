@@ -12,10 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Defines : NSObject
 
-extern NSString *const __MLE__AppGroupIdentifier;
-
+extern NSString* const __MLE__AppGroupIdentifier;
 extern NSString* const __MLE__AppBundleIdentifier;
-extern NSString *const __MLE__HelperBundleIdentifier;
+extern NSString* const __MLE__HelperBundleIdentifier;
 
 typedef NS_ENUM(NSInteger, ExportState) {
   ExportStopped,
