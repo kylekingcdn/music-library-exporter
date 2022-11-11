@@ -21,6 +21,8 @@
 @implementation MediaItemSerializer {
 
   MediaEntityRepository* _entityRepository;
+
+  NSDictionary* _mediaItemKindMappings;
 }
 
 - (instancetype) initWithEntityRepository:(MediaEntityRepository*)entityRepository {
@@ -28,6 +30,18 @@
   self = [super init];
 
   _entityRepository = entityRepository;
+
+  _mediaItemKindMappings = @{
+      //[[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindSong] stringValue]: @"",
+      [[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindAlertTone] stringValue]: @"Tone",
+      [[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindAudiobook] stringValue]: @"Audiobook",
+      [[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindBook] stringValue]: @"Book",
+      [[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindMovie] stringValue]: @"Movie",
+      [[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindMusicVideo] stringValue]: @"Music Video",
+      [[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindPodcast] stringValue]: @"Podcast",
+      [[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindTVShow] stringValue]: @"TV Show",
+      [[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindRingtone] stringValue]: @"Ringtone",
+  };
 
   return self;
 }
@@ -194,45 +208,9 @@
   [itemDict setValue:[Utils hexStringForPersistentId:item.persistentID] forKey:@"Persistent ID"];
 
   // add boolean attributes for media kind
-  switch (item.mediaKind) {
-    case ITLibMediaItemMediaKindSong: {
-      break;
-    }
-    case ITLibMediaItemMediaKindAlertTone: {
-      [itemDict setValue:[NSNumber numberWithBool:YES] forKey:@"Tone"];
-      break;
-    }
-    case ITLibMediaItemMediaKindAudiobook: {
-      [itemDict setValue:[NSNumber numberWithBool:YES] forKey:@"Audiobook"];
-      break;
-    }
-    case ITLibMediaItemMediaKindBook: {
-      [itemDict setValue:[NSNumber numberWithBool:YES] forKey:@"Book"];
-      break;
-    }
-    case ITLibMediaItemMediaKindMovie: {
-      [itemDict setValue:[NSNumber numberWithBool:YES] forKey:@"Movie"];
-      break;
-    }
-    case ITLibMediaItemMediaKindMusicVideo: {
-      [itemDict setValue:[NSNumber numberWithBool:YES] forKey:@"Music Video"];
-      break;
-    }
-    case ITLibMediaItemMediaKindPodcast: {
-      [itemDict setValue:[NSNumber numberWithBool:YES] forKey:@"Podcast"];
-      break;
-    }
-    case ITLibMediaItemMediaKindTVShow: {
-      [itemDict setValue:[NSNumber numberWithBool:YES] forKey:@"TV Show"];
-      break;
-    }
-    case ITLibMediaItemMediaKindRingtone: {
-      [itemDict setValue:[NSNumber numberWithBool:YES] forKey:@"Ringtone"];
-      break;
-    }
-    default: {
-      break;
-    }
+  NSString* mediaItemKindStr = [[NSNumber numberWithUnsignedInteger:item.mediaKind] stringValue];
+  if ([_mediaItemKindMappings doesContain:mediaItemKindStr]) {
+    [itemDict setValue:[NSNumber numberWithBool:YES] forKey:[_mediaItemKindMappings valueForKey:mediaItemKindStr]];
   }
 //  [itemDict setValue:item.title forKey:@"Track Type"]; - invalid
 
