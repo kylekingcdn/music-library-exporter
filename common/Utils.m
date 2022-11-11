@@ -87,33 +87,6 @@
   return [NSString stringWithFormat:@"%016llX", persistentId.unsignedLongLongValue];
 }
 
-+ (NSDictionary*)createPersistentIdDictionaryForItems:(NSArray<NSDictionary*>*)itemsArray withPersistentIdKey:(NSString*)persistentIdKey {
-
-  NSMutableDictionary* persistentIdDict = [NSMutableDictionary dictionary];
-
-  for (NSDictionary* itemDict in itemsArray) {
-
-    NSAssert([itemDict.allKeys containsObject:persistentIdKey], @"[createPersistentIdDictionaryForItems] dictionary doesn't contain '%@' key", persistentIdKey);
-
-    NSString* itemPersistentId = [itemDict objectForKey:persistentIdKey];
-    NSAssert(itemPersistentId.length > 0, @"[createPersistentIdDictionaryForItems] dictionary persistent id value is empty for key '%@'", persistentIdKey);
-
-    [persistentIdDict setValue:itemDict forKey:itemPersistentId];
-  }
-
-  return persistentIdDict;
-}
-
-+ (NSDictionary*)createPersistentIdDictionaryForTracks:(NSArray<NSDictionary*>*)tracksArray {
-
-  return [Utils createPersistentIdDictionaryForItems:tracksArray withPersistentIdKey:@"Persistent ID"];
-}
-
-+ (NSDictionary*)createPersistentIdDictionaryForPlaylists:(NSArray<NSDictionary*>*)playlistsArray {
-
-  return [Utils createPersistentIdDictionaryForItems:playlistsArray withPersistentIdKey:@"Playlist Persistent ID"];
-}
-
 + (NSString*)descriptionForExportState:(ExportState)state {
 
   switch (state) {

@@ -24,10 +24,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (nullable NSString*)hexStringForPersistentId:(nullable NSNumber*)persistentId;
 
-+ (NSDictionary*)createPersistentIdDictionaryForItems:(NSArray<NSDictionary*>*)itemsArray withPersistentIdKey:(NSString*)persistentIdKey;
-+ (NSDictionary*)createPersistentIdDictionaryForTracks:(NSArray<NSDictionary*>*)tracksArray;
-+ (NSDictionary*)createPersistentIdDictionaryForPlaylists:(NSArray<NSDictionary*>*)playlistsArray;
-
 + (NSString*)descriptionForExportState:(ExportState)state;
 + (NSString*)descriptionForExportDeferralReason:(ExportDeferralReason)reason;
 
