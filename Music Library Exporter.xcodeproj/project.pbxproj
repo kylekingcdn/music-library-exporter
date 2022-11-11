@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		2705444925B66A0A00FE6D65 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2705444825B66A0A00FE6D65 /* main.m */; };
 		2705445225B66B7A00FE6D65 /* iTunesLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2705445125B66B7A00FE6D65 /* iTunesLibrary.framework */; };
-		2705445925B670E700FE6D65 /* Serializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2705445825B670E700FE6D65 /* Serializer.m */; };
 		271DD26E25DB9FCF009BB292 /* ArgParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 271DD26D25DB9FCF009BB292 /* ArgParser.m */; };
 		271DD27425DBA246009BB292 /* LGDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 271DD27325DBA246009BB292 /* LGDefines.m */; };
 		2725CA4725D3F2D7002C1203 /* PlaylistsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2725CA4625D3F2D7002C1203 /* PlaylistsViewController.m */; };
@@ -48,7 +47,6 @@
 		279E326C25E07971008F8C56 /* PlaylistNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B1ACF25D40BB3002D7289 /* PlaylistNode.m */; };
 		279E327025E07976008F8C56 /* PlaylistTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 279E325725E077B7008F8C56 /* PlaylistTree.m */; };
 		27A2BFC325C085E400AAD73C /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C52A7325B69C4B00D829F3 /* Utils.m */; };
-		27A2BFC525C085E400AAD73C /* Serializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2705445825B670E700FE6D65 /* Serializer.m */; };
 		27A2BFC625C085E400AAD73C /* OrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 276442A125BD3F7600EE217C /* OrderedDictionary.m */; };
 		27A2BFC925C0860700AAD73C /* iTunesLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2705445125B66B7A00FE6D65 /* iTunesLibrary.framework */; };
 		27A2C02225C08FF700AAD73C /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27A2C02125C08FF700AAD73C /* ServiceManagement.framework */; };
@@ -58,7 +56,6 @@
 		27A2C07225C0943C00AAD73C /* Music Library Exporter Helper.app in Copy Helper App */ = {isa = PBXBuildFile; fileRef = 27A2C05525C0934A00AAD73C /* Music Library Exporter Helper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		27A2C08725C097B600AAD73C /* OrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 276442A125BD3F7600EE217C /* OrderedDictionary.m */; };
 		27A2C08B25C097C000AAD73C /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C52A7325B69C4B00D829F3 /* Utils.m */; };
-		27A2C08D25C097C000AAD73C /* Serializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2705445825B670E700FE6D65 /* Serializer.m */; };
 		27A2C09125C097DF00AAD73C /* iTunesLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2705445125B66B7A00FE6D65 /* iTunesLibrary.framework */; };
 		27B07F9A25DD8195003F3378 /* libArgumentParser-Static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 271DD26625DB9F3D009BB292 /* libArgumentParser-Static.a */; };
 		27B54A98291251D200BEC366 /* ExportManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 27642A5B291119DC006FEF7B /* ExportManager.m */; };
@@ -842,7 +839,6 @@
 				2783C76925C518CC002ED7B7 /* ExportConfiguration.m in Sources */,
 				2749619B25CE4FB000B98E11 /* LibraryFilter.m in Sources */,
 				27CAC21E29100503008D4313 /* PlaylistFilterGroup.m in Sources */,
-				2705445925B670E700FE6D65 /* Serializer.m in Sources */,
 				279E326C25E07971008F8C56 /* PlaylistNode.m in Sources */,
 				279E327025E07976008F8C56 /* PlaylistTree.m in Sources */,
 				27B54AA429126B2900BEC366 /* LibrarySerializer.m in Sources */,
@@ -871,7 +867,6 @@
 				27B54AA029126B2200BEC366 /* PathMapper.m in Sources */,
 				2749619725CE4FAA00B98E11 /* LibraryFilter.m in Sources */,
 				27B54AAB29126B2900BEC366 /* ExportManager.m in Sources */,
-				27A2C08D25C097C000AAD73C /* Serializer.m in Sources */,
 				279E326425E0795B008F8C56 /* PlaylistNode.m in Sources */,
 				279E326825E0795D008F8C56 /* PlaylistTree.m in Sources */,
 				27F5866025E4661300872731 /* MLESentryHandler.m in Sources */,
@@ -910,7 +905,6 @@
 				2783C76725C518CC002ED7B7 /* ExportConfiguration.m in Sources */,
 				2749619325CE4FA400B98E11 /* LibraryFilter.m in Sources */,
 				27642A6129111EF1006FEF7B /* LibrarySerializer.m in Sources */,
-				27A2BFC525C085E400AAD73C /* Serializer.m in Sources */,
 				276B1AD125D40BB3002D7289 /* PlaylistNode.m in Sources */,
 				279E326025E07943008F8C56 /* PlaylistTree.m in Sources */,
 				27B54A98291251D200BEC366 /* ExportManager.m in Sources */,
