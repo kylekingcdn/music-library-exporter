@@ -111,9 +111,10 @@
   [librarySerializer setPersistentID:_configuration.generatedPersistentLibraryId];
   [librarySerializer setMusicLibraryDir:_configuration.musicLibraryPath];
 
-  OrderedDictionary* libraryDict = [librarySerializer serializeLibrary:library
-                                                             withItems:[itemSerializer serializeItems:library.allMediaItems]
-                                                          andPlaylists:[playlistSerializer serializePlaylists:library.allPlaylists]];
+  OrderedDictionary* itemsDict = [itemSerializer serializeItems:library.allMediaItems];
+  NSArray<OrderedDictionary*>* playlistsDictArr = [playlistSerializer serializePlaylists:library.allPlaylists];
+  OrderedDictionary* libraryDict = [librarySerializer serializeLibrary:library withItems:itemsDict andPlaylists:playlistsDictArr];
+
   // write library
   MLE_Log_Info(@"ExportManager [writeLibrary] saving to: %@", _outputFileURL);
   BOOL writeSuccess = [libraryDict writeToURL:_outputFileURL error:&error];
