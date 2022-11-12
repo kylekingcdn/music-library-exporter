@@ -197,7 +197,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		2705444525B66A0A00FE6D65 /* library-generator */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "library-generator"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2705444525B66A0A00FE6D65 /* music-library-exporter */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "music-library-exporter"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2705444825B66A0A00FE6D65 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2705445125B66B7A00FE6D65 /* iTunesLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTunesLibrary.framework; path = System/Library/Frameworks/iTunesLibrary.framework; sourceTree = SDKROOT; };
 		270D786825DB682000B3D409 /* ArgumentParser.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ArgumentParser.xcodeproj; path = ArgumentParser/ArgumentParser.xcodeproj; sourceTree = "<group>"; };
@@ -362,7 +362,7 @@
 		2705444625B66A0A00FE6D65 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2705444525B66A0A00FE6D65 /* library-generator */,
+				2705444525B66A0A00FE6D65 /* music-library-exporter */,
 				27EF9A6425BF23910051CE7B /* Music Library Exporter.app */,
 				27A2C05525C0934A00AAD73C /* Music Library Exporter Helper.app */,
 			);
@@ -672,9 +672,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2705444425B66A0A00FE6D65 /* library-generator */ = {
+		2705444425B66A0A00FE6D65 /* music-library-exporter */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2705444C25B66A0A00FE6D65 /* Build configuration list for PBXNativeTarget "library-generator" */;
+			buildConfigurationList = 2705444C25B66A0A00FE6D65 /* Build configuration list for PBXNativeTarget "music-library-exporter" */;
 			buildPhases = (
 				2705444125B66A0A00FE6D65 /* Sources */,
 				2705444225B66A0A00FE6D65 /* Frameworks */,
@@ -685,9 +685,9 @@
 			dependencies = (
 				27B07F9925DD818D003F3378 /* PBXTargetDependency */,
 			);
-			name = "library-generator";
+			name = "music-library-exporter";
 			productName = "library-generator";
-			productReference = 2705444525B66A0A00FE6D65 /* library-generator */;
+			productReference = 2705444525B66A0A00FE6D65 /* music-library-exporter */;
 			productType = "com.apple.product-type.tool";
 		};
 		27A2C05425C0934A00AAD73C /* Music Library Exporter Helper */ = {
@@ -775,7 +775,7 @@
 			targets = (
 				27EF9A6325BF23910051CE7B /* Music Library Exporter */,
 				27A2C05425C0934A00AAD73C /* Music Library Exporter Helper */,
-				2705444425B66A0A00FE6D65 /* library-generator */,
+				2705444425B66A0A00FE6D65 /* music-library-exporter */,
 			);
 		};
 /* End PBXProject section */
@@ -1063,7 +1063,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2705444C25B66A0A00FE6D65 /* Build configuration list for PBXNativeTarget "library-generator" */ = {
+		2705444C25B66A0A00FE6D65 /* Build configuration list for PBXNativeTarget "music-library-exporter" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2705444D25B66A0A00FE6D65 /* Debug */,

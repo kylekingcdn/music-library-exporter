@@ -1,6 +1,6 @@
 //
 //  CLIDefines.h
-//  library-generator
+//  music-library-exporter
 //
 //  Created by Kyle King on 2021-02-15.
 //

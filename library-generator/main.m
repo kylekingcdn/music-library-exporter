@@ -1,6 +1,6 @@
 //
 //  main.m
-//  library-generator
+//  music-library-exporter
 //
 //  Created by Kyle King on 2021-01-18.
 //

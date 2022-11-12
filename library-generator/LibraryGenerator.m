@@ -1,6 +1,6 @@
 //
 //  LibraryGenerator.m
-//  library-generator
+//  music-library-exporter
 //
 //  Created by Kyle King on 2021-02-17.
 //
@@ -94,11 +94,11 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
 #pragma mark - Accessors
 
 - (void)printHelp {
-  printf("library-generator");
+  printf("music-library-exporter");
   printf("\n");
   printf("\nUSAGE");
   printf("\n");
-  printf("\n    library-generator <command> [options]");
+  printf("\n    music-library-exporter <command> [options]");
   printf("\n");
   printf("\nCOMMANDS");
   printf("\n");
@@ -108,7 +108,7 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
   printf("\n");
   printf("\n    version");
   printf("\n");
-  printf("\n        Displays the current version of library-generator.");
+  printf("\n        Displays the current version of music-library-exporter.");
   printf("\n");
   printf("\n    print");
   printf("\n");
@@ -149,7 +149,7 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
   printf("\n");
   printf("\n        The value of this option MUST be set to the corresponding value in your Music app's Preferences.");
   printf("\n        It can be found under: Preferences > Files > Music Media folder location.");
-  printf("\n        library-generator can NOT validate what is entered for this value, so it is important to ensure that it is accurate.");
+  printf("\n        music-library-exporter can NOT validate what is entered for this value, so it is important to ensure that it is accurate.");
   printf("\n");
   printf("\n        NOTE: This option is mandatory unless the value is being imported via --read_prefs.");
   printf("\n");
@@ -171,7 +171,7 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
   printf("\n");
   printf("\n        Setting this flag will flatten the generated playlist hierarchy, or in other words, folders will not be included.");
   printf("\n        The playlists contained in any folders are still included in the exported library, they simply appear 'top-level'.");
-  printf("\n        For an example of what this means, compare the output of 'library-generator print' to the output of 'library-generator print --flatten',");
+  printf("\n        For an example of what this means, compare the output of 'music-library-exporter print' to the output of 'music-library-exporter print --flatten',");
   printf("\n        (Note: there will only be an observable difference if you are managing your music library's playlists with folders).");
   printf("\n");
   printf("\n    --exclude_internal, -n");
@@ -182,7 +182,7 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
   printf("\n    --exclude_ids <playlist_ids>, -e <playlist_ids>");
   printf("\n");
   printf("\n        A comma separated list of playlist ids that you would like to exclude from the generated library.");
-  printf("\n        Playlist IDs can be determined by running the print command: 'library-generator print'");
+  printf("\n        Playlist IDs can be determined by running the print command: 'music-library-exporter print'");
   printf("\n");
   printf("\n        Example value:");
   printf("\n            --exclude_ids 1803375142671959318,5128334259688473588,57194740367344335011");
@@ -196,7 +196,7 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
   printf("\n            {PLAYLIST_ID}:{SORT_COLUMN}-{SORT_ORDER}");
   printf("\n");
   printf("\n        Where:");
-  printf("\n            PLAYLIST_ID  is the persistent ID of the playlist. Playlist IDs can be found with: 'library-generator print'");
+  printf("\n            PLAYLIST_ID  is the persistent ID of the playlist. Playlist IDs can be found with: 'music-library-exporter print'");
   printf("\n            SORT_COLUMN  is one of the following:  'title', 'artist', 'albumartist', 'dateadded'");
   printf("\n            SORT_ORDER   is either 'a' (for ascending) or 'd' (for descending)");
   printf("\n");
@@ -222,7 +222,7 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
 
 - (void)printVersion {
 
-  printf("library-generator %s\n", [LG_VERSION UTF8String]);
+  printf("music-library-exporter %s\n", [LG_VERSION UTF8String]);
 }
 
 - (PlaylistFilterGroup*) generatePlaylistFilters {
