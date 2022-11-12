@@ -58,23 +58,25 @@ The library is exported in an XML format, and is compatible with other applicati
 
 ## Command-line usage
 
-Aside from the main Music Library Exporter application, this project also includes a command-line program called **`library-generator`**.
+Aside from the main Music Library Exporter application, this project also includes a command-line program, **`music-library-exporter`**.
 
-This command-line program has all of the same functionality of the main application except for scheduling. This can be accomplished by using a launchd service. There is more information on creating a launchd service [below](#scheduling-exports-with-a-launchd-service).
+This command-line program has all of the same functionality of the main application except for scheduling. Scheduling exports with the CLI tool can be accomplished by using a launchd service. There is more information on creating a launchd service [below](#scheduling-exports-with-a-launchd-service).
 
-library-generator is *not* available in the macOS App Store verison of the application. library-generator can be downloaed from our [releases page](https://github.com/kylekingcdn/music-library-exporter/releases). We recommend copying library-generator to your `/usr/local/bin` directory.
+The `music-library-exporter` CLI tool is *not* available in the macOS App Store verison of the application.
+
+`music-library-exporter` can be downloaed from our [releases page](https://github.com/kylekingcdn/music-library-exporter/releases). We recommend copying the `music-library-exporter` CLI tool to your `/usr/local/bin` directory.
 
 ### Basic syntax
 
 ```
-library-generator <command> [options]
+music-library-exporter <command> [options]
 ```
 
-There are two main commands used by library-generator: `export` and `print`. Various options are supported by each command (more information below).
+There are two main commands used by music-library-exporter: `export` and `print`. Various options are supported by each command (more information below).
 
 ### Exporting your library
 
-Exporting can be accomplished by running `library-generator export`.
+Exporting can be accomplished by running `music-library-exporter export`.
 
 The export command accepts the following options (detailed information on each option [here](#detailed-option-information)):
 - `--read_prefs`
@@ -91,7 +93,7 @@ The export command accepts the following options (detailed information on each o
 
 ### Printing playlist information
 
-Printing can be accomplished by running `library-generator print`.
+Printing can be accomplished by running `music-library-exporter print`.
 
 This command can either be used to determine the ID of a playlist (for use with the export command) or to preview the list of playlists that will be included in your export.
 
@@ -111,9 +113,9 @@ You can override any of the application preferences by additionally specifying t
 
 ### Scheduling exports with a launchd service
 
-library-generator can be used with a launchd service to handle scheduled exports. An [example launchd service](https://github.com/kylekingcdn/music-library-exporter/blob/master/Examples/local.library-generator.plist) property list is included in the Examples directory.
+music-library-exporter can be used with a launchd service to handle scheduled exports. An [example launchd service](https://github.com/kylekingcdn/music-library-exporter/blob/master/Examples/local.music-library-exporter.plist) property list is included in the Examples directory.
 
-To install the service, copy it to `~/Library/LaunchAgents/` and run `launchctl load ~/Library/LaunchAgents/local.library-generator.plist`.
+To install the service, copy it to `~/Library/LaunchAgents/` and run `launchctl load ~/Library/LaunchAgents/local.music-library-exporter.plist`.
 
 More information on launchd services can be found [here](https://www.launchd.info). I personally recommend using the [LaunchControl](https://www.soma-zone.com/LaunchControl/) application to manage launchd services.
 
@@ -128,7 +130,7 @@ More information on launchd services can be found [here](https://www.launchd.inf
 
 > The value of this option MUST be set to the corresponding value in your Music app's Preferences.
 > It can be found under: Preferences > Files > Music Media folder location.
-> library-generator can NOT validate what is entered for this value, so it is important to ensure that it is accurate.
+> music-library-exporter can NOT validate what is entered for this value, so it is important to ensure that it is accurate.
 >
 > NOTE: This option is mandatory unless the value is being imported via `--read_prefs`.
 >
@@ -152,7 +154,7 @@ More information on launchd services can be found [here](https://www.launchd.inf
 
 > Setting this flag will flatten the generated playlist hierarchy, or in other words, folders will not be included.
 > The playlists contained in any folders are still included in the exported library, they simply appear 'top-level'.
-> For an example of what this means, compare the output of `library-generator print` to the output of `library-generator print --flatten`,
+> For an example of what this means, compare the output of `music-library-exporter print` to the output of `music-library-exporter print --flatten`,
 > (Note: there will only be an observable difference if you are managing your music library's playlists with folders).
 
 **`--exclude_internal, -n`**
@@ -163,7 +165,7 @@ More information on launchd services can be found [here](https://www.launchd.inf
 **`--exclude_ids <playlist_ids>, -e <playlist_ids>`**
 
 > A comma separated list of playlist ids that you would like to exclude from the generated library.
-> Playlist IDs can be determined by running the print command: `library-generator print`
+> Playlist IDs can be determined by running the print command: `music-library-exporter print`
 >
 > Example:
 >
@@ -179,7 +181,7 @@ More information on launchd services can be found [here](https://www.launchd.inf
 > `{PLAYLIST_ID}:{SORT_COLUMN}-{SORT_ORDER}`
 >
 > Where:
-> - `PLAYLIST_ID`  is the persistent ID of the playlist. Playlist IDs can be found with: `library-generator print`
+> - `PLAYLIST_ID`  is the persistent ID of the playlist. Playlist IDs can be found with: `music-library-exporter print`
 > - `SORT_COLUMN`  is one of the following:  `title`, `artist`, `albumartist`, `dateadded`
 > - `SORT_ORDER`   is either `a` (for ascending) or `d` (for descending)
 >
