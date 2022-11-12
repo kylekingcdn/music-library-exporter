@@ -352,7 +352,7 @@
 				27A2BFBE25C0851B00AAD73C /* common */,
 				27EF9A6525BF23910051CE7B /* Music Library Exporter */,
 				27A2C05625C0934A00AAD73C /* Music Library Exporter Helper */,
-				27EF9A3D25BF20C60051CE7B /* library-generator */,
+				27EF9A3D25BF20C60051CE7B /* music-library-exporter */,
 				27EF9A5E25BF21FE0051CE7B /* 3rd */,
 				2705445025B66B7A00FE6D65 /* Frameworks */,
 				2705444625B66A0A00FE6D65 /* Products */,
@@ -547,7 +547,7 @@
 			path = Playlist;
 			sourceTree = "<group>";
 		};
-		27EF9A3D25BF20C60051CE7B /* library-generator */ = {
+		27EF9A3D25BF20C60051CE7B /* music-library-exporter */ = {
 			isa = PBXGroup;
 			children = (
 				2705444825B66A0A00FE6D65 /* main.m */,
@@ -558,7 +558,7 @@
 				2739C5BC25DE29A400C57218 /* CLIManager.h */,
 				2739C5BD25DE29A400C57218 /* CLIManager.m */,
 			);
-			path = "library-generator";
+			path = "music-library-exporter";
 			sourceTree = "<group>";
 		};
 		27EF9A5E25BF21FE0051CE7B /* 3rd */ = {
