@@ -11,7 +11,7 @@
 
 #import "Logger.h"
 #import "Utils.h"
-#import "PlaylistNode.h"
+#import "PlaylistTreeNode.h"
 #import "PlaylistTree.h"
 #import "ExportConfiguration.h"
 #import "CheckBoxTableCellView.h"
@@ -94,7 +94,7 @@
   }
 }
 
-+ (nullable NSString*)cellTitleForColumn:(TableColumnType)column andNode:(PlaylistNode*)node {
++ (nullable NSString*)cellTitleForColumn:(TableColumnType)column andNode:(PlaylistTreeNode*)node {
 
   if (node == nil) {
     return nil;
@@ -198,7 +198,7 @@
   }
 }
 
-- (BOOL)isNodeExcluded:(nullable PlaylistNode*)node {
+- (BOOL)isNodeExcluded:(nullable PlaylistTreeNode*)node {
 
   if (node == nil || node.playlistPersistentHexID == nil) {
     return NO;
@@ -215,30 +215,30 @@
   return NO;
 }
 
-- (BOOL)isNodeParentExcluded:(nullable PlaylistNode*)node {
+- (BOOL)isNodeParentExcluded:(nullable PlaylistTreeNode*)node {
 
   if (node == nil || node.playlistParentPersistentHexID == nil) {
     return NO;
   }
 
-  PlaylistNode* parentNode = [self.outlineView parentForItem:node];
+  PlaylistTreeNode* parentNode = [self.outlineView parentForItem:node];
 
   return parentNode != nil && [self isNodeExcluded:parentNode];
 }
 
-- (nullable PlaylistNode*)playlistNodeForCellView:(NSView*)cellView {
+- (nullable PlaylistTreeNode*)playlistNodeForCellView:(NSView*)cellView {
 
   NSInteger row = [_outlineView rowForView:cellView];
   if (row == -1) {
     return nil;
   }
 
-  PlaylistNode* node = [_outlineView itemAtRow:row];
+  PlaylistTreeNode* node = [_outlineView itemAtRow:row];
 
   return node;
 }
 
-- (void)updateSortingButton:(NSPopUpButton*)button forNode:(PlaylistNode*)node {
+- (void)updateSortingButton:(NSPopUpButton*)button forNode:(PlaylistTreeNode*)node {
 
   if (node == nil) {
     return;
@@ -334,7 +334,7 @@
 
 - (IBAction)setPlaylistExcludedForCellView:(id)sender {
 
-  PlaylistNode* node = [self playlistNodeForCellView:sender];
+  PlaylistTreeNode* node = [self playlistNodeForCellView:sender];
   if (node == nil) {
     return;
   }
@@ -348,7 +348,7 @@
 
 - (IBAction)setPlaylistSorting:(id)sender {
 
-  PlaylistNode* node = [self playlistNodeForCellView:sender];
+  PlaylistTreeNode* node = [self playlistNodeForCellView:sender];
   if (node == nil) {
     MLE_Log_Info(@"PlaylistsViewController [setPlaylistSorting] error - failed to fetch playlist node");
     return;
@@ -418,14 +418,14 @@
   }
 
   // use rootNode if item is nil
-  PlaylistNode* node = item ? item : _playlistTree.rootNode;
+  PlaylistTreeNode* node = item ? item : _playlistTree.rootNode;
 
   return node.children.count;
 }
 
 - (id)outlineView:(NSOutlineView*)outlineView child:(NSInteger)index ofItem:(nullable id)item {
 
-  PlaylistNode* node = item ? item : _playlistTree.rootNode;
+  PlaylistTreeNode* node = item ? item : _playlistTree.rootNode;
 
   return [node.children objectAtIndex:index];
 }
@@ -436,7 +436,7 @@
     return NO;
   }
 
-  PlaylistNode* node = item ? item : _playlistTree.rootNode;
+  PlaylistTreeNode* node = item ? item : _playlistTree.rootNode;
 
   return node.children.count > 0;
 }
@@ -446,7 +446,7 @@
 
 - (NSView *)outlineView:(NSOutlineView*)outlineView viewForTableColumn:(NSTableColumn*)tableColumn item:(id)item {
 
-  PlaylistNode* node = item;
+  PlaylistTreeNode* node = item;
   if (node == nil) {
     return nil;
   }

@@ -13,7 +13,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class ExportConfiguration;
-@class PlaylistNode;
+@class PlaylistTreeNode;
 
 
 @interface PlaylistsViewController : NSViewController <NSOutlineViewDelegate, NSOutlineViewDataSource>
@@ -37,7 +37,7 @@ typedef NS_ENUM(NSInteger, TableColumnType) {
 + (TableColumnType)columnWithIdentifier:(NSString*)columnIdentifier;
 
 + (nullable NSString*)cellViewIdentifierForColumn:(TableColumnType)column;
-+ (nullable NSString*)cellTitleForColumn:(TableColumnType)column andNode:(PlaylistNode*)node;
++ (nullable NSString*)cellTitleForColumn:(TableColumnType)column andNode:(PlaylistTreeNode*)node;
 
 + (PlaylistSortColumnType)playlistSortColumnForMenuItemTag:(NSInteger)tag;
 + (PlaylistSortOrderType)playlistSortOrderForMenuItemTag:(NSInteger)tag;
@@ -45,12 +45,12 @@ typedef NS_ENUM(NSInteger, TableColumnType) {
 + (NSInteger)menuItemTagForPlaylistSortColumn:(PlaylistSortColumnType)sortColumn;
 + (NSInteger)menuItemTagForPlaylistSortOrder:(PlaylistSortOrderType)sortOrder;
 
-- (BOOL)isNodeParentExcluded:(nullable PlaylistNode*)node;
-- (BOOL)isNodeExcluded:(nullable PlaylistNode*)node;
+- (BOOL)isNodeParentExcluded:(nullable PlaylistTreeNode*)node;
+- (BOOL)isNodeExcluded:(nullable PlaylistTreeNode*)node;
 
-- (nullable PlaylistNode*)playlistNodeForCellView:(NSView*)cellView;
+- (nullable PlaylistTreeNode*)playlistNodeForCellView:(NSView*)cellView;
 
-- (void)updateSortingButton:(NSPopUpButton*)button forNode:(PlaylistNode*)node;
+- (void)updateSortingButton:(NSPopUpButton*)button forNode:(PlaylistTreeNode*)node;
 
 
 #pragma mark - Mutators

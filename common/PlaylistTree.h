@@ -8,7 +8,7 @@
 #import <Foundation/Foundation.h>
 
 @class ITLibPlaylist;
-@class PlaylistNode;
+@class PlaylistTreeNode;
 
 
 NS_ASSUME_NONNULL_BEGIN
@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Properties
 
-@property (readonly, nullable) PlaylistNode* rootNode;
+@property (readonly, nullable) PlaylistTreeNode* rootNode;
 @property BOOL flattened;
 
 

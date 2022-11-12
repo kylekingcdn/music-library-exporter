@@ -1,16 +1,16 @@
 //
-//  PlaylistNode.m
+//  PlaylistTreeNode.m
 //  Music Library Exporter
 //
 //  Created by Kyle King on 2021-02-08.
 //
 
-#import "PlaylistNode.h"
+#import "PlaylistTreeNode.h"
 
 #import "Utils.h"
 
 
-@implementation PlaylistNode
+@implementation PlaylistTreeNode
 
 #pragma mark - Initializers
 
@@ -30,9 +30,9 @@
   return self;
 }
 
-+ (PlaylistNode*)nodeWithPlaylist:(nullable ITLibPlaylist*)playlist andChildren:(NSArray<PlaylistNode*>*)childNodes {
++ (PlaylistTreeNode*)nodeWithPlaylist:(nullable ITLibPlaylist*)playlist andChildren:(NSArray<PlaylistTreeNode*>*)childNodes {
 
-  PlaylistNode* node = [[PlaylistNode alloc] init];
+  PlaylistTreeNode* node = [[PlaylistTreeNode alloc] init];
 
   [node setChildren:childNodes];
 

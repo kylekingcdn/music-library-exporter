@@ -27,7 +27,7 @@
 		27642A6129111EF1006FEF7B /* LibrarySerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 27642A532911194E006FEF7B /* LibrarySerializer.m */; };
 		27642A64291129D2006FEF7B /* PathMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 27642A63291129D2006FEF7B /* PathMapper.m */; };
 		276442A225BD3F7600EE217C /* OrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 276442A125BD3F7600EE217C /* OrderedDictionary.m */; };
-		276B1AD125D40BB3002D7289 /* PlaylistNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B1ACF25D40BB3002D7289 /* PlaylistNode.m */; };
+		276B1AD125D40BB3002D7289 /* PlaylistTreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B1ACF25D40BB3002D7289 /* PlaylistTreeNode.m */; };
 		276B1AD825D415A2002D7289 /* CheckBoxTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B1AD725D415A2002D7289 /* CheckBoxTableCellView.m */; };
 		276B1AE125D42453002D7289 /* PopupButtonTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B1ADF25D42452002D7289 /* PopupButtonTableCellView.m */; };
 		2783C74925C4FAF2002ED7B7 /* ConfigurationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2783C74825C4FAF2002ED7B7 /* ConfigurationView.xib */; };
@@ -37,9 +37,9 @@
 		2783C76925C518CC002ED7B7 /* ExportConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 2783C76625C518CC002ED7B7 /* ExportConfiguration.m */; };
 		27934B5925CB13D500488944 /* ExportScheduler.m in Sources */ = {isa = PBXBuildFile; fileRef = 273B522925CA5F3E00421B14 /* ExportScheduler.m */; };
 		279E326025E07943008F8C56 /* PlaylistTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 279E325725E077B7008F8C56 /* PlaylistTree.m */; };
-		279E326425E0795B008F8C56 /* PlaylistNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B1ACF25D40BB3002D7289 /* PlaylistNode.m */; };
+		279E326425E0795B008F8C56 /* PlaylistTreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B1ACF25D40BB3002D7289 /* PlaylistTreeNode.m */; };
 		279E326825E0795D008F8C56 /* PlaylistTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 279E325725E077B7008F8C56 /* PlaylistTree.m */; };
-		279E326C25E07971008F8C56 /* PlaylistNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B1ACF25D40BB3002D7289 /* PlaylistNode.m */; };
+		279E326C25E07971008F8C56 /* PlaylistTreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B1ACF25D40BB3002D7289 /* PlaylistTreeNode.m */; };
 		279E327025E07976008F8C56 /* PlaylistTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 279E325725E077B7008F8C56 /* PlaylistTree.m */; };
 		27A2BFC325C085E400AAD73C /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C52A7325B69C4B00D829F3 /* Utils.m */; };
 		27A2BFC625C085E400AAD73C /* OrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 276442A125BD3F7600EE217C /* OrderedDictionary.m */; };
@@ -242,8 +242,8 @@
 		27642A63291129D2006FEF7B /* PathMapper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PathMapper.m; sourceTree = "<group>"; };
 		276442A025BD3F7600EE217C /* OrderedDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderedDictionary.h; sourceTree = "<group>"; };
 		276442A125BD3F7600EE217C /* OrderedDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderedDictionary.m; sourceTree = "<group>"; };
-		276B1ACF25D40BB3002D7289 /* PlaylistNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaylistNode.m; sourceTree = "<group>"; };
-		276B1AD025D40BB3002D7289 /* PlaylistNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaylistNode.h; sourceTree = "<group>"; };
+		276B1ACF25D40BB3002D7289 /* PlaylistTreeNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaylistTreeNode.m; sourceTree = "<group>"; };
+		276B1AD025D40BB3002D7289 /* PlaylistTreeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaylistTreeNode.h; sourceTree = "<group>"; };
 		276B1AD625D415A2002D7289 /* CheckBoxTableCellView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckBoxTableCellView.h; sourceTree = "<group>"; };
 		276B1AD725D415A2002D7289 /* CheckBoxTableCellView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CheckBoxTableCellView.m; sourceTree = "<group>"; };
 		276B1ADF25D42452002D7289 /* PopupButtonTableCellView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PopupButtonTableCellView.m; sourceTree = "<group>"; };
@@ -478,8 +478,8 @@
 				27F5865325E4656D00872731 /* SentryHandler.m */,
 				279E325625E077B7008F8C56 /* PlaylistTree.h */,
 				279E325725E077B7008F8C56 /* PlaylistTree.m */,
-				276B1AD025D40BB3002D7289 /* PlaylistNode.h */,
-				276B1ACF25D40BB3002D7289 /* PlaylistNode.m */,
+				276B1AD025D40BB3002D7289 /* PlaylistTreeNode.h */,
+				276B1ACF25D40BB3002D7289 /* PlaylistTreeNode.m */,
 				2783C76525C518CC002ED7B7 /* ExportConfiguration.h */,
 				2783C76625C518CC002ED7B7 /* ExportConfiguration.m */,
 				27EC7C6125C8C3E500996E9E /* UserDefaultsExportConfiguration.h */,
@@ -821,7 +821,7 @@
 				276442A225BD3F7600EE217C /* OrderedDictionary.m in Sources */,
 				2783C76925C518CC002ED7B7 /* ExportConfiguration.m in Sources */,
 				27CAC21E29100503008D4313 /* PlaylistFilterGroup.m in Sources */,
-				279E326C25E07971008F8C56 /* PlaylistNode.m in Sources */,
+				279E326C25E07971008F8C56 /* PlaylistTreeNode.m in Sources */,
 				279E327025E07976008F8C56 /* PlaylistTree.m in Sources */,
 				27B54AA429126B2900BEC366 /* LibrarySerializer.m in Sources */,
 				271DD27425DBA246009BB292 /* CLIDefines.m in Sources */,
@@ -848,7 +848,7 @@
 				2783C76825C518CC002ED7B7 /* ExportConfiguration.m in Sources */,
 				27B54AA029126B2200BEC366 /* PathMapper.m in Sources */,
 				27B54AAB29126B2900BEC366 /* ExportManager.m in Sources */,
-				279E326425E0795B008F8C56 /* PlaylistNode.m in Sources */,
+				279E326425E0795B008F8C56 /* PlaylistTreeNode.m in Sources */,
 				279E326825E0795D008F8C56 /* PlaylistTree.m in Sources */,
 				27F5866025E4661300872731 /* SentryHandler.m in Sources */,
 				27CAC22429100507008D4313 /* MediaItemFilterGroup.m in Sources */,
@@ -884,7 +884,7 @@
 				27642A64291129D2006FEF7B /* PathMapper.m in Sources */,
 				2783C76725C518CC002ED7B7 /* ExportConfiguration.m in Sources */,
 				27642A6129111EF1006FEF7B /* LibrarySerializer.m in Sources */,
-				276B1AD125D40BB3002D7289 /* PlaylistNode.m in Sources */,
+				276B1AD125D40BB3002D7289 /* PlaylistTreeNode.m in Sources */,
 				279E326025E07943008F8C56 /* PlaylistTree.m in Sources */,
 				27B54A98291251D200BEC366 /* ExportManager.m in Sources */,
 				27F5865C25E4660D00872731 /* SentryHandler.m in Sources */,

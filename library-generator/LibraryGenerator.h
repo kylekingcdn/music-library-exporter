@@ -11,7 +11,7 @@
 #import "ExportManagerDelegate.h"
 
 @class ExportConfiguration;
-@class PlaylistNode;
+@class PlaylistTreeNode;
 
 
 NS_ASSUME_NONNULL_BEGIN

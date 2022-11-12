@@ -1,5 +1,5 @@
 //
-//  PlaylistNode.h
+//  PlaylistTreeNode.h
 //  Music Library Exporter
 //
 //  Created by Kyle King on 2021-02-08.
@@ -11,12 +11,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PlaylistNode : NSObject
+@interface PlaylistTreeNode : NSObject
 
 
 #pragma mark - Properties
 
-@property NSArray<PlaylistNode*>* children;
+@property NSArray<PlaylistTreeNode*>* children;
 
 @property (nullable, readonly, nonatomic, copy) NSString* playlistPersistentHexID;
 @property (nullable, readonly, nonatomic, copy) NSString* playlistParentPersistentHexID;
@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)init;
 
-+ (PlaylistNode*)nodeWithPlaylist:(nullable ITLibPlaylist*)playlist andChildren:(NSArray<PlaylistNode*>*)childNodes;
++ (PlaylistTreeNode*)nodeWithPlaylist:(nullable ITLibPlaylist*)playlist andChildren:(NSArray<PlaylistTreeNode*>*)childNodes;
 
 
 #pragma mark - Accessors

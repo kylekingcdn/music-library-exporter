@@ -9,7 +9,7 @@
 
 #import <iTunesLibrary/ITLibPlaylist.h>
 
-#import "PlaylistNode.h"
+#import "PlaylistTreeNode.h"
 
 @interface PlaylistTree ()
 
@@ -21,8 +21,8 @@
 
 #pragma mark - Private Mutators
 
-- (PlaylistNode*)createRootNode;
-- (PlaylistNode*)createNodeForPlaylist:(ITLibPlaylist*)playlist;
+- (PlaylistTreeNode*)createRootNode;
+- (PlaylistTreeNode*)createNodeForPlaylist:(ITLibPlaylist*)playlist;
 
 @end
 
@@ -104,15 +104,15 @@
   _filteredPlaylists = [NSArray array];
 }
 
-- (PlaylistNode*)createRootNode {
+- (PlaylistTreeNode*)createRootNode {
 
-  NSMutableArray<PlaylistNode*>* childNodes = [NSMutableArray array];
+  NSMutableArray<PlaylistTreeNode*>* childNodes = [NSMutableArray array];
 
   // folders/hierarchy is disabled - all playlists are children of root and none have their own children
   if (_flattened) {
 
     for (ITLibPlaylist* childPlaylist in _filteredPlaylists) {
-      PlaylistNode* childNode = [PlaylistNode nodeWithPlaylist:childPlaylist andChildren:[NSArray array]];
+      PlaylistTreeNode* childNode = [PlaylistTreeNode nodeWithPlaylist:childPlaylist andChildren:[NSArray array]];
       [childNodes addObject:childNode];
     }
   }
@@ -123,27 +123,27 @@
 
     // recursively generate child nodes for playlist
     for (ITLibPlaylist* childPlaylist in childPlaylists) {
-      PlaylistNode* childNode = [self createNodeForPlaylist:childPlaylist];
+      PlaylistTreeNode* childNode = [self createNodeForPlaylist:childPlaylist];
       [childNodes addObject:childNode];
     }
   }
 
-  return [PlaylistNode nodeWithPlaylist:nil andChildren:childNodes];
+  return [PlaylistTreeNode nodeWithPlaylist:nil andChildren:childNodes];
 }
 
-- (PlaylistNode*)createNodeForPlaylist:(ITLibPlaylist*)playlist {
+- (PlaylistTreeNode*)createNodeForPlaylist:(ITLibPlaylist*)playlist {
 
-  NSMutableArray<PlaylistNode*>* childNodes = [NSMutableArray array];
+  NSMutableArray<PlaylistTreeNode*>* childNodes = [NSMutableArray array];
 
   NSArray<ITLibPlaylist*>* childPlaylists = [self childrenForPlaylist:playlist];
 
   // recursively generate child nodes for playlist
   for (ITLibPlaylist* childPlaylist in childPlaylists) {
-    PlaylistNode* childNode = [self createNodeForPlaylist:childPlaylist];
+    PlaylistTreeNode* childNode = [self createNodeForPlaylist:childPlaylist];
     [childNodes addObject:childNode];
   }
 
-  return [PlaylistNode nodeWithPlaylist:playlist andChildren:childNodes];
+  return [PlaylistTreeNode nodeWithPlaylist:playlist andChildren:childNodes];
 }
 
 @end
