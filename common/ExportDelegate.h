@@ -23,7 +23,6 @@ NS_ASSUME_NONNULL_BEGIN
 extern NSErrorDomain const __MLE_ErrorDomain_ExportDelegate;
 
 typedef NS_ENUM(NSInteger, ExportDelegateErrorCode) {
-  ExportDelegateErrorUknown,
   ExportDelegateErrorMusicMediaLocationUnset,
   ExportDelegateErrorOutputDirectoryInvalid,
   ExportDelegateErrorRemappingInvalid,
