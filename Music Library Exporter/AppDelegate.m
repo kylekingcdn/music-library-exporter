@@ -14,7 +14,6 @@
 #import "Utils.h"
 #import "UserDefaultsExportConfiguration.h"
 #import "ScheduleConfiguration.h"
-#import "ExportDelegate.h"
 #import "HelperDelegate.h"
 #import "ConfigurationViewController.h"
 #import "PlaylistsViewController.h"
@@ -39,7 +38,6 @@
   HelperDelegate* _helperDelegate;
 
   UserDefaultsExportConfiguration* _exportConfiguration;
-  ExportDelegate* _exportDelegate;
 
   ScheduleConfiguration* _scheduleConfiguration;
 
@@ -87,12 +85,9 @@
     return;
   }
 
-  _exportDelegate = [[ExportDelegate alloc] initWithLibrary:_library];
-
   _helperDelegate = [[HelperDelegate alloc] init];
 
-  _configurationViewController = [[ConfigurationViewController alloc] initWithExportDelegate:_exportDelegate
-                                                                          forHelperDelegate:_helperDelegate];
+  _configurationViewController = [[ConfigurationViewController alloc] initWithHelperDelegate:_helperDelegate];
   // add configurationView to window contentview
   [_configurationViewController.view setFrame:_window.contentView.frame];
   [_window.contentView addSubview:_configurationViewController.view];
