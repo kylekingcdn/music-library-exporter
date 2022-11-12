@@ -491,9 +491,7 @@
 				273B522825CA5F3E00421B14 /* ExportScheduler.h */,
 				273B522925CA5F3E00421B14 /* ExportScheduler.m */,
 				27A2C05C25C0934A00AAD73C /* MainMenu.xib */,
-				27F253E925D87F7700243606 /* DirectoryPermissionsWindowController.h */,
-				27F253EA25D87F7700243606 /* DirectoryPermissionsWindowController.m */,
-				27F253E425D8710400243606 /* DirectoryPermissionsWindow.xib */,
+				27FA62B129205530001D0095 /* DirectoryPermissionsWindow */,
 				27A2C06C25C093B400AAD73C /* Supporting Files */,
 			);
 			path = "Music Library Exporter Helper";
@@ -581,10 +579,10 @@
 				27EF9A6725BF23910051CE7B /* AppDelegate.m */,
 				27C0A10225CB0BF100EDDE22 /* HelperAppManager.h */,
 				27C0A10325CB0BF100EDDE22 /* HelperAppManager.m */,
+				27EF9A6B25BF23920051CE7B /* MainMenu.xib */,
 				27FA62AF292054C3001D0095 /* ConfigurationView */,
 				27FA62AD2920549A001D0095 /* PlaylistsView */,
 				27FA62B0292054E6001D0095 /* PreferencesWindow */,
-				27EF9A6B25BF23920051CE7B /* MainMenu.xib */,
 				27EF9A8225BF24010051CE7B /* Supporting Files */,
 			);
 			path = "Music Library Exporter";
@@ -659,6 +657,16 @@
 				27DBB9A825E6E746003BE889 /* PreferencesWindow.xib */,
 			);
 			path = PreferencesWindow;
+			sourceTree = "<group>";
+		};
+		27FA62B129205530001D0095 /* DirectoryPermissionsWindow */ = {
+			isa = PBXGroup;
+			children = (
+				27F253E925D87F7700243606 /* DirectoryPermissionsWindowController.h */,
+				27F253EA25D87F7700243606 /* DirectoryPermissionsWindowController.m */,
+				27F253E425D8710400243606 /* DirectoryPermissionsWindow.xib */,
+			);
+			path = DirectoryPermissionsWindow;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
