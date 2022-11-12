@@ -1,11 +1,11 @@
 //
-//  AppDelegate.m
+//  HelperAppDelegate.m
 //  Music Library Exporter Helper
 //
 //  Created by Kyle King on 2021-01-26.
 //
 
-#import "AppDelegate.h"
+#import "HelperAppDelegate.h"
 
 #import <iTunesLibrary/ITLibrary.h>
 
@@ -17,7 +17,7 @@
 #import "SentryHandler.h"
 #endif
 
-@implementation AppDelegate {
+@implementation HelperAppDelegate {
 
   UserDefaultsExportConfiguration* _exportConfiguration;
 
