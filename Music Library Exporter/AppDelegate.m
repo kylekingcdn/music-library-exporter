@@ -8,7 +8,6 @@
 #import "AppDelegate.h"
 
 #import <ServiceManagement/ServiceManagement.h>
-#import <iTunesLibrary/ITLibrary.h>
 
 #import "Logger.h"
 #import "Utils.h"
@@ -32,8 +31,6 @@
 @implementation AppDelegate {
 
   NSUserDefaults* _groupDefaults;
-
-  ITLibrary* _library;
 
   HelperDelegate* _helperDelegate;
 
