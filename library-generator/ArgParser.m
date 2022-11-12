@@ -21,6 +21,8 @@
   XPMArgumentPackage* _package;
 }
 
+NSErrorDomain const __MLE_ErrorDomain_ArgParser = @"com.kylekingcdn.MusicLibraryExporter.ArgParserErrorDomain";
+
 
 #pragma mark - Initializers
 

@@ -10,10 +10,6 @@
 
 @implementation CLIDefines
 
-
-NSErrorDomain const __MLE_ErrorDomain_ArgParser = @"com.kylekingcdn.MusicLibraryExporter.ArgParserErrorDomain";
-
-
 + (NSArray<NSNumber*>*)optionsForCommand:(LGCommandKind)command {
 
   switch (command) {

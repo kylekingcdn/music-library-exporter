@@ -12,21 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CLIDefines : NSObject
 
-
-extern NSErrorDomain const __MLE_ErrorDomain_ArgParser;
-
-typedef NS_ENUM(NSInteger, ArgParserErrorCode) {
-  ArgParserErrorUknown,
-  ArgParserErrorInvalidCommand,
-  ArgParserErrorInvalidOption,
-  ArgParserErrorMissingRequiredOption,
-  ArgParserErrorMalformedPlaylistIdOption,
-  ArgParserErrorMalformedSortingOptionFormat,
-  ArgParserErrorUnknownSortColumn,
-  ArgParserErrorUnknownSortOrder,
-  ArgParserErrorAppPrefsPropertyListInvalid,
-};
-
 typedef NS_ENUM(NSInteger, LGCommandKind) {
   LGCommandKindHelp,
   LGCommandKindVersion,
