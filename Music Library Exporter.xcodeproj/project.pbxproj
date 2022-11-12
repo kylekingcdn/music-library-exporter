@@ -465,12 +465,6 @@
 		27A2BFBE25C0851B00AAD73C /* common */ = {
 			isa = PBXGroup;
 			children = (
-				27FA62A4292052B3001D0095 /* Configuration */,
-				27FA62A5292052D0001D0095 /* PlaylistTree */,
-				27CAC1F5290FD113008D4313 /* Filter */,
-				27642A46291117A4006FEF7B /* Serializer */,
-				27642A572911199A006FEF7B /* Sorter */,
-				27642A5C29111A33006FEF7B /* Export */,
 				27A4496725DE026B00C770E8 /* Logger.h */,
 				273B522E25CA666000421B14 /* Defines.h */,
 				273B522F25CA666000421B14 /* Defines.m */,
@@ -478,6 +472,12 @@
 				27C52A7325B69C4B00D829F3 /* Utils.m */,
 				27F5865225E4656D00872731 /* SentryHandler.h */,
 				27F5865325E4656D00872731 /* SentryHandler.m */,
+				27FA62A4292052B3001D0095 /* Configuration */,
+				27FA62A5292052D0001D0095 /* PlaylistTree */,
+				27CAC1F5290FD113008D4313 /* Filter */,
+				27642A46291117A4006FEF7B /* Serializer */,
+				27642A572911199A006FEF7B /* Sorter */,
+				27642A5C29111A33006FEF7B /* Export */,
 			);
 			path = common;
 			sourceTree = "<group>";
