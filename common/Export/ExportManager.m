@@ -84,18 +84,18 @@
     return NO;
   }
 
-  // filters
+  // configure filters
   PlaylistFilterGroup* playlistFilterGroup = [self generatePlaylistFilters];
   MediaItemFilterGroup* itemFilterGroup = [[MediaItemFilterGroup alloc] initWithBaseFilters];
 
-  // directory mapping
+  // configure directory mapping
   PathMapper* pathMapper = [[PathMapper alloc] init];
   if (_configuration.remapRootDirectory) {
     [pathMapper setSearchString:_configuration.remapRootDirectoryOriginalPath];
     [pathMapper setReplaceString:_configuration.remapRootDirectoryMappedPath];
   }
 
-  // configure serializers
+  // configure item serializers
   MediaItemSerializer* itemSerializer = [[MediaItemSerializer alloc] initWithEntityRepository:_entityRepository];
   [itemSerializer setDelegate:self];
   [itemSerializer setItemFilters:itemFilterGroup];
@@ -111,8 +111,13 @@
   [librarySerializer setPersistentID:_configuration.generatedPersistentLibraryId];
   [librarySerializer setMusicLibraryDir:_configuration.musicLibraryPath];
 
+  // generate items dict
   OrderedDictionary* itemsDict = [itemSerializer serializeItems:library.allMediaItems];
+
+  // generate playlists dicts
   NSArray<OrderedDictionary*>* playlistsDictArr = [playlistSerializer serializePlaylists:library.allPlaylists];
+
+  // generate library dict
   OrderedDictionary* libraryDict = [librarySerializer serializeLibrary:library withItems:itemsDict andPlaylists:playlistsDictArr];
 
   // write library
