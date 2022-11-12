@@ -35,7 +35,7 @@
 		2783C76725C518CC002ED7B7 /* ExportConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 2783C76625C518CC002ED7B7 /* ExportConfiguration.m */; };
 		2783C76825C518CC002ED7B7 /* ExportConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 2783C76625C518CC002ED7B7 /* ExportConfiguration.m */; };
 		2783C76925C518CC002ED7B7 /* ExportConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 2783C76625C518CC002ED7B7 /* ExportConfiguration.m */; };
-		27934B5925CB13D500488944 /* ScheduleDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 273B522925CA5F3E00421B14 /* ScheduleDelegate.m */; };
+		27934B5925CB13D500488944 /* ExportScheduler.m in Sources */ = {isa = PBXBuildFile; fileRef = 273B522925CA5F3E00421B14 /* ExportScheduler.m */; };
 		279E326025E07943008F8C56 /* PlaylistTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 279E325725E077B7008F8C56 /* PlaylistTree.m */; };
 		279E326425E0795B008F8C56 /* PlaylistNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B1ACF25D40BB3002D7289 /* PlaylistNode.m */; };
 		279E326825E0795D008F8C56 /* PlaylistTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 279E325725E077B7008F8C56 /* PlaylistTree.m */; };
@@ -212,8 +212,8 @@
 		272D6A0E25D1B0F7005023CA /* HourNumberFormatter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HourNumberFormatter.m; sourceTree = "<group>"; };
 		2739C5BC25DE29A400C57218 /* LibraryGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LibraryGenerator.h; sourceTree = "<group>"; };
 		2739C5BD25DE29A400C57218 /* LibraryGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LibraryGenerator.m; sourceTree = "<group>"; };
-		273B522825CA5F3E00421B14 /* ScheduleDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScheduleDelegate.h; path = "Music Library Exporter Helper/ScheduleDelegate.h"; sourceTree = SOURCE_ROOT; };
-		273B522925CA5F3E00421B14 /* ScheduleDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ScheduleDelegate.m; path = "Music Library Exporter Helper/ScheduleDelegate.m"; sourceTree = SOURCE_ROOT; };
+		273B522825CA5F3E00421B14 /* ExportScheduler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ExportScheduler.h; path = "Music Library Exporter Helper/ExportScheduler.h"; sourceTree = SOURCE_ROOT; };
+		273B522925CA5F3E00421B14 /* ExportScheduler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ExportScheduler.m; path = "Music Library Exporter Helper/ExportScheduler.m"; sourceTree = SOURCE_ROOT; };
 		273B522E25CA666000421B14 /* Defines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Defines.h; sourceTree = "<group>"; };
 		273B522F25CA666000421B14 /* Defines.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Defines.m; sourceTree = "<group>"; };
 		2749611525CE2A1700B98E11 /* Music Library Exporter Helper.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Music Library Exporter Helper.xcconfig"; sourceTree = "<group>"; };
@@ -496,8 +496,8 @@
 				27A2C06025C0934B00AAD73C /* main.m */,
 				27A2C05725C0934A00AAD73C /* HelperAppDelegate.h */,
 				27A2C05825C0934A00AAD73C /* HelperAppDelegate.m */,
-				273B522825CA5F3E00421B14 /* ScheduleDelegate.h */,
-				273B522925CA5F3E00421B14 /* ScheduleDelegate.m */,
+				273B522825CA5F3E00421B14 /* ExportScheduler.h */,
+				273B522925CA5F3E00421B14 /* ExportScheduler.m */,
 				27A2C05C25C0934A00AAD73C /* MainMenu.xib */,
 				27F253E925D87F7700243606 /* DirectoryPermissionsWindowController.h */,
 				27F253EA25D87F7700243606 /* DirectoryPermissionsWindowController.m */,
@@ -861,7 +861,7 @@
 				27B54AAC29126B2900BEC366 /* MediaItemSerializer.m in Sources */,
 				27CAC21D29100502008D4313 /* PlaylistKindFilter.m in Sources */,
 				27CAC23329101576008D4313 /* PlaylistParentIDFilter.m in Sources */,
-				27934B5925CB13D500488944 /* ScheduleDelegate.m in Sources */,
+				27934B5925CB13D500488944 /* ExportScheduler.m in Sources */,
 				27A2C05925C0934A00AAD73C /* HelperAppDelegate.m in Sources */,
 				27B54AAA29126B2900BEC366 /* MediaItemSorter.m in Sources */,
 				27CAC21A29100502008D4313 /* PlaylistDistinguishedKindFilter.m in Sources */,

@@ -12,7 +12,7 @@
 #import "Logger.h"
 #import "UserDefaultsExportConfiguration.h"
 #import "ScheduleConfiguration.h"
-#import "ScheduleDelegate.h"
+#import "ExportScheduler.h"
 #if SENTRY_ENABLED == 1
 #import "SentryHandler.h"
 #endif
@@ -22,7 +22,7 @@
   UserDefaultsExportConfiguration* _exportConfiguration;
 
   ScheduleConfiguration* _scheduleConfiguration;
-  ScheduleDelegate* _scheduleDelegate;
+  ExportScheduler* _scheduleDelegate;
 }
 
 
@@ -48,7 +48,7 @@
   [ScheduleConfiguration initSharedConfig:_scheduleConfiguration];
 
   // init scheduleDelegate
-  _scheduleDelegate = [[ScheduleDelegate alloc] init];
+  _scheduleDelegate = [[ExportScheduler alloc] init];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {

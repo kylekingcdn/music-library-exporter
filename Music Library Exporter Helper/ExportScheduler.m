@@ -1,11 +1,11 @@
 //
-//  ScheduleDelegate.m
+//  ExportScheduler.m
 //  Music Library Exporter
 //
 //  Created by Kyle King on 2021-02-02.
 //
 
-#import "ScheduleDelegate.h"
+#import "ExportScheduler.h"
 
 #import <Cocoa/Cocoa.h>
 #import <IOKit/ps/IOPowerSources.h>
@@ -18,7 +18,7 @@
 #import "ScheduleConfiguration.h"
 #import "DirectoryPermissionsWindowController.h"
 
-@implementation ScheduleDelegate {
+@implementation ExportScheduler {
 
   NSUserDefaults* _groupDefaults;
 
@@ -65,7 +65,7 @@
     }
 
     NSTimeInterval intervalSinceLastExport = 0 - [lastExportDate timeIntervalSinceNow];
-    MLE_Log_Info(@"ScheduleDelegate [determineNextExportDate] %fs since last export", intervalSinceLastExport);
+    MLE_Log_Info(@"ExportScheduler [determineNextExportDate] %fs since last export", intervalSinceLastExport);
 
     // overdue, schedule 60s from now
     if (intervalSinceLastExport > ScheduleConfiguration.sharedConfig.scheduleInterval) {
@@ -85,7 +85,7 @@
 
 + (BOOL)isSystemRunningOnBattery {
 
-  NSString* powerSource = [ScheduleDelegate getCurrentPowerSource];
+  NSString* powerSource = [ExportScheduler getCurrentPowerSource];
 
   //BOOL isSystemRunningOnAc = [powerSource isEqualToString:@kIOPMACPowerKey];
   BOOL isSystemRunningOnBattery = [powerSource isEqualToString:@kIOPMBatteryPowerKey];
@@ -110,11 +110,11 @@
 
 - (BOOL)isOutputDirectoryBookmarkValid {
 
-  MLE_Log_Info(@"ScheduleDelegate [isOutputDirectoryBookmarkValid]");
+  MLE_Log_Info(@"ExportScheduler [isOutputDirectoryBookmarkValid]");
 
   NSString* outputDirPath = UserDefaultsExportConfiguration.sharedConfig.outputDirectoryPath;
   if (outputDirPath.length == 0) {
-    MLE_Log_Info(@"ScheduleDelegate [isOutputDirectoryBookmarkValid] output directory has not been set yet");
+    MLE_Log_Info(@"ExportScheduler [isOutputDirectoryBookmarkValid] output directory has not been set yet");
     return NO;
   }
 
@@ -123,23 +123,23 @@
   if (outputDirUrl && outputDirUrl.isFileURL) {
 
     if ([outputDirUrl.path isEqualToString:outputDirPath]) {
-      MLE_Log_Info(@"ScheduleDelegate [isOutputDirectoryBookmarkValid] bookmark is valid");
+      MLE_Log_Info(@"ExportScheduler [isOutputDirectoryBookmarkValid] bookmark is valid");
       return YES;
     }
-    MLE_Log_Info(@"ScheduleDelegate [isOutputDirectoryBookmarkValid] bookmarked path: %@", outputDirUrl.path);
+    MLE_Log_Info(@"ExportScheduler [isOutputDirectoryBookmarkValid] bookmarked path: %@", outputDirUrl.path);
   }
 
-  MLE_Log_Info(@"ScheduleDelegate [isOutputDirectoryBookmarkValid] bookmark is not valid. The helper app must be granted write permission to: %@", outputDirPath);
+  MLE_Log_Info(@"ExportScheduler [isOutputDirectoryBookmarkValid] bookmark is not valid. The helper app must be granted write permission to: %@", outputDirPath);
 
   return NO;
 }
 
 - (ExportDeferralReason)reasonToDeferExport {
 
-  if (ScheduleConfiguration.sharedConfig.skipOnBattery && [ScheduleDelegate isSystemRunningOnBattery]) {
+  if (ScheduleConfiguration.sharedConfig.skipOnBattery && [ExportScheduler isSystemRunningOnBattery]) {
     return ExportDeferralOnBatteryReason;
   }
-  if ([ScheduleDelegate isMainAppRunning]) {
+  if ([ExportScheduler isMainAppRunning]) {
     return ExportDeferralMainAppOpenReason;
   }
 
@@ -151,7 +151,7 @@
 
 - (void)activateScheduler {
 
-  MLE_Log_Info(@"ScheduleDelegate [activateScheduler]");
+  MLE_Log_Info(@"ExportScheduler [activateScheduler]");
 
   if (_timer) {
     [_timer invalidate];
@@ -159,14 +159,14 @@
   }
 
   NSTimeInterval intervalToNextExport = ScheduleConfiguration.sharedConfig.nextExportAt.timeIntervalSinceNow;
-  MLE_Log_Info(@"ScheduleDelegate [activateScheduler] next export in %fs", intervalToNextExport);
+  MLE_Log_Info(@"ExportScheduler [activateScheduler] next export in %fs", intervalToNextExport);
 
   _timer = [NSTimer scheduledTimerWithTimeInterval:intervalToNextExport target:self selector:@selector(onTimerFinished) userInfo:nil repeats:NO];
 }
 
 - (void)deactivateScheduler {
 
-  MLE_Log_Info(@"ScheduleDelegate [deactivateScheduler]");
+  MLE_Log_Info(@"ExportScheduler [deactivateScheduler]");
 
   if (_timer) {
     [_timer invalidate];
@@ -176,7 +176,7 @@
 
 - (void)onTimerFinished {
 
-  MLE_Log_Info(@"ScheduleDelegate [onTimerFinished]");
+  MLE_Log_Info(@"ExportScheduler [onTimerFinished]");
 
   ExportDeferralReason deferralReason = [self reasonToDeferExport];
   if (deferralReason == ExportNoDeferralReason) {
@@ -185,12 +185,12 @@
     NSError* outputDirResolveError;
     NSURL* outputDirectoryUrl = [UserDefaultsExportConfiguration.sharedConfig resolveOutputDirectoryBookmarkAndReturnError:&outputDirResolveError];
     if (outputDirectoryUrl == nil) {
-      MLE_Log_Info(@"ScheduleDelegate [onTimerFinished] unable to retrieve output directory - a directory must be selected to obtain write permission");
+      MLE_Log_Info(@"ExportScheduler [onTimerFinished] unable to retrieve output directory - a directory must be selected to obtain write permission");
     }
     NSString* outputFileName = UserDefaultsExportConfiguration.sharedConfig.outputFileName;
     if (outputFileName == nil || outputFileName.length == 0) {
       outputFileName = @"Library.xml"; // fallback to default filename
-      MLE_Log_Info(@"ScheduleDelegate [onTimerFinished] output filename unspecified - falling back to default: %@", outputFileName);
+      MLE_Log_Info(@"ExportScheduler [onTimerFinished] output filename unspecified - falling back to default: %@", outputFileName);
     }
     // TODO: handle output directory validation
     NSURL* outputFileUrl = [outputDirectoryUrl URLByAppendingPathComponent:outputFileName];
@@ -210,7 +210,7 @@
   }
 
   else {
-    MLE_Log_Info(@"ScheduleDelegate [onTimerFinished] export task is being skipped for reason: %@", [Utils descriptionForExportDeferralReason:deferralReason]);
+    MLE_Log_Info(@"ExportScheduler [onTimerFinished] export task is being skipped for reason: %@", [Utils descriptionForExportDeferralReason:deferralReason]);
   }
 
   [ScheduleConfiguration.sharedConfig setLastExportedAt:[NSDate date]];
@@ -218,11 +218,11 @@
 
 - (void)updateSchedule {
 
-  MLE_Log_Info(@"ScheduleDelegate [updateSchedule]");
+  MLE_Log_Info(@"ExportScheduler [updateSchedule]");
 
   NSDate* nextExportDate = [self determineNextExportDate];
 
-  MLE_Log_Info(@"ScheduleDelegate [updateSchedule] next export: %@", nextExportDate.description);
+  MLE_Log_Info(@"ExportScheduler [updateSchedule] next export: %@", nextExportDate.description);
 
   [ScheduleConfiguration.sharedConfig setNextExportAt:nextExportDate];
 
@@ -236,7 +236,7 @@
 
 - (void)observeValueForKeyPath:(NSString*)keyPath ofObject:(id)anObject change:(NSDictionary*)aChange context:(void*)aContext {
 
-  MLE_Log_Info(@"ScheduleDelegate [observeValueForKeyPath:%@]", keyPath);
+  MLE_Log_Info(@"ExportScheduler [observeValueForKeyPath:%@]", keyPath);
 
   if ([keyPath isEqualToString:@"ScheduleEnabled"] ||
       [keyPath isEqualToString:@"ScheduleInterval"] ||
@@ -270,15 +270,15 @@
   BOOL outputDirIsSet = (outputDirPath.length > 0);
 
   if (!outputDirIsSet) {
-    MLE_Log_Info(@"ScheduleDelegate [requestOutputDirectoryPermissionsIfRequired] not prompting for permissions since output path hasn't been set yet");
+    MLE_Log_Info(@"ExportScheduler [requestOutputDirectoryPermissionsIfRequired] not prompting for permissions since output path hasn't been set yet");
     return;
   }
   else if (self.isOutputDirectoryBookmarkValid) {
-    MLE_Log_Info(@"ScheduleDelegate [requestOutputDirectoryPermissionsIfRequired] output dir bookmark is valid, permissions grant not required");
+    MLE_Log_Info(@"ExportScheduler [requestOutputDirectoryPermissionsIfRequired] output dir bookmark is valid, permissions grant not required");
 
   }
   else {
-    MLE_Log_Info(@"ScheduleDelegate [requestOutputDirectoryPermissionsIfRequired] output dir bookmark is either not valid or inconsistent. Triggering prompt for permissions grant");
+    MLE_Log_Info(@"ExportScheduler [requestOutputDirectoryPermissionsIfRequired] output dir bookmark is either not valid or inconsistent. Triggering prompt for permissions grant");
     [self requestOutputDirectoryPermissions];
   }
 }
