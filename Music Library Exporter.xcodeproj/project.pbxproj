@@ -686,7 +686,7 @@
 				27B07F9925DD818D003F3378 /* PBXTargetDependency */,
 			);
 			name = "music-library-exporter";
-			productName = "library-generator";
+			productName = "music-library-exporter";
 			productReference = 2705444525B66A0A00FE6D65 /* music-library-exporter */;
 			productType = "com.apple.product-type.tool";
 		};
