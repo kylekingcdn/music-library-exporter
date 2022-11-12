@@ -68,6 +68,7 @@ NSErrorDomain const __MLE_ErrorDomain_ExportManager = @"com.kylekingcdn.MusicLib
   ITLibrary* library = [ITLibrary libraryWithAPIVersion:@"1.1" options:ITLibInitOptionNone error:error];
   if (library == nil) {
     MLE_Log_Info(@"ExportManager [exportLibrary] error - failed to init ITLibrary. error: %@", (*error).localizedDescription);
+    [self setState:ExportError];
     return NO;
   }
 
@@ -117,8 +118,11 @@ NSErrorDomain const __MLE_ErrorDomain_ExportManager = @"com.kylekingcdn.MusicLib
 
   if (!writeSuccess) {
     MLE_Log_Info(@"ExportManager [writeLibrary] error writing dictionary");
+    [self setState:ExportError];
     return NO;
   }
+
+  [self setState:ExportFinished];
 
   return YES;
 }
