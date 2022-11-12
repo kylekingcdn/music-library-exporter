@@ -1,11 +1,11 @@
 //
-//  HelperDelegate.m
+//  HelperAppManager.m
 //  Music Library Exporter
 //
 //  Created by Kyle King on 2021-02-02.
 //
 
-#import "HelperDelegate.h"
+#import "HelperAppManager.h"
 
 #import <ServiceManagement/ServiceManagement.h>
 
@@ -13,7 +13,7 @@
 #import "Defines.h"
 
 
-@implementation HelperDelegate
+@implementation HelperAppManager
 
 
 #pragma mark - Initializers
@@ -68,15 +68,15 @@
 
 - (BOOL)registerHelperWithSystem:(BOOL)flag {
 
-  MLE_Log_Info(@"HelperDelegate [registerHelperWithSystem:%@]", (flag ? @"YES" : @"NO"));
+  MLE_Log_Info(@"HelperAppManager [registerHelperWithSystem:%@]", (flag ? @"YES" : @"NO"));
 
   BOOL success = SMLoginItemSetEnabled ((__bridge CFStringRef)__MLE__HelperBundleIdentifier, flag);
 
   if (success) {
-    MLE_Log_Info(@"HelperDelegate [registerHelperWithSystem] succesfully %@ helper", (flag ? @"registered" : @"unregistered"));
+    MLE_Log_Info(@"HelperAppManager [registerHelperWithSystem] succesfully %@ helper", (flag ? @"registered" : @"unregistered"));
   }
   else {
-    MLE_Log_Info(@"HelperDelegate [registerHelperWithSystem] failed to %@ helper", (flag ? @"register" : @"unregister"));
+    MLE_Log_Info(@"HelperAppManager [registerHelperWithSystem] failed to %@ helper", (flag ? @"register" : @"unregister"));
   }
 
   return success;
@@ -85,11 +85,11 @@
 - (void)updateHelperRegistrationWithScheduleEnabled:(BOOL)scheduleEnabled {
 
 #if HELPER_REGISTRATION_ENABLED == 1
-  MLE_Log_Info(@"HelperDelegate [updateHelperRegistrationWithScheduleEnabled:%@]", (scheduleEnabled ? @"YES" : @"NO"));
+  MLE_Log_Info(@"HelperAppManager [updateHelperRegistrationWithScheduleEnabled:%@]", (scheduleEnabled ? @"YES" : @"NO"));
 
   BOOL shouldUpdate = (scheduleEnabled != [self isHelperRegisteredWithSystem]);
   if (shouldUpdate) {
-    MLE_Log_Info(@"HelperDelegate [updateHelperRegistrationIfRequired] updating registration to: %@", (scheduleEnabled ? @"registered" : @"unregistered"));
+    MLE_Log_Info(@"HelperAppManager [updateHelperRegistrationIfRequired] updating registration to: %@", (scheduleEnabled ? @"registered" : @"unregistered"));
     [self registerHelperWithSystem:scheduleEnabled];
   }
 #endif

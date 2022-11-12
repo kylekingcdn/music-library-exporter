@@ -9,7 +9,7 @@
 
 #import "Logger.h"
 #import "Utils.h"
-#import "HelperDelegate.h"
+#import "HelperAppManager.h"
 #import "UserDefaultsExportConfiguration.h"
 #import "ScheduleConfiguration.h"
 #import "HourNumberFormatter.h"
@@ -50,7 +50,7 @@
 
 @implementation ConfigurationViewController {
 
-  HelperDelegate* _helperDelegate;
+  HelperAppManager* _helperDelegate;
 
   HourNumberFormatter* _scheduleIntervalHourFormatter;
 }
@@ -61,7 +61,7 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
 
 #pragma mark - Initializers
 
-- (instancetype)initWithHelperDelegate:(HelperDelegate*)helperDelegate {
+- (instancetype)initWithHelperAppManager:(HelperAppManager*)helperDelegate {
 
   self = [super initWithNibName: @"ConfigurationView" bundle: nil];
 

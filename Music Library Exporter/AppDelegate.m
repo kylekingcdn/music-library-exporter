@@ -13,7 +13,7 @@
 #import "Utils.h"
 #import "UserDefaultsExportConfiguration.h"
 #import "ScheduleConfiguration.h"
-#import "HelperDelegate.h"
+#import "HelperAppManager.h"
 #import "ConfigurationViewController.h"
 #import "PlaylistsViewController.h"
 #import "PreferencesWindowController.h"
@@ -32,7 +32,7 @@
 
   NSUserDefaults* _groupDefaults;
 
-  HelperDelegate* _helperDelegate;
+  HelperAppManager* _helperDelegate;
 
   UserDefaultsExportConfiguration* _exportConfiguration;
 
@@ -75,9 +75,9 @@
   [_groupDefaults addObserver:self forKeyPath:@"NextExportAt" options:NSKeyValueObservingOptionNew context:NULL];
   [_groupDefaults addObserver:self forKeyPath:@"OutputDirectoryPath" options:NSKeyValueObservingOptionNew context:NULL];
 
-  _helperDelegate = [[HelperDelegate alloc] init];
+  _helperDelegate = [[HelperAppManager alloc] init];
 
-  _configurationViewController = [[ConfigurationViewController alloc] initWithHelperDelegate:_helperDelegate];
+  _configurationViewController = [[ConfigurationViewController alloc] initWithHelperAppManager:_helperDelegate];
   // add configurationView to window contentview
   [_configurationViewController.view setFrame:_window.contentView.frame];
   [_window.contentView addSubview:_configurationViewController.view];

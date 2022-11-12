@@ -71,7 +71,7 @@
 		27B54AAD29126B2B00BEC366 /* MediaItemSorter.m in Sources */ = {isa = PBXBuildFile; fileRef = 27642A59291119BA006FEF7B /* MediaItemSorter.m */; };
 		27C0A0F125CB046500EDDE22 /* ScheduleConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C0A0EF25CB045C00EDDE22 /* ScheduleConfiguration.m */; };
 		27C0A0F525CB046A00EDDE22 /* ScheduleConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C0A0EF25CB045C00EDDE22 /* ScheduleConfiguration.m */; };
-		27C0A10425CB0BF100EDDE22 /* HelperDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C0A10325CB0BF100EDDE22 /* HelperDelegate.m */; };
+		27C0A10425CB0BF100EDDE22 /* HelperAppManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C0A10325CB0BF100EDDE22 /* HelperAppManager.m */; };
 		27C52A7425B69C4B00D829F3 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 27C52A7325B69C4B00D829F3 /* Utils.m */; };
 		27CAC205290FEA37008D4313 /* MediaItemKindFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC1FF290FE8DE008D4313 /* MediaItemKindFilter.m */; };
 		27CAC20A290FF05C008D4313 /* PlaylistDistinguishedKindFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC209290FF05A008D4313 /* PlaylistDistinguishedKindFilter.m */; };
@@ -266,8 +266,8 @@
 		27A4496725DE026B00C770E8 /* Logger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Logger.h; sourceTree = "<group>"; };
 		27C0A0EF25CB045C00EDDE22 /* ScheduleConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScheduleConfiguration.m; sourceTree = "<group>"; };
 		27C0A0F025CB045C00EDDE22 /* ScheduleConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScheduleConfiguration.h; sourceTree = "<group>"; };
-		27C0A10225CB0BF100EDDE22 /* HelperDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HelperDelegate.h; path = "Music Library Exporter/HelperDelegate.h"; sourceTree = SOURCE_ROOT; };
-		27C0A10325CB0BF100EDDE22 /* HelperDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HelperDelegate.m; path = "Music Library Exporter/HelperDelegate.m"; sourceTree = SOURCE_ROOT; };
+		27C0A10225CB0BF100EDDE22 /* HelperAppManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HelperAppManager.h; path = "Music Library Exporter/HelperAppManager.h"; sourceTree = SOURCE_ROOT; };
+		27C0A10325CB0BF100EDDE22 /* HelperAppManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HelperAppManager.m; path = "Music Library Exporter/HelperAppManager.m"; sourceTree = SOURCE_ROOT; };
 		27C52A7225B69C4B00D829F3 /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		27C52A7325B69C4B00D829F3 /* Utils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
 		27CAC1F6290FD5F2008D4313 /* MediaItemFiltering.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MediaItemFiltering.h; sourceTree = "<group>"; };
@@ -587,8 +587,8 @@
 				27EF9A6F25BF23920051CE7B /* main.m */,
 				27EF9A6625BF23910051CE7B /* AppDelegate.h */,
 				27EF9A6725BF23910051CE7B /* AppDelegate.m */,
-				27C0A10225CB0BF100EDDE22 /* HelperDelegate.h */,
-				27C0A10325CB0BF100EDDE22 /* HelperDelegate.m */,
+				27C0A10225CB0BF100EDDE22 /* HelperAppManager.h */,
+				27C0A10325CB0BF100EDDE22 /* HelperAppManager.m */,
 				272D6A0D25D1B0F7005023CA /* HourNumberFormatter.h */,
 				272D6A0E25D1B0F7005023CA /* HourNumberFormatter.m */,
 				2783C75625C4FB60002ED7B7 /* ConfigurationViewController.h */,
@@ -905,7 +905,7 @@
 				27642A6029111EF1006FEF7B /* MediaItemSerializer.m in Sources */,
 				27DBB9B725E6E91E003BE889 /* PreferencesWindowController.m in Sources */,
 				27CAC212290FF4C6008D4313 /* MediaItemFilterGroup.m in Sources */,
-				27C0A10425CB0BF100EDDE22 /* HelperDelegate.m in Sources */,
+				27C0A10425CB0BF100EDDE22 /* HelperAppManager.m in Sources */,
 				27CAC20C290FF05F008D4313 /* PlaylistKindFilter.m in Sources */,
 				27EF9A6825BF23910051CE7B /* AppDelegate.m in Sources */,
 				27EF9A7025BF23920051CE7B /* main.m in Sources */,

@@ -12,7 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class HelperDelegate;
+@class HelperAppManager;
 
 @interface ConfigurationViewController : NSViewController<ExportManagerDelegate>
 
@@ -27,7 +27,7 @@ typedef NS_ENUM(NSInteger, ConfigurationViewErrorCode) {
 
 #pragma mark - Initializers
 
-- (instancetype)initWithHelperDelegate:(HelperDelegate*)helperDelegate;
+- (instancetype)initWithHelperAppManager:(HelperAppManager*)helperDelegate;
 
 
 #pragma mark - Accessors

@@ -1,5 +1,5 @@
 //
-//  HelperDelegate.h
+//  HelperAppManager.h
 //  Music Library Exporter
 //
 //  Created by Kyle King on 2021-02-02.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HelperDelegate : NSObject
+@interface HelperAppManager : NSObject
 
 
 #pragma mark - Initializers
