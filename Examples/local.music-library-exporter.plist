@@ -3,18 +3,18 @@
 <plist version="1.0">
 <dict>
 	<key>Label</key>
-	<string>local.library-generator</string>
+	<string>local.music-library-exporter</string>
 	<key>ProgramArguments</key>
 	<array>
-		<string>/usr/local/bin/library-generator</string>
+		<string>/usr/local/bin/music-library-exporter</string>
 		<string>export</string>
 	</array>
 	<key>RunAtLoad</key>
 	<true/>
 	<key>StandardErrorPath</key>
-	<string>/tmp/local.library-generator.log</string>
+	<string>/tmp/local.music-library-exporter.log</string>
 	<key>StandardOutPath</key>
-	<string>/tmp/local.library-generator.log</string>
+	<string>/tmp/local.music-library-exporter.log</string>
 	<key>StartInterval</key>
 	<integer>3600</integer>
 </dict>
