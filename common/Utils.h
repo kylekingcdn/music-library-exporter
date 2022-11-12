@@ -19,9 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Utils : NSObject
 
-+ (NSSet<NSString*>*)getAllKeysForDictionary:(NSDictionary*)dict1 andDictionary:(NSDictionary*)dict2;
-+ (void)recursivelyCompareDictionary:(NSDictionary*)dict1 withDictionary:(NSDictionary*)dict2 exceptForKeys:(nullable NSArray<NSString*>*)ignoredKeys;
-
 + (nullable NSString*)hexStringForPersistentId:(nullable NSNumber*)persistentId;
 
 + (NSString*)descriptionForExportState:(ExportState)state;

@@ -17,67 +17,6 @@
 
 @implementation Utils
 
-+ (NSSet<NSString*>*)getAllKeysForDictionary:(NSDictionary*)dict1 andDictionary:(NSDictionary*)dict2 {
-
-  NSMutableSet<NSString*>* keys = [NSMutableSet setWithArray:dict1.allKeys];
-  [keys addObjectsFromArray:dict2.allKeys];
-
-  NSSet<NSString*>* immutableKeys = [keys copy];
-  return immutableKeys;
-}
-
-+ (void)recursivelyCompareDictionary:(NSDictionary*)dict1 withDictionary:(NSDictionary*)dict2 exceptForKeys:(nullable NSArray<NSString*>*)ignoredKeys {
-
-  NSSet<NSString*>* allKeys = [Utils getAllKeysForDictionary:dict1 andDictionary:dict2];
-
-  for (NSString* key in allKeys) {
-
-    if (![ignoredKeys containsObject:key]) {
-
-      if (![dict2.allKeys containsObject:key]) {
-        MLE_Log_Info(@"dict2 is missing key: %@", key);
-      }
-      else if (![dict1.allKeys containsObject:key]) {
-        MLE_Log_Info(@"dict2 has extra key: %@", key);
-      }
-      else {
-
-        id dict1Object = [dict1 objectForKey:key];
-        id dict2Object = [dict2 objectForKey:key];
-
-        // value is array
-        if ([dict1Object isKindOfClass:[NSArray class]]) {
-
-          if (![dict2Object isKindOfClass:[NSArray class]]) {
-              MLE_Log_Info(@"dict2 object type should be array for key: %@", key);
-          }
-          else {
-  //          NSArray* dict1Array = dict1Object;
-  //          NSArray* dict2Array = dict2Object;
-            // TODO: finish me
-          }
-        }
-
-        // dictionary
-        else if ([dict1Object isKindOfClass:[NSDictionary class]]) {
-
-          NSDictionary* dict1Dict = dict1Object;
-          NSDictionary* dict2Dict = dict2Object;
-
-          [Utils recursivelyCompareDictionary:dict1Dict withDictionary:dict2Dict exceptForKeys:ignoredKeys];
-        }
-
-        // standard value
-        else {
-          if (![dict1Object isEqual:dict2Object]) {
-            MLE_Log_Info(@"key: '%@' has different values: ['%@', '%@']", key, dict1Object, dict2Object);
-          }
-        }
-      }
-    }
-  }
-}
-
 + (nullable NSString*)hexStringForPersistentId:(nullable NSNumber*)persistentId {
 
   if (persistentId == nil) {
