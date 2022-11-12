@@ -6,13 +6,20 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <iTunesLibrary/ITLibMediaItem.h>
+
+#import "Defines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MediaItemSorter : NSObject {
+@interface MediaItemSorter : NSObject
 
-}
+@property PlaylistSortColumnType sortColumn;
+@property PlaylistSortOrderType sortOrder;
 
+- (instancetype)init;
+
+- (NSArray<ITLibMediaItem*>*)sortItems:(NSArray<ITLibMediaItem*>*)items;
 
 @end
 
