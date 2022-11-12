@@ -437,6 +437,8 @@
 				27E9D5D02914F15F0050F44A /* PlaylistSerializerDelegate.h */,
 				27642A62291129D2006FEF7B /* PathMapper.h */,
 				27642A63291129D2006FEF7B /* PathMapper.m */,
+				27642A5429111980006FEF7B /* MediaEntityRepository.h */,
+				27642A5529111980006FEF7B /* MediaEntityRepository.m */,
 			);
 			path = Serializer;
 			sourceTree = "<group>";
@@ -474,8 +476,6 @@
 				273B522F25CA666000421B14 /* Defines.m */,
 				27C52A7225B69C4B00D829F3 /* Utils.h */,
 				27C52A7325B69C4B00D829F3 /* Utils.m */,
-				27642A5429111980006FEF7B /* MediaEntityRepository.h */,
-				27642A5529111980006FEF7B /* MediaEntityRepository.m */,
 				27F5865225E4656D00872731 /* SentryHandler.h */,
 				27F5865325E4656D00872731 /* SentryHandler.m */,
 			);
