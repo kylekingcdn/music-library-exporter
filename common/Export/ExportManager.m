@@ -35,6 +35,9 @@
 
 NSErrorDomain const __MLE_ErrorDomain_ExportManager = @"com.kylekingcdn.MusicLibraryExporter.ExportManagerErrorDomain";
 
+
+#pragma mark - Initializers
+
 - (instancetype)initWithConfiguration:(ExportConfiguration *)configuration {
 
   self = [super init];
@@ -48,34 +51,8 @@ NSErrorDomain const __MLE_ErrorDomain_ExportManager = @"com.kylekingcdn.MusicLib
   return self;
 }
 
-- (PlaylistFilterGroup*) generatePlaylistFilters {
 
-  NSArray<NSObject<PlaylistFiltering>*>* playlistFilters = [NSArray array];
-
-  PlaylistFilterGroup* playlistFilterGroup = [[PlaylistFilterGroup alloc] initWithFilters:playlistFilters];
-
-  PlaylistIDFilter* playlistIDFilter = [[PlaylistIDFilter alloc] initWithExcludedIDs:_configuration.excludedPlaylistPersistentIds];
-  [playlistFilterGroup addFilter:playlistIDFilter];
-
-  if (_configuration.includeInternalPlaylists) {
-    [playlistFilterGroup addFilter:[[PlaylistDistinguishedKindFilter alloc] initWithInternalKinds]];
-  }
-  else {
-    [playlistFilterGroup addFilter:[[PlaylistDistinguishedKindFilter alloc] initWithBaseKinds]];
-    [playlistFilterGroup addFilter:[[PlaylistMasterFilter alloc] init]];
-  }
-
-  PlaylistKindFilter* playlistKindFilter = [[PlaylistKindFilter alloc] initWithBaseKinds];
-  if (!_configuration.flattenPlaylistHierarchy) {
-    [playlistKindFilter addKind:ITLibPlaylistKindFolder];
-
-    _playlistParentIDFilter = [[PlaylistParentIDFilter alloc] initWithExcludedIDs:_configuration.excludedPlaylistPersistentIds];
-    [playlistFilterGroup addFilter:_playlistParentIDFilter];
-  }
-  [playlistFilterGroup addFilter:playlistKindFilter];
-
-  return playlistFilterGroup;
-}
+#pragma mark - Mutators
 
 - (BOOL)exportLibraryWithError:(NSError**)error {
 
@@ -154,6 +131,9 @@ NSErrorDomain const __MLE_ErrorDomain_ExportManager = @"com.kylekingcdn.MusicLib
     [_delegate exportStateChanged:state];
   }
 }
+
+
+#pragma mark - Helper functions
 
 - (BOOL)validateConfigurationWithError:(NSError**)error {
 
@@ -254,6 +234,38 @@ NSErrorDomain const __MLE_ErrorDomain_ExportManager = @"com.kylekingcdn.MusicLib
   }
 }
 
+- (PlaylistFilterGroup*) generatePlaylistFilters {
+
+  NSArray<NSObject<PlaylistFiltering>*>* playlistFilters = [NSArray array];
+
+  PlaylistFilterGroup* playlistFilterGroup = [[PlaylistFilterGroup alloc] initWithFilters:playlistFilters];
+
+  PlaylistIDFilter* playlistIDFilter = [[PlaylistIDFilter alloc] initWithExcludedIDs:_configuration.excludedPlaylistPersistentIds];
+  [playlistFilterGroup addFilter:playlistIDFilter];
+
+  if (_configuration.includeInternalPlaylists) {
+    [playlistFilterGroup addFilter:[[PlaylistDistinguishedKindFilter alloc] initWithInternalKinds]];
+  }
+  else {
+    [playlistFilterGroup addFilter:[[PlaylistDistinguishedKindFilter alloc] initWithBaseKinds]];
+    [playlistFilterGroup addFilter:[[PlaylistMasterFilter alloc] init]];
+  }
+
+  PlaylistKindFilter* playlistKindFilter = [[PlaylistKindFilter alloc] initWithBaseKinds];
+  if (!_configuration.flattenPlaylistHierarchy) {
+    [playlistKindFilter addKind:ITLibPlaylistKindFolder];
+
+    _playlistParentIDFilter = [[PlaylistParentIDFilter alloc] initWithExcludedIDs:_configuration.excludedPlaylistPersistentIds];
+    [playlistFilterGroup addFilter:_playlistParentIDFilter];
+  }
+  [playlistFilterGroup addFilter:playlistKindFilter];
+
+  return playlistFilterGroup;
+}
+
+
+#pragma mark - MediaItemSerializerDelegate
+
 - (void)serializedItems:(NSUInteger)serialized ofTotal:(NSUInteger)total {
 
   if (serialized % 10 == 0 || serialized == total) {
@@ -264,6 +276,9 @@ NSErrorDomain const __MLE_ErrorDomain_ExportManager = @"com.kylekingcdn.MusicLib
     }
   }
 }
+
+
+#pragma mark - PlaylistSerializerDelegate
 
 - (void)serializedPlaylists:(NSUInteger)serialized ofTotal:(NSUInteger)total {
 
