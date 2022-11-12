@@ -67,7 +67,7 @@ NSErrorDomain const __MLE_ErrorDomain_ExportManager = @"com.kylekingcdn.MusicLib
   // init ITLibrary
   ITLibrary* library = [ITLibrary libraryWithAPIVersion:@"1.1" options:ITLibInitOptionNone error:error];
   if (library == nil) {
-    MLE_Log_Info(@"ExportManager [exportLibrary] error - failed to init ITLibrary. error: %@", (*error).localizedDescription);
+    MLE_Log_Info(@"ExportManager [exportLibraryWithError] error - failed to init ITLibrary. error: %@", (*error).localizedDescription);
     [self setState:ExportError];
     return NO;
   }
@@ -113,11 +113,11 @@ NSErrorDomain const __MLE_ErrorDomain_ExportManager = @"com.kylekingcdn.MusicLib
 
   // write library
   [self setState:ExportWritingToDisk];
-  MLE_Log_Info(@"ExportManager [writeLibrary] saving to: %@", _outputFileURL);
+  MLE_Log_Info(@"ExportManager [exportLibraryWithError] saving to: %@", _outputFileURL);
   BOOL writeSuccess = [libraryDict writeToURL:_outputFileURL error:error];
 
   if (!writeSuccess) {
-    MLE_Log_Info(@"ExportManager [writeLibrary] error writing dictionary");
+    MLE_Log_Info(@"ExportManager [exportLibraryWithError] error writing dictionary");
     [self setState:ExportError];
     return NO;
   }
@@ -148,7 +148,7 @@ NSErrorDomain const __MLE_ErrorDomain_ExportManager = @"com.kylekingcdn.MusicLib
     case ExportGeneratingPlaylists:
     case ExportGeneratingLibrary:
     case ExportWritingToDisk: {
-      MLE_Log_Info(@"ExportDelegate [prepareForExportAndReturnError] currently busy - state: %@", [Utils descriptionForExportState:_state]);
+      MLE_Log_Info(@"ExportManager [validateConfigurationWithError] currently busy - state: %@", [Utils descriptionForExportState:_state]);
       if (error) {
         *error = [self generateErrorForCode:ExportManagerErrorBusyState];
       }
@@ -166,7 +166,7 @@ NSErrorDomain const __MLE_ErrorDomain_ExportManager = @"com.kylekingcdn.MusicLib
 
   // validate output directory set
   if (_configuration.outputDirectoryUrl == nil || !_configuration.outputDirectoryUrl.isFileURL) {
-    MLE_Log_Info(@"ExportDelegate [prepareForExportAndReturnError] output directory is invalid");
+    MLE_Log_Info(@"ExportManager [validateConfigurationWithError] output directory is invalid");
     if (error) {
       *error = [self generateErrorForCode:ExportManagerErrorOutputDirectoryInvalid];
     }
@@ -176,7 +176,7 @@ NSErrorDomain const __MLE_ErrorDomain_ExportManager = @"com.kylekingcdn.MusicLib
 
   // validate music media dir set
   if (_configuration.musicLibraryPath == nil || _configuration.musicLibraryPath.length == 0) {
-    MLE_Log_Info(@"ExportDelegate [prepareForExportAndReturnError] Music Media location is unset");
+    MLE_Log_Info(@"ExportManager [validateConfigurationWithError] Music Media location is unset");
     if (error) {
       *error = [self generateErrorForCode:ExportManagerErrorMusicMediaLocationUnset];
     }
@@ -187,7 +187,7 @@ NSErrorDomain const __MLE_ErrorDomain_ExportManager = @"com.kylekingcdn.MusicLib
   // validate path re-mapping
   if (_configuration.remapRootDirectory) {
     if (_configuration.remapRootDirectoryOriginalPath == nil || _configuration.remapRootDirectoryOriginalPath.length == 0) {
-      MLE_Log_Info(@"ExportDelegate [prepareForExportAndReturnError] Re-map original path is unset");
+      MLE_Log_Info(@"ExportManager [validateConfigurationWithError] Re-map original path is unset");
       if (error) {
         *error = [self generateErrorForCode:ExportManagerErrorRemappingInvalid];
       }
