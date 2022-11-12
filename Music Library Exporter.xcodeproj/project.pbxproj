@@ -581,11 +581,7 @@
 				27EF9A6725BF23910051CE7B /* AppDelegate.m */,
 				27C0A10225CB0BF100EDDE22 /* HelperAppManager.h */,
 				27C0A10325CB0BF100EDDE22 /* HelperAppManager.m */,
-				272D6A0D25D1B0F7005023CA /* HourNumberFormatter.h */,
-				272D6A0E25D1B0F7005023CA /* HourNumberFormatter.m */,
-				2783C75625C4FB60002ED7B7 /* ConfigurationViewController.h */,
-				2783C75725C4FB60002ED7B7 /* ConfigurationViewController.m */,
-				2783C74825C4FAF2002ED7B7 /* ConfigurationView.xib */,
+				27FA62AF292054C3001D0095 /* ConfigurationView */,
 				27FA62AD2920549A001D0095 /* PlaylistsView */,
 				27DBB9B525E6E91E003BE889 /* PreferencesWindowController.h */,
 				27DBB9B625E6E91E003BE889 /* PreferencesWindowController.m */,
@@ -643,6 +639,18 @@
 				2725CA4B25D3F65C002C1203 /* PlaylistsView.xib */,
 			);
 			path = PlaylistsView;
+			sourceTree = "<group>";
+		};
+		27FA62AF292054C3001D0095 /* ConfigurationView */ = {
+			isa = PBXGroup;
+			children = (
+				272D6A0D25D1B0F7005023CA /* HourNumberFormatter.h */,
+				272D6A0E25D1B0F7005023CA /* HourNumberFormatter.m */,
+				2783C75625C4FB60002ED7B7 /* ConfigurationViewController.h */,
+				2783C75725C4FB60002ED7B7 /* ConfigurationViewController.m */,
+				2783C74825C4FAF2002ED7B7 /* ConfigurationView.xib */,
+			);
+			path = ConfigurationView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
