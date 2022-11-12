@@ -12,7 +12,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ExportDelegate;
 @class HelperDelegate;
 
 @interface ConfigurationViewController : NSViewController<ExportManagerDelegate>
