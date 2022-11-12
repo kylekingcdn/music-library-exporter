@@ -40,6 +40,8 @@
   _configuration = configuration;
   _playlistParentIDFilter = nil;
 
+  _state = ExportStopped;
+
   return self;
 }
 
