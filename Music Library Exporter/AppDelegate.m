@@ -18,7 +18,7 @@
 #import "PlaylistsViewController.h"
 #import "PreferencesWindowController.h"
 #if SENTRY_ENABLED == 1
-#import "MLESentryHandler.h"
+#import "SentryHandler.h"
 #endif
 
 @interface AppDelegate ()
@@ -50,7 +50,7 @@
   _groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
 
 #if SENTRY_ENABLED == 1
-  [[MLESentryHandler sharedSentryHandler] setupSentry];
+  [[SentryHandler sharedSentryHandler] setupSentry];
 #endif
 
   // init exportConfiguration
@@ -87,9 +87,9 @@
 
 #if SENTRY_ENABLED == 1
   // prompt for crash reporting permissions if not prompted yet and not first launch
-  if (!self.isFirstLaunch && !MLESentryHandler.sharedSentryHandler.userHasBeenPromptedForCrashReportingPermissions) {
+  if (!self.isFirstLaunch && !SentryHandler.sharedSentryHandler.userHasBeenPromptedForCrashReportingPermissions) {
     [self showCrashReportingPermissionsWindow];
-    [[MLESentryHandler sharedSentryHandler] setUserHasBeenPromptedForCrashReportingPermissions:YES];
+    [[SentryHandler sharedSentryHandler] setUserHasBeenPromptedForCrashReportingPermissions:YES];
   }
 #endif
 
@@ -204,7 +204,7 @@
 
   // update preference
   BOOL enableCrashReporting = (response == NSAlertFirstButtonReturn);
-  [MLESentryHandler setCrashReportingEnabled:enableCrashReporting];
+  [SentryHandler setCrashReportingEnabled:enableCrashReporting];
 #endif
 }
 

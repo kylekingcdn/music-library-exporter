@@ -1,5 +1,5 @@
 //
-//  MLESentryHandler.h
+//  SentryHandler.h
 //  Music Library Exporter
 //
 //  Created by Kyle King on 2021-02-22.
@@ -12,7 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MLESentryHandler : NSObject
+@interface SentryHandler : NSObject
 
 
 #pragma mark - Properties
@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Accessors
 
-+ (MLESentryHandler*)sharedSentryHandler;
++ (SentryHandler*)sharedSentryHandler;
 
 - (BOOL)userHasEnabledCrashReporting;
 - (BOOL)userHasBeenPromptedForCrashReportingPermissions;

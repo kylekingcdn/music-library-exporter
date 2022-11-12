@@ -10,7 +10,7 @@
 #import "Logger.h"
 
 #if SENTRY_ENABLED == 1
-#import "MLESentryHandler.h"
+#import "SentryHandler.h"
 #endif
 
 
@@ -32,7 +32,7 @@
 
 #if SENTRY_ENABLED == 1
   sentryEnabled = YES;
-  crashReportingEnabled = [[MLESentryHandler sharedSentryHandler] userHasEnabledCrashReporting];
+  crashReportingEnabled = [[SentryHandler sharedSentryHandler] userHasEnabledCrashReporting];
 #endif
 
   [_crashReportingCheckBox setEnabled:sentryEnabled];
@@ -47,7 +47,7 @@
 
   MLE_Log_Info(@"PreferencesWindowController [setCrashReportingEnabled:%@]", (flag ? @"YES" : @"NO"));
 
-  [MLESentryHandler setCrashReportingEnabled:flag];
+  [SentryHandler setCrashReportingEnabled:flag];
 #endif
 }
 

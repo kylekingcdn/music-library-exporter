@@ -1,11 +1,11 @@
 //
-//  MLESentryHandler.m
+//  SentryHandler.m
 //  Music Library Exporter
 //
 //  Created by Kyle King on 2021-02-22.
 //
 
-#import "MLESentryHandler.h"
+#import "SentryHandler.h"
 
 #include "Defines.h"
 #include "Logger.h"
@@ -13,10 +13,10 @@
 @import Sentry;
 
 
-static MLESentryHandler* _sharedSentryHandler;
+static SentryHandler* _sharedSentryHandler;
 
 
-@interface MLESentryHandler ()
+@interface SentryHandler ()
 
 @property NSUserDefaults* groupDefaults;
 
@@ -32,7 +32,7 @@ static MLESentryHandler* _sharedSentryHandler;
 @end
 
 
-@implementation MLESentryHandler
+@implementation SentryHandler
 
 #pragma mark - Initializers
 
@@ -40,12 +40,12 @@ static MLESentryHandler* _sharedSentryHandler;
 
   self = [super init];
 
-  NSAssert((_sharedSentryHandler == nil), @"MLESentryHandler sharedSentryHandler has already been initialized");
+  NSAssert((_sharedSentryHandler == nil), @"SentryHandler sharedSentryHandler has already been initialized");
 
   _groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
-  [_groupDefaults registerDefaults:@{ [MLESentryHandler crashReportingDefaultsKey]:@NO }];
-  [_groupDefaults registerDefaults:@{ [MLESentryHandler promptedForPermissionsDefaultsKey]:@NO }];
-  [_groupDefaults addObserver:self forKeyPath:[MLESentryHandler crashReportingDefaultsKey] options:NSKeyValueObservingOptionNew context:NULL];
+  [_groupDefaults registerDefaults:@{ [SentryHandler crashReportingDefaultsKey]:@NO }];
+  [_groupDefaults registerDefaults:@{ [SentryHandler promptedForPermissionsDefaultsKey]:@NO }];
+  [_groupDefaults addObserver:self forKeyPath:[SentryHandler crashReportingDefaultsKey] options:NSKeyValueObservingOptionNew context:NULL];
 
   return self;
 }
@@ -53,10 +53,10 @@ static MLESentryHandler* _sharedSentryHandler;
 
 #pragma mark - Accessors
 
-+ (MLESentryHandler*)sharedSentryHandler {
++ (SentryHandler*)sharedSentryHandler {
 
   if (_sharedSentryHandler == nil) {
-    _sharedSentryHandler = [[MLESentryHandler alloc] init];
+    _sharedSentryHandler = [[SentryHandler alloc] init];
   }
 
   return _sharedSentryHandler;
@@ -74,12 +74,12 @@ static MLESentryHandler* _sharedSentryHandler;
 
 - (BOOL)userHasEnabledCrashReporting {
 
-  return [_groupDefaults boolForKey:[MLESentryHandler crashReportingDefaultsKey]];
+  return [_groupDefaults boolForKey:[SentryHandler crashReportingDefaultsKey]];
 }
 
 - (BOOL)userHasBeenPromptedForCrashReportingPermissions {
 
-  return [_groupDefaults boolForKey:[MLESentryHandler promptedForPermissionsDefaultsKey]];
+  return [_groupDefaults boolForKey:[SentryHandler promptedForPermissionsDefaultsKey]];
 }
 
 - (nullable NSString*)sentryDsn {
@@ -121,14 +121,14 @@ static MLESentryHandler* _sharedSentryHandler;
 
   NSString* sentryDsn = [self sentryDsn];
   if (sentryDsn == nil) {
-    MLE_Log_Error(@"MLESentryHandler [setupSentry] error - sentry dsn is unset");
+    MLE_Log_Error(@"SentryHandler [setupSentry] error - sentry dsn is unset");
     return;
   }
 
   BOOL sentryEnabled = [self userHasEnabledCrashReporting];
   NSString* sentryReleaseName = [self sentryReleaseName];
   NSString* sentryEnvironment = [self sentryEnvironment];
-  MLE_Log_Info(@"MLESentryHandler [setupSentry] enabled:%@ release:%@ environment:%@", (sentryEnabled ? @"YES" : @"NO"), sentryReleaseName, sentryEnvironment);
+  MLE_Log_Info(@"SentryHandler [setupSentry] enabled:%@ release:%@ environment:%@", (sentryEnabled ? @"YES" : @"NO"), sentryReleaseName, sentryEnvironment);
 
   [SentrySDK startWithConfigureOptions:^(SentryOptions *options) {
     options.dsn = sentryDsn;
@@ -146,19 +146,19 @@ static MLESentryHandler* _sharedSentryHandler;
 
 - (void)setUserHasEnabledCrashReporting:(BOOL)flag {
 
-  [_groupDefaults setBool:flag forKey:[MLESentryHandler crashReportingDefaultsKey]];
+  [_groupDefaults setBool:flag forKey:[SentryHandler crashReportingDefaultsKey]];
 }
 
 - (void)setUserHasBeenPromptedForCrashReportingPermissions:(BOOL)flag {
 
-  [_groupDefaults setBool:flag forKey:[MLESentryHandler promptedForPermissionsDefaultsKey]];
+  [_groupDefaults setBool:flag forKey:[SentryHandler promptedForPermissionsDefaultsKey]];
 }
 
 - (void)observeValueForKeyPath:(NSString *)aKeyPath ofObject:(id)anObject change:(NSDictionary *)aChange context:(void *)aContext {
 
-  MLE_Log_Info(@"MLESentryHandler [observeValueForKeyPath:%@]", aKeyPath);
+  MLE_Log_Info(@"SentryHandler [observeValueForKeyPath:%@]", aKeyPath);
 
-  if ([aKeyPath isEqualToString:[MLESentryHandler crashReportingDefaultsKey]]) {
+  if ([aKeyPath isEqualToString:[SentryHandler crashReportingDefaultsKey]]) {
     [_sharedSentryHandler restartSentry];
   }
 }
@@ -167,7 +167,7 @@ static MLESentryHandler* _sharedSentryHandler;
 
   if (_sharedSentryHandler != nil) {
 
-    MLE_Log_Info(@"MLESentryHandler [setCrashReportingEnabled:%@]", (flag ? @"YES" : @"NO"));
+    MLE_Log_Info(@"SentryHandler [setCrashReportingEnabled:%@]", (flag ? @"YES" : @"NO"));
 
     [_sharedSentryHandler setUserHasEnabledCrashReporting:flag];
     [_sharedSentryHandler restartSentry];

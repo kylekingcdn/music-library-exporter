@@ -14,7 +14,7 @@
 #import "ScheduleConfiguration.h"
 #import "ScheduleDelegate.h"
 #if SENTRY_ENABLED == 1
-#import "MLESentryHandler.h"
+#import "SentryHandler.h"
 #endif
 
 @implementation AppDelegate {
@@ -29,7 +29,7 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 
 #if SENTRY_ENABLED == 1
-  [[MLESentryHandler sharedSentryHandler] setupSentry];
+  [[SentryHandler sharedSentryHandler] setupSentry];
 #endif
 
   // init exportConfiguration
