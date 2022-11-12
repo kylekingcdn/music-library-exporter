@@ -19,11 +19,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ExportManager : NSObject <MediaItemSerializerDelegate,PlaylistSerializerDelegate>
 
+
+#pragma mark - Properties
+
 @property (nullable, weak) NSObject<ExportManagerDelegate>* delegate;
+
 @property (readonly) ExportState state;
 @property NSURL* outputFileURL;
 
+
+#pragma mark - Initializers
+
 - (instancetype)initWithConfiguration:(ExportConfiguration*)configuration;
+
+
+#pragma mark - Mutators
 
 - (BOOL)exportLibrary;
 
