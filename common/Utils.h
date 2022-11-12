@@ -1,6 +1,6 @@
 //
 //  Utils.h
-//  library-generator
+//  Music Library Exporter
 //
 //  Created by Kyle King on 2021-01-18.
 //

@@ -1,6 +1,6 @@
 //
 //  ExportScheduler.h
-//  Music Library Exporter
+//  Music Library Exporter Helper
 //
 //  Created by Kyle King on 2021-02-02.
 //

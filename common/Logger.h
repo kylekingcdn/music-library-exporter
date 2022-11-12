@@ -1,8 +1,9 @@
 //
 //  Logger.h
-//  library-generator
+//  Music Library Exporter
 //
 //  Created by Kyle King on 2021-02-17.
+//
 
 #if ( defined(MLE_LOG_LEVEL_NONE) && MLE_LOG_LEVEL_NONE )
 #  undef MLE_LOG_LEVEL_DEBUG
