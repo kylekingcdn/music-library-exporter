@@ -461,6 +461,7 @@
 		27A2BFBE25C0851B00AAD73C /* common */ = {
 			isa = PBXGroup;
 			children = (
+				27FA62A4292052B3001D0095 /* Configuration */,
 				27CAC1F5290FD113008D4313 /* Filter */,
 				27642A46291117A4006FEF7B /* Serializer */,
 				27642A572911199A006FEF7B /* Sorter */,
@@ -480,12 +481,6 @@
 				279E325725E077B7008F8C56 /* PlaylistTree.m */,
 				276B1AD025D40BB3002D7289 /* PlaylistTreeNode.h */,
 				276B1ACF25D40BB3002D7289 /* PlaylistTreeNode.m */,
-				2783C76525C518CC002ED7B7 /* ExportConfiguration.h */,
-				2783C76625C518CC002ED7B7 /* ExportConfiguration.m */,
-				27EC7C6125C8C3E500996E9E /* UserDefaultsExportConfiguration.h */,
-				27EC7C6225C8C3E500996E9E /* UserDefaultsExportConfiguration.m */,
-				27C0A0F025CB045C00EDDE22 /* ScheduleConfiguration.h */,
-				27C0A0EF25CB045C00EDDE22 /* ScheduleConfiguration.m */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -619,6 +614,19 @@
 				27EF9A7125BF23920051CE7B /* Music_Library_Exporter.entitlements */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		27FA62A4292052B3001D0095 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				2783C76525C518CC002ED7B7 /* ExportConfiguration.h */,
+				2783C76625C518CC002ED7B7 /* ExportConfiguration.m */,
+				27EC7C6125C8C3E500996E9E /* UserDefaultsExportConfiguration.h */,
+				27EC7C6225C8C3E500996E9E /* UserDefaultsExportConfiguration.m */,
+				27C0A0F025CB045C00EDDE22 /* ScheduleConfiguration.h */,
+				27C0A0EF25CB045C00EDDE22 /* ScheduleConfiguration.m */,
+			);
+			path = Configuration;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
