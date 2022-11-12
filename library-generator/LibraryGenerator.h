@@ -8,6 +8,7 @@
 #import <Foundation/Foundation.h>
 
 #import "LGDefines.h"
+#import "ExportManagerDelegate.h"
 
 @class ExportConfiguration;
 @class PlaylistNode;
@@ -15,7 +16,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface LibraryGenerator : NSObject
+@interface LibraryGenerator : NSObject<ExportManagerDelegate>
 
 
 # pragma mark - Properties

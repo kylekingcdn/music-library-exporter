@@ -14,11 +14,17 @@
 #import "Logger.h"
 #import "ArgParser.h"
 #import "ExportConfiguration.h"
-#import "LibraryFilter.h"
-#import "Serializer.h"
+#import "ExportManager.h"
 #import "PlaylistNode.h"
 #import "PlaylistTree.h"
 #import "OrderedDictionary.h"
+#import "Utils.h"
+#import "PlaylistFilterGroup.h"
+#import "PlaylistKindFilter.h"
+#import "PlaylistDistinguishedKindFilter.h"
+#import "PlaylistMasterFilter.h"
+#import "PlaylistIDFilter.h"
+#import "PlaylistParentIDFilter.h"
 
 
 @interface LibraryGenerator ()
@@ -45,15 +51,10 @@
 
 @implementation LibraryGenerator {
 
+  PlaylistParentIDFilter* _playlistParentIDFilter;
+
   BOOL _printProgress;
   NSUInteger _termWidth;
-
-  ITLibrary* _library;
-
-  NSArray<ITLibMediaItem*>* _includedTracks;
-  NSArray<ITLibPlaylist*>* _includedPlaylists;
-
-  Serializer* _serializer;
 }
 
 NSUInteger const __MLE_PlaylistTableIndentPerLevel = 2;
@@ -66,6 +67,8 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
 - (instancetype)init {
 
   self = [super init];
+
+  _playlistParentIDFilter = nil;
 
   if ([self isRunningInTerminal]) {
     
@@ -220,11 +223,60 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
   printf("library-generator %s\n", [LG_VERSION UTF8String]);
 }
 
+- (PlaylistFilterGroup*) generatePlaylistFilters {
+
+  NSArray<NSObject<PlaylistFiltering>*>* playlistFilters = [NSArray array];
+
+  PlaylistFilterGroup* playlistFilterGroup = [[PlaylistFilterGroup alloc] initWithFilters:playlistFilters];
+
+  PlaylistIDFilter* playlistIDFilter = [[PlaylistIDFilter alloc] initWithExcludedIDs:_configuration.excludedPlaylistPersistentIds];
+  [playlistFilterGroup addFilter:playlistIDFilter];
+
+  if (_configuration.includeInternalPlaylists) {
+    [playlistFilterGroup addFilter:[[PlaylistDistinguishedKindFilter alloc] initWithInternalKinds]];
+  }
+  else {
+    [playlistFilterGroup addFilter:[[PlaylistDistinguishedKindFilter alloc] initWithBaseKinds]];
+    [playlistFilterGroup addFilter:[[PlaylistMasterFilter alloc] init]];
+  }
+
+  PlaylistKindFilter* playlistKindFilter = [[PlaylistKindFilter alloc] initWithBaseKinds];
+  if (!_configuration.flattenPlaylistHierarchy) {
+    [playlistKindFilter addKind:ITLibPlaylistKindFolder];
+
+    _playlistParentIDFilter = [[PlaylistParentIDFilter alloc] initWithExcludedIDs:_configuration.excludedPlaylistPersistentIds];
+    [playlistFilterGroup addFilter:_playlistParentIDFilter];
+  }
+  [playlistFilterGroup addFilter:playlistKindFilter];
+
+  return playlistFilterGroup;
+}
+
 - (void)printPlaylists {
+
+  // init ITLibrary
+  NSError* libraryInitError;
+  ITLibrary* library = [ITLibrary libraryWithAPIVersion:@"1.1" options:ITLibInitOptionNone error:&libraryInitError];
+  if (library == nil) {
+    MLE_Log_Info(@"ExportManager [exportLibrary] error - failed to init ITLibrary. error: %@", libraryInitError.localizedDescription);
+    return;
+  }
+
+  // init playlist filters
+  PlaylistFilterGroup* playlistFilters = [self generatePlaylistFilters];
+
+  // get included playlists
+  NSMutableArray<ITLibPlaylist*>* includedPlaylists = [NSMutableArray array];
+
+  for (ITLibPlaylist* playlist in library.allPlaylists) {
+    if ([playlistFilters filtersPassForPlaylist:playlist]) {
+      [includedPlaylists addObject:playlist];
+    }
+  };
 
   PlaylistTree* playlistTree = [[PlaylistTree alloc] init];
   [playlistTree setFlattened:_configuration.flattenPlaylistHierarchy];
-  [playlistTree generateForSourcePlaylists:_includedPlaylists];
+  [playlistTree generateForSourcePlaylists:includedPlaylists];
 
   NSUInteger tableWidth = MIN(_termWidth, __MLE_PlaylistTableMaxWidth);
   NSUInteger idColumnWidth = __MLE_PlaylistTableColumnMargin + 16 + __MLE_PlaylistTableColumnMargin;
@@ -532,12 +584,6 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
 
   MLE_Log_Info(@"LibraryGenerator [setupAndReturnError]");
 
-  // init ITLibrary
-  _library = [ITLibrary libraryWithAPIVersion:@"1.1" options:ITLibInitOptionLazyLoadData error:error];
-  if (_library == nil) {
-    return NO;
-  }
-
   ArgParser* argParser = [ArgParser parserWithProcessInfo:[NSProcessInfo processInfo]];
   [argParser dumpArguments];
   
@@ -590,15 +636,6 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
     }
   }
 
-  // init LibraryFilter to fetch included media items
-  LibraryFilter* libraryFilter = [[LibraryFilter alloc] initWithLibrary:_library];
-
-  // reload ITLibrary data
-  [_library reloadData];
-
-  _includedTracks = [libraryFilter getIncludedMediaItems];
-  _includedPlaylists = [libraryFilter getIncludedPlaylists];
-
   return YES;
 }
 
@@ -606,59 +643,101 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
 
   MLE_Log_Info(@"LibraryGenerator [exportLibraryAndReturnError]");
 
-  /* prepare for export */
+  ExportManager* exportManager = [[ExportManager alloc] initWithConfiguration:_configuration];
+  [exportManager setDelegate:self];
+  [exportManager setOutputFileURL:_configuration.outputFileUrl];
 
-  [self printStatus:@"preparing for export"];
-  Serializer* _serializer = [[Serializer alloc] initWithLibrary:_library];
-  [_serializer initSerializeMembers];
-  [self printStatusDone:@"preparing for export"];
+  NSError* exportError;
+  return [exportManager exportLibraryWithError:&exportError];
+}
 
-  /* start export */
-  [self printStatus:@"generating tracks"];
-  OrderedDictionary* tracksDict;
+
+#pragma mark - ExportManagerDelegate
+
+- (void) exportStateChangedFrom:(ExportState)oldState toState:(ExportState)newState {
+
+  switch (oldState) {
+    case ExportFinished:
+    case ExportStopped:
+    case ExportError: {
+      break;
+    }
+    case ExportPreparing: {
+      [self printStatusDone:@"preparing for export"];
+      break;
+    }
+    case ExportGeneratingTracks: {
+      if (_printProgress) {
+        [self clearBuffer];
+      }
+      [self printStatusDone:@"generating tracks"];
+      break;
+    }
+    case ExportGeneratingPlaylists: {
+      if (_printProgress) {
+        [self clearBuffer];
+      }
+      [self printStatusDone:@"generating playlists"];
+      break;
+    }
+    case ExportGeneratingLibrary: {
+      [self printStatusDone:@"generating library"];
+      break;
+    }
+    case ExportWritingToDisk: {
+      [self printStatusDone:@"writing to file"];
+      break;
+    }
+  }
+
+  switch (newState) {
+    case ExportFinished:
+    case ExportStopped:
+    case ExportError: {
+      break;
+    }
+    case ExportPreparing: {
+      [self printStatus:@"preparing for export"];
+      break;
+    }
+    case ExportGeneratingTracks: {
+      [self printStatus:@"generating tracks"];
+      break;
+    }
+    case ExportGeneratingPlaylists: {
+      [self printStatus:@"generating playlists"];
+      break;
+    }
+    case ExportGeneratingLibrary: {
+      [self printStatus:@"generating library"];
+      break;
+    }
+    case ExportWritingToDisk: {
+      [self printStatus:@"writing to file"];
+      break;
+    }
+  }
+}
+
+- (void) exportedItems:(NSUInteger)exportedItems ofTotal:(NSUInteger)totalItems {
+
   if (_printProgress) {
-    // add track progress callback
-    void (^trackProgressCallback)(NSUInteger,NSUInteger) = ^(NSUInteger trackIndex, NSUInteger trackCount){
-      [self drawProgressBarWithStatus:@"generating tracks" forCurrentValue:trackIndex andTotalValue:trackCount];
-    };
-    tracksDict = [_serializer serializeTracks:_includedTracks withProgressCallback:trackProgressCallback];
-    [self clearBuffer];
+    [self drawProgressBarWithStatus:@"generating tracks" forCurrentValue:exportedItems andTotalValue:totalItems];
   }
-  else {
-    tracksDict = [_serializer serializeTracks:_includedTracks];
-  }
-  [self printStatusDone:@"generating tracks"];
+}
 
-  [self printStatus:@"generating playlists"];
-  NSArray<OrderedDictionary*>* playlistsArr;
+- (void) exportedPlaylists:(NSUInteger)exportedPlaylists ofTotal:(NSUInteger)totalPlaylists {
+
   if (_printProgress) {
-    // add playlist progress callback
-    void (^playlistProgressCallback)(NSUInteger,NSUInteger) = ^(NSUInteger playlistIndex, NSUInteger playlistCount){
-      [self drawProgressBarWithStatus:@"generating playlists" forCurrentValue:playlistIndex andTotalValue:playlistCount];
-    };
-    playlistsArr = [_serializer serializePlaylists:_includedPlaylists withProgressCallback:playlistProgressCallback];
-    [self clearBuffer];
+    [self drawProgressBarWithStatus:@"generating playlists" forCurrentValue:exportedPlaylists andTotalValue:totalPlaylists];
   }
-  else {
-    playlistsArr = [_serializer serializePlaylists:_includedPlaylists];
+}
+
+- (void)excludedPlaylist:(ITLibPlaylist*)playlist {
+
+  if (_playlistParentIDFilter != nil) {
+    [_playlistParentIDFilter addExcludedID:playlist.persistentID];
   }
-  [self printStatusDone:@"generating playlists"];
-  
-  [self printStatus:@"generating library"];
-  OrderedDictionary* libraryDict = [_serializer serializeLibraryforTracks:tracksDict andPlaylists:playlistsArr];
-  [self printStatusDone:@"generating library"];
-
-  // unload ITLibrary data
-  [_library unloadData];
-
-  [self printStatus:@"writing to file"];
-  BOOL writeSuccess = [libraryDict writeToURL:_configuration.outputFileUrl error:error];
-  if (!writeSuccess) {
-    return NO;
-  }
-  [self printStatusDone:@"writing to file"];
-
-  return YES;
 }
 
 
