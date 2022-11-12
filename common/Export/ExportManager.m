@@ -65,7 +65,7 @@ NSErrorDomain const __MLE_ErrorDomain_ExportManager = @"com.kylekingcdn.MusicLib
   [self setState:ExportPreparing];
 
   // init ITLibrary
-  ITLibrary* library = [ITLibrary libraryWithAPIVersion:@"1.1" options:ITLibInitOptionLazyLoadData error:error];
+  ITLibrary* library = [ITLibrary libraryWithAPIVersion:@"1.1" options:ITLibInitOptionNone error:error];
   if (library == nil) {
     MLE_Log_Info(@"ExportManager [exportLibrary] error - failed to init ITLibrary. error: %@", (*error).localizedDescription);
     return NO;
