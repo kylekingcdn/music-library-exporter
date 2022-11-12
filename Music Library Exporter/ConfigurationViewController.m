@@ -303,7 +303,9 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
     [exportManager setOutputFileURL:outputFileUrl];
 
     NSError* exportError;
+    [outputDirectoryUrl startAccessingSecurityScopedResource];
     BOOL exportSuccessful = [exportManager exportLibraryWithError:&exportError];
+    [outputDirectoryUrl stopAccessingSecurityScopedResource];
 
     MLE_Log_Info(@"ConfigurationViewController [exportLibrary] export successful: %@", (exportSuccessful ? @"YES" : @"NO"));
 
