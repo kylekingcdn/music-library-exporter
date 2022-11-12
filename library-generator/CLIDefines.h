@@ -14,7 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 extern NSErrorDomain const __MLE_ErrorDomain_ArgParser;
-extern NSErrorDomain const __MLE_ErrorDomain_LibraryGenerator;
 
 typedef NS_ENUM(NSInteger, ArgParserErrorCode) {
   ArgParserErrorUknown,
@@ -26,13 +25,6 @@ typedef NS_ENUM(NSInteger, ArgParserErrorCode) {
   ArgParserErrorUnknownSortColumn,
   ArgParserErrorUnknownSortOrder,
   ArgParserErrorAppPrefsPropertyListInvalid,
-};
-
-typedef NS_ENUM(NSInteger, LibraryGeneratorErrorCode) {
-  LibraryGeneratorErrorUknown,
-  LibraryGeneratorErrorInvalidOutputPath,
-  LibraryGeneratorErrorInvalidMusicMediaDirectory,
-  LibraryGeneratorErrorInvalidRemapping,
 };
 
 typedef NS_ENUM(NSInteger, LGCommandKind) {

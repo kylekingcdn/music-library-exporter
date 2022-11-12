@@ -57,6 +57,8 @@
   NSUInteger _termWidth;
 }
 
+NSErrorDomain const __MLE_ErrorDomain_LibraryGenerator = @"com.kylekingcdn.MusicLibraryExporter.LibraryGeneratorErrorDomain";
+
 NSUInteger const __MLE_PlaylistTableIndentPerLevel = 2;
 NSUInteger const __MLE_PlaylistTableMaxWidth = 100;
 NSUInteger const __MLE_PlaylistTableColumnMargin = 2;

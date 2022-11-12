@@ -18,6 +18,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LibraryGenerator : NSObject<ExportManagerDelegate>
 
+extern NSErrorDomain const __MLE_ErrorDomain_LibraryGenerator;
+
+typedef NS_ENUM(NSInteger, LibraryGeneratorErrorCode) {
+  LibraryGeneratorErrorUknown,
+  LibraryGeneratorErrorInvalidOutputPath,
+  LibraryGeneratorErrorInvalidMusicMediaDirectory,
+  LibraryGeneratorErrorInvalidRemapping,
+};
+
 
 # pragma mark - Properties
 
