@@ -12,8 +12,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ITLibrary;
-@class ITLibPlaylist;
 @class ExportConfiguration;
 @class PlaylistNode;
 
@@ -31,7 +29,7 @@ typedef NS_ENUM(NSInteger, TableColumnType) {
 
 #pragma mark - Initializers
 
-- (instancetype)initWithLibrary:(ITLibrary*)library;
+- (instancetype)init;
 
 
 #pragma mark - Accessors

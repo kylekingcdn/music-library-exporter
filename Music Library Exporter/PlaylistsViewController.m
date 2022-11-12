@@ -14,10 +14,12 @@
 #import "PlaylistNode.h"
 #import "PlaylistTree.h"
 #import "ExportConfiguration.h"
-#import "LibraryFilter.h"
 #import "CheckBoxTableCellView.h"
 #import "PopupButtonTableCellView.h"
-
+#import "PlaylistFilterGroup.h"
+#import "PlaylistKindFilter.h"
+#import "PlaylistDistinguishedKindFilter.h"
+#import "PlaylistMasterFilter.h"
 
 @interface PlaylistsViewController ()
 
@@ -30,26 +32,17 @@
 
   NSUserDefaults* _groupDefaults;
 
-  ITLibrary* _library;
-
-  LibraryFilter* _libraryFilter;
   PlaylistTree* _playlistTree;
 }
 
 
 #pragma mark - Initializers
 
-- (instancetype)initWithLibrary:(ITLibrary*)library {
+- (instancetype)init {
 
   self = [super initWithNibName:@"PlaylistsView" bundle:nil];
 
-  _library = library;
-  _libraryFilter = [[LibraryFilter alloc] initWithLibrary:_library];
-
   _playlistTree = [[PlaylistTree alloc] init];
-
-  // show playlists that have been manually excluded to allow for changing status
-  [_libraryFilter setFilterExcludedPlaylistIds:NO];
 
   // detect changes in NSUSerDefaults for app group
   _groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
@@ -290,20 +283,53 @@
 
 #pragma mark - Mutators
 
+- (PlaylistFilterGroup*) generatePlaylistFilters {
+
+  NSArray<NSObject<PlaylistFiltering>*>* playlistFilters = [NSArray array];
+
+  PlaylistFilterGroup* playlistFilterGroup = [[PlaylistFilterGroup alloc] initWithFilters:playlistFilters];
+
+  if (ExportConfiguration.sharedConfig.includeInternalPlaylists) {
+    [playlistFilterGroup addFilter:[[PlaylistDistinguishedKindFilter alloc] initWithInternalKinds]];
+  }
+  else {
+    [playlistFilterGroup addFilter:[[PlaylistDistinguishedKindFilter alloc] initWithBaseKinds]];
+    [playlistFilterGroup addFilter:[[PlaylistMasterFilter alloc] init]];
+  }
+
+  PlaylistKindFilter* playlistKindFilter = [[PlaylistKindFilter alloc] initWithBaseKinds];
+  if (!ExportConfiguration.sharedConfig.flattenPlaylistHierarchy) {
+    [playlistKindFilter addKind:ITLibPlaylistKindFolder];
+  }
+  [playlistFilterGroup addFilter:playlistKindFilter];
+
+  return playlistFilterGroup;
+}
+
 - (void)initPlaylistNodes {
 
-  if (_library == nil) {
+  // init ITLibrary
+  NSError* libraryInitError;
+  ITLibrary* library = [ITLibrary libraryWithAPIVersion:@"1.1" options:ITLibInitOptionNone error:&libraryInitError];
+  if (library == nil) {
+    MLE_Log_Info(@"ExportManager [exportLibrary] error - failed to init ITLibrary. error: %@", libraryInitError.localizedDescription);
     return;
   }
 
-  // reload library data
-  [_library reloadData];
+  // init playlist filters
+  PlaylistFilterGroup* playlistFilters = [self generatePlaylistFilters];
+
+  // get included playlists
+  NSMutableArray<ITLibPlaylist*>* includedPlaylists = [NSMutableArray array];
+
+  for (ITLibPlaylist* playlist in library.allPlaylists) {
+    if ([playlistFilters filtersPassForPlaylist:playlist]) {
+      [includedPlaylists addObject:playlist];
+    }
+  }
 
   [_playlistTree setFlattened:ExportConfiguration.sharedConfig.flattenPlaylistHierarchy];
-  [_playlistTree generateForSourcePlaylists:[_libraryFilter getIncludedPlaylists]];
-
-  // unload library data
-  [_library unloadData];
+  [_playlistTree generateForSourcePlaylists:includedPlaylists];
 }
 
 - (IBAction)setPlaylistExcludedForCellView:(id)sender {

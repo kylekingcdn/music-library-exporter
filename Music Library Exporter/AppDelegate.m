@@ -132,7 +132,7 @@
   if (_playlistsViewController == nil) {
 
     // init playlistsView
-    _playlistsViewController = [[PlaylistsViewController alloc] initWithLibrary:_library];
+    _playlistsViewController = [[PlaylistsViewController alloc] init];
     _playlistsViewWindow = [NSWindow windowWithContentViewController:_playlistsViewController];
     [_playlistsViewWindow setFrameAutosaveName:@"PlaylistsWindow"];
     [_playlistsViewWindow setTitle:@"Playlists"];
