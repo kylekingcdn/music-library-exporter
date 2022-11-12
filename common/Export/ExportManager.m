@@ -76,6 +76,9 @@
 
 - (BOOL)exportLibrary {
 
+  // set state to preparing
+  [self setState:ExportPreparing];
+
   // init ITLibrary
   NSError *error = nil;
   ITLibrary* library = [ITLibrary libraryWithAPIVersion:@"1.1" options:ITLibInitOptionLazyLoadData error:&error];
@@ -112,15 +115,19 @@
   [librarySerializer setMusicLibraryDir:_configuration.musicLibraryPath];
 
   // generate items dict
+  [self setState:ExportGeneratingTracks];
   OrderedDictionary* itemsDict = [itemSerializer serializeItems:library.allMediaItems];
 
   // generate playlists dicts
+  [self setState:ExportGeneratingPlaylists];
   NSArray<OrderedDictionary*>* playlistsDictArr = [playlistSerializer serializePlaylists:library.allPlaylists];
 
   // generate library dict
+  [self setState:ExportGeneratingLibrary];
   OrderedDictionary* libraryDict = [librarySerializer serializeLibrary:library withItems:itemsDict andPlaylists:playlistsDictArr];
 
   // write library
+  [self setState:ExportWritingToDisk];
   MLE_Log_Info(@"ExportManager [writeLibrary] saving to: %@", _outputFileURL);
   BOOL writeSuccess = [libraryDict writeToURL:_outputFileURL error:&error];
 
