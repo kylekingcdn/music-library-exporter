@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2705444425B66A0A00FE6D65"
-               BuildableName = "library-generator"
+               BuildableName = "music-library-exporter"
                BlueprintName = "music-library-exporter"
                ReferencedContainer = "container:Music Library Exporter.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2705444425B66A0A00FE6D65"
-            BuildableName = "library-generator"
+            BuildableName = "music-library-exporter"
             BlueprintName = "music-library-exporter"
             ReferencedContainer = "container:Music Library Exporter.xcodeproj">
          </BuildableReference>
@@ -104,7 +104,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2705444425B66A0A00FE6D65"
-            BuildableName = "library-generator"
+            BuildableName = "music-library-exporter"
             BlueprintName = "music-library-exporter"
             ReferencedContainer = "container:Music Library Exporter.xcodeproj">
          </BuildableReference>

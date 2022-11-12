@@ -218,7 +218,7 @@
 		273B522F25CA666000421B14 /* Defines.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Defines.m; sourceTree = "<group>"; };
 		2749611525CE2A1700B98E11 /* Music Library Exporter Helper.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Music Library Exporter Helper.xcconfig"; sourceTree = "<group>"; };
 		2749611725CE2A1700B98E11 /* Music Library Exporter.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Music Library Exporter.xcconfig"; sourceTree = "<group>"; };
-		2749611925CE2A1700B98E11 /* library-generator.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "library-generator.xcconfig"; sourceTree = "<group>"; };
+		2749611925CE2A1700B98E11 /* music-library-exporter.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "music-library-exporter.xcconfig"; sourceTree = "<group>"; };
 		2749612025CE2A1700B98E11 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		2749612125CE2A1700B98E11 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		2749612225CE2A1700B98E11 /* Version.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Version.xcconfig; sourceTree = "<group>"; };
@@ -406,7 +406,7 @@
 			children = (
 				2749611725CE2A1700B98E11 /* Music Library Exporter.xcconfig */,
 				2749611525CE2A1700B98E11 /* Music Library Exporter Helper.xcconfig */,
-				2749611925CE2A1700B98E11 /* library-generator.xcconfig */,
+				2749611925CE2A1700B98E11 /* music-library-exporter.xcconfig */,
 			);
 			path = Schemes;
 			sourceTree = "<group>";
@@ -1011,14 +1011,14 @@
 		};
 		2705444D25B66A0A00FE6D65 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2749611925CE2A1700B98E11 /* library-generator.xcconfig */;
+			baseConfigurationReference = 2749611925CE2A1700B98E11 /* music-library-exporter.xcconfig */;
 			buildSettings = {
 			};
 			name = Debug;
 		};
 		2705444E25B66A0A00FE6D65 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2749611925CE2A1700B98E11 /* library-generator.xcconfig */;
+			baseConfigurationReference = 2749611925CE2A1700B98E11 /* music-library-exporter.xcconfig */;
 			buildSettings = {
 			};
 			name = Release;
