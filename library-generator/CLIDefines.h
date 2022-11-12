@@ -1,5 +1,5 @@
 //
-//  LGDefines.h
+//  CLIDefines.h
 //  library-generator
 //
 //  Created by Kyle King on 2021-02-15.
@@ -10,7 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 
-@interface LGDefines : NSObject
+@interface CLIDefines : NSObject
 
 
 extern NSErrorDomain const __MLE_ErrorDomain_ArgParser;

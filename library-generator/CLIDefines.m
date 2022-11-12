@@ -1,14 +1,14 @@
 //
-//  LGDefines.m
+//  CLIDefines.m
 //  library-generator
 //
 //  Created by Kyle King on 2021-02-15.
 //
 
-#import "LGDefines.h"
+#import "CLIDefines.h"
 
 
-@implementation LGDefines
+@implementation CLIDefines
 
 
 NSErrorDomain const __MLE_ErrorDomain_ArgParser = @"com.kylekingcdn.MusicLibraryExporter.ArgParserErrorDomain";
@@ -163,7 +163,7 @@ NSErrorDomain const __MLE_ErrorDomain_LibraryGenerator = @"com.kylekingcdn.Music
 
 + (nullable NSString*)nameAndValueForOption:(LGOptionKind)option {
 
-  NSString* optionName = [LGDefines nameForOption:option];
+  NSString* optionName = [CLIDefines nameForOption:option];
 
   switch (option) {
 
@@ -204,7 +204,7 @@ NSErrorDomain const __MLE_ErrorDomain_LibraryGenerator = @"com.kylekingcdn.Music
   NSMutableArray<NSString*>* names = [NSMutableArray array];
 
   for (LGCommandKind command = LGCommandKindHelp; command < LGCommandKindUnknown; command++) {
-    [names addObject:[LGDefines nameForCommand:command]];
+    [names addObject:[CLIDefines nameForCommand:command]];
   }
 
   return names;
@@ -238,11 +238,11 @@ NSErrorDomain const __MLE_ErrorDomain_LibraryGenerator = @"com.kylekingcdn.Music
   switch (option) {
 
     case LGOptionKindHelp: {
-      return [LGDefines signatureFormatForCommand:LGCommandKindHelp];
+      return [CLIDefines signatureFormatForCommand:LGCommandKindHelp];
     }
 
     case LGOptionKindVersion: {
-      return [LGDefines signatureFormatForCommand:LGCommandKindVersion];
+      return [CLIDefines signatureFormatForCommand:LGCommandKindVersion];
     }
 
     case LGOptionKindReadPrefs: {

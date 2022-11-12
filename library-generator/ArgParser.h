@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "LGDefines.h"
+#import "CLIDefines.h"
 #import "Defines.h"
 
 

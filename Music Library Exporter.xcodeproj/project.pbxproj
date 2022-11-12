@@ -10,7 +10,7 @@
 		2705444925B66A0A00FE6D65 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2705444825B66A0A00FE6D65 /* main.m */; };
 		2705445225B66B7A00FE6D65 /* iTunesLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2705445125B66B7A00FE6D65 /* iTunesLibrary.framework */; };
 		271DD26E25DB9FCF009BB292 /* ArgParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 271DD26D25DB9FCF009BB292 /* ArgParser.m */; };
-		271DD27425DBA246009BB292 /* LGDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 271DD27325DBA246009BB292 /* LGDefines.m */; };
+		271DD27425DBA246009BB292 /* CLIDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 271DD27325DBA246009BB292 /* CLIDefines.m */; };
 		2725CA4725D3F2D7002C1203 /* PlaylistsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2725CA4625D3F2D7002C1203 /* PlaylistsViewController.m */; };
 		2725CA4C25D3F65C002C1203 /* PlaylistsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2725CA4B25D3F65C002C1203 /* PlaylistsView.xib */; };
 		272C8E9825C0E59C003CBF47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27EF9A6925BF23920051CE7B /* Assets.xcassets */; };
@@ -203,8 +203,8 @@
 		270D786825DB682000B3D409 /* ArgumentParser.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ArgumentParser.xcodeproj; path = ArgumentParser/ArgumentParser.xcodeproj; sourceTree = "<group>"; };
 		271DD26C25DB9FCF009BB292 /* ArgParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArgParser.h; sourceTree = "<group>"; };
 		271DD26D25DB9FCF009BB292 /* ArgParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArgParser.m; sourceTree = "<group>"; };
-		271DD27225DBA246009BB292 /* LGDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LGDefines.h; sourceTree = "<group>"; };
-		271DD27325DBA246009BB292 /* LGDefines.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LGDefines.m; sourceTree = "<group>"; };
+		271DD27225DBA246009BB292 /* CLIDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLIDefines.h; sourceTree = "<group>"; };
+		271DD27325DBA246009BB292 /* CLIDefines.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLIDefines.m; sourceTree = "<group>"; };
 		2725CA4525D3F2D7002C1203 /* PlaylistsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaylistsViewController.h; sourceTree = "<group>"; };
 		2725CA4625D3F2D7002C1203 /* PlaylistsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaylistsViewController.m; sourceTree = "<group>"; };
 		2725CA4B25D3F65C002C1203 /* PlaylistsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaylistsView.xib; sourceTree = "<group>"; };
@@ -561,8 +561,8 @@
 			isa = PBXGroup;
 			children = (
 				2705444825B66A0A00FE6D65 /* main.m */,
-				271DD27225DBA246009BB292 /* LGDefines.h */,
-				271DD27325DBA246009BB292 /* LGDefines.m */,
+				271DD27225DBA246009BB292 /* CLIDefines.h */,
+				271DD27325DBA246009BB292 /* CLIDefines.m */,
 				271DD26C25DB9FCF009BB292 /* ArgParser.h */,
 				271DD26D25DB9FCF009BB292 /* ArgParser.m */,
 				2739C5BC25DE29A400C57218 /* LibraryGenerator.h */,
@@ -824,7 +824,7 @@
 				279E326C25E07971008F8C56 /* PlaylistNode.m in Sources */,
 				279E327025E07976008F8C56 /* PlaylistTree.m in Sources */,
 				27B54AA429126B2900BEC366 /* LibrarySerializer.m in Sources */,
-				271DD27425DBA246009BB292 /* LGDefines.m in Sources */,
+				271DD27425DBA246009BB292 /* CLIDefines.m in Sources */,
 				27CAC22629100507008D4313 /* MediaItemFilterGroup.m in Sources */,
 				27CAC22529100507008D4313 /* MediaItemKindFilter.m in Sources */,
 				271DD26E25DB9FCF009BB292 /* ArgParser.m in Sources */,

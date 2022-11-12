@@ -209,7 +209,7 @@
 
 - (BOOL)populateExportConfigurationFromAppPreferences:(ExportConfiguration*)configuration error:(NSError**)error {
 
-  NSURL* prefsPlistUrl = [LGDefines fileUrlForAppPreferences];
+  NSURL* prefsPlistUrl = [CLIDefines fileUrlForAppPreferences];
   NSString* prefsPlistPath = prefsPlistUrl.path;
 
   if (![[NSFileManager defaultManager] fileExistsAtPath:prefsPlistPath]) {
@@ -258,7 +258,7 @@
 
     BOOL isSet = [self isOptionSet:option];
 
-    NSLog(@"  %@: %@", [LGDefines nameForOption:option], (isSet ? @"Yes" : @"No"));
+    NSLog(@"  %@: %@", [CLIDefines nameForOption:option], (isSet ? @"Yes" : @"No"));
   }
 }
 
@@ -403,14 +403,14 @@
   NSMutableDictionary* optionSignatures = [NSMutableDictionary dictionary];
 
   // add help signature to both
-  XPMArgumentSignature* helpSignature = [XPMArgumentSignature argumentSignatureWithFormat:[LGDefines signatureFormatForCommand:LGCommandKindHelp]];
+  XPMArgumentSignature* helpSignature = [XPMArgumentSignature argumentSignatureWithFormat:[CLIDefines signatureFormatForCommand:LGCommandKindHelp]];
   [commandSignatures setObject:helpSignature forKey:@(LGCommandKindHelp)];
   [optionSignatures setObject:helpSignature forKey:@(LGOptionKindHelp)];
 
   // init command signatures dict
   for (LGCommandKind command = LGCommandKindHelp + 1; command < LGCommandKindUnknown; command++) {
 
-    NSString* signatureFormat = [LGDefines signatureFormatForCommand:command];
+    NSString* signatureFormat = [CLIDefines signatureFormatForCommand:command];
     XPMArgumentSignature* commandSignature = [XPMArgumentSignature argumentSignatureWithFormat:signatureFormat];
     [commandSignatures setObject:commandSignature forKey:@(command)];
   }
@@ -418,7 +418,7 @@
   // init option signatures dict
   for (LGOptionKind option = LGOptionKindHelp + 1; option < LGOptionKind_MAX; option++) {
 
-    NSString* signatureFormat = [LGDefines signatureFormatForOption:option];
+    NSString* signatureFormat = [CLIDefines signatureFormatForOption:option];
     XPMArgumentSignature* optionSignature = [XPMArgumentSignature argumentSignatureWithFormat:signatureFormat];
     [optionSignatures setObject:optionSignature forKey:@(option)];
   }
@@ -438,7 +438,7 @@
     XPMArgumentSignature* commandSig = [self signatureForCommand:command];
 
     NSMutableSet* commandOptions = [NSMutableSet set];
-    NSArray<NSNumber*>* validOptionTypes = [LGDefines optionsForCommand:command];
+    NSArray<NSNumber*>* validOptionTypes = [CLIDefines optionsForCommand:command];
 
     // add each possible option to the command
     for (NSNumber* optionType in validOptionTypes) {
@@ -469,7 +469,7 @@
     else {
       if (error) {
         *error = [NSError errorWithDomain:__MLE_ErrorDomain_ArgParser code:ArgParserErrorInvalidCommand userInfo:@{
-          NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Unknown command\nValid commands:  %@", [LGDefines.commandNames componentsJoinedByString:@", "]],
+          NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Unknown command\nValid commands:  %@", [CLIDefines.commandNames componentsJoinedByString:@", "]],
         }];
       }
       _command = LGCommandKindUnknown;
@@ -496,7 +496,7 @@
 
   // command issued is valid
   _command = [commandTypes.anyObject integerValue];
-  MLE_Log_Info(@"ArgParser [validateCommandAndReturnError] identified valid command: %@", [LGDefines nameForCommand:_command]);
+  MLE_Log_Info(@"ArgParser [validateCommandAndReturnError] identified valid command: %@", [CLIDefines nameForCommand:_command]);
 
   return YES;
 }
@@ -527,7 +527,7 @@
     return NO;
   }
 
-//  NSArray<NSNumber*>* requiredOptions = [LGDefines requiredOptionsForCommand:_command];
+//  NSArray<NSNumber*>* requiredOptions = [CLIDefines requiredOptionsForCommand:_command];
 //  NSMutableArray* requiredOptionsMissing = [NSMutableArray array];
 //  NSMutableArray* requiredOptionsMissingNames = [NSMutableArray array];
 //
@@ -538,9 +538,9 @@
 //    XPMArgumentSignature* sig = [self signatureForOption:option];
 //    NSUInteger sigCount = [_package countOfSignature:sig];
 //    if (sigCount == 0) {
-//      MLE_Log_Info(@"ArgParser [validateOptionsAndReturnError] missing required option: %@", [LGDefines nameForOption:option]);
+//      MLE_Log_Info(@"ArgParser [validateOptionsAndReturnError] missing required option: %@", [CLIDefines nameForOption:option]);
 //      [requiredOptionsMissing addObject:sig];
-//      [requiredOptionsMissingNames addObject:[LGDefines nameAndValueForOption:option]];
+//      [requiredOptionsMissingNames addObject:[CLIDefines nameAndValueForOption:option]];
 //    }
 //  }
 //  if (requiredOptionsMissing.count > 0) {
