@@ -42,6 +42,9 @@
     case ExportGeneratingPlaylists: {
         return @"Generating playlists";
     }
+    case ExportGeneratingLibrary: {
+        return @"Generating library";
+    }
     case ExportWritingToDisk: {
         return @"Saving to disk";
     }

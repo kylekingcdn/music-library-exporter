@@ -21,6 +21,7 @@ typedef NS_ENUM(NSInteger, ExportState) {
   ExportPreparing,
   ExportGeneratingTracks,
   ExportGeneratingPlaylists,
+  ExportGeneratingLibrary,
   ExportWritingToDisk,
   ExportFinished,
   ExportError
