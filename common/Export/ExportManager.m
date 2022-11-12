@@ -28,9 +28,7 @@
 @implementation ExportManager {
 
   MediaEntityRepository* _entityRepository;
-
   ExportConfiguration* _configuration;
-
   PlaylistParentIDFilter* _playlistParentIDFilter;
 }
 
@@ -39,9 +37,7 @@
   self = [super init];
 
   _entityRepository = [[MediaEntityRepository alloc] init];
-
   _configuration = configuration;
-
   _playlistParentIDFilter = nil;
 
   return self;
