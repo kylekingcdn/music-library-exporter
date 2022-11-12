@@ -586,13 +586,7 @@
 				2783C75625C4FB60002ED7B7 /* ConfigurationViewController.h */,
 				2783C75725C4FB60002ED7B7 /* ConfigurationViewController.m */,
 				2783C74825C4FAF2002ED7B7 /* ConfigurationView.xib */,
-				276B1AD625D415A2002D7289 /* CheckBoxTableCellView.h */,
-				276B1AD725D415A2002D7289 /* CheckBoxTableCellView.m */,
-				276B1AE025D42453002D7289 /* PopupButtonTableCellView.h */,
-				276B1ADF25D42452002D7289 /* PopupButtonTableCellView.m */,
-				2725CA4525D3F2D7002C1203 /* PlaylistsViewController.h */,
-				2725CA4625D3F2D7002C1203 /* PlaylistsViewController.m */,
-				2725CA4B25D3F65C002C1203 /* PlaylistsView.xib */,
+				27FA62AD2920549A001D0095 /* PlaylistsView */,
 				27DBB9B525E6E91E003BE889 /* PreferencesWindowController.h */,
 				27DBB9B625E6E91E003BE889 /* PreferencesWindowController.m */,
 				27DBB9A825E6E746003BE889 /* PreferencesWindow.xib */,
@@ -635,6 +629,20 @@
 				276B1ACF25D40BB3002D7289 /* PlaylistTreeNode.m */,
 			);
 			path = PlaylistTree;
+			sourceTree = "<group>";
+		};
+		27FA62AD2920549A001D0095 /* PlaylistsView */ = {
+			isa = PBXGroup;
+			children = (
+				276B1AD625D415A2002D7289 /* CheckBoxTableCellView.h */,
+				276B1AD725D415A2002D7289 /* CheckBoxTableCellView.m */,
+				276B1AE025D42453002D7289 /* PopupButtonTableCellView.h */,
+				276B1ADF25D42452002D7289 /* PopupButtonTableCellView.m */,
+				2725CA4525D3F2D7002C1203 /* PlaylistsViewController.h */,
+				2725CA4625D3F2D7002C1203 /* PlaylistsViewController.m */,
+				2725CA4B25D3F65C002C1203 /* PlaylistsView.xib */,
+			);
+			path = PlaylistsView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
