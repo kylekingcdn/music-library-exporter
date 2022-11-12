@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol ExportManagerDelegate <NSObject>
 @optional
 
-- (void) exportStateChanged:(ExportState)state;
+- (void) exportStateChangedFrom:(ExportState)oldState toState:(ExportState)newState;
 
 - (void) exportedItems:(NSUInteger)exportedItems ofTotal:(NSUInteger)totalItems;
 - (void) exportedPlaylists:(NSUInteger)exportedPlaylists ofTotal:(NSUInteger)totalPlaylists;

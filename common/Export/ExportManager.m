@@ -131,10 +131,12 @@ NSErrorDomain const __MLE_ErrorDomain_ExportManager = @"com.kylekingcdn.MusicLib
 
 - (void)setState:(ExportState)state {
 
+  ExportState oldState = _state;
+
   _state = state;
 
-  if (_delegate != nil && [_delegate respondsToSelector:@selector(exportStateChanged:)]) {
-    [_delegate exportStateChanged:state];
+  if (_delegate != nil && [_delegate respondsToSelector:@selector(exportStateChangedFrom:toState:)]) {
+    [_delegate exportStateChangedFrom:oldState toState:state];
   }
 }
 

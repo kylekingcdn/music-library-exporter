@@ -460,9 +460,9 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
 
 #pragma mark - ExportManagerDelegate
 
-- (void) exportStateChanged:(ExportState)state {
+- (void) exportStateChangedFrom:(ExportState)oldState toState:(ExportState)newState {
 
-  NSString* stateDescription = [Utils descriptionForExportState:state];
+  NSString* stateDescription = [Utils descriptionForExportState:newState];
 
   MLE_Log_Info(@"ConfigurationViewController [handleStateChange: %@]", stateDescription);
 
@@ -470,7 +470,7 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
   dispatch_async(dispatch_get_main_queue(), ^{
 
     BOOL exportAllowed;
-    switch (state) {
+    switch (newState) {
       case ExportFinished:
         [ScheduleConfiguration.sharedConfig setLastExportedAt:[NSDate date]];
       case ExportStopped:
