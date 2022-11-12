@@ -11,10 +11,10 @@
 #import "Utils.h"
 #import "HelperDelegate.h"
 #import "UserDefaultsExportConfiguration.h"
-#import "ExportDelegate.h"
 #import "ScheduleConfiguration.h"
 #import "HourNumberFormatter.h"
 #import "AppDelegate.h"
+#import "ExportManager.h"
 
 
 @interface ConfigurationViewController ()
@@ -52,8 +52,6 @@
 
   HelperDelegate* _helperDelegate;
 
-  ExportDelegate* _exportDelegate;
-
   HourNumberFormatter* _scheduleIntervalHourFormatter;
 }
 
@@ -63,13 +61,11 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
 
 #pragma mark - Initializers
 
-- (instancetype)initWithExportDelegate:(ExportDelegate*)exportDelegate forHelperDelegate:(HelperDelegate*)helperDelegate {
+- (instancetype)initWithHelperDelegate:(HelperDelegate*)helperDelegate {
 
   self = [super initWithNibName: @"ConfigurationView" bundle: nil];
 
   _helperDelegate = helperDelegate;
-
-  _exportDelegate = exportDelegate;
 
 //  [ExportConfiguration.sharedConfig dumpProperties];
 //  [ScheduleConfiguration.sharedConfig dumpProperties];
@@ -278,59 +274,6 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
   // catch any changes made to configuration form before updating UI
   [[[self view] window] makeFirstResponder:self.view.window];
 
-  // update UI for any changed values (e.g. stale bookmark)
-
-  // add state callback immediately
-  void (^stateCallback)(NSInteger) = ^(NSInteger state){ [self handleStateChange:state]; };
-  [self->_exportDelegate setStateCallback:stateCallback];
-
-  // prepare ExportDelegate members
-  NSError* prepareError;
-  BOOL prepareSuccessful = [_exportDelegate prepareForExportAndReturnError:&prepareError];
-
-  MLE_Log_Info(@"ConfigurationViewController [exportLibrary] prepare successful: %@", (prepareSuccessful ? @"YES" : @"NO"));
-
-  // handle prepare errors
-  if (!prepareSuccessful) {
-
-    // no error object was given
-    if (!prepareError) {
-      MLE_Log_Error(@"ConfigurationViewController [exportLibrary] error - unknown error from exportDelegate->prepareForExport!");
-      return;
-    }
-
-    MLE_Log_Debug(@"ConfigurationViewController [exportLibrary] error code: %ld", (long)prepareError.code);
-
-    // handle errors with resolution options
-    if (prepareError.code == ExportDelegateErrorOutputDirectoryInvalid) {
-
-      MLE_Log_Info(@"ConfigurationViewController [exportLibrary] directory invalid error - will prompt for reselect");
-
-      // show alert with response callback
-      [self showAlertForError:prepareError callback:^(NSModalResponse response) {
-
-        MLE_Log_Debug(@"ConfigurationViewController [exportLibrary] alert callback response: %lu", response);
-
-        // browse for new directory selected
-        if (response == NSAlertFirstButtonReturn) {
-          [self browseAndValidateOutputDirectoryWithCallback:^(BOOL isValid) {
-            // new directory is valid - call export again
-            if (isValid) {
-              [self exportLibrary:sender];
-            }
-          }];
-        }
-      }];
-    }
-
-    // show alert for error with no options, therefore no callback
-    else {
-      [self showAlertForError:prepareError callback:nil];
-    }
-
-    return;
-  }
-
   dispatch_queue_attr_t queuePriorityAttr = dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_SERIAL, QOS_CLASS_UTILITY, 0);
   dispatch_queue_t gcdQueue = dispatch_queue_create("ExportQueue", queuePriorityAttr);
 
@@ -338,17 +281,29 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
   [_exportProgressBar setDoubleValue:0];
   [_exportProgressBar setMinValue:0];
 
+  /* -- temp -- generate output file url */
+  NSError* outputDirResolveError;
+  NSURL* outputDirectoryUrl = [UserDefaultsExportConfiguration.sharedConfig resolveOutputDirectoryBookmarkAndReturnError:&outputDirResolveError];
+  if (outputDirectoryUrl == nil) {
+    MLE_Log_Info(@"ConfigurationViewController [exportLibrary] unable to retrieve output directory - a directory must be selected to obtain write permission");
+  }
+  NSString* outputFileName = UserDefaultsExportConfiguration.sharedConfig.outputFileName;
+  if (outputFileName == nil || outputFileName.length == 0) {
+    outputFileName = @"Library.xml"; // fallback to default filename
+    MLE_Log_Info(@"ConfigurationViewController [exportLibrary] output filename unspecified - falling back to default: %@", outputFileName);
+  }
+  // TODO: handle output directory validation
+  NSURL* outputFileUrl = [outputDirectoryUrl URLByAppendingPathComponent:outputFileName];
+  /* -- temp -- */
+
   dispatch_async(gcdQueue, ^{
 
-    // add track progress callback
-    void (^trackProgressCallback)(NSUInteger,NSUInteger) = ^(NSUInteger trackIndex, NSUInteger trackCount){
-      [self handleTrackExportProgress:trackIndex withTotal:trackCount];
-    };
-    [self->_exportDelegate setTrackProgressCallback:trackProgressCallback];
+    ExportManager* exportManager = [[ExportManager alloc] initWithConfiguration:UserDefaultsExportConfiguration.sharedConfig];
+    [exportManager setDelegate:self];
+    [exportManager setOutputFileURL:outputFileUrl];
 
-    // do export
     NSError* exportError;
-    BOOL exportSuccessful = [self->_exportDelegate exportLibraryAndReturnError:&exportError];
+    BOOL exportSuccessful = [exportManager exportLibraryWithError:&exportError];
 
     MLE_Log_Info(@"ConfigurationViewController [exportLibrary] export successful: %@", (exportSuccessful ? @"YES" : @"NO"));
 
@@ -359,56 +314,13 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
         [self showAlertForError:exportError callback:nil];
       }
       else {
-        MLE_Log_Error(@"ConfigurationViewController [exportLibrary] error - unknown error from exportDelegate->exportLibrary!");
+        MLE_Log_Error(@"ConfigurationViewController [exportLibrary] error - an unknown error occurred");
       }
       return;
     }
   });
 }
 
-- (void)handleTrackExportProgress:(NSUInteger)currentTrack withTotal:(NSUInteger)trackCount {
-
-//  MLE_Log_Info(@"ConfigurationViewController [handleTrackExportProgress %lu/%lu]", currentTrack, trackCount);
-  
-  dispatch_async(dispatch_get_main_queue(), ^{
-
-    if (self->_exportProgressBar.maxValue != trackCount) {
-      [self->_exportProgressBar setMaxValue:trackCount];
-    }
-    [self->_exportProgressBar setDoubleValue:currentTrack];
-    [self->_exportStateLabel setStringValue:[NSString stringWithFormat:@"Generating track %lu/%lu", currentTrack+1, trackCount]];
-  });
-}
-
-- (void)handleStateChange:(ExportState)exportState {
-
-  dispatch_async(dispatch_get_main_queue(), ^{
-
-    NSString* stateDescription = [Utils descriptionForExportState:exportState];
-
-    MLE_Log_Info(@"ConfigurationViewController [handleStateChange: %@]", stateDescription);
-
-    BOOL exportAllowed;
-
-    switch (exportState) {
-      case ExportFinished:
-        [ScheduleConfiguration.sharedConfig setLastExportedAt:[NSDate date]];
-      case ExportStopped:
-      case ExportError: {
-        exportAllowed = YES;
-        break;
-      }
-      default: {
-        exportAllowed = NO;
-        break;
-      }
-    }
-
-    [self->_exportStateLabel setStringValue:stateDescription];
-    [self->_exportLibraryButton setEnabled:exportAllowed];
-
-  });
-}
 
 - (BOOL)validateOutputDirectory:(NSURL*)outputDirUrl error:(NSError**)error {
 
@@ -541,6 +453,54 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
       callback(errorAlertResponse);
     }
   });
+}
+
+
+#pragma mark - ExportManagerDelegate
+
+- (void) exportStateChanged:(ExportState)state {
+
+  NSString* stateDescription = [Utils descriptionForExportState:state];
+
+  MLE_Log_Info(@"ConfigurationViewController [handleStateChange: %@]", stateDescription);
+
+  BOOL exportAllowed;
+
+  switch (state) {
+    case ExportFinished:
+      [ScheduleConfiguration.sharedConfig setLastExportedAt:[NSDate date]];
+    case ExportStopped:
+    case ExportError: {
+      exportAllowed = YES;
+      break;
+    }
+    default: {
+      exportAllowed = NO;
+      break;
+    }
+  }
+
+  // handle UI updates in main thread
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [self->_exportStateLabel setStringValue:stateDescription];
+    [self->_exportLibraryButton setEnabled:exportAllowed];
+  });
+}
+
+- (void) exportedItems:(NSUInteger)exportedItems ofTotal:(NSUInteger)totalItems {
+
+  // handle UI updates in main thread
+  dispatch_async(dispatch_get_main_queue(), ^{
+    if (self->_exportProgressBar.maxValue != totalItems) {
+      [self->_exportProgressBar setMaxValue:totalItems];
+    }
+    [self->_exportProgressBar setDoubleValue:exportedItems];
+    [self->_exportStateLabel setStringValue:[NSString stringWithFormat:@"Generating track %lu/%lu", exportedItems, totalItems]];
+  });
+}
+
+- (void) exportedPlaylists:(NSUInteger)exportedPlaylists ofTotal:(NSUInteger)totalPlaylists {
+
 }
 
 @end

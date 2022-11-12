@@ -8,13 +8,14 @@
 #import <Cocoa/Cocoa.h>
 
 #import "Defines.h"
+#import "ExportManagerDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class ExportDelegate;
 @class HelperDelegate;
 
-@interface ConfigurationViewController : NSViewController
+@interface ConfigurationViewController : NSViewController<ExportManagerDelegate>
 
 
 extern NSErrorDomain const __MLE_ErrorDomain_ConfigurationView;
@@ -27,8 +28,7 @@ typedef NS_ENUM(NSInteger, ConfigurationViewErrorCode) {
 
 #pragma mark - Initializers
 
-- (instancetype)initWithExportDelegate:(ExportDelegate*)exportDelegate
-                     forHelperDelegate:(HelperDelegate*)helperDelegate;
+- (instancetype)initWithHelperDelegate:(HelperDelegate*)helperDelegate;
 
 
 #pragma mark - Accessors
@@ -58,9 +58,6 @@ typedef NS_ENUM(NSInteger, ConfigurationViewErrorCode) {
 - (IBAction)setScheduleSkipOnBattery:(id)sender;
 
 - (IBAction)exportLibrary:(id)sender;
-
-- (void)handleTrackExportProgress:(NSUInteger)currentTrack withTotal:(NSUInteger)trackCount;
-- (void)handleStateChange:(ExportState)exportState;
 
 - (BOOL)validateOutputDirectory:(NSURL*)outputDirUrl error:(NSError**)error;
 - (void)browseForOutputDirectoryWithCallback:(nullable void(^)(NSURL* _Nullable outputUrl))callback;
