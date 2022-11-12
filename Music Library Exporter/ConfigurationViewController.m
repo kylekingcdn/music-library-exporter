@@ -466,24 +466,24 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
 
   MLE_Log_Info(@"ConfigurationViewController [handleStateChange: %@]", stateDescription);
 
-  BOOL exportAllowed;
-
-  switch (state) {
-    case ExportFinished:
-      [ScheduleConfiguration.sharedConfig setLastExportedAt:[NSDate date]];
-    case ExportStopped:
-    case ExportError: {
-      exportAllowed = YES;
-      break;
-    }
-    default: {
-      exportAllowed = NO;
-      break;
-    }
-  }
-
   // handle UI updates in main thread
   dispatch_async(dispatch_get_main_queue(), ^{
+
+    BOOL exportAllowed;
+    switch (state) {
+      case ExportFinished:
+        [ScheduleConfiguration.sharedConfig setLastExportedAt:[NSDate date]];
+      case ExportStopped:
+      case ExportError: {
+        exportAllowed = YES;
+        break;
+      }
+      default: {
+        exportAllowed = NO;
+        break;
+      }
+    }
+    
     [self->_exportStateLabel setStringValue:stateDescription];
     [self->_exportLibraryButton setEnabled:exportAllowed];
   });
