@@ -483,7 +483,7 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
         break;
       }
     }
-    
+
     [self->_exportStateLabel setStringValue:stateDescription];
     [self->_exportLibraryButton setEnabled:exportAllowed];
   });
