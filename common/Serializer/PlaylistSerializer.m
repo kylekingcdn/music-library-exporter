@@ -13,6 +13,7 @@
 #import "Logger.h"
 #import "MediaEntityRepository.h"
 #import "MediaItemFilterGroup.h"
+#import "MediaItemSorter.h"
 #import "OrderedDictionary.h"
 #import "PlaylistFilterGroup.h"
 #import "Utils.h"
@@ -28,6 +29,9 @@
 
   _entityRepository = entityRepository;
   _flattenFolders = false;
+
+  _playlistCustomSortColumns = [NSDictionary dictionary];
+  _playlistCustomSortOrders = [NSDictionary dictionary];
 
   return self;
 }
@@ -92,8 +96,17 @@
     [playlistDict setValue:[NSNumber numberWithBool:YES] forKey:@"Folder"];
   }
 
-  // TODO: handle sorting
-  NSArray<ITLibMediaItem*>* sortedItems = playlist.items;
+  NSString* sortColumnTitle = [_playlistCustomSortColumns valueForKey:[Utils hexStringForPersistentId:playlist.persistentID]];
+  PlaylistSortColumnType sortColumn = [Utils playlistSortColumnForTitle:sortColumnTitle];
+
+  NSString* sortOrderTitle = [_playlistCustomSortOrders valueForKey:[Utils hexStringForPersistentId:playlist.persistentID]];
+  PlaylistSortOrderType sortOrder = [Utils playlistSortOrderForTitle:sortOrderTitle];
+
+  MediaItemSorter* sorter = [[MediaItemSorter alloc] init];
+  [sorter setSortOrder:sortOrder];
+  [sorter setSortColumn:sortColumn];
+
+  NSArray<ITLibMediaItem*>* sortedItems = [sorter sortItems:playlist.items];
   [playlistDict setObject:[self serializePlaylistItems:sortedItems] forKey:@"Playlist Items"];
 
   return playlistDict;

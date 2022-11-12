@@ -27,6 +27,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable) PlaylistFilterGroup* playlistFilters;
 @property (nullable) MediaItemFilterGroup* itemFilters;
 
+@property (nonnull) NSDictionary* playlistCustomSortColumns;
+@property (nonnull) NSDictionary* playlistCustomSortOrders;
+
 - (instancetype) initWithEntityRepository:(MediaEntityRepository*)entityRepository;
 
 - (NSArray<OrderedDictionary*>*)serializePlaylists:(NSArray<ITLibPlaylist*>*)playlists;
