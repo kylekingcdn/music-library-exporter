@@ -21,7 +21,6 @@
 @implementation AppDelegate {
 
   UserDefaultsExportConfiguration* _exportConfiguration;
-  ExportDelegate* _exportDelegate;
 
   ScheduleConfiguration* _scheduleConfiguration;
   ScheduleDelegate* _scheduleDelegate;
@@ -49,10 +48,8 @@
   // set shared scheduleConfiguration
   [ScheduleConfiguration initSharedConfig:_scheduleConfiguration];
 
-  _exportDelegate = [[ExportDelegate alloc] initWithLibrary:_library];
-
   // init scheduleDelegate
-  _scheduleDelegate = [[ScheduleDelegate alloc] initWithExportDelegate:_exportDelegate];
+  _scheduleDelegate = [[ScheduleDelegate alloc] init];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {

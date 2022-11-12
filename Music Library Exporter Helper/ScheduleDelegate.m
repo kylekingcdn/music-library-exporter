@@ -14,13 +14,11 @@
 #import "Defines.h"
 #import "Utils.h"
 #import "UserDefaultsExportConfiguration.h"
-#import "ExportDelegate.h"
+#import "ExportManager.h"
 #import "ScheduleConfiguration.h"
 #import "DirectoryPermissionsWindowController.h"
 
 @implementation ScheduleDelegate {
-
-  ExportDelegate* _exportDelegate;
 
   NSUserDefaults* _groupDefaults;
 
@@ -32,7 +30,7 @@
 
 #pragma mark - Initializers
 
-- (instancetype)initWithExportDelegate:(ExportDelegate*)exportDelegate {
+- (instancetype)init {
 
   self = [super init];
 
@@ -42,7 +40,6 @@
   [_groupDefaults addObserver:self forKeyPath:@"ScheduleInterval" options:NSKeyValueObservingOptionNew context:NULL];
   [_groupDefaults addObserver:self forKeyPath:@"LastExportedAt" options:NSKeyValueObservingOptionNew context:NULL];
   [_groupDefaults addObserver:self forKeyPath:@"OutputDirectoryPath" options:NSKeyValueObservingOptionNew context:NULL];
-  _exportDelegate = exportDelegate;
 
   // update schedule
   [self updateSchedule];
@@ -139,9 +136,6 @@
 
 - (ExportDeferralReason)reasonToDeferExport {
 
-  if (_exportDelegate == nil) {
-    return ExportDeferralErrorReason;
-  }
   if (ScheduleConfiguration.sharedConfig.skipOnBattery && [ScheduleDelegate isSystemRunningOnBattery]) {
     return ExportDeferralOnBatteryReason;
   }
@@ -187,15 +181,28 @@
   ExportDeferralReason deferralReason = [self reasonToDeferExport];
   if (deferralReason == ExportNoDeferralReason) {
 
-    NSError* prepareError;
-    BOOL prepareSuccessful = [_exportDelegate prepareForExportAndReturnError:&prepareError];
-    if (!prepareSuccessful) {
-      // ... handle prepare error
-      return;
+    /* -- temp -- generate output file url */
+    NSError* outputDirResolveError;
+    NSURL* outputDirectoryUrl = [UserDefaultsExportConfiguration.sharedConfig resolveOutputDirectoryBookmarkAndReturnError:&outputDirResolveError];
+    if (outputDirectoryUrl == nil) {
+      MLE_Log_Info(@"ScheduleDelegate [onTimerFinished] unable to retrieve output directory - a directory must be selected to obtain write permission");
     }
+    NSString* outputFileName = UserDefaultsExportConfiguration.sharedConfig.outputFileName;
+    if (outputFileName == nil || outputFileName.length == 0) {
+      outputFileName = @"Library.xml"; // fallback to default filename
+      MLE_Log_Info(@"ScheduleDelegate [onTimerFinished] output filename unspecified - falling back to default: %@", outputFileName);
+    }
+    // TODO: handle output directory validation
+    NSURL* outputFileUrl = [outputDirectoryUrl URLByAppendingPathComponent:outputFileName];
+    /* -- temp -- */
+
+    ExportManager* exportManager = [[ExportManager alloc] initWithConfiguration:UserDefaultsExportConfiguration.sharedConfig];
+    [exportManager setOutputFileURL:outputFileUrl];
 
     NSError* exportError;
-    BOOL exportSuccessful = [_exportDelegate exportLibraryAndReturnError:&exportError];
+    [outputDirectoryUrl startAccessingSecurityScopedResource];
+    BOOL exportSuccessful = [exportManager exportLibraryWithError:&exportError];
+    [outputDirectoryUrl stopAccessingSecurityScopedResource];
     if (!exportSuccessful) {
       // ... handle export error
       return;
