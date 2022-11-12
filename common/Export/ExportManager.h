@@ -19,6 +19,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ExportManager : NSObject <MediaItemSerializerDelegate,PlaylistSerializerDelegate>
 
+extern NSErrorDomain const __MLE_ErrorDomain_ExportManager;
+
+typedef NS_ENUM(NSInteger, ExportManagerErrorCode) {
+  ExportManagerErrorMusicMediaLocationUnset,
+  ExportManagerErrorOutputDirectoryInvalid,
+  ExportManagerErrorRemappingInvalid,
+  ExportManagerErrorBusyState,
+  ExportManagerErrorUnitialized,
+  ExportManagerErrorWriteError,
+};
 
 #pragma mark - Properties
 
@@ -35,7 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Mutators
 
-- (BOOL)exportLibrary;
+- (BOOL)exportLibraryWithError:(NSError**)error;
 
 
 @end

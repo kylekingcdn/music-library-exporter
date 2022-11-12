@@ -24,6 +24,7 @@
 #import "PlaylistIDFilter.h"
 #import "PlaylistParentIDFilter.h"
 #import "PlaylistSerializer.h"
+#import "Utils.h"
 
 @implementation ExportManager {
 
@@ -31,6 +32,8 @@
   ExportConfiguration* _configuration;
   PlaylistParentIDFilter* _playlistParentIDFilter;
 }
+
+NSErrorDomain const __MLE_ErrorDomain_ExportManager = @"com.kylekingcdn.MusicLibraryExporter.ExportManagerErrorDomain";
 
 - (instancetype)initWithConfiguration:(ExportConfiguration *)configuration {
 
@@ -74,16 +77,20 @@
   return playlistFilterGroup;
 }
 
-- (BOOL)exportLibrary {
+- (BOOL)exportLibraryWithError:(NSError**)error {
+
+  // validate configuration
+  if (![self validateConfigurationWithError:error]) {
+    return NO;
+  }
 
   // set state to preparing
   [self setState:ExportPreparing];
 
   // init ITLibrary
-  NSError *error = nil;
-  ITLibrary* library = [ITLibrary libraryWithAPIVersion:@"1.1" options:ITLibInitOptionLazyLoadData error:&error];
+  ITLibrary* library = [ITLibrary libraryWithAPIVersion:@"1.1" options:ITLibInitOptionLazyLoadData error:error];
   if (library == nil) {
-    MLE_Log_Info(@"ExportManager [exportLibrary] error - failed to init ITLibrary. error: %@", error.localizedDescription);
+    MLE_Log_Info(@"ExportManager [exportLibrary] error - failed to init ITLibrary. error: %@", (*error).localizedDescription);
     return NO;
   }
 
@@ -129,7 +136,7 @@
   // write library
   [self setState:ExportWritingToDisk];
   MLE_Log_Info(@"ExportManager [writeLibrary] saving to: %@", _outputFileURL);
-  BOOL writeSuccess = [libraryDict writeToURL:_outputFileURL error:&error];
+  BOOL writeSuccess = [libraryDict writeToURL:_outputFileURL error:error];
 
   if (!writeSuccess) {
     MLE_Log_Info(@"ExportManager [writeLibrary] error writing dictionary");
@@ -145,6 +152,105 @@
 
   if (_delegate != nil && [_delegate respondsToSelector:@selector(exportStateChanged:)]) {
     [_delegate exportStateChanged:state];
+  }
+}
+
+- (BOOL)validateConfigurationWithError:(NSError**)error {
+
+  // validate state
+  switch (_state) {
+    case ExportPreparing:
+    case ExportGeneratingTracks:
+    case ExportGeneratingPlaylists:
+    case ExportGeneratingLibrary:
+    case ExportWritingToDisk: {
+      MLE_Log_Info(@"ExportDelegate [prepareForExportAndReturnError] currently busy - state: %@", [Utils descriptionForExportState:_state]);
+      if (error) {
+        *error = [self generateErrorForCode:ExportManagerErrorBusyState];
+      }
+      return NO;
+    }
+    case ExportStopped:
+    case ExportFinished:
+    case ExportError: {
+      break;
+    }
+  }
+
+  // this will reload member variables and re-resolve the bookmark. If the bookmark is stale and invalid, the next if statement will catch it
+  // [_configuration validateOutputDirectoryBookmarkAndReturnError:nil];
+
+  // validate output directory set
+  if (_configuration.outputDirectoryUrl == nil || !_configuration.outputDirectoryUrl.isFileURL) {
+    MLE_Log_Info(@"ExportDelegate [prepareForExportAndReturnError] output directory is invalid");
+    if (error) {
+      *error = [self generateErrorForCode:ExportManagerErrorOutputDirectoryInvalid];
+    }
+    [self setState:ExportError];
+    return NO;
+  }
+
+  // validate music media dir set
+  if (_configuration.musicLibraryPath == nil || _configuration.musicLibraryPath.length == 0) {
+    MLE_Log_Info(@"ExportDelegate [prepareForExportAndReturnError] Music Media location is unset");
+    if (error) {
+      *error = [self generateErrorForCode:ExportManagerErrorMusicMediaLocationUnset];
+    }
+    [self setState:ExportError];
+    return NO;
+  }
+
+  // validate path re-mapping
+  if (_configuration.remapRootDirectory) {
+    if (_configuration.remapRootDirectoryOriginalPath == nil || _configuration.remapRootDirectoryOriginalPath.length == 0) {
+      MLE_Log_Info(@"ExportDelegate [prepareForExportAndReturnError] Re-map original path is unset");
+      if (error) {
+        *error = [self generateErrorForCode:ExportManagerErrorRemappingInvalid];
+      }
+      [self setState:ExportError];
+      return NO;
+    }
+  }
+
+  return YES;
+}
+
+- (NSError*)generateErrorForCode:(ExportManagerErrorCode)code {
+
+  switch (code) {
+    case ExportManagerErrorBusyState: {
+      return [NSError errorWithDomain:__MLE_ErrorDomain_ExportManager code:code userInfo:@{
+        NSLocalizedDescriptionKey:@"Export handler is currently busy, please try again.",
+      }];
+    }
+    case ExportManagerErrorMusicMediaLocationUnset: {
+      return [NSError errorWithDomain:__MLE_ErrorDomain_ExportManager code:code userInfo:@{
+        NSLocalizedDescriptionKey:@"Music Media folder location is unset",
+        NSLocalizedRecoverySuggestionErrorKey:@"This value can be retreived from the Files tab of the Music application's Preferences window.",
+      }];
+    }
+    case ExportManagerErrorOutputDirectoryInvalid: {
+      return [NSError errorWithDomain:__MLE_ErrorDomain_ExportManager code:code userInfo:@{
+        NSLocalizedDescriptionKey:@"Invalid output directory",
+        NSLocalizedRecoverySuggestionErrorKey: @"Would you like to select a new directory?",
+        NSLocalizedRecoveryOptionsErrorKey: @[ @"Browse", @"Cancel" ],
+      }];
+    }
+    case ExportManagerErrorRemappingInvalid: {
+      return [NSError errorWithDomain:__MLE_ErrorDomain_ExportManager code:code userInfo:@{
+        NSLocalizedDescriptionKey:@"Path mapping incomplete",
+        NSLocalizedRecoverySuggestionErrorKey:@"Please complete the missing fields or disable path mapping.",
+      }];
+    }
+    case ExportManagerErrorUnitialized: {
+      return [NSError errorWithDomain:__MLE_ErrorDomain_ExportManager code:code userInfo:@{
+        NSLocalizedDescriptionKey:@"Internal error",
+        NSLocalizedRecoverySuggestionErrorKey:@"Failed to initialize export handler.",
+      }];
+    }
+    case ExportManagerErrorWriteError: {
+      return nil; // NSError provided by writeDictionary
+    }
   }
 }
 
