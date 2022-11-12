@@ -20,8 +20,6 @@
 
 @implementation AppDelegate {
 
-  ITLibrary* _library;
-
   UserDefaultsExportConfiguration* _exportConfiguration;
   ExportDelegate* _exportDelegate;
 
@@ -50,14 +48,6 @@
 
   // set shared scheduleConfiguration
   [ScheduleConfiguration initSharedConfig:_scheduleConfiguration];
-
-  // init ITLibrary
-  NSError *error = nil;
-  _library = [ITLibrary libraryWithAPIVersion:@"1.1" options:ITLibInitOptionLazyLoadData error:&error];
-  if (_library == nil) {
-    MLE_Log_Info(@"AppDelegate [applicationDidFinishLaunching] error - failed to init ITLibrary. error: %@", error.localizedDescription);
-    return;
-  }
 
   _exportDelegate = [[ExportDelegate alloc] initWithLibrary:_library];
 
