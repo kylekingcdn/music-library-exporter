@@ -7,10 +7,7 @@
 
 #import "Utils.h"
 
-#import <iTunesLibrary/ITLibrary.h>
-#import <iTunesLibrary/ITLibArtist.h>
 #import <iTunesLibrary/ITLibMediaItem.h>
-#import <iTunesLibrary/ITLibPlaylist.h>
 
 #import "Logger.h"
 
