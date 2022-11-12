@@ -583,9 +583,7 @@
 				27C0A10325CB0BF100EDDE22 /* HelperAppManager.m */,
 				27FA62AF292054C3001D0095 /* ConfigurationView */,
 				27FA62AD2920549A001D0095 /* PlaylistsView */,
-				27DBB9B525E6E91E003BE889 /* PreferencesWindowController.h */,
-				27DBB9B625E6E91E003BE889 /* PreferencesWindowController.m */,
-				27DBB9A825E6E746003BE889 /* PreferencesWindow.xib */,
+				27FA62B0292054E6001D0095 /* PreferencesWindow */,
 				27EF9A6B25BF23920051CE7B /* MainMenu.xib */,
 				27EF9A8225BF24010051CE7B /* Supporting Files */,
 			);
@@ -651,6 +649,16 @@
 				2783C74825C4FAF2002ED7B7 /* ConfigurationView.xib */,
 			);
 			path = ConfigurationView;
+			sourceTree = "<group>";
+		};
+		27FA62B0292054E6001D0095 /* PreferencesWindow */ = {
+			isa = PBXGroup;
+			children = (
+				27DBB9B525E6E91E003BE889 /* PreferencesWindowController.h */,
+				27DBB9B625E6E91E003BE889 /* PreferencesWindowController.m */,
+				27DBB9A825E6E746003BE889 /* PreferencesWindow.xib */,
+			);
+			path = PreferencesWindow;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
