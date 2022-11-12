@@ -1,5 +1,5 @@
 //
-//  LibraryGenerator.h
+//  CLIManager.h
 //  music-library-exporter
 //
 //  Created by Kyle King on 2021-02-17.
@@ -16,15 +16,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface LibraryGenerator : NSObject<ExportManagerDelegate>
+@interface CLIManager : NSObject<ExportManagerDelegate>
 
-extern NSErrorDomain const __MLE_ErrorDomain_LibraryGenerator;
+extern NSErrorDomain const __MLE_ErrorDomain_CLIManager;
 
-typedef NS_ENUM(NSInteger, LibraryGeneratorErrorCode) {
-  LibraryGeneratorErrorUknown,
-  LibraryGeneratorErrorInvalidOutputPath,
-  LibraryGeneratorErrorInvalidMusicMediaDirectory,
-  LibraryGeneratorErrorInvalidRemapping,
+typedef NS_ENUM(NSInteger, CLIManagerErrorCode) {
+  CLIManagerErrorUknown,
+  CLIManagerErrorInvalidOutputPath,
+  CLIManagerErrorInvalidMusicMediaDirectory,
+  CLIManagerErrorInvalidRemapping,
 };
 
 

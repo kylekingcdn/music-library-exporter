@@ -15,7 +15,7 @@
 		2725CA4C25D3F65C002C1203 /* PlaylistsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2725CA4B25D3F65C002C1203 /* PlaylistsView.xib */; };
 		272C8E9825C0E59C003CBF47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27EF9A6925BF23920051CE7B /* Assets.xcassets */; };
 		272D6A0F25D1B104005023CA /* HourNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 272D6A0E25D1B0F7005023CA /* HourNumberFormatter.m */; };
-		2739C5C325DE29E400C57218 /* LibraryGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 2739C5BD25DE29A400C57218 /* LibraryGenerator.m */; };
+		2739C5C325DE29E400C57218 /* CLIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2739C5BD25DE29A400C57218 /* CLIManager.m */; };
 		273B523325CA672300421B14 /* Defines.m in Sources */ = {isa = PBXBuildFile; fileRef = 273B522F25CA666000421B14 /* Defines.m */; };
 		273B523725CA672700421B14 /* Defines.m in Sources */ = {isa = PBXBuildFile; fileRef = 273B522F25CA666000421B14 /* Defines.m */; };
 		273E13EE25D1C6710012483C /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 273E13ED25D1C6710012483C /* Sentry */; };
@@ -210,8 +210,8 @@
 		2725CA4B25D3F65C002C1203 /* PlaylistsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaylistsView.xib; sourceTree = "<group>"; };
 		272D6A0D25D1B0F7005023CA /* HourNumberFormatter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HourNumberFormatter.h; sourceTree = "<group>"; };
 		272D6A0E25D1B0F7005023CA /* HourNumberFormatter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HourNumberFormatter.m; sourceTree = "<group>"; };
-		2739C5BC25DE29A400C57218 /* LibraryGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LibraryGenerator.h; sourceTree = "<group>"; };
-		2739C5BD25DE29A400C57218 /* LibraryGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LibraryGenerator.m; sourceTree = "<group>"; };
+		2739C5BC25DE29A400C57218 /* CLIManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLIManager.h; sourceTree = "<group>"; };
+		2739C5BD25DE29A400C57218 /* CLIManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLIManager.m; sourceTree = "<group>"; };
 		273B522825CA5F3E00421B14 /* ExportScheduler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ExportScheduler.h; path = "Music Library Exporter Helper/ExportScheduler.h"; sourceTree = SOURCE_ROOT; };
 		273B522925CA5F3E00421B14 /* ExportScheduler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ExportScheduler.m; path = "Music Library Exporter Helper/ExportScheduler.m"; sourceTree = SOURCE_ROOT; };
 		273B522E25CA666000421B14 /* Defines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Defines.h; sourceTree = "<group>"; };
@@ -555,8 +555,8 @@
 				271DD27325DBA246009BB292 /* CLIDefines.m */,
 				271DD26C25DB9FCF009BB292 /* ArgParser.h */,
 				271DD26D25DB9FCF009BB292 /* ArgParser.m */,
-				2739C5BC25DE29A400C57218 /* LibraryGenerator.h */,
-				2739C5BD25DE29A400C57218 /* LibraryGenerator.m */,
+				2739C5BC25DE29A400C57218 /* CLIManager.h */,
+				2739C5BD25DE29A400C57218 /* CLIManager.m */,
 			);
 			path = "library-generator";
 			sourceTree = "<group>";
@@ -876,7 +876,7 @@
 				27CAC22629100507008D4313 /* MediaItemFilterGroup.m in Sources */,
 				27CAC22529100507008D4313 /* MediaItemKindFilter.m in Sources */,
 				271DD26E25DB9FCF009BB292 /* ArgParser.m in Sources */,
-				2739C5C325DE29E400C57218 /* LibraryGenerator.m in Sources */,
+				2739C5C325DE29E400C57218 /* CLIManager.m in Sources */,
 				27CAC21F29100503008D4313 /* PlaylistDistinguishedKindFilter.m in Sources */,
 				27B54AA129126B2400BEC366 /* MediaEntityRepository.m in Sources */,
 				27CAC23429101576008D4313 /* PlaylistParentIDFilter.m in Sources */,

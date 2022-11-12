@@ -1,11 +1,11 @@
 //
-//  LibraryGenerator.m
+//  CLIManager.m
 //  music-library-exporter
 //
 //  Created by Kyle King on 2021-02-17.
 //
 
-#import "LibraryGenerator.h"
+#import "CLIManager.h"
 
 #import <iTunesLibrary/ITLibrary.h>
 #import <iTunesLibrary/ITLibPlaylist.h>
@@ -27,7 +27,7 @@
 #import "PlaylistParentIDFilter.h"
 
 
-@interface LibraryGenerator ()
+@interface CLIManager ()
 
 - (BOOL)isRunningInTerminal;
 
@@ -49,7 +49,7 @@
 @end
 
 
-@implementation LibraryGenerator {
+@implementation CLIManager {
 
   PlaylistParentIDFilter* _playlistParentIDFilter;
 
@@ -57,7 +57,7 @@
   NSUInteger _termWidth;
 }
 
-NSErrorDomain const __MLE_ErrorDomain_LibraryGenerator = @"com.kylekingcdn.MusicLibraryExporter.LibraryGeneratorErrorDomain";
+NSErrorDomain const __MLE_ErrorDomain_CLIManager = @"com.kylekingcdn.MusicLibraryExporter.CLIManagerErrorDomain";
 
 NSUInteger const __MLE_PlaylistTableIndentPerLevel = 2;
 NSUInteger const __MLE_PlaylistTableMaxWidth = 100;
@@ -334,7 +334,7 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
   NSString* filePath = filePathUrl.path;
   if (filePath == nil || filePath.length == 0) {
     if (error) {
-      *error = [NSError errorWithDomain:__MLE_ErrorDomain_LibraryGenerator code:LibraryGeneratorErrorInvalidOutputPath userInfo:@{
+      *error = [NSError errorWithDomain:__MLE_ErrorDomain_CLIManager code:CLIManagerErrorInvalidOutputPath userInfo:@{
         NSLocalizedDescriptionKey:@"Error: The value for --output_path is empty",
       }];
     }
@@ -350,7 +350,7 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
 
     if (pathIsDirectory) {
       if (error) {
-        *error = [NSError errorWithDomain:__MLE_ErrorDomain_LibraryGenerator code:LibraryGeneratorErrorInvalidOutputPath userInfo:@{
+        *error = [NSError errorWithDomain:__MLE_ErrorDomain_CLIManager code:CLIManagerErrorInvalidOutputPath userInfo:@{
           NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Error: The --output_path option requires a filename. Please include a file name in your output path: %@", filePath],
         }];
       }
@@ -360,7 +360,7 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
     BOOL pathIsWritable = [fileManager isWritableFileAtPath:filePath];
     if (!pathIsWritable) {
       if (error) {
-        *error = [NSError errorWithDomain:__MLE_ErrorDomain_LibraryGenerator code:LibraryGeneratorErrorInvalidOutputPath userInfo:@{
+        *error = [NSError errorWithDomain:__MLE_ErrorDomain_CLIManager code:CLIManagerErrorInvalidOutputPath userInfo:@{
           NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Error: The specified output path is not writable: %@", filePath],
         }];
       }
@@ -377,7 +377,7 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
 
     if (!pathParentExists) {
       if (error) {
-        *error = [NSError errorWithDomain:__MLE_ErrorDomain_LibraryGenerator code:LibraryGeneratorErrorInvalidOutputPath userInfo:@{
+        *error = [NSError errorWithDomain:__MLE_ErrorDomain_CLIManager code:CLIManagerErrorInvalidOutputPath userInfo:@{
           NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Error: The output path's parent directory doesn't exist: %@", pathParent],
         }];
       }
@@ -386,7 +386,7 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
 
     else if (!pathParentIsDirectory) {
       if (error) {
-        *error = [NSError errorWithDomain:__MLE_ErrorDomain_LibraryGenerator code:LibraryGeneratorErrorInvalidOutputPath userInfo:@{
+        *error = [NSError errorWithDomain:__MLE_ErrorDomain_CLIManager code:CLIManagerErrorInvalidOutputPath userInfo:@{
           NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Error: The specified output path is not valid as it's parent is not a directory: %@", pathParent],
         }];
       }
@@ -396,7 +396,7 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
     BOOL pathParentIsWritable = [fileManager isWritableFileAtPath:pathParent];
     if (!pathParentIsWritable) {
       if (error) {
-        *error = [NSError errorWithDomain:__MLE_ErrorDomain_LibraryGenerator code:LibraryGeneratorErrorInvalidOutputPath userInfo:@{
+        *error = [NSError errorWithDomain:__MLE_ErrorDomain_CLIManager code:CLIManagerErrorInvalidOutputPath userInfo:@{
           NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Error: The parent directory of the specified output path is not writable: %@", pathParent],
         }];
       }
@@ -412,7 +412,7 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
   NSString* musicDirPath = _configuration.musicLibraryPath;
   if (musicDirPath == nil || musicDirPath.length == 0) {
     if (error) {
-      *error = [NSError errorWithDomain:__MLE_ErrorDomain_LibraryGenerator code:LibraryGeneratorErrorInvalidMusicMediaDirectory userInfo:@{
+      *error = [NSError errorWithDomain:__MLE_ErrorDomain_CLIManager code:CLIManagerErrorInvalidMusicMediaDirectory userInfo:@{
         NSLocalizedDescriptionKey:@"Error: The value for --music_media_dir is empty",
       }];
     }
@@ -427,7 +427,7 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
 //  // ensure specified file path is writable
 //  if (!pathExists) {
 //    if (error) {
-//      *error = [NSError errorWithDomain:__MLE_ErrorDomain_LibraryGenerator code:LibraryGeneratorErrorInvalidMusicMediaDirectory userInfo:@{
+//      *error = [NSError errorWithDomain:__MLE_ErrorDomain_CLIManager code:CLIManagerErrorInvalidMusicMediaDirectory userInfo:@{
 //        NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Error: The specified music media directory does not exist: %@", musicDirPath],
 //      }];
 //    }
@@ -436,7 +436,7 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
 //
 //  if (!pathIsDirectory) {
 //    if (error) {
-//      *error = [NSError errorWithDomain:__MLE_ErrorDomain_LibraryGenerator code:LibraryGeneratorErrorInvalidMusicMediaDirectory userInfo:@{
+//      *error = [NSError errorWithDomain:__MLE_ErrorDomain_CLIManager code:CLIManagerErrorInvalidMusicMediaDirectory userInfo:@{
 //        NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Error: The specified music media location is not a directory: %@. Please copy and paste the exact value from Music Preferences. More information can be found by running 'library-generate help'.", musicDirPath],
 //      }];
 //    }
@@ -456,7 +456,7 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
 
   if (hasMappedPath && !hasSearchPath) {
     if (error) {
-      *error = [NSError errorWithDomain:__MLE_ErrorDomain_LibraryGenerator code:LibraryGeneratorErrorInvalidMusicMediaDirectory userInfo:@{
+      *error = [NSError errorWithDomain:__MLE_ErrorDomain_CLIManager code:CLIManagerErrorInvalidMusicMediaDirectory userInfo:@{
         NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Error: A value for --remap_search is required if a value for --remap_replace (%@) is given. Please specify the text to find (--remap_search) along with your replacement text (--remap_replace)", remapMappedPath],
       }];
     }
@@ -584,7 +584,7 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
 
 - (BOOL)setupAndReturnError:(NSError**)error {
 
-  MLE_Log_Info(@"LibraryGenerator [setupAndReturnError]");
+  MLE_Log_Info(@"CLIManager [setupAndReturnError]");
 
   ArgParser* argParser = [ArgParser parserWithProcessInfo:[NSProcessInfo processInfo]];
   [argParser dumpArguments];
@@ -643,7 +643,7 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
 
 - (BOOL)exportLibraryAndReturnError:(NSError**)error {
 
-  MLE_Log_Info(@"LibraryGenerator [exportLibraryAndReturnError]");
+  MLE_Log_Info(@"CLIManager [exportLibraryAndReturnError]");
 
   ExportManager* exportManager = [[ExportManager alloc] initWithConfiguration:_configuration];
   [exportManager setDelegate:self];

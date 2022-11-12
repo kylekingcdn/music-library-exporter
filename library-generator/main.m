@@ -7,51 +7,51 @@
 
 #import <Foundation/Foundation.h>
 
-#import "LibraryGenerator.h"
+#import "CLIManager.h"
 #import "ExportConfiguration.h"
 
 int main(int argc, const char * argv[]) {
 
   @autoreleasepool {
 
-    LibraryGenerator* generator = [[LibraryGenerator alloc] init];
+    CLIManager* cliManager = [[CLIManager alloc] init];
 
     // parse args and load configuration
     NSError* setupError;
-    if (![generator setupAndReturnError:&setupError]) {
+    if (![cliManager setupAndReturnError:&setupError]) {
       if (setupError) {
         fprintf(stderr, "%s\n", setupError.localizedDescription.UTF8String);
       }
       return 1;
     }
 
-    // generator won't always be initialized (e.g. for help command)
-    if (generator.configuration) {
-      [generator.configuration dumpProperties];
+    // cliManager won't always be initialized (e.g. for help command)
+    if (cliManager.configuration) {
+      [cliManager.configuration dumpProperties];
     }
 
     // handle command
     NSError* commandError;
     BOOL commandSuccess = YES;
-    switch (generator.command) {
+    switch (cliManager.command) {
 
       case LGCommandKindExport: {
-        commandSuccess = [generator exportLibraryAndReturnError:&commandError];
+        commandSuccess = [cliManager exportLibraryAndReturnError:&commandError];
         break;
       }
 
       case LGCommandKindPrint: {
-        [generator printPlaylists];
+        [cliManager printPlaylists];
         break;
       }
 
       case LGCommandKindHelp: {
-        [generator printHelp];
+        [cliManager printHelp];
         break;
       }
 
       case LGCommandKindVersion: {
-        [generator printVersion];
+        [cliManager printVersion];
         break;
       }
 
