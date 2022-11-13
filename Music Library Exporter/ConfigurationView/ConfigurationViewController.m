@@ -404,38 +404,39 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
 
     // -- invalid directory
 
-    // no error given, execute callback and return
+    // no error given, execute callback
     if (validationError == nil) {
-      if (callback) {
+      if (callback != nil) {
         callback(NO);
-        return;
       }
     }
-
-    // this error gives the option for re-selecting a directory.
-    // Re-call this function, pass (and don't call) the callback if re-select button is clicked
-    if (validationError.code == ConfigurationViewErrorOutputDirectoryUnwritable) {
-
-      [self showAlertForError:validationError callback:^(NSModalResponse response) {
-        if (response == NSAlertFirstButtonReturn) {
-          [self browseAndValidateOutputDirectoryWithCallback:callback];
-          return;
-        }
-        else {
-          if (callback) {
-            callback(NO);
-          }
-        }
-      }];
-    }
-
-    // errors that don't provide user resolution options
     else {
-      [self showAlertForError:validationError callback:nil];
-      if (callback) {
-        callback(NO);
+      // this error gives the option for re-selecting a directory.
+      // Re-call this function, pass (and don't call) the callback if re-select button is clicked
+      if (validationError.code == ConfigurationViewErrorOutputDirectoryUnwritable) {
+
+        [self showAlertForError:validationError callback:^(NSModalResponse response) {
+          if (response == NSAlertFirstButtonReturn) {
+            [self browseAndValidateOutputDirectoryWithCallback:callback];
+            return;
+          }
+          else {
+            if (callback != nil) {
+              callback(NO);
+            }
+          }
+        }];
+      }
+
+      // errors that don't provide user resolution options
+      else {
+        [self showAlertForError:validationError callback:nil];
+        if (callback != nil) {
+          callback(NO);
+        }
       }
     }
+
   }];
 }
 

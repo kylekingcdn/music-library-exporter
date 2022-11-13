@@ -194,6 +194,9 @@
     }
     // TODO: handle output directory validation
     NSURL* outputFileUrl = [outputDirectoryUrl URLByAppendingPathComponent:outputFileName];
+    if (outputFileUrl == nil) {
+      return;
+    }
     /* -- temp -- */
 
     ExportManager* exportManager = [[ExportManager alloc] initWithConfiguration:UserDefaultsExportConfiguration.sharedConfig];
