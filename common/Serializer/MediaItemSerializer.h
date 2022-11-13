@@ -20,8 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nullable, weak) NSObject<MediaItemSerializerDelegate>* delegate;
 
-@property (nullable) MediaItemFilterGroup* itemFilters;
-@property PathMapper* pathMapper;
+@property (nullable, weak) MediaItemFilterGroup* itemFilters;
+@property (nullable, weak) PathMapper* pathMapper;
 
 - (instancetype) initWithEntityRepository:(MediaEntityRepository*)entityRepository;
 

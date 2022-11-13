@@ -96,15 +96,17 @@
     [playlistDict setValue:[NSNumber numberWithBool:YES] forKey:@"Folder"];
   }
 
-  NSString* sortColumnTitle = [_playlistCustomSortColumns valueForKey:[Utils hexStringForPersistentId:playlist.persistentID]];
-  PlaylistSortColumnType sortColumn = [Utils playlistSortColumnForTitle:sortColumnTitle];
-
-  NSString* sortOrderTitle = [_playlistCustomSortOrders valueForKey:[Utils hexStringForPersistentId:playlist.persistentID]];
-  PlaylistSortOrderType sortOrder = [Utils playlistSortOrderForTitle:sortOrderTitle];
-
   MediaItemSorter* sorter = [[MediaItemSorter alloc] init];
-  [sorter setSortOrder:sortOrder];
-  [sorter setSortColumn:sortColumn];
+
+  if (_playlistCustomSortColumns != nil && _playlistCustomSortOrders != nil) {
+    NSString* sortColumnTitle = [_playlistCustomSortColumns valueForKey:[Utils hexStringForPersistentId:playlist.persistentID]];
+    PlaylistSortColumnType sortColumn = [Utils playlistSortColumnForTitle:sortColumnTitle];
+    [sorter setSortColumn:sortColumn];
+
+    NSString* sortOrderTitle = [_playlistCustomSortOrders valueForKey:[Utils hexStringForPersistentId:playlist.persistentID]];
+    PlaylistSortOrderType sortOrder = [Utils playlistSortOrderForTitle:sortOrderTitle];
+    [sorter setSortOrder:sortOrder];
+  }
 
   NSArray<ITLibMediaItem*>* sortedItems = [sorter sortItems:playlist.items];
   [playlistDict setObject:[self serializePlaylistItems:sortedItems] forKey:@"Playlist Items"];

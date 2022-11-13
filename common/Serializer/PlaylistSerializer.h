@@ -24,11 +24,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property BOOL flattenFolders;
 
-@property (nullable) PlaylistFilterGroup* playlistFilters;
-@property (nullable) MediaItemFilterGroup* itemFilters;
+@property (nullable, weak) PlaylistFilterGroup* playlistFilters;
+@property (nullable, weak) MediaItemFilterGroup* itemFilters;
 
-@property (nonnull) NSDictionary* playlistCustomSortColumns;
-@property (nonnull) NSDictionary* playlistCustomSortOrders;
+@property (weak) NSDictionary* playlistCustomSortColumns;
+@property (weak) NSDictionary* playlistCustomSortOrders;
 
 - (instancetype) initWithEntityRepository:(MediaEntityRepository*)entityRepository;
 
