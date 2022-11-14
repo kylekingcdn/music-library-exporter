@@ -246,8 +246,8 @@
 //    [itemDict setValue:[NSNumber numberWithBool:YES] forKey:@"Purchased"]; - invalid
 //  }
 
-  if (item.location) {
-    [itemDict setValue:[[NSURL fileURLWithPath:[_pathMapper mapPath:item.location.path]] absoluteString] forKey:@"Location"];
+  if (item.location != nil) {
+    [itemDict setValue:[_pathMapper mapPath:item.location] forKey:@"Location"];
   }
 
   return itemDict;

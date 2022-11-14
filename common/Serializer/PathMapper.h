@@ -15,8 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (copy,nullable) NSString* replaceString;
 
 - (instancetype)init;
-
-- (NSString*)mapPath:(NSString*)path;
+- (NSString*)mapPath:(NSURL*)path;
 
 @end
 

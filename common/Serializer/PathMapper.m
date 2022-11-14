@@ -20,7 +20,7 @@
   }
 }
 
-- (NSString*) mapPath:(NSString*)path {
+- (NSString*)processPath:(NSString*)path {
 
   if (_searchString != nil && _replaceString != nil) {
     return [path stringByReplacingOccurrencesOfString:_searchString withString:_replaceString];
@@ -28,6 +28,21 @@
   else {
     return path;
   }
+}
+
+- (NSURL*)mapURLFromPath:(NSString*)path {
+
+  NSString* mappedPath = [self processPath:path];
+
+  return [NSURL fileURLWithPath:mappedPath relativeToURL:[NSURL fileURLWithPath:@"/"]];
+}
+
+- (NSString*)mapPath:(NSURL*)pathURL {
+
+  NSURL* mappedURL = [self mapURLFromPath:pathURL.path];
+  NSString* mappedString = [mappedURL absoluteString];
+
+  return mappedString;
 }
 
 @end
