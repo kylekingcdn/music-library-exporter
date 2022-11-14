@@ -253,8 +253,6 @@
 		2783C75725C4FB60002ED7B7 /* ConfigurationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfigurationViewController.m; sourceTree = "<group>"; };
 		2783C76525C518CC002ED7B7 /* ExportConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExportConfiguration.h; sourceTree = "<group>"; };
 		2783C76625C518CC002ED7B7 /* ExportConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExportConfiguration.m; sourceTree = "<group>"; };
-		279E325625E077B7008F8C56 /* PlaylistTree.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PlaylistTree.h; path = common/PlaylistTree/PlaylistTree.h; sourceTree = SOURCE_ROOT; };
-		279E325725E077B7008F8C56 /* PlaylistTree.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PlaylistTree.m; path = common/PlaylistTree/PlaylistTree.m; sourceTree = SOURCE_ROOT; };
 		27A2C02125C08FF700AAD73C /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
 		27A2C05525C0934A00AAD73C /* Music Library Exporter Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Music Library Exporter Helper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		27A2C05725C0934A00AAD73C /* HelperAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelperAppDelegate.h; sourceTree = "<group>"; };
@@ -615,8 +613,6 @@
 		27FA62A5292052D0001D0095 /* PlaylistTree */ = {
 			isa = PBXGroup;
 			children = (
-				279E325625E077B7008F8C56 /* PlaylistTree.h */,
-				279E325725E077B7008F8C56 /* PlaylistTree.m */,
 				276B1AD025D40BB3002D7289 /* PlaylistTreeNode.h */,
 				276B1ACF25D40BB3002D7289 /* PlaylistTreeNode.m */,
 				27723EEC2921D0B000E51B7E /* PlaylistTreeGenerator.h */,
