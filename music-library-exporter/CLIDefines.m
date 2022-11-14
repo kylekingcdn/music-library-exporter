@@ -47,6 +47,7 @@
         @(LGOptionKindSort),
         @(LGOptionKindRemapSearch),
         @(LGOptionKindRemapReplace),
+        @(LGOptionKindRemapLocalhostPrefix),
         @(LGOptionKindOutputPath),
       ];
     }
@@ -145,6 +146,9 @@
     }
     case LGOptionKindRemapReplace: {
       return @"--remap_replace";
+    }
+    case LGOptionKindRemapLocalhostPrefix: {
+      return @"--localhost_path_prefix";
     }
     case LGOptionKindOutputPath: {
       return @"--output_path";
@@ -265,6 +269,9 @@
     }
     case LGOptionKindRemapReplace: {
       return @"[-r --remap_replace]={1,1}";
+    }
+    case LGOptionKindRemapLocalhostPrefix: {
+      return @"[--localhost_path_prefix]";
     }
     case LGOptionKindOutputPath: {
       return @"[-o --output_path]={1,1}";

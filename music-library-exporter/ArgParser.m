@@ -199,6 +199,12 @@ NSErrorDomain const __MLE_ErrorDomain_ArgParser = @"com.kylekingcdn.MusicLibrary
     }
   }
 
+  // --localhost_path_prefix
+  if ([self isOptionSet:LGOptionKindRemapLocalhostPrefix]) {
+    BOOL remapLocalhostPrefix = [_package booleanValueForSignature:[self signatureForOption:LGOptionKindRemapLocalhostPrefix]];
+    [configuration setRemapRootDirectoryLocalhostPrefix:remapLocalhostPrefix];
+  }
+
   // --output_path
   if ([self isOptionSet:LGOptionKindOutputPath]) {
 

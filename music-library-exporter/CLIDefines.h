@@ -41,6 +41,7 @@ typedef NS_ENUM(NSInteger, LGOptionKind) {
   LGOptionKindSort,
   LGOptionKindRemapSearch,
   LGOptionKindRemapReplace,
+  LGOptionKindRemapLocalhostPrefix,
   LGOptionKindOutputPath,
 
 
