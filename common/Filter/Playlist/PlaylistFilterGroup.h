@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)init;
 - (instancetype)initWithFilters:(NSArray<NSObject<PlaylistFiltering>*>*)filters;
+- (instancetype)initWithBaseFiltersAndIncludeInternal:(BOOL)includeInternal andFlattenPlaylists:(BOOL)flatten;
 
 - (void)setFilters:(NSArray<NSObject<PlaylistFiltering>*>*)filters;
 

@@ -7,7 +7,9 @@
 
 #import "PlaylistFilterGroup.h"
 
-#import "PlaylistFiltering.h"
+#import "PlaylistKindFilter.h"
+#import "PlaylistDistinguishedKindFilter.h"
+#import "PlaylistMasterFilter.h"
 
 @implementation PlaylistFilterGroup {
 
@@ -23,6 +25,36 @@
 
   if (self = [super init]) {
     [self setFilters:filters];
+    return self;
+  }
+  else {
+    return nil;
+  }
+}
+
+- (instancetype)initWithBaseFiltersAndIncludeInternal:(BOOL)includeInternal andFlattenPlaylists:(BOOL)flatten {
+
+  if (self = [super init]) {
+
+    _filters = [NSMutableArray array];
+
+    // include internal
+    if (includeInternal) {
+      [self addFilter:[[PlaylistDistinguishedKindFilter alloc] initWithInternalKinds]];
+    }
+    // exclude internal
+    else {
+      [self addFilter:[[PlaylistDistinguishedKindFilter alloc] initWithBaseKinds]];
+      [self addFilter:[[PlaylistMasterFilter alloc] init]];
+    }
+
+    PlaylistKindFilter* playlistKindFilter = [[PlaylistKindFilter alloc] initWithBaseKinds];
+    // exclude folders
+    if (!flatten) {
+      [playlistKindFilter addKind:ITLibPlaylistKindFolder];
+    }
+    [self addFilter:playlistKindFilter];
+
     return self;
   }
   else {
