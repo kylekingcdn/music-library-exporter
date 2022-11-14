@@ -216,6 +216,16 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
   printf("\n        Specify the new text you would like to use in each song's filepath.");
   printf("\n        If included, you must also specify the --remap_search option.");
   printf("\n        For example usage, please see the information for the --remap_search option above.");
+  printf("\n");
+  printf("\n    --localhost_path_prefix");
+  printf("\n");
+  printf("\n        Enabling this flag will prefix all track location paths with 'localhost'.");
+  printf("\n        This option is compatible with path remapping.");
+  printf("\n");
+  printf("\n        Note: this option will only be needed and/or useful in a very limited set of environments.");
+  printf("\n");
+  printf("\n        Example result:");
+  printf("\n            Track paths will be generated as 'file://localhost/Path/to/track.mp3' rather than 'file:///Path/to/track.mp3'.");
   printf("\n\n");
 }
 
