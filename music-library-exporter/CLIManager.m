@@ -16,7 +16,7 @@
 #import "ExportConfiguration.h"
 #import "ExportManager.h"
 #import "PlaylistTreeNode.h"
-#import "PlaylistTree.h"
+#import "PlaylistTreeGenerator.h"
 #import "OrderedDictionary.h"
 #import "Utils.h"
 #import "PlaylistFilterGroup.h"
@@ -36,7 +36,7 @@
 - (void)printStatus:(NSString*)message;
 - (void)printStatusDone:(NSString*)message;
 
-- (NSUInteger)playlistColumnWidthForTree:(PlaylistTree*)playlistTree;
+- (NSUInteger)playlistColumnWidthForTree:(PlaylistTreeNode*)playlistTree;
 - (NSUInteger)playlistColumnWidthForNode:(PlaylistTreeNode*)node forIndent:(NSUInteger)indent;
 - (void)printPlaylistNode:(PlaylistTreeNode*)node withIndent:(NSUInteger)indent forTitleColumnWidth:(NSUInteger)titleColumnWidth;
 
@@ -223,14 +223,6 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
 
 - (void)printPlaylists {
 
-  // init ITLibrary
-  NSError* libraryInitError;
-  ITLibrary* library = [ITLibrary libraryWithAPIVersion:@"1.1" options:ITLibInitOptionNone error:&libraryInitError];
-  if (library == nil) {
-    MLE_Log_Info(@"ExportManager [exportLibrary] error - failed to init ITLibrary. error: %@", libraryInitError.localizedDescription);
-    return;
-  }
-
   // init playlist filters
   PlaylistFilterGroup* playlistFilterGroup = [[PlaylistFilterGroup alloc]
                                               initWithBaseFiltersAndIncludeInternal:_configuration.includeInternalPlaylists
@@ -238,6 +230,10 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
 
   _playlistParentIDFilter = [playlistFilterGroup addFiltersForExcludedIDs:_configuration.excludedPlaylistPersistentIds
                                                       andFlattenPlaylists:_configuration.flattenPlaylistHierarchy];
+
+
+  PlaylistTreeGenerator* generator = [[PlaylistTreeGenerator alloc] initWithFilters:playlistFilters];
+  [generator setFlattenFolders:_configuration.flattenPlaylistHierarchy];
 
   // get included playlists
   NSMutableArray<ITLibPlaylist*>* includedPlaylists = [NSMutableArray array];
@@ -248,9 +244,7 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
     }
   };
 
-  PlaylistTree* playlistTree = [[PlaylistTree alloc] init];
-  [playlistTree setFlattened:_configuration.flattenPlaylistHierarchy];
-  [playlistTree generateForSourcePlaylists:includedPlaylists];
+  PlaylistTreeNode* playlistTree = [generator generateTreeWithError:nil]
 
   NSUInteger tableWidth = MIN(_termWidth, __MLE_PlaylistTableMaxWidth);
   NSUInteger idColumnWidth = __MLE_PlaylistTableColumnMargin + 16 + __MLE_PlaylistTableColumnMargin;
@@ -267,7 +261,7 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
   printf("\n");
 
 
-  for (PlaylistTreeNode* childNode in playlistTree.rootNode.children) {
+  for (PlaylistTreeNode* childNode in playlistTree.children) {
     [self printPlaylistNode:childNode withIndent:0 forTitleColumnWidth:titleColumnWidth];
   }
 }
@@ -463,9 +457,9 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
   fflush(stdout);
 }
 
-- (NSUInteger)playlistColumnWidthForTree:(PlaylistTree*)playlistTree {
+- (NSUInteger)playlistColumnWidthForTree:(PlaylistTreeNode*)playlistTree {
 
-  return [self playlistColumnWidthForNode:playlistTree.rootNode forIndent:0];
+  return [self playlistColumnWidthForNode:playlistTree forIndent:0];
 }
 
 - (NSUInteger)playlistColumnWidthForNode:(PlaylistTreeNode*)node forIndent:(NSUInteger)indent {

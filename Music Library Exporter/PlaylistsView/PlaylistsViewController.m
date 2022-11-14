@@ -7,12 +7,10 @@
 
 #import "PlaylistsViewController.h"
 
-#import <iTunesLibrary/ITLibrary.h>
-
 #import "Logger.h"
 #import "Utils.h"
 #import "PlaylistTreeNode.h"
-#import "PlaylistTree.h"
+#import "PlaylistTreeGenerator.h"
 #import "ExportConfiguration.h"
 #import "CheckBoxTableCellView.h"
 #import "PopupButtonTableCellView.h"
@@ -29,7 +27,7 @@
 
   NSUserDefaults* _groupDefaults;
 
-  PlaylistTree* _playlistTree;
+  PlaylistTreeNode* _playlistTreeRoot;
 }
 
 
@@ -39,7 +37,7 @@
 
   self = [super initWithNibName:@"PlaylistsView" bundle:nil];
 
-  _playlistTree = [[PlaylistTree alloc] init];
+  _playlistTreeRoot = nil;
 
   // detect changes in NSUSerDefaults for app group
   _groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
@@ -282,28 +280,18 @@
 
 - (void)initPlaylistNodes {
 
-  // init ITLibrary
-  NSError* libraryInitError;
-  ITLibrary* library = [ITLibrary libraryWithAPIVersion:@"1.1" options:ITLibInitOptionNone error:&libraryInitError];
-  if (library == nil) {
-    MLE_Log_Info(@"ExportManager [exportLibrary] error - failed to init ITLibrary. error: %@", libraryInitError.localizedDescription);
-    return;
-  }
-
   // init playlist filters
   PlaylistFilterGroup* playlistFilters = [[PlaylistFilterGroup alloc] initWithBaseFiltersAndIncludeInternal:ExportConfiguration.sharedConfig.includeInternalPlaylists
                                                                                         andFlattenPlaylists:ExportConfiguration.sharedConfig.flattenPlaylistHierarchy];
-  // get included playlists
-  NSMutableArray<ITLibPlaylist*>* includedPlaylists = [NSMutableArray array];
 
-  for (ITLibPlaylist* playlist in library.allPlaylists) {
-    if ([playlistFilters filtersPassForPlaylist:playlist]) {
-      [includedPlaylists addObject:playlist];
-    }
+  PlaylistTreeGenerator* generator = [[PlaylistTreeGenerator alloc] initWithFilters:playlistFilters];
+  [generator setFlattenFolders:ExportConfiguration.sharedConfig.flattenPlaylistHierarchy];
+
+  NSError* generateError;
+  _playlistTreeRoot = [generator generateTreeWithError:&generateError];
+  if (generateError != nil) {
+    MLE_Log_Info(@"PlaylistsViewController [initPlaylistNodes] error - failed to generate playlist tree: %@", generateError.localizedDescription);
   }
-
-  [_playlistTree setFlattened:ExportConfiguration.sharedConfig.flattenPlaylistHierarchy];
-  [_playlistTree generateForSourcePlaylists:includedPlaylists];
 }
 
 - (IBAction)setPlaylistExcludedForCellView:(id)sender {
@@ -387,30 +375,30 @@
 
 - (NSInteger)outlineView:(NSOutlineView*)outlineView numberOfChildrenOfItem:(nullable id)item {
 
-  if(!_playlistTree.rootNode) {
+  if(_playlistTreeRoot == nil) {
     return 0;
   }
 
   // use rootNode if item is nil
-  PlaylistTreeNode* node = item ? item : _playlistTree.rootNode;
+  PlaylistTreeNode* node = item ? item : _playlistTreeRoot;
 
   return node.children.count;
 }
 
 - (id)outlineView:(NSOutlineView*)outlineView child:(NSInteger)index ofItem:(nullable id)item {
 
-  PlaylistTreeNode* node = item ? item : _playlistTree.rootNode;
+  PlaylistTreeNode* node = item ? item : _playlistTreeRoot;
 
   return [node.children objectAtIndex:index];
 }
 
 - (BOOL)outlineView:(NSOutlineView*)outlineView isItemExpandable:(id)item {
 
-  if (_playlistTree.rootNode == nil) {
+  if (_playlistTreeRoot == nil) {
     return NO;
   }
 
-  PlaylistTreeNode* node = item ? item : _playlistTree.rootNode;
+  PlaylistTreeNode* node = item ? item : _playlistTreeRoot;
 
   return node.children.count > 0;
 }
