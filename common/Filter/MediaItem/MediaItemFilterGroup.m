@@ -42,6 +42,11 @@
   return [self initWithFilters:baseFilters];
 }
 
+- (NSArray<NSObject<MediaItemFiltering>*>*)filters {
+
+  return _filters;
+}
+
 - (void)setFilters:(NSArray<NSObject<MediaItemFiltering>*>*)filters {
 
   _filters = [filters mutableCopy];

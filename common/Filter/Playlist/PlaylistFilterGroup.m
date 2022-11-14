@@ -64,6 +64,11 @@
   }
 }
 
+- (NSArray<NSObject<PlaylistFiltering>*>*)filters {
+
+  return _filters;
+}
+
 - (void)setFilters:(NSArray<NSObject<PlaylistFiltering>*>*)filters {
 
   _filters = [filters mutableCopy];
