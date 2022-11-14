@@ -7,12 +7,6 @@
 
 #import <Foundation/Foundation.h>
 
-@class ITLibrary;
-@class ITLibMediaEntity;
-@class ITLibMediaItem;
-@class ITLibPlaylist;
-@class ITLibArtist;
-
 #import "Defines.h"
 
 NS_ASSUME_NONNULL_BEGIN
