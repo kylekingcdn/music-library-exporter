@@ -13,7 +13,7 @@
 
   if (self = [super init]) {
 
-    _addLocalhostPrefix = YES;
+    _addLocalhostPrefix = NO;
     return self;
   }
   else {
