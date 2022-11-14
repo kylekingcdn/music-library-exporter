@@ -231,19 +231,10 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
                                                       andFlattenPlaylists:_configuration.flattenPlaylistHierarchy];
 
 
-  PlaylistTreeGenerator* generator = [[PlaylistTreeGenerator alloc] initWithFilters:playlistFilters];
+  PlaylistTreeGenerator* generator = [[PlaylistTreeGenerator alloc] initWithFilters:playlistFilterGroup];
   [generator setFlattenFolders:_configuration.flattenPlaylistHierarchy];
 
-  // get included playlists
-  NSMutableArray<ITLibPlaylist*>* includedPlaylists = [NSMutableArray array];
-
-  for (ITLibPlaylist* playlist in library.allPlaylists) {
-    if ([playlistFilterGroup filtersPassForPlaylist:playlist]) {
-      [includedPlaylists addObject:playlist];
-    }
-  };
-
-  PlaylistTreeNode* playlistTree = [generator generateTreeWithError:nil]
+  PlaylistTreeNode* playlistTree = [generator generateTreeWithError:nil];
 
   NSUInteger tableWidth = MIN(_termWidth, __MLE_PlaylistTableMaxWidth);
   NSUInteger idColumnWidth = __MLE_PlaylistTableColumnMargin + 16 + __MLE_PlaylistTableColumnMargin;
