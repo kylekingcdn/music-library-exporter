@@ -106,6 +106,7 @@ NSErrorDomain const __MLE_ErrorDomain_ExportManager = @"com.kylekingcdn.MusicLib
   if (_configuration.remapRootDirectory) {
     [pathMapper setSearchString:_configuration.remapRootDirectoryOriginalPath];
     [pathMapper setReplaceString:_configuration.remapRootDirectoryMappedPath];
+    [pathMapper setAddLocalhostPrefix:_configuration.remapRootDirectoryLocalhostPrefix];
   }
 
   // configure item serializers
@@ -214,15 +215,15 @@ NSErrorDomain const __MLE_ErrorDomain_ExportManager = @"com.kylekingcdn.MusicLib
   }
 
   // validate path re-mapping
-  if (_configuration.remapRootDirectory) {
-    if (_configuration.remapRootDirectoryOriginalPath == nil || _configuration.remapRootDirectoryOriginalPath.length == 0) {
-      MLE_Log_Info(@"ExportManager [validateConfigurationWithError] Re-map original path is unset");
-      if (error) {
-        *error = [self generateErrorForCode:ExportManagerErrorRemappingInvalid];
-      }
-      [self setState:ExportError];
-      return NO;
+  if ((_configuration.remapRootDirectoryOriginalPath == nil && _configuration.remapRootDirectoryOriginalPath.length > 0) !=
+      (_configuration.remapRootDirectoryMappedPath == nil && _configuration.remapRootDirectoryMappedPath.length > 0)) {
+
+    MLE_Log_Info(@"ExportManager [validateConfigurationWithError] Both original and mapped path must be set");
+    if (error) {
+      *error = [self generateErrorForCode:ExportManagerErrorRemappingInvalid];
     }
+    [self setState:ExportError];
+    return NO;
   }
 
   return YES;
