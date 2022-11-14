@@ -8,6 +8,7 @@
 #import "ExportManager.h"
 
 #import <iTunesLibrary/ITLibrary.h>
+#import <iTunesLibrary/ITLibPlaylist.h>
 
 #import "ExportConfiguration.h"
 #import "LibrarySerializer.h"
@@ -18,10 +19,6 @@
 #import "OrderedDictionary.h"
 #import "PathMapper.h"
 #import "PlaylistFilterGroup.h"
-#import "PlaylistKindFilter.h"
-#import "PlaylistDistinguishedKindFilter.h"
-#import "PlaylistMasterFilter.h"
-#import "PlaylistIDFilter.h"
 #import "PlaylistParentIDFilter.h"
 #import "PlaylistSerializer.h"
 #import "Utils.h"
@@ -73,7 +70,13 @@ NSErrorDomain const __MLE_ErrorDomain_ExportManager = @"com.kylekingcdn.MusicLib
   }
 
   // configure filters
-  PlaylistFilterGroup* playlistFilterGroup = [self generatePlaylistFilters];
+  PlaylistFilterGroup* playlistFilterGroup = [[PlaylistFilterGroup alloc]
+                                              initWithBaseFiltersAndIncludeInternal:_configuration.includeInternalPlaylists
+                                              andFlattenPlaylists:_configuration.flattenPlaylistHierarchy];
+
+  _playlistParentIDFilter = [playlistFilterGroup addFiltersForExcludedIDs:_configuration.excludedPlaylistPersistentIds
+                                                      andFlattenPlaylists:_configuration.flattenPlaylistHierarchy];
+
   MediaItemFilterGroup* itemFilterGroup = [[MediaItemFilterGroup alloc] initWithBaseFilters];
 
   // configure directory mapping
@@ -240,35 +243,6 @@ NSErrorDomain const __MLE_ErrorDomain_ExportManager = @"com.kylekingcdn.MusicLib
       return nil; // NSError provided by writeDictionary
     }
   }
-}
-
-- (PlaylistFilterGroup*) generatePlaylistFilters {
-
-  NSArray<NSObject<PlaylistFiltering>*>* playlistFilters = [NSArray array];
-
-  PlaylistFilterGroup* playlistFilterGroup = [[PlaylistFilterGroup alloc] initWithFilters:playlistFilters];
-
-  PlaylistIDFilter* playlistIDFilter = [[PlaylistIDFilter alloc] initWithExcludedIDs:_configuration.excludedPlaylistPersistentIds];
-  [playlistFilterGroup addFilter:playlistIDFilter];
-
-  if (_configuration.includeInternalPlaylists) {
-    [playlistFilterGroup addFilter:[[PlaylistDistinguishedKindFilter alloc] initWithInternalKinds]];
-  }
-  else {
-    [playlistFilterGroup addFilter:[[PlaylistDistinguishedKindFilter alloc] initWithBaseKinds]];
-    [playlistFilterGroup addFilter:[[PlaylistMasterFilter alloc] init]];
-  }
-
-  PlaylistKindFilter* playlistKindFilter = [[PlaylistKindFilter alloc] initWithBaseKinds];
-  if (!_configuration.flattenPlaylistHierarchy) {
-    [playlistKindFilter addKind:ITLibPlaylistKindFolder];
-
-    _playlistParentIDFilter = [[PlaylistParentIDFilter alloc] initWithExcludedIDs:_configuration.excludedPlaylistPersistentIds];
-    [playlistFilterGroup addFilter:_playlistParentIDFilter];
-  }
-  [playlistFilterGroup addFilter:playlistKindFilter];
-
-  return playlistFilterGroup;
 }
 
 

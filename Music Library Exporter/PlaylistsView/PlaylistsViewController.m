@@ -17,9 +17,6 @@
 #import "CheckBoxTableCellView.h"
 #import "PopupButtonTableCellView.h"
 #import "PlaylistFilterGroup.h"
-#import "PlaylistKindFilter.h"
-#import "PlaylistDistinguishedKindFilter.h"
-#import "PlaylistMasterFilter.h"
 
 @interface PlaylistsViewController ()
 
@@ -283,29 +280,6 @@
 
 #pragma mark - Mutators
 
-- (PlaylistFilterGroup*) generatePlaylistFilters {
-
-  NSArray<NSObject<PlaylistFiltering>*>* playlistFilters = [NSArray array];
-
-  PlaylistFilterGroup* playlistFilterGroup = [[PlaylistFilterGroup alloc] initWithFilters:playlistFilters];
-
-  if (ExportConfiguration.sharedConfig.includeInternalPlaylists) {
-    [playlistFilterGroup addFilter:[[PlaylistDistinguishedKindFilter alloc] initWithInternalKinds]];
-  }
-  else {
-    [playlistFilterGroup addFilter:[[PlaylistDistinguishedKindFilter alloc] initWithBaseKinds]];
-    [playlistFilterGroup addFilter:[[PlaylistMasterFilter alloc] init]];
-  }
-
-  PlaylistKindFilter* playlistKindFilter = [[PlaylistKindFilter alloc] initWithBaseKinds];
-  if (!ExportConfiguration.sharedConfig.flattenPlaylistHierarchy) {
-    [playlistKindFilter addKind:ITLibPlaylistKindFolder];
-  }
-  [playlistFilterGroup addFilter:playlistKindFilter];
-
-  return playlistFilterGroup;
-}
-
 - (void)initPlaylistNodes {
 
   // init ITLibrary
@@ -317,8 +291,8 @@
   }
 
   // init playlist filters
-  PlaylistFilterGroup* playlistFilters = [self generatePlaylistFilters];
-
+  PlaylistFilterGroup* playlistFilters = [[PlaylistFilterGroup alloc] initWithBaseFiltersAndIncludeInternal:ExportConfiguration.sharedConfig.includeInternalPlaylists
+                                                                                        andFlattenPlaylists:ExportConfiguration.sharedConfig.flattenPlaylistHierarchy];
   // get included playlists
   NSMutableArray<ITLibPlaylist*>* includedPlaylists = [NSMutableArray array];
 

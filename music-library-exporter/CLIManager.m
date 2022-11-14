@@ -20,10 +20,6 @@
 #import "OrderedDictionary.h"
 #import "Utils.h"
 #import "PlaylistFilterGroup.h"
-#import "PlaylistKindFilter.h"
-#import "PlaylistDistinguishedKindFilter.h"
-#import "PlaylistMasterFilter.h"
-#import "PlaylistIDFilter.h"
 #import "PlaylistParentIDFilter.h"
 
 
@@ -225,35 +221,6 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
   printf("music-library-exporter %s\n", [LG_VERSION UTF8String]);
 }
 
-- (PlaylistFilterGroup*) generatePlaylistFilters {
-
-  NSArray<NSObject<PlaylistFiltering>*>* playlistFilters = [NSArray array];
-
-  PlaylistFilterGroup* playlistFilterGroup = [[PlaylistFilterGroup alloc] initWithFilters:playlistFilters];
-
-  PlaylistIDFilter* playlistIDFilter = [[PlaylistIDFilter alloc] initWithExcludedIDs:_configuration.excludedPlaylistPersistentIds];
-  [playlistFilterGroup addFilter:playlistIDFilter];
-
-  if (_configuration.includeInternalPlaylists) {
-    [playlistFilterGroup addFilter:[[PlaylistDistinguishedKindFilter alloc] initWithInternalKinds]];
-  }
-  else {
-    [playlistFilterGroup addFilter:[[PlaylistDistinguishedKindFilter alloc] initWithBaseKinds]];
-    [playlistFilterGroup addFilter:[[PlaylistMasterFilter alloc] init]];
-  }
-
-  PlaylistKindFilter* playlistKindFilter = [[PlaylistKindFilter alloc] initWithBaseKinds];
-  if (!_configuration.flattenPlaylistHierarchy) {
-    [playlistKindFilter addKind:ITLibPlaylistKindFolder];
-
-    _playlistParentIDFilter = [[PlaylistParentIDFilter alloc] initWithExcludedIDs:_configuration.excludedPlaylistPersistentIds];
-    [playlistFilterGroup addFilter:_playlistParentIDFilter];
-  }
-  [playlistFilterGroup addFilter:playlistKindFilter];
-
-  return playlistFilterGroup;
-}
-
 - (void)printPlaylists {
 
   // init ITLibrary
@@ -265,13 +232,18 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
   }
 
   // init playlist filters
-  PlaylistFilterGroup* playlistFilters = [self generatePlaylistFilters];
+  PlaylistFilterGroup* playlistFilterGroup = [[PlaylistFilterGroup alloc]
+                                              initWithBaseFiltersAndIncludeInternal:_configuration.includeInternalPlaylists
+                                              andFlattenPlaylists:_configuration.flattenPlaylistHierarchy];
+
+  _playlistParentIDFilter = [playlistFilterGroup addFiltersForExcludedIDs:_configuration.excludedPlaylistPersistentIds
+                                                      andFlattenPlaylists:_configuration.flattenPlaylistHierarchy];
 
   // get included playlists
   NSMutableArray<ITLibPlaylist*>* includedPlaylists = [NSMutableArray array];
 
   for (ITLibPlaylist* playlist in library.allPlaylists) {
-    if ([playlistFilters filtersPassForPlaylist:playlist]) {
+    if ([playlistFilterGroup filtersPassForPlaylist:playlist]) {
       [includedPlaylists addObject:playlist];
     }
   };
