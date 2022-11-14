@@ -47,6 +47,7 @@ typedef NS_ENUM(NSInteger, ConfigurationViewErrorCode) {
 - (IBAction)setRemapRootDirectory:(id)sender;
 - (IBAction)setRemapOriginalText:(id)sender;
 - (IBAction)setRemapReplacementText:(id)sender;
+- (IBAction)setRemapLocalhostPrefix:(id)sender;
 
 - (IBAction)setFlattenPlaylistHierarchy:(id)sender;
 - (IBAction)setIncludeInternalPlaylists:(id)sender;

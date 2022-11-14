@@ -27,6 +27,7 @@
 @property (weak) IBOutlet NSButton *remapRootDirectoryCheckBox;
 @property (weak) IBOutlet NSTextField *remapOriginalDirectoryTextField;
 @property (weak) IBOutlet NSTextField *remapMappedDirectoryTextField;
+@property (weak) IBOutlet NSButton *remapLocalhostPrefixCheckBox;
 
 @property (weak) IBOutlet NSButton *flattenPlaylistsCheckBox;
 @property (weak) IBOutlet NSButton *includeInternalPlaylistsCheckBox;
@@ -132,6 +133,7 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
   [_remapRootDirectoryCheckBox setState:(ExportConfiguration.sharedConfig.remapRootDirectory ? NSControlStateValueOn : NSControlStateValueOff)];
   [_remapOriginalDirectoryTextField setStringValue:ExportConfiguration.sharedConfig.remapRootDirectoryOriginalPath];
   [_remapMappedDirectoryTextField setStringValue:ExportConfiguration.sharedConfig.remapRootDirectoryMappedPath];
+  [_remapLocalhostPrefixCheckBox setState:(ExportConfiguration.sharedConfig.remapRootDirectoryLocalhostPrefix ? NSControlStateValueOn : NSControlStateValueOff)];
 
   [_flattenPlaylistsCheckBox setState:(ExportConfiguration.sharedConfig.flattenPlaylistHierarchy ? NSControlStateValueOn : NSControlStateValueOff)];
   [_includeInternalPlaylistsCheckBox setState:(ExportConfiguration.sharedConfig.includeInternalPlaylists ? NSControlStateValueOn : NSControlStateValueOff)];
@@ -157,6 +159,7 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
   // update states of controls with dependencies
   [_remapOriginalDirectoryTextField setEnabled:ExportConfiguration.sharedConfig.remapRootDirectory];
   [_remapMappedDirectoryTextField setEnabled:ExportConfiguration.sharedConfig.remapRootDirectory];
+  [_remapLocalhostPrefixCheckBox setEnabled:ExportConfiguration.sharedConfig.remapRootDirectory];
   [_scheduleIntervalTextField setEnabled:ScheduleConfiguration.sharedConfig.scheduleEnabled];
   [_scheduleIntervalStepper setEnabled:ScheduleConfiguration.sharedConfig.scheduleEnabled];
   [_scheduleSkipOnBatteryCheckBox setEnabled:ScheduleConfiguration.sharedConfig.scheduleEnabled];
@@ -193,6 +196,7 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
 
   [_remapOriginalDirectoryTextField setEnabled:flag];
   [_remapMappedDirectoryTextField setEnabled:flag];
+  [_remapLocalhostPrefixCheckBox setEnabled:flag];
 }
 
 - (IBAction)setRemapOriginalText:(id)sender {
@@ -207,6 +211,14 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
   NSString* remapReplacementText = [sender stringValue];
 
   [ExportConfiguration.sharedConfig setRemapRootDirectoryMappedPath:remapReplacementText];
+}
+
+- (IBAction)setRemapLocalhostPrefix:(id)sender {
+
+  NSControlStateValue flagState = [sender state];
+  BOOL flag = (flagState == NSControlStateValueOn);
+
+  [ExportConfiguration.sharedConfig setRemapRootDirectoryLocalhostPrefix:flag];
 }
 
 - (IBAction)setFlattenPlaylistHierarchy:(id)sender {
