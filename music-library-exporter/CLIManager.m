@@ -222,7 +222,7 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
   printf("\n        Enabling this flag will prefix all track location paths with 'localhost'.");
   printf("\n        This option is compatible with path remapping.");
   printf("\n");
-  printf("\n        Note: this option will only be needed and/or useful in a very limited set of environments.");
+  printf("\n        Note: this option will only be needed and/or useful in a very limited set of environments (e.g. Plex on Synology).");
   printf("\n");
   printf("\n        Example result:");
   printf("\n            Track paths will be generated as 'file://localhost/Path/to/track.mp3' rather than 'file:///Path/to/track.mp3'.");
