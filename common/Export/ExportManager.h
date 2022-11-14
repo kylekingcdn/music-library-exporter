@@ -35,7 +35,7 @@ typedef NS_ENUM(NSInteger, ExportManagerErrorCode) {
 @property (nullable, weak) NSObject<ExportManagerDelegate>* delegate;
 
 @property (readonly) ExportState state;
-@property (copy) NSURL* outputFileURL;
+@property (nullable,copy) NSURL* outputFileURL;
 
 
 #pragma mark - Initializers

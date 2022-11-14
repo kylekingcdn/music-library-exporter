@@ -38,30 +38,31 @@
   }
 }
 
-- (PlaylistTreeNode*)generateTreeWithError:(NSError**)error {
+- (nullable PlaylistTreeNode*)generateTreeWithError:(NSError**)error {
+
+  PlaylistTreeNode* root = [[PlaylistTreeNode alloc] init];
 
   // init ITLibrary
   ITLibrary* library = [ITLibrary libraryWithAPIVersion:@"1.1" options:ITLibInitOptionNone error:error];
-  if (library == nil) {
-    return nil;
-  }
 
-  PlaylistTreeNode* root = [[PlaylistTreeNode alloc] init];
-  NSMutableArray<PlaylistTreeNode*>* topLevelPlaylists = [NSMutableArray array];
+  if (library != nil) {
 
-  for (ITLibPlaylist* playlist in library.allPlaylists) {
+    NSMutableArray<PlaylistTreeNode*>* topLevelPlaylists = [NSMutableArray array];
 
-    if ([_filters filtersPassForPlaylist:playlist]) {
+    for (ITLibPlaylist* playlist in library.allPlaylists) {
 
-      // additional filter to only generate top level playlists when folders are retained
-      if (_flattenFolders || playlist.parentID == nil) {
+      if ([_filters filtersPassForPlaylist:playlist]) {
 
-        [topLevelPlaylists addObject:[self createNodeForPlaylist:playlist fromSourcePlaylists:library.allPlaylists]];
+        // additional filter to only generate top level playlists when folders are retained
+        if (_flattenFolders || playlist.parentID == nil) {
+
+          [topLevelPlaylists addObject:[self createNodeForPlaylist:playlist fromSourcePlaylists:library.allPlaylists]];
+        }
       }
     }
-  }
 
-  [root setChildren:topLevelPlaylists];
+    [root setChildren:topLevelPlaylists];
+  }
 
   return root;
 }

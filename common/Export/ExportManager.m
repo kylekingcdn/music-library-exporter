@@ -53,6 +53,8 @@ NSErrorDomain const __MLE_ErrorDomain_ExportManager = @"com.kylekingcdn.MusicLib
 
 - (BOOL)exportLibraryWithError:(NSError**)error {
 
+  NSAssert(_outputFileURL != nil, @"_outputFileURL cannot be nil");
+
   // validate configuration
   if (![self validateConfigurationWithError:error]) {
     return NO;

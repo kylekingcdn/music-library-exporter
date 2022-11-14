@@ -16,8 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype) init;
 
-@property (copy, nonnull) NSString* persistentID;
-@property (copy, nonnull) NSString* musicLibraryDir;
+@property (copy, nullable) NSString* persistentID;
+@property (copy, nullable) NSString* musicLibraryDir;
 
 - (OrderedDictionary*)serializeLibrary:(ITLibrary*)library withItems:(OrderedDictionary*)items andPlaylists:(NSArray<OrderedDictionary*>*)playlists;
 

@@ -33,9 +33,10 @@
   [libraryDict setValue:[NSNumber numberWithUnsignedInteger:library.features] forKey:@"Features"];
   [libraryDict setValue:@(library.showContentRating) forKey:@"Show Content Ratings"];
 
-  [libraryDict setValue:_persistentID forKey:@"Library Persistent ID"];
-
-  if (_musicLibraryDir.length > 0) {
+  if (_persistentID != nil) {
+    [libraryDict setValue:_persistentID forKey:@"Library Persistent ID"];
+  }
+  if (_musicLibraryDir != nil && _musicLibraryDir.length > 0) {
     [libraryDict setValue:[[NSURL fileURLWithPath:_musicLibraryDir] absoluteString] forKey:@"Music Folder"];
   }
 

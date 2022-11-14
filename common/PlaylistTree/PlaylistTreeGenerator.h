@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init;
 - (instancetype)initWithFilters:(PlaylistFilterGroup*)filters;
 
-- (PlaylistTreeNode*)generateTreeWithError:(NSError**)error;
+- (nullable PlaylistTreeNode*)generateTreeWithError:(NSError**)error;
 
 @end
 
