@@ -57,6 +57,7 @@ static UserDefaultsExportConfiguration* _sharedConfig;
     @NO,             @"RemapRootDirectory",
     @"",             @"RemapRootDirectoryOriginalPath",
     @"",             @"RemapRootDirectoryMappedPath",
+    @NO,             @"RemapRootDirectoryLocalhostPrefix",
 
     @NO,             @"FlattenPlaylistHierarchy",
     @YES,            @"IncludeInternalPlaylists",
@@ -158,6 +159,13 @@ static UserDefaultsExportConfiguration* _sharedConfig;
   [super setRemapRootDirectoryMappedPath:mappedPath];
 
   [_userDefaults setValue:mappedPath forKey:@"RemapRootDirectoryMappedPath"];
+}
+
+- (void)setRemapRootDirectoryLocalhostPrefix:(BOOL)flag {
+
+  [super setRemapRootDirectoryLocalhostPrefix:flag];
+
+  [_userDefaults setBool:flag forKey:@"RemapRootDirectoryLocalhostPrefix"];
 }
 
 - (void)setFlattenPlaylistHierarchy:(BOOL)flag {

@@ -27,6 +27,7 @@ static ExportConfiguration* _sharedConfig;
   BOOL _remapRootDirectory;
   NSString* _remapRootDirectoryOriginalPath;
   NSString* _remapRootDirectoryMappedPath;
+  BOOL _remapRootDirectoryLocalhostPrefix;
 
   BOOL _flattenPlaylistHierarchy;
   BOOL _includeInternalPlaylists;
@@ -44,6 +45,7 @@ static ExportConfiguration* _sharedConfig;
   if (self = [super init]) {
 
     _remapRootDirectory = NO;
+    _remapRootDirectoryLocalhostPrefix = NO;
 
     _flattenPlaylistHierarchy = NO;
     _includeInternalPlaylists = YES;
@@ -161,6 +163,11 @@ static ExportConfiguration* _sharedConfig;
   return _remapRootDirectoryMappedPath;
 }
 
+- (BOOL)remapRootDirectoryLocalhostPrefix {
+
+  return _remapRootDirectoryLocalhostPrefix;
+}
+
 - (BOOL)flattenPlaylistHierarchy {
 
     return _flattenPlaylistHierarchy;
@@ -219,24 +226,25 @@ static ExportConfiguration* _sharedConfig;
 
   MLE_Log_Info(@"ExportConfiguration [dumpProperties]");
 
-  MLE_Log_Info(@"  MusicLibraryPath:                '%@'", _musicLibraryPath);
+  MLE_Log_Info(@"  MusicLibraryPath:                  '%@'", _musicLibraryPath);
 
-  MLE_Log_Info(@"  GeneratedPersistentLibraryId:    '%@'", _generatedPersistentLibraryId);
+  MLE_Log_Info(@"  GeneratedPersistentLibraryId:      '%@'", _generatedPersistentLibraryId);
 
-  MLE_Log_Info(@"  OutputDirectoryUrl:              '%@'", _outputDirectoryUrl);
-  MLE_Log_Info(@"  OutputDirectoryPath:             '%@'", _outputDirectoryPath);
-  MLE_Log_Info(@"  OutputFileName:                  '%@'", _outputFileName);
+  MLE_Log_Info(@"  OutputDirectoryUrl:                '%@'", _outputDirectoryUrl);
+  MLE_Log_Info(@"  OutputDirectoryPath:               '%@'", _outputDirectoryPath);
+  MLE_Log_Info(@"  OutputFileName:                    '%@'", _outputFileName);
 
-  MLE_Log_Info(@"  RemapRootDirectory:              '%@'", (_remapRootDirectory ? @"YES" : @"NO"));
-  MLE_Log_Info(@"  RemapRootDirectoryOriginalPath:  '%@'", _remapRootDirectoryOriginalPath);
-  MLE_Log_Info(@"  RemapRootDirectoryMappedPath:    '%@'", _remapRootDirectoryMappedPath);
+  MLE_Log_Info(@"  RemapRootDirectory:                '%@'", (_remapRootDirectory ? @"YES" : @"NO"));
+  MLE_Log_Info(@"  RemapRootDirectoryOriginalPath:    '%@'", _remapRootDirectoryOriginalPath);
+  MLE_Log_Info(@"  RemapRootDirectoryMappedPath:      '%@'", _remapRootDirectoryMappedPath);
+  MLE_Log_Info(@"  RemapRootDirectoryLocalhostPrefix: '%@'", (_remapRootDirectoryLocalhostPrefix ? @"YES" : @"NO"));
 
-  MLE_Log_Info(@"  FlattenPlaylistHierarchy:        '%@'", (_flattenPlaylistHierarchy ? @"YES" : @"NO"));
-  MLE_Log_Info(@"  IncludeInternalPlaylists:        '%@'", (_includeInternalPlaylists ? @"YES" : @"NO"));
-  MLE_Log_Info(@"  ExcludedPlaylistPersistentIds:   '%@'", _excludedPlaylistPersistentIds);
+  MLE_Log_Info(@"  FlattenPlaylistHierarchy:          '%@'", (_flattenPlaylistHierarchy ? @"YES" : @"NO"));
+  MLE_Log_Info(@"  IncludeInternalPlaylists:          '%@'", (_includeInternalPlaylists ? @"YES" : @"NO"));
+  MLE_Log_Info(@"  ExcludedPlaylistPersistentIds:     '%@'", _excludedPlaylistPersistentIds);
 
-  MLE_Log_Info(@"  PlaylistCustomSortColumns:       '%@'", _playlistCustomSortColumnDict);
-  MLE_Log_Info(@"  PlaylistCustomSortOrders:        '%@'", _playlistCustomSortOrderDict);
+  MLE_Log_Info(@"  PlaylistCustomSortColumns:         '%@'", _playlistCustomSortColumnDict);
+  MLE_Log_Info(@"  PlaylistCustomSortOrders:          '%@'", _playlistCustomSortOrderDict);
 }
 
 
@@ -303,6 +311,13 @@ static ExportConfiguration* _sharedConfig;
   MLE_Log_Info(@"ExportConfiguration [setRemapRootDirectoryMappedPath %@]", mappedPath);
 
   _remapRootDirectoryMappedPath = mappedPath;
+}
+
+- (void)setRemapRootDirectoryLocalhostPrefix:(BOOL)flag {
+
+  MLE_Log_Info(@"ExportConfiguration [setRemapRootDirectoryLocalhostPrefix %@]", (flag ? @"YES" : @"NO"));
+
+  _remapRootDirectoryLocalhostPrefix = flag;
 }
 
 - (void)setFlattenPlaylistHierarchy:(BOOL)flag {
@@ -421,6 +436,9 @@ static ExportConfiguration* _sharedConfig;
   }
   if ([dict objectForKey:@"RemapRootDirectoryMappedPath"]) {
     [self setRemapRootDirectoryMappedPath:[dict valueForKey:@"RemapRootDirectoryMappedPath"]];
+  }
+  if ([dict objectForKey:@"RemapRootDirectoryLocalhostPrefix"]) {
+    [self setRemapRootDirectoryLocalhostPrefix:[[dict objectForKey:@"RemapRootDirectoryLocalhostPrefix"] boolValue]];
   }
 
   if ([dict objectForKey:@"FlattenPlaylistHierarchy"]) {

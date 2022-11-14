@@ -47,6 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setRemapRootDirectory:(BOOL)flag;
 - (void)setRemapRootDirectoryOriginalPath:(NSString*)originalPath;
 - (void)setRemapRootDirectoryMappedPath:(NSString*)mappedPath;
+- (void)setRemapRootDirectoryLocalhostPrefix:(BOOL)flag;
 
 - (void)setFlattenPlaylistHierarchy:(BOOL)flag;
 - (void)setIncludeInternalPlaylists:(BOOL)flag;
