@@ -22,15 +22,6 @@
   return [self initWithFilters:[NSArray array]];
 }
 
-- (instancetype)initWithBaseFilters {
-
-  NSMutableArray<NSObject<MediaItemFiltering>*>* baseFilters = [NSMutableArray array];
-
-  [baseFilters addObject:[[MediaItemKindFilter alloc] initWithBaseKinds]];
-
-  return [self initWithFilters:baseFilters];
-}
-
 - (instancetype)initWithFilters:(NSArray<NSObject<MediaItemFiltering>*>*)filters {
 
   if (self = [super init]) {
@@ -40,6 +31,15 @@
   else {
     return nil;
   }
+}
+
+- (instancetype)initWithBaseFilters {
+
+  NSMutableArray<NSObject<MediaItemFiltering>*>* baseFilters = [NSMutableArray array];
+
+  [baseFilters addObject:[[MediaItemKindFilter alloc] initWithBaseKinds]];
+
+  return [self initWithFilters:baseFilters];
 }
 
 - (void)setFilters:(NSArray<NSObject<MediaItemFiltering>*>*)filters {
