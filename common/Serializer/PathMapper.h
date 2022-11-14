@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (copy,nullable) NSString* searchString;
 @property (copy,nullable) NSString* replaceString;
 
+@property BOOL addLocalhostPrefix;
+
 - (instancetype)init;
 - (NSString*)mapPath:(NSURL*)path;
 

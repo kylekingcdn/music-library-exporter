@@ -13,6 +13,7 @@
 
   if (self = [super init]) {
 
+    _addLocalhostPrefix = YES;
     return self;
   }
   else {
@@ -41,6 +42,10 @@
 
   NSURL* mappedURL = [self mapURLFromPath:pathURL.path];
   NSString* mappedString = [mappedURL absoluteString];
+
+  if (_addLocalhostPrefix) {
+    mappedString = [mappedString stringByReplacingOccurrencesOfString:@"file:///" withString:@"file://localhost/"];
+  }
 
   return mappedString;
 }
