@@ -30,12 +30,9 @@
   return self;
 }
 
-+ (PlaylistTreeNode*)nodeWithPlaylist:(nullable ITLibPlaylist*)playlist andChildren:(NSArray<PlaylistTreeNode*>*)childNodes {
++ (PlaylistTreeNode*)nodeWithPlaylist:(nullable ITLibPlaylist*)playlist {
 
   PlaylistTreeNode* node = [[PlaylistTreeNode alloc] init];
-
-  [node setChildren:childNodes];
-
   if (playlist != nil) {
     node->_playlistPersistentHexID = [Utils hexStringForPersistentId:playlist.persistentID];
     node->_playlistParentPersistentHexID = [Utils hexStringForPersistentId:playlist.parentID];
@@ -47,6 +44,14 @@
   else {
     node->_playlistPersistentHexID = nil;
   }
+
+  return node;
+}
+
++ (PlaylistTreeNode*)nodeWithPlaylist:(nullable ITLibPlaylist*)playlist andChildren:(NSArray<PlaylistTreeNode*>*)childNodes {
+
+  PlaylistTreeNode* node = [PlaylistTreeNode nodeWithPlaylist:playlist];
+  [node setChildren:childNodes];
 
   return node;
 }

@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)init;
 
++ (PlaylistTreeNode*)nodeWithPlaylist:(nullable ITLibPlaylist*)playlist;
 + (PlaylistTreeNode*)nodeWithPlaylist:(nullable ITLibPlaylist*)playlist andChildren:(NSArray<PlaylistTreeNode*>*)childNodes;
 
 
