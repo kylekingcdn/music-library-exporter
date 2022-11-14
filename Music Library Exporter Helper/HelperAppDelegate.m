@@ -7,8 +7,6 @@
 
 #import "HelperAppDelegate.h"
 
-#import <iTunesLibrary/ITLibrary.h>
-
 #import "Logger.h"
 #import "UserDefaultsExportConfiguration.h"
 #import "ScheduleConfiguration.h"

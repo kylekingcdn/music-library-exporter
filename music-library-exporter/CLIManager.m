@@ -7,7 +7,6 @@
 
 #import "CLIManager.h"
 
-#import <iTunesLibrary/ITLibrary.h>
 #import <iTunesLibrary/ITLibPlaylist.h>
 #import <sys/ioctl.h>
 
