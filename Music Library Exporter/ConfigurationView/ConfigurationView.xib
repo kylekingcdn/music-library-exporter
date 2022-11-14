@@ -435,7 +435,6 @@ to prevent possible conflicts</string>
                 <constraint firstItem="8Fn-3A-SPC" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" symbolic="YES" id="gP1-aN-tvA"/>
                 <constraint firstItem="aNt-y7-Osz" firstAttribute="top" secondItem="AMO-i9-8k7" secondAttribute="bottom" constant="4" id="hP0-Mx-fuf"/>
                 <constraint firstAttribute="trailing" secondItem="QoD-Q7-Epr" secondAttribute="trailing" constant="20" symbolic="YES" id="ix7-r2-4gS"/>
-                <constraint firstItem="JJM-n9-YVb" firstAttribute="top" secondItem="BjE-vG-HTd" secondAttribute="bottom" constant="10" symbolic="YES" id="j8Y-dZ-OyT"/>
                 <constraint firstAttribute="trailing" secondItem="aNt-y7-Osz" secondAttribute="trailing" constant="20" symbolic="YES" id="kLg-za-RqH"/>
                 <constraint firstItem="2Pg-dB-pIn" firstAttribute="width" secondItem="aQn-IB-K3Q" secondAttribute="width" multiplier="0.5" id="lLy-HR-ciE"/>
                 <constraint firstItem="ych-C4-ky6" firstAttribute="top" secondItem="dWM-bR-tNA" secondAttribute="bottom" constant="4" id="lUB-nv-DmY"/>
