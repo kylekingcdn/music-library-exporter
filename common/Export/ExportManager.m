@@ -250,8 +250,8 @@ NSErrorDomain const __MLE_ErrorDomain_ExportManager = @"com.kylekingcdn.MusicLib
 
 - (void)serializedItems:(NSUInteger)serialized ofTotal:(NSUInteger)total {
 
+  // only call delegate method on every tenth or last item
   if (serialized % 10 == 0 || serialized == total) {
-//    MLE_Log_Info(@"ExportManager [serializedItems] serializing items %lu/%lu", (unsigned long)serialized, total);
 
     if (_delegate != nil && [_delegate respondsToSelector:@selector(exportedItems:ofTotal:)]) {
       [_delegate exportedItems:serialized ofTotal:total];
@@ -263,8 +263,6 @@ NSErrorDomain const __MLE_ErrorDomain_ExportManager = @"com.kylekingcdn.MusicLib
 #pragma mark - PlaylistSerializerDelegate
 
 - (void)serializedPlaylists:(NSUInteger)serialized ofTotal:(NSUInteger)total {
-
-//  MLE_Log_Info(@"ExportManager [serializedPlaylists] serializing playlists %lu/%lu", serialized, total);
 
   if (_delegate != nil && [_delegate respondsToSelector:@selector(exportedPlaylists:ofTotal:)]) {
     [_delegate exportedPlaylists:serialized ofTotal:total];
