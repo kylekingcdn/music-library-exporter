@@ -18,12 +18,16 @@
 
 - (instancetype)init {
 
-  self = [super init];
+  if (self = [super init]) {
 
-  _currentEntityID = 1;
-  _entityIDs = [NSMutableDictionary dictionary];
+    _currentEntityID = 1;
+    _entityIDs = [NSMutableDictionary dictionary];
 
-  return self;
+    return self;
+  }
+  else {
+    return nil;
+  }
 }
 
 - (nullable NSNumber*)getIDForEntity:(ITLibMediaEntity*)entity {

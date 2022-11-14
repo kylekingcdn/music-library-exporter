@@ -22,11 +22,15 @@ static UserDefaultsExportConfiguration* _sharedConfig;
 
 - (instancetype)init {
 
-  self = [super init];
+  if (self = [super init]) {
 
-  _userDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
-
-  return self;
+    _userDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
+    
+    return self;
+  }
+  else {
+    return nil;
+  }
 }
 
 

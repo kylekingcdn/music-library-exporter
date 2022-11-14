@@ -61,18 +61,35 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
 
 #pragma mark - Initializers
 
+- (instancetype)init {
+
+  if (self = [super initWithNibName:@"ConfigurationView" bundle:nil]) {
+
+    _helperDelegate = nil;
+
+    _scheduleIntervalHourFormatter = nil;
+
+    return self;
+  }
+  else {
+    return nil;
+  }
+}
+
 - (instancetype)initWithHelperAppManager:(HelperAppManager*)helperDelegate {
 
-  self = [super initWithNibName: @"ConfigurationView" bundle: nil];
+  if (self = [self init]) {
 
-  _helperDelegate = helperDelegate;
+    _helperDelegate = helperDelegate;
 
-//  [ExportConfiguration.sharedConfig dumpProperties];
-//  [ScheduleConfiguration.sharedConfig dumpProperties];
+    // ensure helper registration status matches configuration value for scheduleEnabled
+    [_helperDelegate updateHelperRegistrationWithScheduleEnabled:ScheduleConfiguration.sharedConfig.scheduleEnabled];
 
-  // ensure helper registration status matches configuration value for scheduleEnabled
-  [_helperDelegate updateHelperRegistrationWithScheduleEnabled:ScheduleConfiguration.sharedConfig.scheduleEnabled];
-
+    return self;
+  }
+  else {
+    return nil;
+  }
 
   return self;
 }

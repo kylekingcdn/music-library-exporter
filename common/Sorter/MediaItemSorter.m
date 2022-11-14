@@ -17,12 +17,16 @@
 
 - (instancetype)init {
 
-  self = [super init];
+  if (self = [super init]) {
 
-  _sortColumn = PlaylistSortColumnNull;
-  _sortOrder = PlaylistSortOrderNull;
+    _sortColumn = PlaylistSortColumnNull;
+    _sortOrder = PlaylistSortOrderNull;
 
-  return self;
+    return self;
+  }
+  else {
+    return nil;
+  }
 }
 
 - (NSArray<ITLibMediaItem*>*)sortItems:(NSArray<ITLibMediaItem*>*)items {

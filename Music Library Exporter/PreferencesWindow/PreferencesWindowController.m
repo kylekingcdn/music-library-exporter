@@ -23,6 +23,19 @@
 
 @implementation PreferencesWindowController
 
+- (instancetype)init {
+
+  if (self = [super initWithWindowNibName:@"PreferencesWindow"]) {
+
+    _crashReportingCheckBox = nil;
+
+    return self;
+  }
+  else {
+    return nil;
+  }
+}
+
 - (void)windowDidLoad {
 
   [super windowDidLoad];

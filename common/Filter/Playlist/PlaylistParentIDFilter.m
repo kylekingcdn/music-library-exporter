@@ -18,17 +18,23 @@
 
 - (instancetype)init {
 
-  self = [super init];
+  if (self = [super init]) {
 
-  _excludedIDs = [NSMutableSet set];
+    _excludedIDs = [NSMutableSet set];
 
-  return self;
+    return self;
+  }
+  else {
+    return nil;
+  }
 }
 
 - (instancetype)initWithExcludedIDs:(NSSet<NSString*>*)excludedIDs {
 
-  if (self = [super init]) {
+  if (self = [self init]) {
+
     _excludedIDs = [excludedIDs mutableCopy];
+
     return self;
   }
   else {

@@ -34,11 +34,15 @@ static ScheduleConfiguration* _sharedConfig;
 
 - (instancetype)init {
 
-  self = [super init];
+  if (self = [super init]) {
 
-  _userDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
+    _userDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
 
-  return self;
+    return self;
+  }
+  else {
+    return nil;
+  }
 }
 
 

@@ -32,22 +32,30 @@
 
 - (instancetype)init {
 
-  self = [super init];
+  if (self = [super init]) {
 
-  // detect changes in NSUSerDefaults for app group
-  _groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
-  [_groupDefaults addObserver:self forKeyPath:@"ScheduleEnabled" options:NSKeyValueObservingOptionNew context:NULL];
-  [_groupDefaults addObserver:self forKeyPath:@"ScheduleInterval" options:NSKeyValueObservingOptionNew context:NULL];
-  [_groupDefaults addObserver:self forKeyPath:@"LastExportedAt" options:NSKeyValueObservingOptionNew context:NULL];
-  [_groupDefaults addObserver:self forKeyPath:@"OutputDirectoryPath" options:NSKeyValueObservingOptionNew context:NULL];
+    // detect changes in NSUSerDefaults for app group
+    _groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
+    [_groupDefaults addObserver:self forKeyPath:@"ScheduleEnabled" options:NSKeyValueObservingOptionNew context:NULL];
+    [_groupDefaults addObserver:self forKeyPath:@"ScheduleInterval" options:NSKeyValueObservingOptionNew context:NULL];
+    [_groupDefaults addObserver:self forKeyPath:@"LastExportedAt" options:NSKeyValueObservingOptionNew context:NULL];
+    [_groupDefaults addObserver:self forKeyPath:@"OutputDirectoryPath" options:NSKeyValueObservingOptionNew context:NULL];
 
-  // update schedule
-  [self updateSchedule];
+    _timer = nil;
 
-  // request output dir permission if required
-  [self requestOutputDirectoryPermissionsIfRequired];
+    _permissionsWindowController = nil;
+    
+    // update schedule
+    [self updateSchedule];
 
-  return self;
+    // request output dir permission if required
+    [self requestOutputDirectoryPermissionsIfRequired];
+
+    return self;
+  }
+  else {
+    return nil;
+  }
 }
 
 
@@ -262,7 +270,7 @@
     _permissionsWindowController = nil;
   }
 
-  _permissionsWindowController = [[DirectoryPermissionsWindowController alloc] initWithWindowNibName:@"DirectoryPermissionsWindow"];
+  _permissionsWindowController = [[DirectoryPermissionsWindowController alloc] init];
   [_permissionsWindowController.window center];
   [_permissionsWindowController.window makeKeyAndOrderFront:self];
 }

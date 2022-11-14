@@ -43,9 +43,8 @@ typedef NS_ENUM(NSInteger, ArgParserErrorCode) {
 
 #pragma mark - Initializers
 
+- (instancetype)init;
 - (instancetype)initWithProcessInfo:(NSProcessInfo*)processInfo;
-
-+ (instancetype)parserWithProcessInfo:(NSProcessInfo*)processInfo;
 
 
 #pragma mark - Accessors

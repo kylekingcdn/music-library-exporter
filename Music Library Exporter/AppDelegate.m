@@ -151,7 +151,7 @@
   }
 
   if (_preferencesWindowController == nil) {
-    _preferencesWindowController = [[PreferencesWindowController alloc] initWithWindowNibName:@"PreferencesWindow"];
+    _preferencesWindowController = [[PreferencesWindowController alloc] init];
   }
 
   [_preferencesWindowController.window makeKeyAndOrderFront:self];

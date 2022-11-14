@@ -41,18 +41,22 @@ static ExportConfiguration* _sharedConfig;
 
 - (instancetype)init {
 
-  self = [super init];
+  if (self = [super init]) {
 
-  _remapRootDirectory = NO;
+    _remapRootDirectory = NO;
 
-  _flattenPlaylistHierarchy = NO;
-  _includeInternalPlaylists = YES;
-  _excludedPlaylistPersistentIds = [NSMutableSet set];
+    _flattenPlaylistHierarchy = NO;
+    _includeInternalPlaylists = YES;
+    _excludedPlaylistPersistentIds = [NSMutableSet set];
 
-  _playlistCustomSortColumnDict = [NSDictionary dictionary];
-  _playlistCustomSortOrderDict = [NSDictionary dictionary];
+    _playlistCustomSortColumnDict = [NSDictionary dictionary];
+    _playlistCustomSortOrderDict = [NSDictionary dictionary];
 
-  return self;
+    return self;
+  }
+  else {
+    return nil;
+  }
 }
 
 

@@ -18,8 +18,10 @@
 - (instancetype)init {
 
   if (self = [super init]) {
+
     _filters = nil;
     _flattenFolders = NO;
+
     return self;
   }
   else {
@@ -30,7 +32,9 @@
 - (instancetype)initWithFilters:(PlaylistFilterGroup*)filters {
 
   if (self = [self init]) {
+
     _filters = filters;
+    
     return self;
   }
   else {

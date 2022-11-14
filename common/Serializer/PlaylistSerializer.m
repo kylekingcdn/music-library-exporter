@@ -23,17 +23,40 @@
   MediaEntityRepository* _entityRepository;
 }
 
+- (instancetype)init {
+
+  if (self = [super init]) {
+
+    _delegate = nil;
+
+    _flattenFolders = false;
+
+    _playlistFilters = nil;
+    _itemFilters = nil;
+
+    _playlistCustomSortColumns = [NSDictionary dictionary];
+    _playlistCustomSortOrders = [NSDictionary dictionary];
+
+    _entityRepository = nil;
+
+    return self;
+  }
+  else {
+    return nil;
+  }
+}
+
 - (instancetype) initWithEntityRepository:(MediaEntityRepository*)entityRepository {
 
-  self = [super init];
+  if (self = [self init]) {
 
-  _entityRepository = entityRepository;
-  _flattenFolders = false;
+    _entityRepository = entityRepository;
 
-  _playlistCustomSortColumns = [NSDictionary dictionary];
-  _playlistCustomSortOrders = [NSDictionary dictionary];
-
-  return self;
+    return self;
+  }
+  else {
+    return nil;
+  }
 }
 
 - (NSArray<OrderedDictionary*>*)serializePlaylists:(NSArray<ITLibPlaylist*>*)playlists {

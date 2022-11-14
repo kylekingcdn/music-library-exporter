@@ -9,6 +9,17 @@
 
 @implementation PathMapper
 
+- (instancetype)init {
+
+  if (self = [super init]) {
+
+    return self;
+  }
+  else {
+    return nil;
+  }
+}
+
 - (NSString*) mapPath:(NSString*)path {
 
   if (_searchString != nil && _replaceString != nil) {

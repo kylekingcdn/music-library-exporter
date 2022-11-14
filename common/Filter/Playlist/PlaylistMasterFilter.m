@@ -13,9 +13,13 @@
 
 - (instancetype)init {
 
-  self = [super init];
+  if (self = [super init]) {
 
-  return self;
+    return self;
+  }
+  else {
+    return nil;
+  }
 }
 
 - (BOOL)filterPassesForPlaylist:(ITLibPlaylist*)playlist {

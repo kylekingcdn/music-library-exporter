@@ -38,16 +38,20 @@ static SentryHandler* _sharedSentryHandler;
 
 - (instancetype)init {
 
-  self = [super init];
+  if (self = [super init]) {
 
-  NSAssert((_sharedSentryHandler == nil), @"SentryHandler sharedSentryHandler has already been initialized");
+    NSAssert((_sharedSentryHandler == nil), @"SentryHandler sharedSentryHandler has already been initialized");
 
-  _groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
-  [_groupDefaults registerDefaults:@{ [SentryHandler crashReportingDefaultsKey]:@NO }];
-  [_groupDefaults registerDefaults:@{ [SentryHandler promptedForPermissionsDefaultsKey]:@NO }];
-  [_groupDefaults addObserver:self forKeyPath:[SentryHandler crashReportingDefaultsKey] options:NSKeyValueObservingOptionNew context:NULL];
+    _groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
+    [_groupDefaults registerDefaults:@{ [SentryHandler crashReportingDefaultsKey]:@NO }];
+    [_groupDefaults registerDefaults:@{ [SentryHandler promptedForPermissionsDefaultsKey]:@NO }];
+    [_groupDefaults addObserver:self forKeyPath:[SentryHandler crashReportingDefaultsKey] options:NSKeyValueObservingOptionNew context:NULL];
 
-  return self;
+    return self;
+  }
+  else {
+    return nil;
+  }
 }
 
 

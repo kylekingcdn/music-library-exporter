@@ -40,6 +40,7 @@ typedef NS_ENUM(NSInteger, ExportManagerErrorCode) {
 
 #pragma mark - Initializers
 
+- (instancetype)init;
 - (instancetype)initWithConfiguration:(ExportConfiguration*)configuration;
 
 

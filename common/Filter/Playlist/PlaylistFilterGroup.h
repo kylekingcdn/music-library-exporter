@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addFilter:(NSObject<PlaylistFiltering>*)filter;
 - (void)removeFilter:(NSObject<PlaylistFiltering>*)filter;
 
-- (PlaylistParentIDFilter*)addFiltersForExcludedIDs:(NSSet<NSString*>*)excludedIDs andFlattenPlaylists:(BOOL)flatten;
+- (nullable PlaylistParentIDFilter*)addFiltersForExcludedIDs:(NSSet<NSString*>*)excludedIDs andFlattenPlaylists:(BOOL)flatten;
 
 - (BOOL)filtersPassForPlaylist:(ITLibPlaylist*)playlist;
 

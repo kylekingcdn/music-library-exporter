@@ -26,22 +26,32 @@ NSErrorDomain const __MLE_ErrorDomain_ArgParser = @"com.kylekingcdn.MusicLibrary
 
 #pragma mark - Initializers
 
-- (instancetype)initWithProcessInfo:(NSProcessInfo*)processInfo {
+- (instancetype)init {
 
-  self = [super init];
+  if (self = [super init]) {
 
-  _processInfo = processInfo;
+    [self initMemberSignatures];
 
-  [self initMemberSignatures];
+    _package = nil;
 
-  return self;
+    return self;
+  }
+  else {
+    return nil;
+  }
 }
 
-+ (instancetype)parserWithProcessInfo:(NSProcessInfo*)processInfo {
+- (instancetype)initWithProcessInfo:(NSProcessInfo*)processInfo {
 
-  ArgParser* parser = [[ArgParser alloc] initWithProcessInfo:processInfo];
+  if (self = [self init]) {
 
-  return parser;
+    _processInfo = processInfo;
+
+    return self;
+  }
+  else {
+    return nil;
+  }
 }
 
 

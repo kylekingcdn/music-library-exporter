@@ -14,16 +14,28 @@
 
 - (instancetype)init {
 
-  return [self initWithKinds:[NSSet set]];
+  if (self = [super init]) {
+
+    _includedKinds = [NSMutableSet set];
+
+    return self;
+  }
+  else {
+    return nil;
+  }
 }
 
 - (instancetype)initWithKinds:(NSSet<NSNumber*>*)kinds {
 
-  self = [super init];
+  if (self = [self init]) {
 
-  _includedKinds = [kinds mutableCopy];
+    _includedKinds = [kinds mutableCopy];
 
-  return self;
+    return self;
+  }
+  else {
+    return nil;
+  }
 }
 
 - (instancetype)initWithBaseKinds {

@@ -20,13 +20,23 @@
 
 - (instancetype)init {
 
-  return [self initWithFilters:[NSArray array]];
+  if (self = [super init]) {
+
+    _filters = [NSMutableArray array];
+
+    return self;
+  }
+  else {
+    return nil;
+  }
 }
 
 - (instancetype)initWithFilters:(NSArray<NSObject<PlaylistFiltering>*>*)filters {
 
-  if (self = [super init]) {
-    [self setFilters:filters];
+  if (self = [self init]) {
+
+    _filters = [filters mutableCopy];
+
     return self;
   }
   else {
@@ -36,7 +46,7 @@
 
 - (instancetype)initWithBaseFiltersAndIncludeInternal:(BOOL)includeInternal andFlattenPlaylists:(BOOL)flatten {
 
-  if (self = [super init]) {
+  if (self = [self init]) {
 
     _filters = [NSMutableArray array];
 
@@ -88,7 +98,7 @@
   [_filters removeObject:filter];
 }
 
-- (PlaylistParentIDFilter*)addFiltersForExcludedIDs:(NSSet<NSString*>*)excludedIDs andFlattenPlaylists:(BOOL)flatten {
+- (nullable PlaylistParentIDFilter*)addFiltersForExcludedIDs:(NSSet<NSString*>*)excludedIDs andFlattenPlaylists:(BOOL)flatten {
 
   PlaylistParentIDFilter* parentIDFilter = nil;
 

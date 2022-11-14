@@ -11,6 +11,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PreferencesWindowController : NSWindowController
 
+
+#pragma mark - Initializers
+
+- (instancetype)init;
+
+
+#pragma mark - Mutators
+
 - (IBAction)setCrashReportingEnabled:(id)sender;
 
 @end

@@ -24,6 +24,25 @@
 }
 
 
+#pragma mark - Initializers
+
+- (instancetype)init {
+
+  if (self = [super init]) {
+
+    _exportConfiguration = nil;
+
+    _scheduleConfiguration = nil;
+    _scheduleDelegate = nil;
+    
+    return self;
+  }
+  else {
+    return nil;
+  }
+}
+
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 
 #if SENTRY_ENABLED == 1

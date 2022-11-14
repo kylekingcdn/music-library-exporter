@@ -25,25 +25,49 @@
   NSDictionary* _mediaItemKindMappings;
 }
 
+- (instancetype)init {
+
+  if (self = [super init]) {
+
+    _delegate = nil;
+
+    _itemFilters = nil;
+    _pathMapper = nil;
+
+    _entityRepository = nil;
+
+    _mediaItemKindMappings = nil;
+
+    return self;
+  }
+  else {
+    return nil;
+  }
+}
+
 - (instancetype) initWithEntityRepository:(MediaEntityRepository*)entityRepository {
 
-  self = [super init];
+  if (self = [self init]) {
 
-  _entityRepository = entityRepository;
+    _entityRepository = entityRepository;
 
-  _mediaItemKindMappings = @{
-      //[[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindSong] stringValue]: @"",
-      [[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindAlertTone] stringValue]: @"Tone",
-      [[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindAudiobook] stringValue]: @"Audiobook",
-      [[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindBook] stringValue]: @"Book",
-      [[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindMovie] stringValue]: @"Movie",
-      [[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindMusicVideo] stringValue]: @"Music Video",
-      [[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindPodcast] stringValue]: @"Podcast",
-      [[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindTVShow] stringValue]: @"TV Show",
-      [[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindRingtone] stringValue]: @"Ringtone",
-  };
+    _mediaItemKindMappings = @{
+        //[[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindSong] stringValue]: @"",
+        [[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindAlertTone] stringValue]: @"Tone",
+        [[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindAudiobook] stringValue]: @"Audiobook",
+        [[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindBook] stringValue]: @"Book",
+        [[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindMovie] stringValue]: @"Movie",
+        [[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindMusicVideo] stringValue]: @"Music Video",
+        [[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindPodcast] stringValue]: @"Podcast",
+        [[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindTVShow] stringValue]: @"TV Show",
+        [[NSNumber numberWithUnsignedInteger:ITLibMediaItemMediaKindRingtone] stringValue]: @"Ringtone",
+    };
 
-  return self;
+    return self;
+  }
+  else {
+    return nil;
+  }
 }
 
 - (OrderedDictionary*)serializeItems:(NSArray<ITLibMediaItem*>*)items {

@@ -10,5 +10,10 @@
 @interface HelperAppDelegate : NSObject <NSApplicationDelegate>
 
 
+#pragma mark - Initializers
+
+- (instancetype)init;
+
+
 @end
 

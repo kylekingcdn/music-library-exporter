@@ -19,13 +19,23 @@
 
 - (instancetype)init {
 
-  return [self initWithFilters:[NSArray array]];
+  if (self = [super init]) {
+
+    _filters = [NSMutableArray array];
+
+    return self;
+  }
+  else {
+    return nil;
+  }
 }
 
 - (instancetype)initWithFilters:(NSArray<NSObject<MediaItemFiltering>*>*)filters {
 
-  if (self = [super init]) {
-    [self setFilters:filters];
+  if (self = [self init]) {
+
+    _filters = [filters mutableCopy];
+
     return self;
   }
   else {

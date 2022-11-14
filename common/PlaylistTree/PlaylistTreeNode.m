@@ -16,18 +16,22 @@
 
 - (instancetype)init {
 
-  self = [super init];
+  if (self = [super init]) {
 
-  _children = [NSArray array];
+    _children = [NSArray array];
 
-  _playlistPersistentHexID = nil;
-  _playlistParentPersistentHexID = nil;
-  _playlistName = nil;
-  _playlistDistinguishedKind = ITLibDistinguishedPlaylistKindNone;
-  _playlistKind = ITLibPlaylistKindRegular;
-  _playlistMaster = NO;
-  
-  return self;
+    _playlistPersistentHexID = nil;
+    _playlistParentPersistentHexID = nil;
+    _playlistName = nil;
+    _playlistDistinguishedKind = ITLibDistinguishedPlaylistKindNone;
+    _playlistKind = ITLibPlaylistKindRegular;
+    _playlistMaster = NO;
+
+    return self;
+  }
+  else {
+    return nil;
+  }
 }
 
 + (PlaylistTreeNode*)nodeWithPlaylist:(nullable ITLibPlaylist*)playlist {

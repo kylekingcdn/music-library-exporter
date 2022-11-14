@@ -11,12 +11,22 @@
 #import "UserDefaultsExportConfiguration.h"
 #import "ScheduleConfiguration.h"
 
-@interface DirectoryPermissionsWindowController ()
-
-@end
-
 
 @implementation DirectoryPermissionsWindowController
+
+
+#pragma mark - Initializers
+
+- (instancetype)init {
+
+  if (self = [super initWithWindowNibName:@"DirectoryPermissionsWindow"]) {
+
+    return self;
+  }
+  else {
+    return nil;
+  }
+}
 
 - (void)windowDidLoad {
 

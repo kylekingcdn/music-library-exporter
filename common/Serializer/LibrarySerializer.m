@@ -13,11 +13,18 @@
 
 @implementation LibrarySerializer
 
-- (instancetype) init {
+- (instancetype)init {
 
-  self = [super init];
+  if (self = [super init]) {
 
-  return self;
+    _persistentID = nil;
+    _musicLibraryDir = nil;
+    
+    return self;
+  }
+  else {
+    return nil;
+  }
 }
 
 - (OrderedDictionary*)serializeLibrary:(ITLibrary*)library withItems:(OrderedDictionary*)items andPlaylists:(NSArray<OrderedDictionary*>*)playlists {

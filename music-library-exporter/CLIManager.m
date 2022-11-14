@@ -24,7 +24,7 @@
 
 @interface CLIManager ()
 
-- (BOOL)isRunningInTerminal;
++ (BOOL)isRunningInTerminal;
 
 - (BOOL)validateExportConfigurationAndReturnError:(NSError**)error;
 - (BOOL)validateOutputPathAndReturnError:(NSError**)error;
@@ -63,26 +63,30 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
 
 - (instancetype)init {
 
-  self = [super init];
+  if (self = [super init]) {
 
-  _playlistParentIDFilter = nil;
+    _playlistParentIDFilter = nil;
 
-  if ([self isRunningInTerminal]) {
-    
-    _printProgress = YES;
+    if ([CLIManager isRunningInTerminal]) {
 
-    // get terminal width
-    struct winsize w;
-    ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
-    _termWidth = w.ws_col;
+      _printProgress = YES;
+
+      // get terminal width
+      struct winsize w;
+      ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+      _termWidth = w.ws_col;
+    }
+
+    else {
+      _printProgress = NO;
+      _termWidth = 100;
+    }
+
+    return self;
   }
-
   else {
-    _printProgress = NO;
-    _termWidth = 100;
+    return nil;
   }
-
-  return self;
 }
 
 
@@ -256,7 +260,7 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
   }
 }
 
-- (BOOL)isRunningInTerminal {
++ (BOOL)isRunningInTerminal {
 
   NSString* term = [[[NSProcessInfo processInfo] environment] valueForKey:@"TERM"];
   if (term == nil) {
@@ -542,7 +546,7 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
 
   MLE_Log_Info(@"CLIManager [setupAndReturnError]");
 
-  ArgParser* argParser = [ArgParser parserWithProcessInfo:[NSProcessInfo processInfo]];
+  ArgParser* argParser = [[ArgParser alloc] initWithProcessInfo:[NSProcessInfo processInfo]];
   [argParser dumpArguments];
   
   // init signatures + XPMArgumentPackage

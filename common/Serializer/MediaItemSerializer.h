@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, weak) MediaItemFilterGroup* itemFilters;
 @property (nullable, weak) PathMapper* pathMapper;
 
+- (instancetype) init;
 - (instancetype) initWithEntityRepository:(MediaEntityRepository*)entityRepository;
 
 - (OrderedDictionary*)serializeItems:(NSArray<ITLibMediaItem*>*)items;

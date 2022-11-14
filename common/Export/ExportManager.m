@@ -35,17 +35,37 @@ NSErrorDomain const __MLE_ErrorDomain_ExportManager = @"com.kylekingcdn.MusicLib
 
 #pragma mark - Initializers
 
+- (instancetype)init {
+
+  if (self = [super init]) {
+
+    _delegate = nil;
+
+    _state = ExportStopped;
+     _outputFileURL = nil;
+    
+    _entityRepository = [[MediaEntityRepository alloc] init];
+    _configuration = nil;
+    _playlistParentIDFilter = nil;
+
+    return self;
+  }
+  else {
+    return nil;
+  }
+}
+
 - (instancetype)initWithConfiguration:(ExportConfiguration *)configuration {
 
-  self = [super init];
+  if (self = [self init]) {
 
-  _entityRepository = [[MediaEntityRepository alloc] init];
-  _configuration = configuration;
-  _playlistParentIDFilter = nil;
+    _configuration = configuration;
 
-  _state = ExportStopped;
-
-  return self;
+    return self;
+  }
+  else {
+    return nil;
+  }
 }
 
 

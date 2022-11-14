@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak) NSDictionary* playlistCustomSortColumns;
 @property (weak) NSDictionary* playlistCustomSortOrders;
 
+- (instancetype) init;
 - (instancetype) initWithEntityRepository:(MediaEntityRepository*)entityRepository;
 
 - (NSArray<OrderedDictionary*>*)serializePlaylists:(NSArray<ITLibPlaylist*>*)playlists;

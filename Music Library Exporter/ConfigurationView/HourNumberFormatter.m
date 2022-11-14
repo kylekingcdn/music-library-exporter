@@ -10,6 +10,20 @@
 @implementation HourNumberFormatter
 
 
+#pragma mark - Initializers
+
+- (instancetype)init {
+  
+  if (self = [super init]) {
+
+    return self;
+  }
+  else {
+    return nil;
+  }
+}
+
+
 #pragma mark - Accessors
 
 - (BOOL)isPartialStringValid:(NSString *)partialString newEditingString:(NSString * _Nullable * _Nullable)newString errorDescription:(NSString * _Nullable * _Nullable)error {

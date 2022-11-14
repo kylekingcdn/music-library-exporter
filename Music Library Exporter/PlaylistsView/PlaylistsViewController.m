@@ -35,16 +35,20 @@
 
 - (instancetype)init {
 
-  self = [super initWithNibName:@"PlaylistsView" bundle:nil];
+  if (self = [super initWithNibName:@"PlaylistsView" bundle:nil]) {
 
-  _playlistTreeRoot = nil;
+    // detect changes in NSUSerDefaults for app group
+    _groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
+    [_groupDefaults addObserver:self forKeyPath:@"FlattenPlaylistHierarchy" options:NSKeyValueObservingOptionNew context:NULL];
+    [_groupDefaults addObserver:self forKeyPath:@"IncludeInternalPlaylists" options:NSKeyValueObservingOptionNew context:NULL];
 
-  // detect changes in NSUSerDefaults for app group
-  _groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
-  [_groupDefaults addObserver:self forKeyPath:@"FlattenPlaylistHierarchy" options:NSKeyValueObservingOptionNew context:NULL];
-  [_groupDefaults addObserver:self forKeyPath:@"IncludeInternalPlaylists" options:NSKeyValueObservingOptionNew context:NULL];
+    _playlistTreeRoot = nil;
 
-  return self;
+    return self;
+  }
+  else {
+    return nil;
+  }
 }
 
 
