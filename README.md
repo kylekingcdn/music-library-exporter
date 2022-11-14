@@ -205,6 +205,15 @@ More information on launchd services can be found [here](https://www.launchd.inf
 > If included, you must also specify the `--remap_search` option.
 > For example usage, please see the information for the `--remap_search` option above.
 
+**`--localhost_path_prefix`**
+
+> Enabling this flag will prefix all track location paths with `localhost`.
+> This option is compatible with path remapping.
+>
+> Note: this option will only be needed and/or useful in a very limited set of environments.
+>
+> Example result: track paths will be generated as `file://localhost/Path/to/track.mp3` rather than `file:///Path/to/track.mp3`.
+
 
 ## Support
 
