@@ -8,6 +8,8 @@
 #import <Foundation/Foundation.h>
 
 @class ITLibPlaylist;
+@class PlaylistParentIDFilter;
+
 @protocol PlaylistFiltering;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -22,6 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)addFilter:(NSObject<PlaylistFiltering>*)filter;
 - (void)removeFilter:(NSObject<PlaylistFiltering>*)filter;
+
+- (PlaylistParentIDFilter*)addFiltersForExcludedIDs:(NSSet<NSString*>*)excludedIDs andFlattenPlaylists:(BOOL)flatten;
 
 - (BOOL)filtersPassForPlaylist:(ITLibPlaylist*)playlist;
 

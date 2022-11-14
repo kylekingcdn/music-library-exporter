@@ -10,6 +10,8 @@
 #import "PlaylistKindFilter.h"
 #import "PlaylistDistinguishedKindFilter.h"
 #import "PlaylistMasterFilter.h"
+#import "PlaylistIDFilter.h"
+#import "PlaylistParentIDFilter.h"
 
 @implementation PlaylistFilterGroup {
 
@@ -79,6 +81,23 @@
   NSAssert([_filters containsObject:filter], @"PlaylistFilterGroup does not contain specified filter");
 
   [_filters removeObject:filter];
+}
+
+- (PlaylistParentIDFilter*)addFiltersForExcludedIDs:(NSSet<NSString*>*)excludedIDs andFlattenPlaylists:(BOOL)flatten {
+
+  PlaylistParentIDFilter* parentIDFilter = nil;
+
+  // manually excluded playlists
+  PlaylistIDFilter* playlistIDFilter = [[PlaylistIDFilter alloc] initWithExcludedIDs:excludedIDs];
+  [self addFilter:playlistIDFilter];
+
+  // exclude parent folders that have been manually excluded
+  if (!flatten) {
+    parentIDFilter = [[PlaylistParentIDFilter alloc] initWithExcludedIDs:excludedIDs];
+    [self addFilter:parentIDFilter];
+  }
+
+  return parentIDFilter;
 }
 
 - (BOOL)filtersPassForPlaylist:(ITLibPlaylist*)playlist {
