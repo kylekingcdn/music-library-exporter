@@ -35,21 +35,21 @@ typedef NS_ENUM(NSUInteger, ExportDeferralReason) {
   ExportNoDeferralReason,
 };
 
-typedef NS_ENUM(NSInteger, PlaylistSortModeType) {
-  PlaylistSortDefaultMode,
+typedef NS_ENUM(NSUInteger, PlaylistSortModeType) {
+  PlaylistSortDefaultMode = 0,
   PlaylistSortCustomMode,
 };
 
-typedef NS_ENUM(NSInteger, PlaylistSortColumnType) {
-  PlaylistSortColumnTitle,
+typedef NS_ENUM(NSUInteger, PlaylistSortColumnType) {
+  PlaylistSortColumnTitle = 0,
   PlaylistSortColumnArtist,
   PlaylistSortColumnAlbumArtist,
   PlaylistSortColumnDateAdded,
   PlaylistSortColumnNull,
 };
 
-typedef NS_ENUM(NSInteger, PlaylistSortOrderType) {
-  PlaylistSortOrderAscending,
+typedef NS_ENUM(NSUInteger, PlaylistSortOrderType) {
+  PlaylistSortOrderAscending = 0,
   PlaylistSortOrderDescending,
   PlaylistSortOrderNull,
 };
