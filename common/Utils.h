@@ -15,9 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (nullable NSString*)hexStringForPersistentId:(nullable NSNumber*)persistentId;
 
-+ (NSString*)descriptionForExportState:(ExportState)state;
-+ (NSString*)descriptionForExportDeferralReason:(ExportDeferralReason)reason;
-
 + (nullable NSString*)titleForPlaylistSortColumn:(PlaylistSortColumnType)sortColumn;
 + (PlaylistSortColumnType)playlistSortColumnForTitle:(nullable NSString*)title;
 

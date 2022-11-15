@@ -178,7 +178,7 @@ NSErrorDomain const __MLE_ErrorDomain_ExportManager = @"com.kylekingcdn.MusicLib
     case ExportGeneratingPlaylists:
     case ExportGeneratingLibrary:
     case ExportWritingToDisk: {
-      MLE_Log_Info(@"ExportManager [validateConfigurationWithError] currently busy - state: %@", [Utils descriptionForExportState:_state]);
+      MLE_Log_Info(@"ExportManager [validateConfigurationWithError] currently busy - state: %@", ExportStateNames[_state]);
       if (error) {
         *error = [self generateErrorForCode:ExportManagerErrorBusyState];
       }

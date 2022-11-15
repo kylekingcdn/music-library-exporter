@@ -239,7 +239,7 @@
   }
 
   else {
-    MLE_Log_Info(@"ExportScheduler [onTimerFinished] export task is being skipped for reason: %@", [Utils descriptionForExportDeferralReason:deferralReason]);
+    MLE_Log_Info(@"ExportScheduler [onTimerFinished] export task is being skipped for reason: %@", ExportDeferralReasonNames[deferralReason]);
   }
 
   [_scheduleConfiguration setLastExportedAt:[NSDate date]];

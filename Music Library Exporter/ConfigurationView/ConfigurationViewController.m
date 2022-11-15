@@ -490,7 +490,7 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
 
 - (void) exportStateChangedFrom:(ExportState)oldState toState:(ExportState)newState {
 
-  NSString* stateDescription = [Utils descriptionForExportState:newState];
+  NSString* stateDescription = ExportStateNames[newState];
 
   MLE_Log_Info(@"ConfigurationViewController [handleStateChange: %@]", stateDescription);
 

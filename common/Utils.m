@@ -23,58 +23,6 @@
   return [NSString stringWithFormat:@"%016llX", persistentId.unsignedLongLongValue];
 }
 
-+ (NSString*)descriptionForExportState:(ExportState)state {
-
-  switch (state) {
-
-    case ExportStopped: {
-        return @"Stopped";
-    }
-    case ExportPreparing: {
-        return @"Preparing";
-    }
-    case ExportGeneratingTracks: {
-        return @"Generating tracks";
-    }
-    case ExportGeneratingPlaylists: {
-        return @"Generating playlists";
-    }
-    case ExportGeneratingLibrary: {
-        return @"Generating library";
-    }
-    case ExportWritingToDisk: {
-        return @"Saving to disk";
-    }
-    case ExportFinished: {
-        return @"Finished";
-    }
-    case ExportError: {
-        return @"Error";
-    }
-  }
-}
-
-+ (NSString*)descriptionForExportDeferralReason:(ExportDeferralReason)reason {
-
-  switch (reason) {
-    case ExportDeferralOnBatteryReason: {
-      return @"Running on battery";
-    }
-    case ExportDeferralMainAppOpenReason: {
-      return @"Main app open";
-    }
-    case ExportDeferralErrorReason: {
-      return @"Error";
-    }
-    case ExportDeferralUnknownReason: {
-      return @"Unknown";
-    }
-    case ExportNoDeferralReason: {
-      return @"Not deferred";
-    }
-  }
-}
-
 + (nullable NSString*)titleForPlaylistSortColumn:(PlaylistSortColumnType)sortColumn {
 
   switch (sortColumn) {

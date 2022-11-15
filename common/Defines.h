@@ -16,6 +16,8 @@ extern NSString* const __MLE__AppGroupIdentifier;
 extern NSString* const __MLE__AppBundleIdentifier;
 extern NSString* const __MLE__HelperBundleIdentifier;
 
+@end
+
 typedef NS_ENUM(NSUInteger, ExportState) {
   ExportStopped = 0,
   ExportPreparing,
@@ -27,12 +29,31 @@ typedef NS_ENUM(NSUInteger, ExportState) {
   ExportError
 };
 
+static NSString *_Nonnull const ExportStateNames[] = {
+  @"Stopped",
+  @"Preparing",
+  @"Generating tracks",
+  @"Generating playlists",
+  @"Generating library",
+  @"Saving to disk",
+  @"Finished",
+  @"Error",
+};
+
 typedef NS_ENUM(NSUInteger, ExportDeferralReason) {
   ExportDeferralOnBatteryReason = 0,
   ExportDeferralMainAppOpenReason,
   ExportDeferralErrorReason,
   ExportDeferralUnknownReason,
   ExportNoDeferralReason,
+};
+
+static NSString *_Nonnull const ExportDeferralReasonNames[] = {
+  @"Running on battery",
+  @"Main app open",
+  @"Error",
+  @"Unknown",
+  @"Not deferred",
 };
 
 typedef NS_ENUM(NSUInteger, PlaylistSortModeType) {
@@ -53,7 +74,5 @@ typedef NS_ENUM(NSUInteger, PlaylistSortOrderType) {
   PlaylistSortOrderDescending,
   PlaylistSortOrderNull,
 };
-
-@end
 
 NS_ASSUME_NONNULL_END
