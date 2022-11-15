@@ -197,7 +197,7 @@
 
   MLE_Log_Info(@"UserDefaultsExportConfiguration [loadPropertiesFromUserDefaults]");
 
-  [self registerDefaultValues];
+  [_userDefaults registerDefaults:[self defaultValues]];
 
   [super setOutputDirectoryUrl: [self resolveOutputDirectoryBookmarkAndReturnError:nil]];
 
@@ -206,13 +206,6 @@
   if ([self generatedPersistentLibraryId] == nil) {
     [self setGeneratedPersistentLibraryId:[ExportConfiguration generatePersistentLibraryId]];
   }
-}
-
-- (void)registerDefaultValues {
-
-  MLE_Log_Info(@"UserDefaultsExportConfiguration [registerDefaultValues]");
-
-  [_userDefaults registerDefaults:[self defaultValues]];
 }
 
 - (nullable NSURL*)resolveOutputDirectoryBookmarkAndReturnError:(NSError**)error {

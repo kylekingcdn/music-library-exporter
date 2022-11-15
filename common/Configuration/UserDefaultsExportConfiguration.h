@@ -48,7 +48,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setCustomSortOrderDict:(NSDictionary*)dict;
 
 - (void)loadPropertiesFromUserDefaults;
-- (void)registerDefaultValues;
 
 - (nullable NSURL*)resolveOutputDirectoryBookmarkAndReturnError:(NSError**)error;
 - (BOOL)saveBookmarkForOutputDirectoryUrl:(nullable NSURL*)outputDirUrl;
