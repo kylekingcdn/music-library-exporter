@@ -137,18 +137,18 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
   [_includeInternalPlaylistsCheckBox setState:(_exportConfiguration.includeInternalPlaylists ? NSControlStateValueOn : NSControlStateValueOff)];
   //[_excludedPlaylistsTextField setStringValue:_exportConfiguration.excludedPlaylistPersistentIds];
 
-  [_scheduleEnabledCheckBox setState:ScheduleConfiguration.sharedConfig.scheduleEnabled];
-  [_scheduleIntervalTextField setDoubleValue:ScheduleConfiguration.sharedConfig.scheduleInterval/3600];
-  [_scheduleIntervalStepper setDoubleValue:ScheduleConfiguration.sharedConfig.scheduleInterval/3600];
-  [_scheduleSkipOnBatteryCheckBox setState:ScheduleConfiguration.sharedConfig.skipOnBattery];
+  [_scheduleEnabledCheckBox setState:_scheduleConfiguration.scheduleEnabled];
+  [_scheduleIntervalTextField setDoubleValue:_scheduleConfiguration.scheduleInterval/3600];
+  [_scheduleIntervalStepper setDoubleValue:_scheduleConfiguration.scheduleInterval/3600];
+  [_scheduleSkipOnBatteryCheckBox setState:_scheduleConfiguration.skipOnBattery];
 
   NSString* lastExportDescription = @"n/a";
-  if (ScheduleConfiguration.sharedConfig.lastExportedAt) {
-    lastExportDescription = [NSDateFormatter localizedStringFromDate:ScheduleConfiguration.sharedConfig.lastExportedAt dateStyle:NSDateFormatterLongStyle timeStyle:NSDateFormatterLongStyle];
+  if (_scheduleConfiguration.lastExportedAt) {
+    lastExportDescription = [NSDateFormatter localizedStringFromDate:_scheduleConfiguration.lastExportedAt dateStyle:NSDateFormatterLongStyle timeStyle:NSDateFormatterLongStyle];
   }
   NSString* nextExportDescription = @"n/a";
-  if (ScheduleConfiguration.sharedConfig.nextExportAt) {
-    nextExportDescription = [NSDateFormatter localizedStringFromDate:ScheduleConfiguration.sharedConfig.nextExportAt dateStyle:NSDateFormatterLongStyle timeStyle:NSDateFormatterLongStyle];
+  if (_scheduleConfiguration.nextExportAt) {
+    nextExportDescription = [NSDateFormatter localizedStringFromDate:_scheduleConfiguration.nextExportAt dateStyle:NSDateFormatterLongStyle timeStyle:NSDateFormatterLongStyle];
   }
 
   [_lastExportLabel setStringValue:[NSString stringWithFormat:@"Last export:  %@", lastExportDescription]];
@@ -158,9 +158,9 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
   [_remapOriginalDirectoryTextField setEnabled:_exportConfiguration.remapRootDirectory];
   [_remapMappedDirectoryTextField setEnabled:_exportConfiguration.remapRootDirectory];
   [_remapLocalhostPrefixCheckBox setEnabled:_exportConfiguration.remapRootDirectory];
-  [_scheduleIntervalTextField setEnabled:ScheduleConfiguration.sharedConfig.scheduleEnabled];
-  [_scheduleIntervalStepper setEnabled:ScheduleConfiguration.sharedConfig.scheduleEnabled];
-  [_scheduleSkipOnBatteryCheckBox setEnabled:ScheduleConfiguration.sharedConfig.scheduleEnabled];
+  [_scheduleIntervalTextField setEnabled:_scheduleConfiguration.scheduleEnabled];
+  [_scheduleIntervalStepper setEnabled:_scheduleConfiguration.scheduleEnabled];
+  [_scheduleSkipOnBatteryCheckBox setEnabled:_scheduleConfiguration.scheduleEnabled];
 }
 
 - (IBAction)setMediaFolderLocation:(id)sender {
@@ -241,9 +241,9 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
   BOOL flag = (flagState == NSControlStateValueOn);
 
   if (flag == NO) {
-    [ScheduleConfiguration.sharedConfig setNextExportAt:nil];
+    [_scheduleConfiguration setNextExportAt:nil];
   }
-  [ScheduleConfiguration.sharedConfig setScheduleEnabled:flag];
+  [_scheduleConfiguration setScheduleEnabled:flag];
 
   [_scheduleIntervalTextField setEnabled:flag];
   [_scheduleIntervalStepper setEnabled:flag];
@@ -259,14 +259,14 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
 
   NSTimeInterval scheduleInterval = [sender doubleValue];
 
-  if (ScheduleConfiguration.sharedConfig.scheduleInterval != scheduleInterval && ScheduleConfiguration.sharedConfig.scheduleEnabled) {
+  if (_scheduleConfiguration.scheduleInterval != scheduleInterval && _scheduleConfiguration.scheduleEnabled) {
 
     if (scheduleInterval == 0) {
       scheduleInterval = 1;
     }
 
     [_scheduleIntervalTextField setDoubleValue:scheduleInterval];
-    [ScheduleConfiguration.sharedConfig setScheduleInterval:scheduleInterval * 3600];
+    [_scheduleConfiguration setScheduleInterval:scheduleInterval * 3600];
     [_scheduleIntervalStepper setDoubleValue:scheduleInterval];
   }
 }
@@ -275,13 +275,13 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
 
   NSTimeInterval scheduleInterval = [sender doubleValue];
 
-  if (ScheduleConfiguration.sharedConfig.scheduleInterval != scheduleInterval && ScheduleConfiguration.sharedConfig.scheduleEnabled) {
+  if (_scheduleConfiguration.scheduleInterval != scheduleInterval && _scheduleConfiguration.scheduleEnabled) {
 
     if (scheduleInterval == 0) {
       scheduleInterval = 1;
     }
     [_scheduleIntervalTextField setDoubleValue:scheduleInterval];
-    [ScheduleConfiguration.sharedConfig setScheduleInterval:scheduleInterval * 3600];
+    [_scheduleConfiguration setScheduleInterval:scheduleInterval * 3600];
     [_scheduleIntervalStepper setDoubleValue:scheduleInterval];
   }
 }
@@ -291,8 +291,8 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
   NSControlStateValue flagState = [sender state];
   BOOL flag = (flagState == NSControlStateValueOn);
 
-  if (ScheduleConfiguration.sharedConfig.scheduleEnabled) {
-    [ScheduleConfiguration.sharedConfig setSkipOnBattery:flag];
+  if (_scheduleConfiguration.scheduleEnabled) {
+    [_scheduleConfiguration setSkipOnBattery:flag];
   }
 }
 
@@ -500,7 +500,7 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
     BOOL exportAllowed;
     switch (newState) {
       case ExportFinished:
-        [ScheduleConfiguration.sharedConfig setLastExportedAt:[NSDate date]];
+        [self->_scheduleConfiguration setLastExportedAt:[NSDate date]];
       case ExportStopped:
       case ExportError: {
         exportAllowed = YES;

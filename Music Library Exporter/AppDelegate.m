@@ -74,7 +74,7 @@
 
   // init helper manager and ensure helper registration status matches configuration value for scheduleEnabled
   _helperAppManager = [[HelperAppManager alloc] init];
-  [_helperAppManager updateHelperRegistrationWithScheduleEnabled:ScheduleConfiguration.sharedConfig.scheduleEnabled];
+  [_helperAppManager updateHelperRegistrationWithScheduleEnabled:_scheduleConfiguration.scheduleEnabled];
 
   _configurationViewController = [[ConfigurationViewController alloc] initWithExportConfiguration:_exportConfiguration
                                                                          andScheduleConfiguration:_scheduleConfiguration];

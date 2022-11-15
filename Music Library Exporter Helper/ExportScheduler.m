@@ -84,9 +84,9 @@
 
 - (nullable NSDate*)determineNextExportDate {
 
-  NSDate* lastExportDate = ScheduleConfiguration.sharedConfig.lastExportedAt;
+  NSDate* lastExportDate = _scheduleConfiguration.lastExportedAt;
 
-  if (ScheduleConfiguration.sharedConfig.scheduleEnabled) {
+  if (_scheduleConfiguration.scheduleEnabled) {
 
     // overdue, schedule 60s from now
     if (lastExportDate == nil) {
@@ -97,11 +97,11 @@
     MLE_Log_Info(@"ExportScheduler [determineNextExportDate] %fs since last export", intervalSinceLastExport);
 
     // overdue, schedule 60s from now
-    if (intervalSinceLastExport > ScheduleConfiguration.sharedConfig.scheduleInterval) {
+    if (intervalSinceLastExport > _scheduleConfiguration.scheduleInterval) {
       return [NSDate dateWithTimeIntervalSinceNow:10/*60*/];
     }
 
-    return [lastExportDate dateByAddingTimeInterval:ScheduleConfiguration.sharedConfig.scheduleInterval];
+    return [lastExportDate dateByAddingTimeInterval:_scheduleConfiguration.scheduleInterval];
   }
 
   return nil;
@@ -165,7 +165,7 @@
 
 - (ExportDeferralReason)reasonToDeferExport {
 
-  if (ScheduleConfiguration.sharedConfig.skipOnBattery && [ExportScheduler isSystemRunningOnBattery]) {
+  if (_scheduleConfiguration.skipOnBattery && [ExportScheduler isSystemRunningOnBattery]) {
     return ExportDeferralOnBatteryReason;
   }
   if ([ExportScheduler isMainAppRunning]) {
@@ -187,7 +187,7 @@
     _timer = nil;
   }
 
-  NSTimeInterval intervalToNextExport = ScheduleConfiguration.sharedConfig.nextExportAt.timeIntervalSinceNow;
+  NSTimeInterval intervalToNextExport = _scheduleConfiguration.nextExportAt.timeIntervalSinceNow;
   MLE_Log_Info(@"ExportScheduler [activateScheduler] next export in %fs", intervalToNextExport);
 
   _timer = [NSTimer scheduledTimerWithTimeInterval:intervalToNextExport target:self selector:@selector(onTimerFinished) userInfo:nil repeats:NO];
@@ -245,7 +245,7 @@
     MLE_Log_Info(@"ExportScheduler [onTimerFinished] export task is being skipped for reason: %@", [Utils descriptionForExportDeferralReason:deferralReason]);
   }
 
-  [ScheduleConfiguration.sharedConfig setLastExportedAt:[NSDate date]];
+  [_scheduleConfiguration setLastExportedAt:[NSDate date]];
 }
 
 - (void)updateSchedule {
@@ -256,7 +256,7 @@
 
   MLE_Log_Info(@"ExportScheduler [updateSchedule] next export: %@", nextExportDate.description);
 
-  [ScheduleConfiguration.sharedConfig setNextExportAt:nextExportDate];
+  [_scheduleConfiguration setNextExportAt:nextExportDate];
 
   if (nextExportDate) {
     [self activateScheduler];
@@ -276,7 +276,7 @@
       [keyPath isEqualToString:@"OutputDirectoryPath"]) {
 
     // fetch latest configuration values
-    [ScheduleConfiguration.sharedConfig loadPropertiesFromUserDefaults];
+    [_scheduleConfiguration loadPropertiesFromUserDefaults];
     [_exportConfiguration loadPropertiesFromUserDefaults];
 
     [self requestOutputDirectoryPermissionsIfRequired];
