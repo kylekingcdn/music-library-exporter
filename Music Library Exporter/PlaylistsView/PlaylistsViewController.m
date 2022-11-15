@@ -11,7 +11,7 @@
 #import "Utils.h"
 #import "PlaylistTreeNode.h"
 #import "PlaylistTreeGenerator.h"
-#import "ExportConfiguration.h"
+#import "UserDefaultsExportConfiguration.h"
 #import "CheckBoxTableCellView.h"
 #import "PopupButtonTableCellView.h"
 #import "PlaylistFilterGroup.h"
@@ -27,6 +27,8 @@
 
   NSUserDefaults* _groupDefaults;
 
+  UserDefaultsExportConfiguration* _exportConfiguration;
+
   PlaylistTreeNode* _playlistTreeRoot;
 }
 
@@ -41,6 +43,8 @@
     _groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
     [_groupDefaults addObserver:self forKeyPath:@"FlattenPlaylistHierarchy" options:NSKeyValueObservingOptionNew context:NULL];
     [_groupDefaults addObserver:self forKeyPath:@"IncludeInternalPlaylists" options:NSKeyValueObservingOptionNew context:NULL];
+
+    _exportConfiguration = nil;
 
     _playlistTreeRoot = nil;
 

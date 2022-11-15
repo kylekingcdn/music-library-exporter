@@ -22,6 +22,8 @@
 
   NSUserDefaults* _groupDefaults;
 
+  UserDefaultsExportConfiguration* _exportConfiguration;
+
   NSTimer* _timer;
 
   DirectoryPermissionsWindowController* _permissionsWindowController;
@@ -40,6 +42,8 @@
     [_groupDefaults addObserver:self forKeyPath:@"ScheduleInterval" options:NSKeyValueObservingOptionNew context:NULL];
     [_groupDefaults addObserver:self forKeyPath:@"LastExportedAt" options:NSKeyValueObservingOptionNew context:NULL];
     [_groupDefaults addObserver:self forKeyPath:@"OutputDirectoryPath" options:NSKeyValueObservingOptionNew context:NULL];
+
+    _exportConfiguration = nil;
 
     _timer = nil;
 

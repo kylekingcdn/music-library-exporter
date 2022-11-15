@@ -12,7 +12,10 @@
 #import "ScheduleConfiguration.h"
 
 
-@implementation DirectoryPermissionsWindowController
+@implementation DirectoryPermissionsWindowController {
+
+  ExportConfiguration* _exportConfiguration;
+}
 
 
 #pragma mark - Initializers
@@ -20,6 +23,8 @@
 - (instancetype)init {
 
   if (self = [super initWithWindowNibName:@"DirectoryPermissionsWindow"]) {
+
+    _exportConfiguration = nil;
 
     return self;
   }
