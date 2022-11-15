@@ -118,18 +118,18 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
 
   MLE_Log_Info(@"ConfigurationViewController [updateFromConfiguration]");
 
-  [_libraryPathTextField setStringValue:ExportConfiguration.sharedConfig.musicLibraryPath];
-  [_outputDirectoryTextField setStringValue:ExportConfiguration.sharedConfig.outputDirectoryUrlPath];
-  [_outputFileNameTextField setStringValue:ExportConfiguration.sharedConfig.outputFileName];
+  [_libraryPathTextField setStringValue:_exportConfiguration.musicLibraryPath];
+  [_outputDirectoryTextField setStringValue:_exportConfiguration.outputDirectoryUrlPath];
+  [_outputFileNameTextField setStringValue:_exportConfiguration.outputFileName];
 
-  [_remapRootDirectoryCheckBox setState:(ExportConfiguration.sharedConfig.remapRootDirectory ? NSControlStateValueOn : NSControlStateValueOff)];
-  [_remapOriginalDirectoryTextField setStringValue:ExportConfiguration.sharedConfig.remapRootDirectoryOriginalPath];
-  [_remapMappedDirectoryTextField setStringValue:ExportConfiguration.sharedConfig.remapRootDirectoryMappedPath];
-  [_remapLocalhostPrefixCheckBox setState:(ExportConfiguration.sharedConfig.remapRootDirectoryLocalhostPrefix ? NSControlStateValueOn : NSControlStateValueOff)];
+  [_remapRootDirectoryCheckBox setState:(_exportConfiguration.remapRootDirectory ? NSControlStateValueOn : NSControlStateValueOff)];
+  [_remapOriginalDirectoryTextField setStringValue:_exportConfiguration.remapRootDirectoryOriginalPath];
+  [_remapMappedDirectoryTextField setStringValue:_exportConfiguration.remapRootDirectoryMappedPath];
+  [_remapLocalhostPrefixCheckBox setState:(_exportConfiguration.remapRootDirectoryLocalhostPrefix ? NSControlStateValueOn : NSControlStateValueOff)];
 
-  [_flattenPlaylistsCheckBox setState:(ExportConfiguration.sharedConfig.flattenPlaylistHierarchy ? NSControlStateValueOn : NSControlStateValueOff)];
-  [_includeInternalPlaylistsCheckBox setState:(ExportConfiguration.sharedConfig.includeInternalPlaylists ? NSControlStateValueOn : NSControlStateValueOff)];
-  //[_excludedPlaylistsTextField setStringValue:ExportConfiguration.sharedConfig.excludedPlaylistPersistentIds];
+  [_flattenPlaylistsCheckBox setState:(_exportConfiguration.flattenPlaylistHierarchy ? NSControlStateValueOn : NSControlStateValueOff)];
+  [_includeInternalPlaylistsCheckBox setState:(_exportConfiguration.includeInternalPlaylists ? NSControlStateValueOn : NSControlStateValueOff)];
+  //[_excludedPlaylistsTextField setStringValue:_exportConfiguration.excludedPlaylistPersistentIds];
 
   [_scheduleEnabledCheckBox setState:ScheduleConfiguration.sharedConfig.scheduleEnabled];
   [_scheduleIntervalTextField setDoubleValue:ScheduleConfiguration.sharedConfig.scheduleInterval/3600];
@@ -149,9 +149,9 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
   [_nextExportLabel setStringValue:[NSString stringWithFormat:@"Next export:  %@", nextExportDescription]];
 
   // update states of controls with dependencies
-  [_remapOriginalDirectoryTextField setEnabled:ExportConfiguration.sharedConfig.remapRootDirectory];
-  [_remapMappedDirectoryTextField setEnabled:ExportConfiguration.sharedConfig.remapRootDirectory];
-  [_remapLocalhostPrefixCheckBox setEnabled:ExportConfiguration.sharedConfig.remapRootDirectory];
+  [_remapOriginalDirectoryTextField setEnabled:_exportConfiguration.remapRootDirectory];
+  [_remapMappedDirectoryTextField setEnabled:_exportConfiguration.remapRootDirectory];
+  [_remapLocalhostPrefixCheckBox setEnabled:_exportConfiguration.remapRootDirectory];
   [_scheduleIntervalTextField setEnabled:ScheduleConfiguration.sharedConfig.scheduleEnabled];
   [_scheduleIntervalStepper setEnabled:ScheduleConfiguration.sharedConfig.scheduleEnabled];
   [_scheduleSkipOnBatteryCheckBox setEnabled:ScheduleConfiguration.sharedConfig.scheduleEnabled];
@@ -161,7 +161,7 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
 
   NSString* mediaFolder = [sender stringValue];
 
-  [ExportConfiguration.sharedConfig setMusicLibraryPath:mediaFolder];
+  [_exportConfiguration setMusicLibraryPath:mediaFolder];
 }
 
 - (IBAction)browseAndValidateOutputDirectory:(id)sender {
@@ -176,7 +176,7 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
 
   NSString* outputFileName = [sender stringValue];
 
-  [ExportConfiguration.sharedConfig setOutputFileName:outputFileName];
+  [_exportConfiguration setOutputFileName:outputFileName];
 }
 
 - (IBAction)setRemapRootDirectory:(id)sender {
@@ -184,7 +184,7 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
   NSControlStateValue flagState = [sender state];
   BOOL flag = (flagState == NSControlStateValueOn);
 
-  [ExportConfiguration.sharedConfig setRemapRootDirectory:flag];
+  [_exportConfiguration setRemapRootDirectory:flag];
 
   [_remapOriginalDirectoryTextField setEnabled:flag];
   [_remapMappedDirectoryTextField setEnabled:flag];
@@ -195,14 +195,14 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
 
   NSString* remapOriginalText = [sender stringValue];
 
-  [ExportConfiguration.sharedConfig setRemapRootDirectoryOriginalPath:remapOriginalText];
+  [_exportConfiguration setRemapRootDirectoryOriginalPath:remapOriginalText];
 }
 
 - (IBAction)setRemapReplacementText:(id)sender {
 
   NSString* remapReplacementText = [sender stringValue];
 
-  [ExportConfiguration.sharedConfig setRemapRootDirectoryMappedPath:remapReplacementText];
+  [_exportConfiguration setRemapRootDirectoryMappedPath:remapReplacementText];
 }
 
 - (IBAction)setRemapLocalhostPrefix:(id)sender {
@@ -210,7 +210,7 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
   NSControlStateValue flagState = [sender state];
   BOOL flag = (flagState == NSControlStateValueOn);
 
-  [ExportConfiguration.sharedConfig setRemapRootDirectoryLocalhostPrefix:flag];
+  [_exportConfiguration setRemapRootDirectoryLocalhostPrefix:flag];
 }
 
 - (IBAction)setFlattenPlaylistHierarchy:(id)sender {
@@ -218,7 +218,7 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
   NSControlStateValue flagState = [sender state];
   BOOL flag = (flagState == NSControlStateValueOn);
 
-  [ExportConfiguration.sharedConfig setFlattenPlaylistHierarchy:flag];
+  [_exportConfiguration setFlattenPlaylistHierarchy:flag];
 }
 
 - (IBAction)setIncludeInternalPlaylists:(id)sender {
@@ -226,7 +226,7 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
   NSControlStateValue flagState = [sender state];
   BOOL flag = (flagState == NSControlStateValueOn);
 
-  [ExportConfiguration.sharedConfig setIncludeInternalPlaylists:flag];
+  [_exportConfiguration setIncludeInternalPlaylists:flag];
 }
 
 - (IBAction)setScheduleEnabled:(id)sender {
@@ -304,11 +304,11 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
 
   /* -- temp -- generate output file url */
   NSError* outputDirResolveError;
-  NSURL* outputDirectoryUrl = [UserDefaultsExportConfiguration.sharedConfig resolveOutputDirectoryBookmarkAndReturnError:&outputDirResolveError];
+  NSURL* outputDirectoryUrl = [_exportConfiguration resolveOutputDirectoryBookmarkAndReturnError:&outputDirResolveError];
   if (outputDirectoryUrl == nil) {
     MLE_Log_Info(@"ConfigurationViewController [exportLibrary] unable to retrieve output directory - a directory must be selected to obtain write permission");
   }
-  NSString* outputFileName = UserDefaultsExportConfiguration.sharedConfig.outputFileName;
+  NSString* outputFileName = _exportConfiguration.outputFileName;
   if (outputFileName == nil || outputFileName.length == 0) {
     outputFileName = @"Library.xml"; // fallback to default filename
     MLE_Log_Info(@"ConfigurationViewController [exportLibrary] output filename unspecified - falling back to default: %@", outputFileName);
@@ -317,11 +317,11 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
   NSURL* outputFileUrl = [outputDirectoryUrl URLByAppendingPathComponent:outputFileName];
   /* -- temp -- */
 
-  dispatch_async(gcdQueue, ^{
+  ExportManager* exportManager = [[ExportManager alloc] initWithConfiguration:_exportConfiguration];
+  [exportManager setDelegate:self];
+  [exportManager setOutputFileURL:outputFileUrl];
 
-    ExportManager* exportManager = [[ExportManager alloc] initWithConfiguration:UserDefaultsExportConfiguration.sharedConfig];
-    [exportManager setDelegate:self];
-    [exportManager setOutputFileURL:outputFileUrl];
+  dispatch_async(gcdQueue, ^{
 
     NSError* exportError;
     [outputDirectoryUrl startAccessingSecurityScopedResource];
@@ -411,7 +411,7 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
     if (outputDirIsValid) {
 
       // update config
-      [ExportConfiguration.sharedConfig setOutputDirectoryUrl:outputDirUrl];
+      [self->_exportConfiguration setOutputDirectoryUrl:outputDirUrl];
 
       // update text field
       [self->_outputDirectoryTextField setStringValue:outputDirUrl.path];

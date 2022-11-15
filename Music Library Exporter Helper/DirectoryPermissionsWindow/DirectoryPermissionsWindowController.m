@@ -8,7 +8,7 @@
 #import "DirectoryPermissionsWindowController.h"
 
 #import "Logger.h"
-#import "UserDefaultsExportConfiguration.h"
+#import "ExportConfiguration.h"
 #import "ScheduleConfiguration.h"
 
 
@@ -92,7 +92,7 @@
 
   MLE_Log_Info(@"DirectoryPermissionsWindowController [requestOutputDirectoryPermissions]");
 
-  NSString* outputDirPath = UserDefaultsExportConfiguration.sharedConfig.outputDirectoryPath;
+  NSString* outputDirPath = _exportConfiguration.outputDirectoryPath;
 
   NSOpenPanel* openPanel = [NSOpenPanel openPanel];
   [openPanel setCanChooseDirectories:YES];
@@ -113,7 +113,7 @@
       if (outputDirUrl) {
         if (outputDirPath.length == 0 || [outputDirUrl.path isEqualToString:outputDirPath]) {
           MLE_Log_Info(@"DirectoryPermissionsWindowController [requestOutputDirectoryPermissions] the correct output directory has been selected");
-          [UserDefaultsExportConfiguration.sharedConfig setOutputDirectoryUrl:outputDirUrl];
+          [self->_exportConfiguration setOutputDirectoryUrl:outputDirUrl];
           [[NSApplication sharedApplication] setActivationPolicy:NSApplicationActivationPolicyProhibited];
           return;
         }

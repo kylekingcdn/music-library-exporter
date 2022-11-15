@@ -79,7 +79,8 @@
   _helperAppManager = [[HelperAppManager alloc] init];
   [_helperAppManager updateHelperRegistrationWithScheduleEnabled:ScheduleConfiguration.sharedConfig.scheduleEnabled];
 
-  _configurationViewController = [[ConfigurationViewController alloc] init];
+  _configurationViewController = [[ConfigurationViewController alloc] initWithExportConfiguration:_exportConfiguration];
+
   // add configurationView to window contentview
   [_configurationViewController.view setFrame:_window.contentView.frame];
   [_window.contentView addSubview:_configurationViewController.view];
@@ -131,7 +132,7 @@
   if (_playlistsViewController == nil) {
 
     // init playlistsView
-    _playlistsViewController = [[PlaylistsViewController alloc] init];
+    _playlistsViewController = [[PlaylistsViewController alloc] initWithExportConfiguration:_exportConfiguration];
     _playlistsViewWindow = [NSWindow windowWithContentViewController:_playlistsViewController];
     [_playlistsViewWindow setFrameAutosaveName:@"PlaylistsWindow"];
     [_playlistsViewWindow setTitle:@"Playlists"];

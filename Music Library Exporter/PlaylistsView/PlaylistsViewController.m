@@ -220,11 +220,11 @@
     return NO;
   }
 
-  if ([ExportConfiguration.sharedConfig isPlaylistIdExcluded:node.playlistPersistentHexID]) {
+  if ([_exportConfiguration isPlaylistIdExcluded:node.playlistPersistentHexID]) {
     return YES;
   }
 
-  if (!ExportConfiguration.sharedConfig.flattenPlaylistHierarchy) {
+  if (!_exportConfiguration.flattenPlaylistHierarchy) {
     return [self isNodeParentExcluded:node];
   }
 
@@ -260,8 +260,8 @@
     return;
   }
 
-  PlaylistSortColumnType sortColumn = [ExportConfiguration.sharedConfig playlistCustomSortColumn:node.playlistPersistentHexID];
-  PlaylistSortOrderType sortOrder = [ExportConfiguration.sharedConfig playlistCustomSortOrder:node.playlistPersistentHexID];
+  PlaylistSortColumnType sortColumn = [_exportConfiguration playlistCustomSortColumn:node.playlistPersistentHexID];
+  PlaylistSortOrderType sortOrder = [_exportConfiguration playlistCustomSortOrder:node.playlistPersistentHexID];
 
   BOOL isDefault = (sortColumn == PlaylistSortColumnNull);
 
@@ -302,11 +302,11 @@
 - (void)initPlaylistNodes {
 
   // init playlist filters
-  PlaylistFilterGroup* playlistFilters = [[PlaylistFilterGroup alloc] initWithBaseFiltersAndIncludeInternal:ExportConfiguration.sharedConfig.includeInternalPlaylists
-                                                                                        andFlattenPlaylists:ExportConfiguration.sharedConfig.flattenPlaylistHierarchy];
+  PlaylistFilterGroup* playlistFilters = [[PlaylistFilterGroup alloc] initWithBaseFiltersAndIncludeInternal:_exportConfiguration.includeInternalPlaylists
+                                                                                        andFlattenPlaylists:_exportConfiguration.flattenPlaylistHierarchy];
 
   PlaylistTreeGenerator* generator = [[PlaylistTreeGenerator alloc] initWithFilters:playlistFilters];
-  [generator setFlattenFolders:ExportConfiguration.sharedConfig.flattenPlaylistHierarchy];
+  [generator setFlattenFolders:_exportConfiguration.flattenPlaylistHierarchy];
 
   NSError* generateError;
   _playlistTreeRoot = [generator generateTreeWithError:&generateError];
@@ -324,7 +324,7 @@
 
   BOOL excluded = ([sender state] == NSControlStateValueOff);
 
-  [ExportConfiguration.sharedConfig setExcluded:excluded forPlaylistId:node.playlistPersistentHexID];
+  [_exportConfiguration setExcluded:excluded forPlaylistId:node.playlistPersistentHexID];
 
   [_outlineView reloadItem:node reloadChildren:YES];
 }
@@ -344,7 +344,7 @@
   // default
   if (itemTag == 101) {
     MLE_Log_Info(@"PlaylistsViewController [setPlaylistSorting] Default");
-    [ExportConfiguration.sharedConfig setDefaultSortingForPlaylist:node.playlistPersistentHexID];
+    [_exportConfiguration setDefaultSortingForPlaylist:node.playlistPersistentHexID];
   }
   // sort column
   else if (itemTag > 200 && itemTag < 300) {
@@ -353,12 +353,12 @@
       MLE_Log_Info(@"PlaylistsViewController [setPlaylistSorting] error - failed to determine sort column for itemTag:%li", (long)itemTag);
     }
     // ignore if no change
-    else if (sortColumn == [ExportConfiguration.sharedConfig playlistCustomSortColumn:node.playlistPersistentHexID]) {
+    else if (sortColumn == [_exportConfiguration playlistCustomSortColumn:node.playlistPersistentHexID]) {
       return;
     }
     else {
       MLE_Log_Info(@"PlaylistsViewController [setPlaylistSorting] column: %@", [Utils titleForPlaylistSortColumn:sortColumn]);
-      [ExportConfiguration.sharedConfig setCustomSortColumn:sortColumn forPlaylist:node.playlistPersistentHexID];
+      [_exportConfiguration setCustomSortColumn:sortColumn forPlaylist:node.playlistPersistentHexID];
     }
   }
   // sort order
@@ -368,12 +368,12 @@
       MLE_Log_Info(@"PlaylistsViewController [setPlaylistSorting] error - failed to determine sort order for itemTag:%li", (long)itemTag);
     }
     // ignore if no change
-    else if (sortOrder == [ExportConfiguration.sharedConfig playlistCustomSortOrder:node.playlistPersistentHexID]) {
+    else if (sortOrder == [_exportConfiguration playlistCustomSortOrder:node.playlistPersistentHexID]) {
       return;
     }
     else {
       MLE_Log_Info(@"PlaylistsViewController [setPlaylistSorting] order: %@", [Utils titleForPlaylistSortOrder:sortOrder]);
-      [ExportConfiguration.sharedConfig setCustomSortOrder:sortOrder forPlaylist:node.playlistPersistentHexID];
+      [_exportConfiguration setCustomSortOrder:sortOrder forPlaylist:node.playlistPersistentHexID];
     }
   }
 
@@ -449,7 +449,7 @@
 
     NSControlStateValue state = [self isNodeExcluded:node] ? NSControlStateValueOff : NSControlStateValueOn;
     BOOL checkBoxEnabled = YES;
-    if (!ExportConfiguration.sharedConfig.flattenPlaylistHierarchy && [self isNodeParentExcluded:node]) {
+    if (!_exportConfiguration.flattenPlaylistHierarchy && [self isNodeParentExcluded:node]) {
       checkBoxEnabled = NO;
     }
     [cellView.checkbox setAction:@selector(setPlaylistExcludedForCellView:)];

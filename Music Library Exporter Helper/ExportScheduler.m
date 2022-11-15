@@ -137,13 +137,13 @@
 
   MLE_Log_Info(@"ExportScheduler [isOutputDirectoryBookmarkValid]");
 
-  NSString* outputDirPath = UserDefaultsExportConfiguration.sharedConfig.outputDirectoryPath;
+  NSString* outputDirPath = _exportConfiguration.outputDirectoryPath;
   if (outputDirPath.length == 0) {
     MLE_Log_Info(@"ExportScheduler [isOutputDirectoryBookmarkValid] output directory has not been set yet");
     return NO;
   }
 
-  NSURL* outputDirUrl = [UserDefaultsExportConfiguration.sharedConfig resolveOutputDirectoryBookmarkAndReturnError:nil];
+  NSURL* outputDirUrl = [_exportConfiguration resolveOutputDirectoryBookmarkAndReturnError:nil];
 
   if (outputDirUrl && outputDirUrl.isFileURL) {
 
@@ -208,11 +208,11 @@
 
     /* -- temp -- generate output file url */
     NSError* outputDirResolveError;
-    NSURL* outputDirectoryUrl = [UserDefaultsExportConfiguration.sharedConfig resolveOutputDirectoryBookmarkAndReturnError:&outputDirResolveError];
+    NSURL* outputDirectoryUrl = [_exportConfiguration resolveOutputDirectoryBookmarkAndReturnError:&outputDirResolveError];
     if (outputDirectoryUrl == nil) {
       MLE_Log_Info(@"ExportScheduler [onTimerFinished] unable to retrieve output directory - a directory must be selected to obtain write permission");
     }
-    NSString* outputFileName = UserDefaultsExportConfiguration.sharedConfig.outputFileName;
+    NSString* outputFileName = _exportConfiguration.outputFileName;
     if (outputFileName == nil || outputFileName.length == 0) {
       outputFileName = @"Library.xml"; // fallback to default filename
       MLE_Log_Info(@"ExportScheduler [onTimerFinished] output filename unspecified - falling back to default: %@", outputFileName);
@@ -224,7 +224,7 @@
     }
     /* -- temp -- */
 
-    ExportManager* exportManager = [[ExportManager alloc] initWithConfiguration:UserDefaultsExportConfiguration.sharedConfig];
+    ExportManager* exportManager = [[ExportManager alloc] initWithConfiguration:_exportConfiguration];
     [exportManager setOutputFileURL:outputFileUrl];
 
     NSError* exportError;
@@ -273,7 +273,7 @@
 
     // fetch latest configuration values
     [ScheduleConfiguration.sharedConfig loadPropertiesFromUserDefaults];
-    [UserDefaultsExportConfiguration.sharedConfig loadPropertiesFromUserDefaults];
+    [_exportConfiguration loadPropertiesFromUserDefaults];
 
     [self requestOutputDirectoryPermissionsIfRequired];
     [self updateSchedule];
@@ -287,14 +287,14 @@
     _permissionsWindowController = nil;
   }
 
-  _permissionsWindowController = [[DirectoryPermissionsWindowController alloc] init];
+  _permissionsWindowController = [[DirectoryPermissionsWindowController alloc] initWithExportConfiguration:_exportConfiguration];
   [_permissionsWindowController.window center];
   [_permissionsWindowController.window makeKeyAndOrderFront:self];
 }
 
 - (void)requestOutputDirectoryPermissionsIfRequired {
 
-  NSString* outputDirPath = UserDefaultsExportConfiguration.sharedConfig.outputDirectoryPath;
+  NSString* outputDirPath = _exportConfiguration.outputDirectoryPath;
   BOOL outputDirIsSet = (outputDirPath.length > 0);
 
   if (!outputDirIsSet) {
