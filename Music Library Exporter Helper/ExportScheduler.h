@@ -20,7 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Initializers
 
 - (instancetype)init;
-- (instancetype)initWithExportConfiguration:(UserDefaultsExportConfiguration*)exportConfiguration;
+- (instancetype)initWithExportConfiguration:(UserDefaultsExportConfiguration*)exportConfiguration
+                   andScheduleConfiguration:(ScheduleConfiguration*)scheduleConfiguration;
 
 
 #pragma mark - Accessors

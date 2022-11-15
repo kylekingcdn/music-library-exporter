@@ -76,7 +76,8 @@
   _helperAppManager = [[HelperAppManager alloc] init];
   [_helperAppManager updateHelperRegistrationWithScheduleEnabled:ScheduleConfiguration.sharedConfig.scheduleEnabled];
 
-  _configurationViewController = [[ConfigurationViewController alloc] initWithExportConfiguration:_exportConfiguration];
+  _configurationViewController = [[ConfigurationViewController alloc] initWithExportConfiguration:_exportConfiguration
+                                                                         andScheduleConfiguration:_scheduleConfiguration];
 
   // add configurationView to window contentview
   [_configurationViewController.view setFrame:_window.contentView.frame];

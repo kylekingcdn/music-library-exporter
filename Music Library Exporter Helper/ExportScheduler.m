@@ -64,11 +64,13 @@
   }
 }
 
-- (instancetype)initWithExportConfiguration:(UserDefaultsExportConfiguration*)exportConfiguration {
+- (instancetype)initWithExportConfiguration:(UserDefaultsExportConfiguration*)exportConfiguration
+                   andScheduleConfiguration:(ScheduleConfiguration*)scheduleConfiguration {
 
   if (self = [self init]) {
 
     _exportConfiguration = exportConfiguration;
+    _scheduleConfiguration = scheduleConfiguration;
 
     return self;
   }

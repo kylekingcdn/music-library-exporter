@@ -62,7 +62,7 @@
   [ScheduleConfiguration initSharedConfig:_scheduleConfiguration];
 
   // init scheduleDelegate
-  _exportScheduler = [[ExportScheduler alloc] initWithExportConfiguration:_exportConfiguration];
+  _exportScheduler = [[ExportScheduler alloc] initWithExportConfiguration:_exportConfiguration andScheduleConfiguration:_scheduleConfiguration];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {

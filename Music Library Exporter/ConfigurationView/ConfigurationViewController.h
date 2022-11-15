@@ -10,6 +10,7 @@
 #import "Defines.h"
 #import "ExportManagerDelegate.h"
 
+@class ScheduleConfiguration;
 @class UserDefaultsExportConfiguration;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -28,7 +29,8 @@ typedef NS_ENUM(NSInteger, ConfigurationViewErrorCode) {
 #pragma mark - Initializers
 
 - (instancetype)init;
-- (instancetype)initWithExportConfiguration:(UserDefaultsExportConfiguration*)exportConfiguration;
+- (instancetype)initWithExportConfiguration:(UserDefaultsExportConfiguration*)exportConfiguration
+                   andScheduleConfiguration:(ScheduleConfiguration*)scheduleConfiguration;
 
 
 #pragma mark - Accessors
