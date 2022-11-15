@@ -30,7 +30,7 @@ typedef NS_ENUM(NSInteger, CLIManagerErrorCode) {
 
 # pragma mark - Properties
 
-@property (readonly) LGCommandKind command;
+@property (readonly) CLICommandKind command;
 
 @property (nullable, readonly) ExportConfiguration* configuration;
 

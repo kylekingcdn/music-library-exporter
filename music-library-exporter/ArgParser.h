@@ -38,7 +38,7 @@ typedef NS_ENUM(NSInteger, ArgParserErrorCode) {
 
 @property (readonly) NSProcessInfo* processInfo;
 
-@property (readonly) LGCommandKind command;
+@property (readonly) CLICommandKind command;
 
 
 #pragma mark - Initializers
@@ -49,7 +49,7 @@ typedef NS_ENUM(NSInteger, ArgParserErrorCode) {
 
 #pragma mark - Accessors
 
-- (nullable XPMArgumentSignature*)signatureForCommand:(LGCommandKind)command;
+- (nullable XPMArgumentSignature*)signatureForCommand:(CLICommandKind)command;
 - (nullable XPMArgumentSignature*)signatureForOption:(CLIOptionKind)option;
 
 - (BOOL)isOptionSet:(CLIOptionKind)option;

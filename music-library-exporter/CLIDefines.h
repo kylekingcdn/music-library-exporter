@@ -12,12 +12,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CLIDefines : NSObject
 
-typedef NS_ENUM(NSInteger, LGCommandKind) {
-  LGCommandKindHelp,
-  LGCommandKindVersion,
-  LGCommandKindPrint,
-  LGCommandKindExport,
-  LGCommandKindUnknown,
+typedef NS_ENUM(NSInteger, CLICommandKind) {
+  CLICommandKindHelp,
+  CLICommandKindVersion,
+  CLICommandKindPrint,
+  CLICommandKindExport,
+  CLICommandKindUnknown,
 };
 
 typedef NS_ENUM(NSInteger, CLIOptionKind) {
@@ -48,18 +48,18 @@ typedef NS_ENUM(NSInteger, CLIOptionKind) {
   CLIOptionKind_MAX,
 };
 
-+ (nullable NSString*)nameForCommand:(LGCommandKind)command;
++ (nullable NSString*)nameForCommand:(CLICommandKind)command;
 + (nullable NSString*)nameForOption:(CLIOptionKind)option;
 
 + (nullable NSString*)nameAndValueForOption:(CLIOptionKind)option;
 
 + (NSArray<NSString*>*)commandNames;
 
-+ (NSArray<NSNumber*>*)optionsForCommand:(LGCommandKind)command;
++ (NSArray<NSNumber*>*)optionsForCommand:(CLICommandKind)command;
 
-+ (NSArray<NSNumber*>*)requiredOptionsForCommand:(LGCommandKind)command;
++ (NSArray<NSNumber*>*)requiredOptionsForCommand:(CLICommandKind)command;
 
-+ (nullable NSString*)signatureFormatForCommand:(LGCommandKind)command;
++ (nullable NSString*)signatureFormatForCommand:(CLICommandKind)command;
 + (nullable NSString*)signatureFormatForOption:(CLIOptionKind)option;
 
 + (NSURL*)fileUrlForAppPreferences;

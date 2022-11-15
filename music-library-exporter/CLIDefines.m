@@ -10,23 +10,23 @@
 
 @implementation CLIDefines
 
-+ (NSArray<NSNumber*>*)optionsForCommand:(LGCommandKind)command {
++ (NSArray<NSNumber*>*)optionsForCommand:(CLICommandKind)command {
 
   switch (command) {
 
-    case LGCommandKindHelp: {
+    case CLICommandKindHelp: {
       return @[
         @(CLIOptionKindHelp)
       ];
     }
 
-    case LGCommandKindVersion: {
+    case CLICommandKindVersion: {
       return @[
         @(CLIOptionKindVersion)
       ];
     }
 
-    case LGCommandKindPrint: {
+    case CLICommandKindPrint: {
       return @[
         @(CLIOptionKindHelp),
         @(CLIOptionKindReadPrefs),
@@ -36,7 +36,7 @@
       ];
     }
 
-    case LGCommandKindExport: {
+    case CLICommandKindExport: {
       return @[
         @(CLIOptionKindHelp),
         @(CLIOptionKindReadPrefs),
@@ -52,7 +52,7 @@
       ];
     }
 
-    case LGCommandKindUnknown: {
+    case CLICommandKindUnknown: {
       return @[
         @(CLIOptionKindHelp)
       ];
@@ -60,51 +60,51 @@
   }
 }
 
-+ (NSArray<NSNumber*>*)requiredOptionsForCommand:(LGCommandKind)command {
++ (NSArray<NSNumber*>*)requiredOptionsForCommand:(CLICommandKind)command {
 
   switch (command) {
 
-    case LGCommandKindHelp: {
+    case CLICommandKindHelp: {
       return @[ ];
     }
 
-    case LGCommandKindVersion: {
+    case CLICommandKindVersion: {
       return @[ ];
     }
 
-    case LGCommandKindPrint: {
+    case CLICommandKindPrint: {
       return @[ ];
     }
 
-    case LGCommandKindExport: {
+    case CLICommandKindExport: {
       return @[
         @(CLIOptionKindMusicMediaDirectory),
         @(CLIOptionKindOutputPath),
       ];
     }
 
-    case LGCommandKindUnknown: {
+    case CLICommandKindUnknown: {
       return @[ ];
     }
   }
 }
 
-+ (nullable NSString*)nameForCommand:(LGCommandKind)command {
++ (nullable NSString*)nameForCommand:(CLICommandKind)command {
 
   switch (command) {
-    case LGCommandKindHelp: {
+    case CLICommandKindHelp: {
       return @"help";
     }
-    case LGCommandKindVersion: {
+    case CLICommandKindVersion: {
       return @"version";
     }
-    case LGCommandKindPrint: {
+    case CLICommandKindPrint: {
       return @"print";
     }
-    case LGCommandKindExport: {
+    case CLICommandKindExport: {
       return @"export";
     }
-    case LGCommandKindUnknown: {
+    case CLICommandKindUnknown: {
       return nil;
     }
   }
@@ -202,31 +202,31 @@
 
   NSMutableArray<NSString*>* names = [NSMutableArray array];
 
-  for (LGCommandKind command = LGCommandKindHelp; command < LGCommandKindUnknown; command++) {
+  for (CLICommandKind command = CLICommandKindHelp; command < CLICommandKindUnknown; command++) {
     [names addObject:[CLIDefines nameForCommand:command]];
   }
 
   return names;
 }
 
-+ (nullable NSString*)signatureFormatForCommand:(LGCommandKind)command {
++ (nullable NSString*)signatureFormatForCommand:(CLICommandKind)command {
 
   switch (command) {
 
-    case LGCommandKindHelp: {
+    case CLICommandKindHelp: {
       return @"[-h --help help]";
     }
-    case LGCommandKindVersion: {
+    case CLICommandKindVersion: {
       return @"[-v --version version]";
     }
-    case LGCommandKindPrint: {
+    case CLICommandKindPrint: {
       return @"[print]";
     }
-    case LGCommandKindExport: {
+    case CLICommandKindExport: {
       return @"[export]";
     }
 
-    case LGCommandKindUnknown: {
+    case CLICommandKindUnknown: {
       return nil;
     }
   }
@@ -237,11 +237,11 @@
   switch (option) {
 
     case CLIOptionKindHelp: {
-      return [CLIDefines signatureFormatForCommand:LGCommandKindHelp];
+      return [CLIDefines signatureFormatForCommand:CLICommandKindHelp];
     }
 
     case CLIOptionKindVersion: {
-      return [CLIDefines signatureFormatForCommand:LGCommandKindVersion];
+      return [CLIDefines signatureFormatForCommand:CLICommandKindVersion];
     }
 
     case CLIOptionKindReadPrefs: {

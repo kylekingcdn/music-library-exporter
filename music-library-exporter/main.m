@@ -35,29 +35,29 @@ int main(int argc, const char * argv[]) {
     BOOL commandSuccess = YES;
     switch (cliManager.command) {
 
-      case LGCommandKindExport: {
+      case CLICommandKindExport: {
         commandSuccess = [cliManager exportLibraryAndReturnError:&commandError];
         break;
       }
 
-      case LGCommandKindPrint: {
+      case CLICommandKindPrint: {
         [cliManager printPlaylists];
         break;
       }
 
-      case LGCommandKindHelp: {
+      case CLICommandKindHelp: {
         [cliManager printHelp];
         break;
       }
 
-      case LGCommandKindVersion: {
+      case CLICommandKindVersion: {
         [cliManager printVersion];
         break;
       }
 
       // This is included despite setup throwing an error even if it is the case.
       // This allows for potential IDE warnings for any added command types in the future.
-      case LGCommandKindUnknown: { break; }
+      case CLICommandKindUnknown: { break; }
     }
 
     if (!commandSuccess) {

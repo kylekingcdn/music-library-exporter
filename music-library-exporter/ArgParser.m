@@ -57,7 +57,7 @@ NSErrorDomain const __MLE_ErrorDomain_ArgParser = @"com.kylekingcdn.MusicLibrary
 
 #pragma mark - Accessors
 
-- (nullable XPMArgumentSignature*)signatureForCommand:(LGCommandKind)command {
+- (nullable XPMArgumentSignature*)signatureForCommand:(CLICommandKind)command {
 
   return [_commandSignatures objectForKey:@(command)];
 }
@@ -83,14 +83,14 @@ NSErrorDomain const __MLE_ErrorDomain_ArgParser = @"com.kylekingcdn.MusicLibrary
 
   NSMutableSet<NSNumber*>* commmandTypes = [NSMutableSet set];
 
-  for (LGCommandKind command = LGCommandKindHelp; command < LGCommandKindUnknown; command++) {
+  for (CLICommandKind command = CLICommandKindHelp; command < CLICommandKindUnknown; command++) {
 
     XPMArgumentSignature* commandSig = [self signatureForCommand:command];
 
     BOOL isCurrentCommandType = [_package booleanValueForSignature:commandSig];
 
     if (isCurrentCommandType) {
-      if (command == LGCommandKindHelp) {
+      if (command == CLICommandKindHelp) {
         return [NSSet setWithObject:@(command)];
       }
       else {
@@ -421,12 +421,12 @@ NSErrorDomain const __MLE_ErrorDomain_ArgParser = @"com.kylekingcdn.MusicLibrary
   NSMutableDictionary* optionSignatures = [NSMutableDictionary dictionary];
 
   // add help signature to both
-  XPMArgumentSignature* helpSignature = [XPMArgumentSignature argumentSignatureWithFormat:[CLIDefines signatureFormatForCommand:LGCommandKindHelp]];
-  [commandSignatures setObject:helpSignature forKey:@(LGCommandKindHelp)];
+  XPMArgumentSignature* helpSignature = [XPMArgumentSignature argumentSignatureWithFormat:[CLIDefines signatureFormatForCommand:CLICommandKindHelp]];
+  [commandSignatures setObject:helpSignature forKey:@(CLICommandKindHelp)];
   [optionSignatures setObject:helpSignature forKey:@(CLIOptionKindHelp)];
 
   // init command signatures dict
-  for (LGCommandKind command = LGCommandKindHelp + 1; command < LGCommandKindUnknown; command++) {
+  for (CLICommandKind command = CLICommandKindHelp + 1; command < CLICommandKindUnknown; command++) {
 
     NSString* signatureFormat = [CLIDefines signatureFormatForCommand:command];
     XPMArgumentSignature* commandSignature = [XPMArgumentSignature argumentSignatureWithFormat:signatureFormat];
@@ -451,7 +451,7 @@ NSErrorDomain const __MLE_ErrorDomain_ArgParser = @"com.kylekingcdn.MusicLibrary
 
   NSMutableSet* commandSigs = [NSMutableSet set];
 
-  for (LGCommandKind command = LGCommandKindHelp; command < LGCommandKindUnknown; command++) {
+  for (CLICommandKind command = CLICommandKindHelp; command < CLICommandKindUnknown; command++) {
 
     XPMArgumentSignature* commandSig = [self signatureForCommand:command];
 
@@ -481,7 +481,7 @@ NSErrorDomain const __MLE_ErrorDomain_ArgParser = @"com.kylekingcdn.MusicLibrary
 
     // interpret running the program with no arguments and no options as a help command
     if (_processInfo.arguments.count <= 1) {
-      _command = LGCommandKindHelp;
+      _command = CLICommandKindHelp;
       return YES;
     }
     else {
@@ -490,14 +490,14 @@ NSErrorDomain const __MLE_ErrorDomain_ArgParser = @"com.kylekingcdn.MusicLibrary
           NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Unknown command\nValid commands:  %@", [CLIDefines.commandNames componentsJoinedByString:@", "]],
         }];
       }
-      _command = LGCommandKindUnknown;
+      _command = CLICommandKindUnknown;
       return NO;
     }
   }
 
   // help command, this returns valid even if more commands are entered as help messages get priority
-  if ([commandTypes containsObject:@(LGCommandKindHelp)]) {
-    _command = LGCommandKindHelp;
+  if ([commandTypes containsObject:@(CLICommandKindHelp)]) {
+    _command = CLICommandKindHelp;
     return YES;
   }
 
@@ -508,7 +508,7 @@ NSErrorDomain const __MLE_ErrorDomain_ArgParser = @"com.kylekingcdn.MusicLibrary
         NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Only one command may be specified at a time"],
       }];
     }
-    _command = LGCommandKindUnknown;
+    _command = CLICommandKindUnknown;
     return NO;
   }
 
@@ -523,7 +523,7 @@ NSErrorDomain const __MLE_ErrorDomain_ArgParser = @"com.kylekingcdn.MusicLibrary
 
   MLE_Log_Info(@"ArgParser [validateOptionsAndReturnError]");
 
-  NSAssert(_command != LGCommandKindUnknown, @"validateOptionsAndReturnError called without valid command");
+  NSAssert(_command != CLICommandKindUnknown, @"validateOptionsAndReturnError called without valid command");
 
   if (_package.unknownSwitches.count > 0) {
     if (error) {

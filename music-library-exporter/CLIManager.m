@@ -546,12 +546,12 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
   _command = argParser.command;
 
   // display help
-  if (_command == LGCommandKindHelp) {
+  if (_command == CLICommandKindHelp) {
     return YES;
   }
 
   // display version
-  if (_command == LGCommandKindVersion) {
+  if (_command == CLICommandKindVersion) {
     return YES;
   }
 
@@ -568,13 +568,13 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
 
   // extended configuration validation
   switch (_command) {
-    case LGCommandKindHelp:
-    case LGCommandKindPrint:
-    case LGCommandKindVersion:
-    case LGCommandKindUnknown: {
+    case CLICommandKindHelp:
+    case CLICommandKindPrint:
+    case CLICommandKindVersion:
+    case CLICommandKindUnknown: {
       break;
     }
-    case LGCommandKindExport: {
+    case CLICommandKindExport: {
       if (![self validateExportConfigurationAndReturnError:error]) {
         return NO;
       }
