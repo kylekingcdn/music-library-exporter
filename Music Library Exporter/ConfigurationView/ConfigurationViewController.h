@@ -28,7 +28,7 @@ typedef NS_ENUM(NSInteger, ConfigurationViewErrorCode) {
 #pragma mark - Initializers
 
 - (instancetype)init;
-- (instancetype)initWithHelperAppManager:(HelperAppManager*)helperDelegate;
+- (instancetype)initWithHelperAppManager:(HelperAppManager*)helperAppManager;
 
 
 #pragma mark - Accessors

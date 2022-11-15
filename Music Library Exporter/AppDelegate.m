@@ -32,7 +32,7 @@
 
   NSUserDefaults* _groupDefaults;
 
-  HelperAppManager* _helperDelegate;
+  HelperAppManager* _helperAppManager;
 
   UserDefaultsExportConfiguration* _exportConfiguration;
 
@@ -75,9 +75,9 @@
   [_groupDefaults addObserver:self forKeyPath:@"NextExportAt" options:NSKeyValueObservingOptionNew context:NULL];
   [_groupDefaults addObserver:self forKeyPath:@"OutputDirectoryPath" options:NSKeyValueObservingOptionNew context:NULL];
 
-  _helperDelegate = [[HelperAppManager alloc] init];
+  _helperAppManager = [[HelperAppManager alloc] init];
 
-  _configurationViewController = [[ConfigurationViewController alloc] initWithHelperAppManager:_helperDelegate];
+  _configurationViewController = [[ConfigurationViewController alloc] initWithHelperAppManager:_helperAppManager];
   // add configurationView to window contentview
   [_configurationViewController.view setFrame:_window.contentView.frame];
   [_window.contentView addSubview:_configurationViewController.view];
@@ -119,7 +119,7 @@
     [_configurationViewController updateFromConfiguration];
 
     if ([aKeyPath isEqualToString:@"ScheduleEnabled"]) {
-      [_helperDelegate updateHelperRegistrationWithScheduleEnabled:_scheduleConfiguration.scheduleEnabled];
+      [_helperAppManager updateHelperRegistrationWithScheduleEnabled:_scheduleConfiguration.scheduleEnabled];
     }
   }
 }
