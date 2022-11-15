@@ -58,9 +58,6 @@
   _scheduleConfiguration = [[ScheduleConfiguration alloc] init];
   [_scheduleConfiguration loadPropertiesFromUserDefaults];
 
-  // set shared scheduleConfiguration
-  [ScheduleConfiguration initSharedConfig:_scheduleConfiguration];
-
   // init scheduleDelegate
   _exportScheduler = [[ExportScheduler alloc] initWithExportConfiguration:_exportConfiguration andScheduleConfiguration:_scheduleConfiguration];
 }

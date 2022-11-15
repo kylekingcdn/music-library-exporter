@@ -12,10 +12,6 @@
 #import "Logger.h"
 #import "Defines.h"
 
-
-static ScheduleConfiguration* _sharedConfig;
-
-
 @implementation ScheduleConfiguration {
 
   NSUserDefaults* _userDefaults;
@@ -47,13 +43,6 @@ static ScheduleConfiguration* _sharedConfig;
 
 
 #pragma mark - Accessors
-
-+ (ScheduleConfiguration*)sharedConfig {
-
-  NSAssert((_sharedConfig != nil), @"ScheduleConfiguration sharedConfig has not been initialized!");
-
-  return _sharedConfig;
-}
 
 - (NSDictionary*)defaultValues {
 
@@ -105,13 +94,6 @@ static ScheduleConfiguration* _sharedConfig;
 
 
 #pragma mark - Mutators
-
-+ (void)initSharedConfig:(ScheduleConfiguration*)sharedConfig {
-
-  NSAssert((_sharedConfig == nil), @"ScheduleConfiguration sharedConfig has already been initialized!");
-
-  _sharedConfig = sharedConfig;
-}
 
 - (void)loadPropertiesFromUserDefaults {
 

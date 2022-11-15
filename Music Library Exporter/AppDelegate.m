@@ -62,9 +62,6 @@
   _scheduleConfiguration = [[ScheduleConfiguration alloc] init];
   [_scheduleConfiguration loadPropertiesFromUserDefaults];
 
-  // set shared scheduleConfiguration
-  [ScheduleConfiguration initSharedConfig:_scheduleConfiguration];
-
   // detect changes in NSUSerDefaults for app group
   [_groupDefaults addObserver:self forKeyPath:@"ScheduleEnabled" options:NSKeyValueObservingOptionNew context:NULL];
   [_groupDefaults addObserver:self forKeyPath:@"ScheduleInterval" options:NSKeyValueObservingOptionNew context:NULL];
