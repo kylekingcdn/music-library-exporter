@@ -308,7 +308,6 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
   [_exportProgressBar setDoubleValue:0];
   [_exportProgressBar setMinValue:0];
 
-  /* -- temp -- generate output file url */
   NSError* outputDirResolveError;
   NSURL* outputDirectoryUrl = [_exportConfiguration resolveOutputDirectoryBookmarkAndReturnError:&outputDirResolveError];
   if (outputDirectoryUrl == nil) {
@@ -319,9 +318,10 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
     outputFileName = @"Library.xml"; // fallback to default filename
     MLE_Log_Info(@"ConfigurationViewController [exportLibrary] output filename unspecified - falling back to default: %@", outputFileName);
   }
-  // TODO: handle output directory validation
   NSURL* outputFileUrl = [outputDirectoryUrl URLByAppendingPathComponent:outputFileName];
-  /* -- temp -- */
+  if (outputFileUrl == nil) {
+    return;
+  }
 
   ExportManager* exportManager = [[ExportManager alloc] initWithConfiguration:_exportConfiguration];
   [exportManager setDelegate:self];

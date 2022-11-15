@@ -291,11 +291,4 @@
   }
 }
 
-- (BOOL)validateOutputDirectoryBookmarkAndReturnError:(NSError**)error {
-
-  NSURL* validatedOutputDirUrl = [self resolveOutputDirectoryBookmarkAndReturnError:error];
-
-  return (validatedOutputDirUrl != nil);
-}
-
 @end

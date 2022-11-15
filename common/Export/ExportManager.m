@@ -191,9 +191,6 @@ NSErrorDomain const __MLE_ErrorDomain_ExportManager = @"com.kylekingcdn.MusicLib
     }
   }
 
-  // this will reload member variables and re-resolve the bookmark. If the bookmark is stale and invalid, the next if statement will catch it
-  // [_configuration validateOutputDirectoryBookmarkAndReturnError:nil];
-
   // validate output directory set
   if (_configuration.outputDirectoryUrl == nil || !_configuration.outputDirectoryUrl.isFileURL) {
     MLE_Log_Info(@"ExportManager [validateConfigurationWithError] output directory is invalid");

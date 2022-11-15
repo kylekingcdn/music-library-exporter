@@ -210,7 +210,6 @@
   ExportDeferralReason deferralReason = [self reasonToDeferExport];
   if (deferralReason == ExportNoDeferralReason) {
 
-    /* -- temp -- generate output file url */
     NSError* outputDirResolveError;
     NSURL* outputDirectoryUrl = [_exportConfiguration resolveOutputDirectoryBookmarkAndReturnError:&outputDirResolveError];
     if (outputDirectoryUrl == nil) {
@@ -221,12 +220,10 @@
       outputFileName = @"Library.xml"; // fallback to default filename
       MLE_Log_Info(@"ExportScheduler [onTimerFinished] output filename unspecified - falling back to default: %@", outputFileName);
     }
-    // TODO: handle output directory validation
     NSURL* outputFileUrl = [outputDirectoryUrl URLByAppendingPathComponent:outputFileName];
     if (outputFileUrl == nil) {
       return;
     }
-    /* -- temp -- */
 
     ExportManager* exportManager = [[ExportManager alloc] initWithConfiguration:_exportConfiguration];
     [exportManager setOutputFileURL:outputFileUrl];

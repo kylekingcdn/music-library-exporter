@@ -51,8 +51,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable NSURL*)resolveOutputDirectoryBookmarkAndReturnError:(NSError**)error;
 - (BOOL)saveBookmarkForOutputDirectoryUrl:(nullable NSURL*)outputDirUrl;
 
-- (BOOL)validateOutputDirectoryBookmarkAndReturnError:(NSError**)error;
-
 @end
 
 NS_ASSUME_NONNULL_END
