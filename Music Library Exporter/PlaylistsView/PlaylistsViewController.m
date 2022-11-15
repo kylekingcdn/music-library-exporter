@@ -292,7 +292,7 @@
     [button setTitle:@"Default"];
   }
   else {
-    [button setTitle:[Utils titleForPlaylistSortColumn:sortColumn]];
+    [button setTitle:PlaylistSortColumnNames[sortColumn]];
   }
 }
 
@@ -357,7 +357,7 @@
       return;
     }
     else {
-      MLE_Log_Info(@"PlaylistsViewController [setPlaylistSorting] column: %@", [Utils titleForPlaylistSortColumn:sortColumn]);
+      MLE_Log_Info(@"PlaylistsViewController [setPlaylistSorting] column: %@", PlaylistSortColumnNames[sortColumn]);
       [_exportConfiguration setCustomSortColumn:sortColumn forPlaylist:node.playlistPersistentHexID];
     }
   }
@@ -372,7 +372,7 @@
       return;
     }
     else {
-      MLE_Log_Info(@"PlaylistsViewController [setPlaylistSorting] order: %@", [Utils titleForPlaylistSortOrder:sortOrder]);
+      MLE_Log_Info(@"PlaylistsViewController [setPlaylistSorting] order: %@", PlaylistSortOrderTypeNames[sortOrder]);
       [_exportConfiguration setCustomSortOrder:sortOrder forPlaylist:node.playlistPersistentHexID];
     }
   }

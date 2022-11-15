@@ -23,27 +23,6 @@
   return [NSString stringWithFormat:@"%016llX", persistentId.unsignedLongLongValue];
 }
 
-+ (nullable NSString*)titleForPlaylistSortColumn:(PlaylistSortColumnType)sortColumn {
-
-  switch (sortColumn) {
-    case PlaylistSortColumnTitle: {
-      return @"Title";
-    }
-    case PlaylistSortColumnArtist: {
-      return @"Artist";
-    }
-    case PlaylistSortColumnAlbumArtist: {
-      return @"Album Artist";
-    }
-    case PlaylistSortColumnDateAdded: {
-      return @"Date Added";
-    }
-    case PlaylistSortColumnNull: {
-      return nil;
-    }
-  }
-}
-
 + (PlaylistSortColumnType)playlistSortColumnForTitle:(nullable NSString*)title {
 
   if (title == nil) {
@@ -64,21 +43,6 @@
   }
 
   return PlaylistSortColumnNull;
-}
-
-+ (nullable NSString*)titleForPlaylistSortOrder:(PlaylistSortOrderType)sortOrder {
-
-  switch (sortOrder) {
-    case PlaylistSortOrderAscending: {
-      return @"Ascending";
-    }
-    case PlaylistSortOrderDescending: {
-      return @"Descending";
-    }
-    case PlaylistSortOrderNull: {
-      return nil;
-    }
-  }
 }
 
 + (PlaylistSortOrderType)playlistSortOrderForTitle:(nullable NSString*)title {

@@ -69,10 +69,24 @@ typedef NS_ENUM(NSUInteger, PlaylistSortColumnType) {
   PlaylistSortColumnNull,
 };
 
+static NSString *_Nonnull const PlaylistSortColumnNames[] = {
+  @"Title",
+  @"Artist",
+  @"Album Artist",
+  @"Date Added",
+  nil,
+};
+
 typedef NS_ENUM(NSUInteger, PlaylistSortOrderType) {
   PlaylistSortOrderAscending = 0,
   PlaylistSortOrderDescending,
   PlaylistSortOrderNull,
+};
+
+static NSString *_Nullable const PlaylistSortOrderTypeNames[] = {
+  @"Ascending",
+  @"Descending",
+  nil,
 };
 
 NS_ASSUME_NONNULL_END

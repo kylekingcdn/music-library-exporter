@@ -15,10 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (nullable NSString*)hexStringForPersistentId:(nullable NSNumber*)persistentId;
 
-+ (nullable NSString*)titleForPlaylistSortColumn:(PlaylistSortColumnType)sortColumn;
 + (PlaylistSortColumnType)playlistSortColumnForTitle:(nullable NSString*)title;
-
-+ (nullable NSString*)titleForPlaylistSortOrder:(PlaylistSortOrderType)sortOrder;
 + (PlaylistSortOrderType)playlistSortOrderForTitle:(nullable NSString*)title;
 
 + (nullable NSString*)mediaItemPropertyForSortColumn:(PlaylistSortColumnType)sortColumn;

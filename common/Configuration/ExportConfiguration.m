@@ -364,7 +364,7 @@
 
 - (void)setCustomSortColumn:(PlaylistSortColumnType)sortColumn forPlaylist:(NSString*)playlistId {
 
-  NSString* sortColumnTitle = [Utils titleForPlaylistSortColumn:sortColumn];
+  NSString* sortColumnTitle = PlaylistSortColumnNames[sortColumn];
   NSMutableDictionary* sortColumnDict = [_playlistCustomSortColumnDict mutableCopy];
 
   if (sortColumnTitle) {
@@ -379,7 +379,7 @@
 
 - (void)setCustomSortOrder:(PlaylistSortOrderType)sortOrder forPlaylist:(NSString*)playlistId {
 
-  NSString* sortOrderTitle = [Utils titleForPlaylistSortOrder:sortOrder];
+  NSString* sortOrderTitle = PlaylistSortOrderTypeNames[sortOrder];
   NSMutableDictionary* sortOrderDict = [_playlistCustomSortOrderDict mutableCopy];
 
   if (sortOrderTitle) {

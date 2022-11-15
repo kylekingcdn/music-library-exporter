@@ -329,8 +329,8 @@ NSErrorDomain const __MLE_ErrorDomain_ArgParser = @"com.kylekingcdn.MusicLibrary
     return NO;
   }
 
-  [sortColDict setValue:[Utils titleForPlaylistSortColumn:sortColumn] forKey:playlistId];
-  [sortOrderDict setValue:[Utils titleForPlaylistSortOrder:sortOrder] forKey:playlistId];
+  [sortColDict setValue:PlaylistSortColumnNames[sortColumn] forKey:playlistId];
+  [sortOrderDict setValue:PlaylistSortOrderTypeNames[sortOrder] forKey:playlistId];
 
   return YES;
 }
