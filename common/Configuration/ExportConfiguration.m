@@ -11,9 +11,6 @@
 #import "Utils.h"
 
 
-static ExportConfiguration* _sharedConfig;
-
-
 @implementation ExportConfiguration {
 
   NSString* _musicLibraryPath;
@@ -63,13 +60,6 @@ static ExportConfiguration* _sharedConfig;
 
 
 #pragma mark - Accessors
-
-+ (ExportConfiguration*)sharedConfig {
-
-  NSAssert((_sharedConfig != nil), @"ExportConfiguration sharedConfig has not been initialized!");
-
-  return _sharedConfig;
-}
 
 - (NSString*)musicLibraryPath {
 
@@ -249,13 +239,6 @@ static ExportConfiguration* _sharedConfig;
 
 
 #pragma mark - Mutators
-
-+ (void)initSharedConfig:(ExportConfiguration*)sharedConfig {
-
-  NSAssert((_sharedConfig == nil), @"ExportConfiguration sharedConfig has already been initialized!");
-
-  _sharedConfig = sharedConfig;
-}
 
 - (void)setMusicLibraryPath:(NSString*)musicLibraryPath {
 

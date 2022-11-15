@@ -22,8 +22,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Accessors
 
-+ (ExportConfiguration*)sharedConfig;
-
 - (NSString*)musicLibraryPath;
 
 - (NSString*)generatedPersistentLibraryId;
@@ -62,8 +60,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 #pragma mark - Mutators
-
-+ (void)initSharedConfig:(ExportConfiguration*)sharedConfig;
 
 - (void)setGeneratedPersistentLibraryId:(NSString*)generatedPersistentLibraryId;
 

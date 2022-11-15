@@ -58,9 +58,6 @@
   [_exportConfiguration setOutputDirectoryBookmarkKeySuffix:@"Main"];
   [_exportConfiguration loadPropertiesFromUserDefaults];
 
-  // set shared exportConfiguration
-  [UserDefaultsExportConfiguration initSharedConfig:_exportConfiguration];
-
   // init scheduleConfiguration
   _scheduleConfiguration = [[ScheduleConfiguration alloc] init];
   [_scheduleConfiguration loadPropertiesFromUserDefaults];

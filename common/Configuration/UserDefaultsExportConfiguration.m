@@ -9,8 +9,6 @@
 
 #import "Logger.h"
 
-static UserDefaultsExportConfiguration* _sharedConfig;
-
 
 @implementation UserDefaultsExportConfiguration {
 
@@ -35,13 +33,6 @@ static UserDefaultsExportConfiguration* _sharedConfig;
 
 
 #pragma mark - Accessors
-
-+ (UserDefaultsExportConfiguration*)sharedConfig {
-
-  NSAssert((_sharedConfig != nil), @"UserDefaultsExportConfiguration sharedConfig has not been initialized!");
-
-  return _sharedConfig;
-}
 
 - (NSDictionary*)defaultValues {
 
@@ -87,16 +78,6 @@ static UserDefaultsExportConfiguration* _sharedConfig;
 
 
 #pragma mark - Mutators
-
-+ (void)initSharedConfig:(UserDefaultsExportConfiguration*)sharedConfig {
-
-  NSAssert((_sharedConfig == nil), @"UserDefaultsExportConfiguration sharedConfig has already been initialized!");
-
-  _sharedConfig = sharedConfig;
-
-  // init shared config for superclass
-  [ExportConfiguration initSharedConfig:sharedConfig];
-}
 
 - (void)setMusicLibraryPath:(NSString*)musicLibraryPath {
 
