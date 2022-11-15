@@ -50,9 +50,9 @@ typedef NS_ENUM(NSInteger, ArgParserErrorCode) {
 #pragma mark - Accessors
 
 - (nullable XPMArgumentSignature*)signatureForCommand:(LGCommandKind)command;
-- (nullable XPMArgumentSignature*)signatureForOption:(LGOptionKind)option;
+- (nullable XPMArgumentSignature*)signatureForOption:(CLIOptionKind)option;
 
-- (BOOL)isOptionSet:(LGOptionKind)option;
+- (BOOL)isOptionSet:(CLIOptionKind)option;
 
 - (NSSet<NSNumber*>*)determineCommandTypes;
 

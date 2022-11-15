@@ -20,38 +20,38 @@ typedef NS_ENUM(NSInteger, LGCommandKind) {
   LGCommandKindUnknown,
 };
 
-typedef NS_ENUM(NSInteger, LGOptionKind) {
+typedef NS_ENUM(NSInteger, CLIOptionKind) {
 
   // - shared - //
 
-  LGOptionKindHelp,
+  CLIOptionKindHelp,
 
-  LGOptionKindVersion,
+  CLIOptionKindVersion,
 
-  LGOptionKindReadPrefs,
+  CLIOptionKindReadPrefs,
 
-  LGOptionKindFlatten,
-  LGOptionKindExcludeInternal,
-  LGOptionKindExcludeIds,
+  CLIOptionKindFlatten,
+  CLIOptionKindExcludeInternal,
+  CLIOptionKindExcludeIds,
 
   // - export only - //
 
-  LGOptionKindMusicMediaDirectory,
+  CLIOptionKindMusicMediaDirectory,
 
-  LGOptionKindSort,
-  LGOptionKindRemapSearch,
-  LGOptionKindRemapReplace,
-  LGOptionKindRemapLocalhostPrefix,
-  LGOptionKindOutputPath,
+  CLIOptionKindSort,
+  CLIOptionKindRemapSearch,
+  CLIOptionKindRemapReplace,
+  CLIOptionKindRemapLocalhostPrefix,
+  CLIOptionKindOutputPath,
 
 
-  LGOptionKind_MAX,
+  CLIOptionKind_MAX,
 };
 
 + (nullable NSString*)nameForCommand:(LGCommandKind)command;
-+ (nullable NSString*)nameForOption:(LGOptionKind)option;
++ (nullable NSString*)nameForOption:(CLIOptionKind)option;
 
-+ (nullable NSString*)nameAndValueForOption:(LGOptionKind)option;
++ (nullable NSString*)nameAndValueForOption:(CLIOptionKind)option;
 
 + (NSArray<NSString*>*)commandNames;
 
@@ -60,7 +60,7 @@ typedef NS_ENUM(NSInteger, LGOptionKind) {
 + (NSArray<NSNumber*>*)requiredOptionsForCommand:(LGCommandKind)command;
 
 + (nullable NSString*)signatureFormatForCommand:(LGCommandKind)command;
-+ (nullable NSString*)signatureFormatForOption:(LGOptionKind)option;
++ (nullable NSString*)signatureFormatForOption:(CLIOptionKind)option;
 
 + (NSURL*)fileUrlForAppPreferences;
 

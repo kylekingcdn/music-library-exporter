@@ -16,45 +16,45 @@
 
     case LGCommandKindHelp: {
       return @[
-        @(LGOptionKindHelp)
+        @(CLIOptionKindHelp)
       ];
     }
 
     case LGCommandKindVersion: {
       return @[
-        @(LGOptionKindVersion)
+        @(CLIOptionKindVersion)
       ];
     }
 
     case LGCommandKindPrint: {
       return @[
-        @(LGOptionKindHelp),
-        @(LGOptionKindReadPrefs),
-        @(LGOptionKindFlatten),
-        @(LGOptionKindExcludeInternal),
-        @(LGOptionKindExcludeIds),
+        @(CLIOptionKindHelp),
+        @(CLIOptionKindReadPrefs),
+        @(CLIOptionKindFlatten),
+        @(CLIOptionKindExcludeInternal),
+        @(CLIOptionKindExcludeIds),
       ];
     }
 
     case LGCommandKindExport: {
       return @[
-        @(LGOptionKindHelp),
-        @(LGOptionKindReadPrefs),
-        @(LGOptionKindFlatten),
-        @(LGOptionKindExcludeInternal),
-        @(LGOptionKindExcludeIds),
-        @(LGOptionKindMusicMediaDirectory),
-        @(LGOptionKindSort),
-        @(LGOptionKindRemapSearch),
-        @(LGOptionKindRemapReplace),
-        @(LGOptionKindRemapLocalhostPrefix),
-        @(LGOptionKindOutputPath),
+        @(CLIOptionKindHelp),
+        @(CLIOptionKindReadPrefs),
+        @(CLIOptionKindFlatten),
+        @(CLIOptionKindExcludeInternal),
+        @(CLIOptionKindExcludeIds),
+        @(CLIOptionKindMusicMediaDirectory),
+        @(CLIOptionKindSort),
+        @(CLIOptionKindRemapSearch),
+        @(CLIOptionKindRemapReplace),
+        @(CLIOptionKindRemapLocalhostPrefix),
+        @(CLIOptionKindOutputPath),
       ];
     }
 
     case LGCommandKindUnknown: {
       return @[
-        @(LGOptionKindHelp)
+        @(CLIOptionKindHelp)
       ];
     }
   }
@@ -78,8 +78,8 @@
 
     case LGCommandKindExport: {
       return @[
-        @(LGOptionKindMusicMediaDirectory),
-        @(LGOptionKindOutputPath),
+        @(CLIOptionKindMusicMediaDirectory),
+        @(CLIOptionKindOutputPath),
       ];
     }
 
@@ -110,83 +110,83 @@
   }
 }
 
-+ (nullable NSString*)nameForOption:(LGOptionKind)option {
++ (nullable NSString*)nameForOption:(CLIOptionKind)option {
 
   switch (option) {
 
-    case LGOptionKindHelp: {
+    case CLIOptionKindHelp: {
       return @"--help";
     }
-    case LGOptionKindVersion: {
+    case CLIOptionKindVersion: {
       return @"--version";
     }
 
-    case LGOptionKindReadPrefs: {
+    case CLIOptionKindReadPrefs: {
       return @"--read_prefs";
     }
 
-    case LGOptionKindFlatten: {
+    case CLIOptionKindFlatten: {
       return @"--flatten";
     }
-    case LGOptionKindExcludeInternal: {
+    case CLIOptionKindExcludeInternal: {
       return @"--exclude_internal";
     }
-    case LGOptionKindExcludeIds: {
+    case CLIOptionKindExcludeIds: {
       return @"--exclude_ids";
     }
 
-    case LGOptionKindMusicMediaDirectory: {
+    case CLIOptionKindMusicMediaDirectory: {
       return @"--music_media_dir";
     }
-    case LGOptionKindSort: {
+    case CLIOptionKindSort: {
       return @"--sort";
     }
-    case LGOptionKindRemapSearch: {
+    case CLIOptionKindRemapSearch: {
       return @"--remap_search";
     }
-    case LGOptionKindRemapReplace: {
+    case CLIOptionKindRemapReplace: {
       return @"--remap_replace";
     }
-    case LGOptionKindRemapLocalhostPrefix: {
+    case CLIOptionKindRemapLocalhostPrefix: {
       return @"--localhost_path_prefix";
     }
-    case LGOptionKindOutputPath: {
+    case CLIOptionKindOutputPath: {
       return @"--output_path";
     }
 
-    case LGOptionKind_MAX: {
+    case CLIOptionKind_MAX: {
       return nil;
     }
   }
 }
 
-+ (nullable NSString*)nameAndValueForOption:(LGOptionKind)option {
++ (nullable NSString*)nameAndValueForOption:(CLIOptionKind)option {
 
   NSString* optionName = [CLIDefines nameForOption:option];
 
   switch (option) {
 
-    case LGOptionKindExcludeIds: {
+    case CLIOptionKindExcludeIds: {
       optionName = [optionName stringByAppendingString:@" <playlist_ids>"];
       break;
     }
-    case LGOptionKindMusicMediaDirectory: {
+    case CLIOptionKindMusicMediaDirectory: {
       optionName = [optionName stringByAppendingString:@" <music_dir>"];
       break;
     }
-    case LGOptionKindSort: {
+    case CLIOptionKindSort: {
       optionName = [optionName stringByAppendingString:@" <playlist_sorting_value>"];
       break;
     }
-    case LGOptionKindRemapSearch: {
+    case CLIOptionKindRemapSearch: {
       optionName = [optionName stringByAppendingString:@" <text_to_find>"];
       break;
     }
-    case LGOptionKindRemapReplace: {
+    case CLIOptionKindRemapReplace: {
       optionName = [optionName stringByAppendingString:@" <replacement_text>"];
       break;
     }
-    case LGOptionKindOutputPath: {
+    case CLIOptionKindOutputPath: {
       optionName = [optionName stringByAppendingString:@" <path>"];
       break;
     }
@@ -232,52 +232,52 @@
   }
 }
 
-+ (nullable NSString*)signatureFormatForOption:(LGOptionKind)option {
++ (nullable NSString*)signatureFormatForOption:(CLIOptionKind)option {
 
   switch (option) {
 
-    case LGOptionKindHelp: {
+    case CLIOptionKindHelp: {
       return [CLIDefines signatureFormatForCommand:LGCommandKindHelp];
     }
 
-    case LGOptionKindVersion: {
+    case CLIOptionKindVersion: {
       return [CLIDefines signatureFormatForCommand:LGCommandKindVersion];
     }
 
-    case LGOptionKindReadPrefs: {
+    case CLIOptionKindReadPrefs: {
       return @"[-p --read_prefs]";
     }
 
-    case LGOptionKindFlatten: {
+    case CLIOptionKindFlatten: {
       return @"[-f --flatten]";
     }
-    case LGOptionKindExcludeInternal: {
+    case CLIOptionKindExcludeInternal: {
       return @"[-n --exclude_internal]";
     }
-    case LGOptionKindExcludeIds: {
+    case CLIOptionKindExcludeIds: {
       return @"[-e --exclude_ids]={1,1}";
     }
 
-    case LGOptionKindMusicMediaDirectory: {
+    case CLIOptionKindMusicMediaDirectory: {
       return @"[-m --music_media_dir]={1,1}";
     }
-    case LGOptionKindSort: {
+    case CLIOptionKindSort: {
       return @"[--sort]={1,1}";
     }
-    case LGOptionKindRemapSearch: {
+    case CLIOptionKindRemapSearch: {
       return @"[-s --remap_search]={1,1}";
     }
-    case LGOptionKindRemapReplace: {
+    case CLIOptionKindRemapReplace: {
       return @"[-r --remap_replace]={1,1}";
     }
-    case LGOptionKindRemapLocalhostPrefix: {
+    case CLIOptionKindRemapLocalhostPrefix: {
       return @"[--localhost_path_prefix]";
     }
-    case LGOptionKindOutputPath: {
+    case CLIOptionKindOutputPath: {
       return @"[-o --output_path]={1,1}";
     }
 
-    case LGOptionKind_MAX: {
+    case CLIOptionKind_MAX: {
       return nil;
     }
   }

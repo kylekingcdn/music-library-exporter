@@ -62,14 +62,14 @@ NSErrorDomain const __MLE_ErrorDomain_ArgParser = @"com.kylekingcdn.MusicLibrary
   return [_commandSignatures objectForKey:@(command)];
 }
 
-- (nullable XPMArgumentSignature*)signatureForOption:(LGOptionKind)option {
+- (nullable XPMArgumentSignature*)signatureForOption:(CLIOptionKind)option {
 
   return [_optionSignatures objectForKey:@(option)];
 }
 
-- (BOOL)isOptionSet:(LGOptionKind)option {
+- (BOOL)isOptionSet:(CLIOptionKind)option {
 
-  if (option == LGOptionKind_MAX) {
+  if (option == CLIOptionKind_MAX) {
     return NO;
   }
 
@@ -104,7 +104,7 @@ NSErrorDomain const __MLE_ErrorDomain_ArgParser = @"com.kylekingcdn.MusicLibrary
 
 - (BOOL)readPrefsEnabled {
 
-  XPMArgumentSignature* readPrefsSignature = [self signatureForOption:LGOptionKindReadPrefs];
+  XPMArgumentSignature* readPrefsSignature = [self signatureForOption:CLIOptionKindReadPrefs];
   if (readPrefsSignature == nil) {
     return NO;
   }
@@ -126,21 +126,21 @@ NSErrorDomain const __MLE_ErrorDomain_ArgParser = @"com.kylekingcdn.MusicLibrary
   }
 
   // --flatten
-  if ([self isOptionSet:LGOptionKindFlatten]) {
+  if ([self isOptionSet:CLIOptionKindFlatten]) {
 
-    [configuration setFlattenPlaylistHierarchy:[_package booleanValueForSignature:[self signatureForOption:LGOptionKindFlatten]]];
+    [configuration setFlattenPlaylistHierarchy:[_package booleanValueForSignature:[self signatureForOption:CLIOptionKindFlatten]]];
   }
 
   // --exclude_internal
-  if ([self isOptionSet:LGOptionKindExcludeInternal]) {
+  if ([self isOptionSet:CLIOptionKindExcludeInternal]) {
 
-    [configuration setIncludeInternalPlaylists:![_package booleanValueForSignature:[self signatureForOption:LGOptionKindExcludeInternal]]];
+    [configuration setIncludeInternalPlaylists:![_package booleanValueForSignature:[self signatureForOption:CLIOptionKindExcludeInternal]]];
   }
 
   // --exclude_ids
-  if ([self isOptionSet:LGOptionKindExcludeIds]) {
+  if ([self isOptionSet:CLIOptionKindExcludeIds]) {
 
-    NSString* excludedIdsStr = [_package firstObjectForSignature:[self signatureForOption:LGOptionKindExcludeIds]];
+    NSString* excludedIdsStr = [_package firstObjectForSignature:[self signatureForOption:CLIOptionKindExcludeIds]];
 
     if (excludedIdsStr) {
 
@@ -154,9 +154,9 @@ NSErrorDomain const __MLE_ErrorDomain_ArgParser = @"com.kylekingcdn.MusicLibrary
   }
 
   // --music_media_dir
-  if ([self isOptionSet:LGOptionKindMusicMediaDirectory]) {
+  if ([self isOptionSet:CLIOptionKindMusicMediaDirectory]) {
 
-    NSString* musicMediaDir = [_package firstObjectForSignature:[self signatureForOption:LGOptionKindMusicMediaDirectory]];
+    NSString* musicMediaDir = [_package firstObjectForSignature:[self signatureForOption:CLIOptionKindMusicMediaDirectory]];
 
     if (musicMediaDir) {
       [configuration setMusicLibraryPath:musicMediaDir];
@@ -164,9 +164,9 @@ NSErrorDomain const __MLE_ErrorDomain_ArgParser = @"com.kylekingcdn.MusicLibrary
   }
 
   // --sort
-  if ([self isOptionSet:LGOptionKindSort]) {
+  if ([self isOptionSet:CLIOptionKindSort]) {
 
-    NSString* playlistSortingOpt = [_package firstObjectForSignature:[self signatureForOption:LGOptionKindSort]];
+    NSString* playlistSortingOpt = [_package firstObjectForSignature:[self signatureForOption:CLIOptionKindSort]];
     if (playlistSortingOpt) {
 
       NSMutableDictionary* sortColumnDict = [NSMutableDictionary dictionary];
@@ -183,12 +183,12 @@ NSErrorDomain const __MLE_ErrorDomain_ArgParser = @"com.kylekingcdn.MusicLibrary
   }
 
   // --remap-*
-  if ([self isOptionSet:LGOptionKindRemapSearch] || [self isOptionSet:LGOptionKindRemapReplace]) {
+  if ([self isOptionSet:CLIOptionKindRemapSearch] || [self isOptionSet:CLIOptionKindRemapReplace]) {
 
     [configuration setRemapRootDirectory:YES];
 
-    NSString* remapSearch = [_package firstObjectForSignature:[self signatureForOption:LGOptionKindRemapSearch]];
-    NSString* remapReplace = [_package firstObjectForSignature:[self signatureForOption:LGOptionKindRemapReplace]];
+    NSString* remapSearch = [_package firstObjectForSignature:[self signatureForOption:CLIOptionKindRemapSearch]];
+    NSString* remapReplace = [_package firstObjectForSignature:[self signatureForOption:CLIOptionKindRemapReplace]];
 
     if (remapSearch) {
       [configuration setRemapRootDirectoryOriginalPath:remapSearch];
@@ -200,15 +200,15 @@ NSErrorDomain const __MLE_ErrorDomain_ArgParser = @"com.kylekingcdn.MusicLibrary
   }
 
   // --localhost_path_prefix
-  if ([self isOptionSet:LGOptionKindRemapLocalhostPrefix]) {
-    BOOL remapLocalhostPrefix = [_package booleanValueForSignature:[self signatureForOption:LGOptionKindRemapLocalhostPrefix]];
+  if ([self isOptionSet:CLIOptionKindRemapLocalhostPrefix]) {
+    BOOL remapLocalhostPrefix = [_package booleanValueForSignature:[self signatureForOption:CLIOptionKindRemapLocalhostPrefix]];
     [configuration setRemapRootDirectoryLocalhostPrefix:remapLocalhostPrefix];
   }
 
   // --output_path
-  if ([self isOptionSet:LGOptionKindOutputPath]) {
+  if ([self isOptionSet:CLIOptionKindOutputPath]) {
 
-    NSString* outputFilePath = [_package firstObjectForSignature:[self signatureForOption:LGOptionKindOutputPath]];
+    NSString* outputFilePath = [_package firstObjectForSignature:[self signatureForOption:CLIOptionKindOutputPath]];
 
     if (outputFilePath) {
 
@@ -272,7 +272,7 @@ NSErrorDomain const __MLE_ErrorDomain_ArgParser = @"com.kylekingcdn.MusicLibrary
 
   NSLog(@"Options:");
 
-  for (LGOptionKind option = LGOptionKindHelp; option < LGOptionKind_MAX; option++) {
+  for (CLIOptionKind option = CLIOptionKindHelp; option < CLIOptionKind_MAX; option++) {
 
     BOOL isSet = [self isOptionSet:option];
 
@@ -423,7 +423,7 @@ NSErrorDomain const __MLE_ErrorDomain_ArgParser = @"com.kylekingcdn.MusicLibrary
   // add help signature to both
   XPMArgumentSignature* helpSignature = [XPMArgumentSignature argumentSignatureWithFormat:[CLIDefines signatureFormatForCommand:LGCommandKindHelp]];
   [commandSignatures setObject:helpSignature forKey:@(LGCommandKindHelp)];
-  [optionSignatures setObject:helpSignature forKey:@(LGOptionKindHelp)];
+  [optionSignatures setObject:helpSignature forKey:@(CLIOptionKindHelp)];
 
   // init command signatures dict
   for (LGCommandKind command = LGCommandKindHelp + 1; command < LGCommandKindUnknown; command++) {
@@ -434,7 +434,7 @@ NSErrorDomain const __MLE_ErrorDomain_ArgParser = @"com.kylekingcdn.MusicLibrary
   }
 
   // init option signatures dict
-  for (LGOptionKind option = LGOptionKindHelp + 1; option < LGOptionKind_MAX; option++) {
+  for (CLIOptionKind option = CLIOptionKindHelp + 1; option < CLIOptionKind_MAX; option++) {
 
     NSString* signatureFormat = [CLIDefines signatureFormatForOption:option];
     XPMArgumentSignature* optionSignature = [XPMArgumentSignature argumentSignatureWithFormat:signatureFormat];
@@ -552,7 +552,7 @@ NSErrorDomain const __MLE_ErrorDomain_ArgParser = @"com.kylekingcdn.MusicLibrary
 //  // validate required options have been specified
 //  for (NSNumber* optionType in requiredOptions) {
 //
-//    LGOptionKind option = [optionType integerValue];
+//    CLIOptionKind option = [optionType integerValue];
 //    XPMArgumentSignature* sig = [self signatureForOption:option];
 //    NSUInteger sigCount = [_package countOfSignature:sig];
 //    if (sigCount == 0) {
