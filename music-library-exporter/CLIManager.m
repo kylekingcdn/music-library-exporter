@@ -562,8 +562,6 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
 
   // generate config
   _configuration = [[ExportConfiguration alloc] init];
-  [ExportConfiguration initSharedConfig:_configuration];
-  
   if (![argParser populateExportConfiguration:_configuration error:error]) {
     return NO;
   }
