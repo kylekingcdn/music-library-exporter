@@ -74,6 +74,19 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
   }
 }
 
+- (instancetype)initWithExportConfiguration:(UserDefaultsExportConfiguration*)exportConfiguration {
+
+  if (self = [self init]) {
+
+    _exportConfiguration = exportConfiguration;
+
+    return self;
+  }
+  else {
+    return nil;
+  }
+}
+
 
 #pragma mark - Accessors
 

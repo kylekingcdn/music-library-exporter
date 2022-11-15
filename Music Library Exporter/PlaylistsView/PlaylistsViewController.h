@@ -9,7 +9,7 @@
 
 #import "Defines.h"
 
-@class ExportConfiguration;
+@class UserDefaultsExportConfiguration;
 @class PlaylistTreeNode;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -28,6 +28,7 @@ typedef NS_ENUM(NSInteger, TableColumnType) {
 #pragma mark - Initializers
 
 - (instancetype)init;
+- (instancetype)initWithExportConfiguration:(UserDefaultsExportConfiguration*)exportConfiguration;
 
 
 #pragma mark - Accessors

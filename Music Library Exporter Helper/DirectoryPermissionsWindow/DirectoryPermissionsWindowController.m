@@ -33,6 +33,19 @@
   }
 }
 
+- (instancetype)initWithExportConfiguration:(ExportConfiguration*)exportConfiguration {
+
+  if (self = [self init]) {
+
+    _exportConfiguration = exportConfiguration;
+
+    return self;
+  }
+  else {
+    return nil;
+  }
+}
+
 - (void)windowDidLoad {
 
   [super windowDidLoad];

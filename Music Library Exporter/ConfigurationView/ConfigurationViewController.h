@@ -10,6 +10,8 @@
 #import "Defines.h"
 #import "ExportManagerDelegate.h"
 
+@class UserDefaultsExportConfiguration;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ConfigurationViewController : NSViewController<ExportManagerDelegate>
@@ -26,6 +28,7 @@ typedef NS_ENUM(NSInteger, ConfigurationViewErrorCode) {
 #pragma mark - Initializers
 
 - (instancetype)init;
+- (instancetype)initWithExportConfiguration:(UserDefaultsExportConfiguration*)exportConfiguration;
 
 
 #pragma mark - Accessors

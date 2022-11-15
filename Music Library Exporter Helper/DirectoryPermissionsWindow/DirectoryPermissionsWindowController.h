@@ -7,6 +7,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class ExportConfiguration;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DirectoryPermissionsWindowController : NSWindowController
@@ -15,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Initializers
 
 - (instancetype)init;
+- (instancetype)initWithExportConfiguration:(ExportConfiguration*)exportConfiguration;
 
 
 #pragma mark - Mutators

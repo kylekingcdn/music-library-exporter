@@ -62,6 +62,19 @@
   }
 }
 
+- (instancetype)initWithExportConfiguration:(UserDefaultsExportConfiguration*)exportConfiguration {
+
+  if (self = [self init]) {
+
+    _exportConfiguration = exportConfiguration;
+
+    return self;
+  }
+  else {
+    return nil;
+  }
+}
+
 
 #pragma mark - Accessors
 
