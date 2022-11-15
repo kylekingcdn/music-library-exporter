@@ -69,14 +69,15 @@ static UserDefaultsExportConfiguration* _sharedConfig;
     nil
   ];
 }
+
 - (NSString*)outputDirectoryBookmarkKey {
 
-  if (_outputDirectoryBookmarkKeySuffix == nil || _outputDirectoryBookmarkKeySuffix.length == 0) {
-    return @"OutputDirectoryBookmark";
+  NSString* key = @"OutputDirectoryBookmark";
+  if (_outputDirectoryBookmarkKeySuffix != nil) {
+    key = [key stringByAppendingString:_outputDirectoryBookmarkKeySuffix];
   }
-  else {
-    return [NSString stringWithFormat:@"OutputDirectoryBookmark%@", _outputDirectoryBookmarkKeySuffix];
-  }
+
+  return key;
 }
 
 - (nullable NSData*)fetchOutputDirectoryBookmarkData {

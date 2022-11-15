@@ -9,12 +9,10 @@
 
 #import "Defines.h"
 
-
-NS_ASSUME_NONNULL_BEGIN
-
 @class ExportConfiguration;
 @class PlaylistTreeNode;
 
+NS_ASSUME_NONNULL_BEGIN
 
 @interface PlaylistsViewController : NSViewController <NSOutlineViewDelegate, NSOutlineViewDataSource>
 
