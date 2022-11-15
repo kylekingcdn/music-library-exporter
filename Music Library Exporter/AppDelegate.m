@@ -63,10 +63,10 @@
   [_scheduleConfiguration loadPropertiesFromUserDefaults];
 
   // detect changes in NSUSerDefaults for app group
-  [_groupDefaults addObserver:self forKeyPath:@"ScheduleEnabled" options:NSKeyValueObservingOptionNew context:NULL];
-  [_groupDefaults addObserver:self forKeyPath:@"ScheduleInterval" options:NSKeyValueObservingOptionNew context:NULL];
-  [_groupDefaults addObserver:self forKeyPath:@"LastExportedAt" options:NSKeyValueObservingOptionNew context:NULL];
-  [_groupDefaults addObserver:self forKeyPath:@"NextExportAt" options:NSKeyValueObservingOptionNew context:NULL];
+  [_groupDefaults addObserver:self forKeyPath:ScheduleConfigurationKeyScheduleEnabled options:NSKeyValueObservingOptionNew context:NULL];
+  [_groupDefaults addObserver:self forKeyPath:ScheduleConfigurationKeyScheduleInterval options:NSKeyValueObservingOptionNew context:NULL];
+  [_groupDefaults addObserver:self forKeyPath:ScheduleConfigurationKeyLastExportedAt options:NSKeyValueObservingOptionNew context:NULL];
+  [_groupDefaults addObserver:self forKeyPath:ScheduleConfigurationKeyNextExportAt options:NSKeyValueObservingOptionNew context:NULL];
   [_groupDefaults addObserver:self forKeyPath:ExportConfigurationKeyOutputDirectoryPath options:NSKeyValueObservingOptionNew context:NULL];
 
   // init helper manager and ensure helper registration status matches configuration value for scheduleEnabled
@@ -107,16 +107,16 @@
 
   MLE_Log_Info(@"AppDelegate [observeValueForKeyPath:%@]", aKeyPath);
 
-  if ([aKeyPath isEqualToString:@"ScheduleInterval"] ||
-      [aKeyPath isEqualToString:@"LastExportedAt"] ||
-      [aKeyPath isEqualToString:@"NextExportAt"] ||
-      [aKeyPath isEqualToString:@"ScheduleEnabled"] ||
+  if ([aKeyPath isEqualToString:ScheduleConfigurationKeyScheduleInterval] ||
+      [aKeyPath isEqualToString:ScheduleConfigurationKeyLastExportedAt] ||
+      [aKeyPath isEqualToString:ScheduleConfigurationKeyNextExportAt] ||
+      [aKeyPath isEqualToString:ScheduleConfigurationKeyScheduleEnabled] ||
       [aKeyPath isEqualToString:ExportConfigurationKeyOutputDirectoryPath]) {
 
     [_scheduleConfiguration loadPropertiesFromUserDefaults];
     [_configurationViewController updateFromConfiguration];
 
-    if ([aKeyPath isEqualToString:@"ScheduleEnabled"]) {
+    if ([aKeyPath isEqualToString:ScheduleConfigurationKeyScheduleEnabled]) {
       [_helperAppManager updateHelperRegistrationWithScheduleEnabled:_scheduleConfiguration.scheduleEnabled];
     }
   }

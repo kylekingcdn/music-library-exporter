@@ -47,11 +47,11 @@
 - (NSDictionary*)defaultValues {
 
   return [NSDictionary dictionaryWithObjectsAndKeys:
-    @NO,             @"ScheduleEnabled",
-    @3600,              @"ScheduleInterval",
-//    nil,             @"LastExportedAt",
-//    nil,             @"NextExportAt",
-    @NO,             @"SkipOnBattery",
+    @NO,             ScheduleConfigurationKeyScheduleEnabled,
+    @3600,              ScheduleConfigurationKeyScheduleInterval,
+//    nil,             ScheduleConfigurationKeyLastExportedAt,
+//    nil,             ScheduleConfigurationKeyNextExportAt,
+    @NO,             ScheduleConfigurationKeySkipOnBattery,
     nil
   ];
 }
@@ -101,13 +101,13 @@
   [_userDefaults registerDefaults:[self defaultValues]];
 
   // read user defaults
-  _scheduleEnabled = [_userDefaults boolForKey:@"ScheduleEnabled"];
-  _scheduleInterval = [_userDefaults doubleForKey:@"ScheduleInterval"];
+  _scheduleEnabled = [_userDefaults boolForKey:ScheduleConfigurationKeyScheduleEnabled];
+  _scheduleInterval = [_userDefaults doubleForKey:ScheduleConfigurationKeyScheduleInterval];
 
-  _lastExportedAt = [_userDefaults valueForKey:@"LastExportedAt"];
-  _nextExportAt = [_userDefaults valueForKey:@"NextExportAt"];
+  _lastExportedAt = [_userDefaults valueForKey:ScheduleConfigurationKeyLastExportedAt];
+  _nextExportAt = [_userDefaults valueForKey:ScheduleConfigurationKeyNextExportAt];
 
-  _skipOnBattery = [_userDefaults boolForKey:@"SkipOnBattery"];
+  _skipOnBattery = [_userDefaults boolForKey:ScheduleConfigurationKeySkipOnBattery];
 }
 
 - (void)setScheduleEnabled:(BOOL)flag {
@@ -116,7 +116,7 @@
 
   _scheduleEnabled = flag;
 
-  [_userDefaults setBool:_scheduleEnabled forKey:@"ScheduleEnabled"];
+  [_userDefaults setBool:_scheduleEnabled forKey:ScheduleConfigurationKeyScheduleEnabled];
 }
 
 - (void)setScheduleInterval:(NSTimeInterval)interval {
@@ -127,7 +127,7 @@
     
     _scheduleInterval = interval;
 
-    [_userDefaults setDouble:_scheduleInterval forKey:@"ScheduleInterval"];
+    [_userDefaults setDouble:_scheduleInterval forKey:ScheduleConfigurationKeyScheduleInterval];
   }
 }
 
@@ -139,7 +139,7 @@
 
     _lastExportedAt = timestamp;
 
-    [_userDefaults setValue:_lastExportedAt forKey:@"LastExportedAt"];
+    [_userDefaults setValue:_lastExportedAt forKey:ScheduleConfigurationKeyLastExportedAt];
   }
 }
 
@@ -151,7 +151,7 @@
 
     _nextExportAt = timestamp;
 
-    [_userDefaults setValue:_nextExportAt forKey:@"NextExportAt"];
+    [_userDefaults setValue:_nextExportAt forKey:ScheduleConfigurationKeyNextExportAt];
   }
 }
 
@@ -161,7 +161,13 @@
 
   _skipOnBattery = flag;
 
-  [_userDefaults setBool:_skipOnBattery forKey:@"SkipOnBattery"];
+  [_userDefaults setBool:_skipOnBattery forKey:ScheduleConfigurationKeySkipOnBattery];
 }
 
 @end
+
+NSString* const ScheduleConfigurationKeyScheduleEnabled = @"ScheduleEnabled";
+NSString* const ScheduleConfigurationKeyScheduleInterval = @"ScheduleInterval";
+NSString* const ScheduleConfigurationKeyLastExportedAt = @"LastExportedAt";
+NSString* const ScheduleConfigurationKeyNextExportAt = @"NextExportAt";
+NSString* const ScheduleConfigurationKeySkipOnBattery = @"SkipOnBattery";

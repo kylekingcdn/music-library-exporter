@@ -39,9 +39,9 @@
 
     // detect changes in NSUSerDefaults for app group
     _groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
-    [_groupDefaults addObserver:self forKeyPath:@"ScheduleEnabled" options:NSKeyValueObservingOptionNew context:NULL];
-    [_groupDefaults addObserver:self forKeyPath:@"ScheduleInterval" options:NSKeyValueObservingOptionNew context:NULL];
-    [_groupDefaults addObserver:self forKeyPath:@"LastExportedAt" options:NSKeyValueObservingOptionNew context:NULL];
+    [_groupDefaults addObserver:self forKeyPath:ScheduleConfigurationKeyScheduleEnabled options:NSKeyValueObservingOptionNew context:NULL];
+    [_groupDefaults addObserver:self forKeyPath:ScheduleConfigurationKeyScheduleInterval options:NSKeyValueObservingOptionNew context:NULL];
+    [_groupDefaults addObserver:self forKeyPath:ScheduleConfigurationKeyLastExportedAt options:NSKeyValueObservingOptionNew context:NULL];
     [_groupDefaults addObserver:self forKeyPath:ExportConfigurationKeyOutputDirectoryPath options:NSKeyValueObservingOptionNew context:NULL];
 
     _exportConfiguration = nil;
@@ -270,9 +270,9 @@
 
   MLE_Log_Info(@"ExportScheduler [observeValueForKeyPath:%@]", keyPath);
 
-  if ([keyPath isEqualToString:@"ScheduleEnabled"] ||
-      [keyPath isEqualToString:@"ScheduleInterval"] ||
-      [keyPath isEqualToString:@"LastExportedAt"] ||
+  if ([keyPath isEqualToString:ScheduleConfigurationKeyScheduleEnabled] ||
+      [keyPath isEqualToString:ScheduleConfigurationKeyScheduleInterval] ||
+      [keyPath isEqualToString:ScheduleConfigurationKeyLastExportedAt] ||
       [keyPath isEqualToString:ExportConfigurationKeyOutputDirectoryPath]) {
 
     // fetch latest configuration values

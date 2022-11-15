@@ -45,8 +45,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setSkipOnBattery:(BOOL)flag;
 
-
-
 @end
+
+extern NSString* const ScheduleConfigurationKeyScheduleEnabled;
+extern NSString* const ScheduleConfigurationKeyScheduleInterval;
+extern NSString* const ScheduleConfigurationKeyLastExportedAt;
+extern NSString* const ScheduleConfigurationKeyNextExportAt;
+extern NSString* const ScheduleConfigurationKeySkipOnBattery;
 
 NS_ASSUME_NONNULL_END
