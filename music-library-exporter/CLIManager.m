@@ -231,7 +231,7 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
 
 - (void)printVersion {
 
-  printf("music-library-exporter %s\n", [LG_VERSION UTF8String]);
+  printf("music-library-exporter %s\n", [CLI_VERSION UTF8String]);
 }
 
 - (void)printPlaylists {
