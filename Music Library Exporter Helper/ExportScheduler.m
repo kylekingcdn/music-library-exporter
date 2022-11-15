@@ -291,7 +291,7 @@
     _permissionsWindowController = nil;
   }
 
-  _permissionsWindowController = [[DirectoryPermissionsWindowController alloc] initWithExportConfiguration:_exportConfiguration];
+  _permissionsWindowController = [[DirectoryPermissionsWindowController alloc] initWithExportConfiguration:_exportConfiguration andScheduleConfiguration:_scheduleConfiguration];
   [_permissionsWindowController.window center];
   [_permissionsWindowController.window makeKeyAndOrderFront:self];
 }

@@ -8,6 +8,7 @@
 #import <Cocoa/Cocoa.h>
 
 @class ExportConfiguration;
+@class ScheduleConfiguration;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,7 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Initializers
 
 - (instancetype)init;
-- (instancetype)initWithExportConfiguration:(ExportConfiguration*)exportConfiguration;
+- (instancetype)initWithExportConfiguration:(ExportConfiguration*)exportConfiguration
+                   andScheduleConfiguration:(ScheduleConfiguration*)scheduleConfiguration;
 
 
 #pragma mark - Mutators

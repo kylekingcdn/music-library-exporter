@@ -15,6 +15,7 @@
 @implementation DirectoryPermissionsWindowController {
 
   ExportConfiguration* _exportConfiguration;
+  ScheduleConfiguration* _scheduleConfiguration;
 }
 
 
@@ -25,6 +26,7 @@
   if (self = [super initWithWindowNibName:@"DirectoryPermissionsWindow"]) {
 
     _exportConfiguration = nil;
+    _scheduleConfiguration = nil;
 
     return self;
   }
@@ -33,11 +35,13 @@
   }
 }
 
-- (instancetype)initWithExportConfiguration:(ExportConfiguration*)exportConfiguration {
+- (instancetype)initWithExportConfiguration:(ExportConfiguration*)exportConfiguration
+                   andScheduleConfiguration:(ScheduleConfiguration*)scheduleConfiguration {
 
   if (self = [self init]) {
 
     _exportConfiguration = exportConfiguration;
+    _scheduleConfiguration = scheduleConfiguration;
 
     return self;
   }
@@ -81,8 +85,8 @@
   [alert setAlertStyle:NSAlertStyleCritical];
   [alert runModal];
 
-  [[ScheduleConfiguration sharedConfig] setNextExportAt:nil];
-  [[ScheduleConfiguration sharedConfig] setScheduleEnabled:NO];
+  [_scheduleConfiguration setNextExportAt:nil];
+  [_scheduleConfiguration setScheduleEnabled:NO];
   [[NSApplication sharedApplication] setActivationPolicy:NSApplicationActivationPolicyProhibited];
 
   [self close];
