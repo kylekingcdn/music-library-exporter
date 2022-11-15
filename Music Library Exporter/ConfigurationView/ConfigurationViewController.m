@@ -9,7 +9,6 @@
 
 #import "Logger.h"
 #import "Utils.h"
-#import "HelperAppManager.h"
 #import "UserDefaultsExportConfiguration.h"
 #import "ScheduleConfiguration.h"
 #import "HourNumberFormatter.h"
@@ -51,8 +50,6 @@
 
 @implementation ConfigurationViewController {
 
-  HelperAppManager* _helperAppManager;
-
   HourNumberFormatter* _scheduleIntervalHourFormatter;
 }
 
@@ -66,8 +63,6 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
 
   if (self = [super initWithNibName:@"ConfigurationView" bundle:nil]) {
 
-    _helperAppManager = nil;
-
     _scheduleIntervalHourFormatter = nil;
 
     return self;
@@ -75,24 +70,6 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
   else {
     return nil;
   }
-}
-
-- (instancetype)initWithHelperAppManager:(HelperAppManager*)helperAppManager {
-
-  if (self = [self init]) {
-
-    _helperAppManager = helperAppManager;
-
-    // ensure helper registration status matches configuration value for scheduleEnabled
-    [_helperAppManager updateHelperRegistrationWithScheduleEnabled:ScheduleConfiguration.sharedConfig.scheduleEnabled];
-
-    return self;
-  }
-  else {
-    return nil;
-  }
-
-  return self;
 }
 
 

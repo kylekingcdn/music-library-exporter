@@ -75,9 +75,11 @@
   [_groupDefaults addObserver:self forKeyPath:@"NextExportAt" options:NSKeyValueObservingOptionNew context:NULL];
   [_groupDefaults addObserver:self forKeyPath:@"OutputDirectoryPath" options:NSKeyValueObservingOptionNew context:NULL];
 
+  // init helper manager and ensure helper registration status matches configuration value for scheduleEnabled
   _helperAppManager = [[HelperAppManager alloc] init];
+  [_helperAppManager updateHelperRegistrationWithScheduleEnabled:ScheduleConfiguration.sharedConfig.scheduleEnabled];
 
-  _configurationViewController = [[ConfigurationViewController alloc] initWithHelperAppManager:_helperAppManager];
+  _configurationViewController = [[ConfigurationViewController alloc] init];
   // add configurationView to window contentview
   [_configurationViewController.view setFrame:_window.contentView.frame];
   [_window.contentView addSubview:_configurationViewController.view];
