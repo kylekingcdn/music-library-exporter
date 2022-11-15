@@ -20,7 +20,7 @@
   UserDefaultsExportConfiguration* _exportConfiguration;
 
   ScheduleConfiguration* _scheduleConfiguration;
-  ExportScheduler* _scheduleDelegate;
+  ExportScheduler* _exportScheduler;
 }
 
 
@@ -33,7 +33,7 @@
     _exportConfiguration = nil;
 
     _scheduleConfiguration = nil;
-    _scheduleDelegate = nil;
+    _exportScheduler = nil;
     
     return self;
   }
@@ -65,12 +65,12 @@
   [ScheduleConfiguration initSharedConfig:_scheduleConfiguration];
 
   // init scheduleDelegate
-  _scheduleDelegate = [[ExportScheduler alloc] init];
+  _exportScheduler = [[ExportScheduler alloc] init];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
 
-  [_scheduleDelegate deactivateScheduler];
+  [_exportScheduler deactivateScheduler];
 
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
