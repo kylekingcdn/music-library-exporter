@@ -41,8 +41,8 @@
 
     // detect changes in NSUSerDefaults for app group
     _groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
-    [_groupDefaults addObserver:self forKeyPath:@"FlattenPlaylistHierarchy" options:NSKeyValueObservingOptionNew context:NULL];
-    [_groupDefaults addObserver:self forKeyPath:@"IncludeInternalPlaylists" options:NSKeyValueObservingOptionNew context:NULL];
+    [_groupDefaults addObserver:self forKeyPath:ExportConfigurationKeyFlattenPlaylistHierarchy options:NSKeyValueObservingOptionNew context:NULL];
+    [_groupDefaults addObserver:self forKeyPath:ExportConfigurationKeyIncludeInternalPlaylists options:NSKeyValueObservingOptionNew context:NULL];
 
     _exportConfiguration = nil;
 
@@ -495,8 +495,8 @@
 
   MLE_Log_Info(@"PlaylistsViewController [observeValueForKeyPath:%@]", aKeyPath);
 
-  if ([aKeyPath isEqualToString:@"FlattenPlaylistHierarchy"] ||
-      [aKeyPath isEqualToString:@"IncludeInternalPlaylists"]) {
+  if ([aKeyPath isEqualToString:ExportConfigurationKeyFlattenPlaylistHierarchy] ||
+      [aKeyPath isEqualToString:ExportConfigurationKeyIncludeInternalPlaylists]) {
 
     [self initPlaylistNodes];
     [_outlineView reloadData];

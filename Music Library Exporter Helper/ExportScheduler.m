@@ -42,7 +42,7 @@
     [_groupDefaults addObserver:self forKeyPath:@"ScheduleEnabled" options:NSKeyValueObservingOptionNew context:NULL];
     [_groupDefaults addObserver:self forKeyPath:@"ScheduleInterval" options:NSKeyValueObservingOptionNew context:NULL];
     [_groupDefaults addObserver:self forKeyPath:@"LastExportedAt" options:NSKeyValueObservingOptionNew context:NULL];
-    [_groupDefaults addObserver:self forKeyPath:@"OutputDirectoryPath" options:NSKeyValueObservingOptionNew context:NULL];
+    [_groupDefaults addObserver:self forKeyPath:ExportConfigurationKeyOutputDirectoryPath options:NSKeyValueObservingOptionNew context:NULL];
 
     _exportConfiguration = nil;
     _scheduleConfiguration = nil;
@@ -273,7 +273,7 @@
   if ([keyPath isEqualToString:@"ScheduleEnabled"] ||
       [keyPath isEqualToString:@"ScheduleInterval"] ||
       [keyPath isEqualToString:@"LastExportedAt"] ||
-      [keyPath isEqualToString:@"OutputDirectoryPath"]) {
+      [keyPath isEqualToString:ExportConfigurationKeyOutputDirectoryPath]) {
 
     // fetch latest configuration values
     [_scheduleConfiguration loadPropertiesFromUserDefaults];

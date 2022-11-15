@@ -396,50 +396,65 @@
 
   MLE_Log_Info(@"ExportConfiguration [loadValuesFromDictionary] (dict key count:%lu)", dict.count);
 
-  if ([dict objectForKey:@"MusicLibraryPath"]) {
-    [self setMusicLibraryPath:[dict valueForKey:@"MusicLibraryPath"]];
+  if ([dict objectForKey:ExportConfigurationKeyMusicLibraryPath]) {
+    [self setMusicLibraryPath:[dict valueForKey:ExportConfigurationKeyMusicLibraryPath]];
   }
   
-  if ([dict objectForKey:@"GeneratedPersistentLibraryId"]) {
-    [self setGeneratedPersistentLibraryId:[dict valueForKey:@"GeneratedPersistentLibraryId"]];
+  if ([dict objectForKey:ExportConfigurationKeyGeneratedPersistentLibraryId]) {
+    [self setGeneratedPersistentLibraryId:[dict valueForKey:ExportConfigurationKeyGeneratedPersistentLibraryId]];
   }
 
-  if ([dict objectForKey:@"OutputDirectoryPath"]) {
-    [self setOutputDirectoryPath:[dict valueForKey:@"OutputDirectoryPath"]];
+  if ([dict objectForKey:ExportConfigurationKeyOutputDirectoryPath]) {
+    [self setOutputDirectoryPath:[dict valueForKey:ExportConfigurationKeyOutputDirectoryPath]];
   }
-  if ([dict objectForKey:@"OutputFileName"]) {
-    [self setOutputFileName:[dict valueForKey:@"OutputFileName"]];
-  }
-
-  if ([dict objectForKey:@"RemapRootDirectory"]) {
-    [self setRemapRootDirectory:[[dict objectForKey:@"RemapRootDirectory"] boolValue]];
-  }
-  if ([dict objectForKey:@"RemapRootDirectoryOriginalPath"]) {
-    [self setRemapRootDirectoryOriginalPath:[dict valueForKey:@"RemapRootDirectoryOriginalPath"]];
-  }
-  if ([dict objectForKey:@"RemapRootDirectoryMappedPath"]) {
-    [self setRemapRootDirectoryMappedPath:[dict valueForKey:@"RemapRootDirectoryMappedPath"]];
-  }
-  if ([dict objectForKey:@"RemapRootDirectoryLocalhostPrefix"]) {
-    [self setRemapRootDirectoryLocalhostPrefix:[[dict objectForKey:@"RemapRootDirectoryLocalhostPrefix"] boolValue]];
+  if ([dict objectForKey:ExportConfigurationKeyOutputFileName]) {
+    [self setOutputFileName:[dict valueForKey:ExportConfigurationKeyOutputFileName]];
   }
 
-  if ([dict objectForKey:@"FlattenPlaylistHierarchy"]) {
-    [self setFlattenPlaylistHierarchy:[[dict objectForKey:@"FlattenPlaylistHierarchy"] boolValue]];
+  if ([dict objectForKey:ExportConfigurationKeyRemapRootDirectory]) {
+    [self setRemapRootDirectory:[[dict objectForKey:ExportConfigurationKeyRemapRootDirectory] boolValue]];
   }
-  if ([dict objectForKey:@"IncludeInternalPlaylists"]) {
-    [self setIncludeInternalPlaylists:[[dict objectForKey:@"IncludeInternalPlaylists"] boolValue]];
+  if ([dict objectForKey:ExportConfigurationKeyRemapRootDirectoryOriginalPath]) {
+    [self setRemapRootDirectoryOriginalPath:[dict valueForKey:ExportConfigurationKeyRemapRootDirectoryOriginalPath]];
   }
-  if ([dict objectForKey:@"ExcludedPlaylistPersistentIds"]) {
-    [self setExcludedPlaylistPersistentIds:[NSSet setWithArray:[dict valueForKey:@"ExcludedPlaylistPersistentIds"]]];
+  if ([dict objectForKey:ExportConfigurationKeyRemapRootDirectoryMappedPath]) {
+    [self setRemapRootDirectoryMappedPath:[dict valueForKey:ExportConfigurationKeyRemapRootDirectoryMappedPath]];
+  }
+  if ([dict objectForKey:ExportConfigurationKeyRemapRootDirectoryLocalhostPrefix]) {
+    [self setRemapRootDirectoryLocalhostPrefix:[[dict objectForKey:ExportConfigurationKeyRemapRootDirectoryLocalhostPrefix] boolValue]];
   }
 
-  if ([dict objectForKey:@"PlaylistCustomSortColumns"]) {
-    [self setCustomSortColumnDict:[dict valueForKey:@"PlaylistCustomSortColumns"]];
+  if ([dict objectForKey:ExportConfigurationKeyFlattenPlaylistHierarchy]) {
+    [self setFlattenPlaylistHierarchy:[[dict objectForKey:ExportConfigurationKeyFlattenPlaylistHierarchy] boolValue]];
   }
-  if ([dict objectForKey:@"PlaylistCustomSortOrders"]) {
-    [self setCustomSortOrderDict:[dict valueForKey:@"PlaylistCustomSortOrders"]];
+  if ([dict objectForKey:ExportConfigurationKeyIncludeInternalPlaylists]) {
+    [self setIncludeInternalPlaylists:[[dict objectForKey:ExportConfigurationKeyIncludeInternalPlaylists] boolValue]];
+  }
+  if ([dict objectForKey:ExportConfigurationKeyExcludedPlaylistPersistentIds]) {
+    [self setExcludedPlaylistPersistentIds:[NSSet setWithArray:[dict valueForKey:ExportConfigurationKeyExcludedPlaylistPersistentIds]]];
+  }
+
+  if ([dict objectForKey:ExportConfigurationKeyPlaylistCustomSortColumns]) {
+    [self setCustomSortColumnDict:[dict valueForKey:ExportConfigurationKeyPlaylistCustomSortColumns]];
+  }
+  if ([dict objectForKey:ExportConfigurationKeyPlaylistCustomSortOrders]) {
+    [self setCustomSortOrderDict:[dict valueForKey:ExportConfigurationKeyPlaylistCustomSortOrders]];
   }
 }
 
 @end
+
+NSString* const ExportConfigurationKeyMusicLibraryPath = @"MusicLibraryPath";
+NSString* const ExportConfigurationKeyGeneratedPersistentLibraryId = @"GeneratedPersistentLibraryId";
+NSString* const ExportConfigurationKeyOutputDirectoryPath = @"OutputDirectoryPath";
+NSString* const ExportConfigurationKeyOutputDirectoryBookmark = @"OutputDirectoryBookmark";
+NSString* const ExportConfigurationKeyOutputFileName = @"OutputFileName";
+NSString* const ExportConfigurationKeyRemapRootDirectory = @"RemapRootDirectory";
+NSString* const ExportConfigurationKeyRemapRootDirectoryOriginalPath = @"RemapRootDirectoryOriginalPath";
+NSString* const ExportConfigurationKeyRemapRootDirectoryMappedPath = @"RemapRootDirectoryMappedPath";
+NSString* const ExportConfigurationKeyRemapRootDirectoryLocalhostPrefix = @"RemapRootDirectoryLocalhostPrefix";
+NSString* const ExportConfigurationKeyFlattenPlaylistHierarchy = @"FlattenPlaylistHierarchy";
+NSString* const ExportConfigurationKeyIncludeInternalPlaylists = @"IncludeInternalPlaylists";
+NSString* const ExportConfigurationKeyExcludedPlaylistPersistentIds = @"ExcludedPlaylistPersistentIds";
+NSString* const ExportConfigurationKeyPlaylistCustomSortColumns = @"PlaylistCustomSortColumns";
+NSString* const ExportConfigurationKeyPlaylistCustomSortOrders = @"PlaylistCustomSortOrders";

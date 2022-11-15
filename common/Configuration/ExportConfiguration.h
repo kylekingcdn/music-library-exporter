@@ -93,4 +93,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+extern NSString* const ExportConfigurationKeyMusicLibraryPath;
+extern NSString* const ExportConfigurationKeyGeneratedPersistentLibraryId;
+extern NSString* const ExportConfigurationKeyOutputDirectoryPath;
+extern NSString* const ExportConfigurationKeyOutputDirectoryBookmark;
+extern NSString* const ExportConfigurationKeyOutputFileName;
+extern NSString* const ExportConfigurationKeyRemapRootDirectory;
+extern NSString* const ExportConfigurationKeyRemapRootDirectoryOriginalPath;
+extern NSString* const ExportConfigurationKeyRemapRootDirectoryMappedPath;
+extern NSString* const ExportConfigurationKeyRemapRootDirectoryLocalhostPrefix;
+extern NSString* const ExportConfigurationKeyFlattenPlaylistHierarchy;
+extern NSString* const ExportConfigurationKeyIncludeInternalPlaylists;
+extern NSString* const ExportConfigurationKeyExcludedPlaylistPersistentIds;
+extern NSString* const ExportConfigurationKeyPlaylistCustomSortColumns;
+extern NSString* const ExportConfigurationKeyPlaylistCustomSortOrders;
+
 NS_ASSUME_NONNULL_END

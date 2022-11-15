@@ -67,7 +67,7 @@
   [_groupDefaults addObserver:self forKeyPath:@"ScheduleInterval" options:NSKeyValueObservingOptionNew context:NULL];
   [_groupDefaults addObserver:self forKeyPath:@"LastExportedAt" options:NSKeyValueObservingOptionNew context:NULL];
   [_groupDefaults addObserver:self forKeyPath:@"NextExportAt" options:NSKeyValueObservingOptionNew context:NULL];
-  [_groupDefaults addObserver:self forKeyPath:@"OutputDirectoryPath" options:NSKeyValueObservingOptionNew context:NULL];
+  [_groupDefaults addObserver:self forKeyPath:ExportConfigurationKeyOutputDirectoryPath options:NSKeyValueObservingOptionNew context:NULL];
 
   // init helper manager and ensure helper registration status matches configuration value for scheduleEnabled
   _helperAppManager = [[HelperAppManager alloc] init];
@@ -111,7 +111,7 @@
       [aKeyPath isEqualToString:@"LastExportedAt"] ||
       [aKeyPath isEqualToString:@"NextExportAt"] ||
       [aKeyPath isEqualToString:@"ScheduleEnabled"] ||
-      [aKeyPath isEqualToString:@"OutputDirectoryPath"]) {
+      [aKeyPath isEqualToString:ExportConfigurationKeyOutputDirectoryPath]) {
 
     [_scheduleConfiguration loadPropertiesFromUserDefaults];
     [_configurationViewController updateFromConfiguration];

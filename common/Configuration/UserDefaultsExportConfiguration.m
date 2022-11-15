@@ -37,25 +37,25 @@
 - (NSDictionary*)defaultValues {
 
   return [NSDictionary dictionaryWithObjectsAndKeys:
-    @"",             @"MusicLibraryPath",
+    @"",             ExportConfigurationKeyMusicLibraryPath,
 
-//  @"",             @"GeneratedPersistentLibraryId", /* we want this to be nil if it doesn't exist */
+//  @"",             ExportConfigurationKeyGeneratedPersistentLibraryId, /* nil */
 
-//  @"",             @"OutputDirectoryBookmark", /* we want this to be nil if it doesn't exist */
-    @"",             @"OutputDirectoryPath",
-    @"",             @"OutputFileName",
+//  @"",             ExportConfigurationKeyOutputDirectoryBookmark, /* nil */
+    @"",             ExportConfigurationKeyOutputDirectoryPath,
+    @"",             ExportConfigurationKeyOutputFileName,
 
-    @NO,             @"RemapRootDirectory",
-    @"",             @"RemapRootDirectoryOriginalPath",
-    @"",             @"RemapRootDirectoryMappedPath",
-    @NO,             @"RemapRootDirectoryLocalhostPrefix",
+    @NO,             ExportConfigurationKeyRemapRootDirectory,
+    @"",             ExportConfigurationKeyRemapRootDirectoryOriginalPath,
+    @"",             ExportConfigurationKeyRemapRootDirectoryMappedPath,
+    @NO,             ExportConfigurationKeyRemapRootDirectoryLocalhostPrefix,
 
-    @NO,             @"FlattenPlaylistHierarchy",
-    @YES,            @"IncludeInternalPlaylists",
-    @[],             @"ExcludedPlaylistPersistentIds",
+    @NO,             ExportConfigurationKeyFlattenPlaylistHierarchy,
+    @YES,            ExportConfigurationKeyIncludeInternalPlaylists,
+    @[],             ExportConfigurationKeyExcludedPlaylistPersistentIds,
 
-    @{},             @"PlaylistCustomSortColumns",
-    @{},             @"PlaylistCustomSortOrders",
+    @{},             ExportConfigurationKeyPlaylistCustomSortColumns,
+    @{},             ExportConfigurationKeyPlaylistCustomSortOrders,
 
     nil
   ];
@@ -63,7 +63,7 @@
 
 - (NSString*)outputDirectoryBookmarkKey {
 
-  NSString* key = @"OutputDirectoryBookmark";
+  NSString* key = ExportConfigurationKeyOutputDirectoryBookmark;
   if (_outputDirectoryBookmarkKeySuffix != nil) {
     key = [key stringByAppendingString:_outputDirectoryBookmarkKeySuffix];
   }
@@ -71,26 +71,20 @@
   return key;
 }
 
-- (nullable NSData*)fetchOutputDirectoryBookmarkData {
-
-  return [_userDefaults dataForKey: [self outputDirectoryBookmarkKey]];
-}
-
-
 #pragma mark - Mutators
 
 - (void)setMusicLibraryPath:(NSString*)musicLibraryPath {
 
   [super setMusicLibraryPath:musicLibraryPath];
 
-  [_userDefaults setValue:musicLibraryPath forKey:@"MusicLibraryPath"];
+  [_userDefaults setValue:musicLibraryPath forKey:ExportConfigurationKeyMusicLibraryPath];
 }
 
 - (void)setGeneratedPersistentLibraryId:(NSString*)generatedPersistentLibraryId {
 
   [super setGeneratedPersistentLibraryId:generatedPersistentLibraryId];
 
-  [_userDefaults setValue:generatedPersistentLibraryId forKey:@"GeneratedPersistentLibraryId"];
+  [_userDefaults setValue:generatedPersistentLibraryId forKey:ExportConfigurationKeyGeneratedPersistentLibraryId];
 }
 
 - (void)setOutputDirectoryUrl:(nullable NSURL*)dirUrl {
@@ -112,91 +106,91 @@
 
   [super setOutputDirectoryPath:dirPath];
 
-  [_userDefaults setValue:dirPath forKey:@"OutputDirectoryPath"];
+  [_userDefaults setValue:dirPath forKey:ExportConfigurationKeyOutputDirectoryPath];
 }
 
 - (void)setOutputFileName:(NSString*)fileName {
 
   [super setOutputFileName:fileName];
 
-  [_userDefaults setValue:fileName forKey:@"OutputFileName"];
+  [_userDefaults setValue:fileName forKey:ExportConfigurationKeyOutputFileName];
 }
 
 - (void)setRemapRootDirectory:(BOOL)flag {
 
   [super setRemapRootDirectory:flag];
 
-  [_userDefaults setBool:flag forKey:@"RemapRootDirectory"];
+  [_userDefaults setBool:flag forKey:ExportConfigurationKeyRemapRootDirectory];
 }
 
 - (void)setRemapRootDirectoryOriginalPath:(NSString*)originalPath {
 
   [super setRemapRootDirectoryOriginalPath:originalPath];
 
-  [_userDefaults setValue:originalPath forKey:@"RemapRootDirectoryOriginalPath"];
+  [_userDefaults setValue:originalPath forKey:ExportConfigurationKeyRemapRootDirectoryOriginalPath];
 }
 
 - (void)setRemapRootDirectoryMappedPath:(NSString*)mappedPath {
 
   [super setRemapRootDirectoryMappedPath:mappedPath];
 
-  [_userDefaults setValue:mappedPath forKey:@"RemapRootDirectoryMappedPath"];
+  [_userDefaults setValue:mappedPath forKey:ExportConfigurationKeyRemapRootDirectoryMappedPath];
 }
 
 - (void)setRemapRootDirectoryLocalhostPrefix:(BOOL)flag {
 
   [super setRemapRootDirectoryLocalhostPrefix:flag];
 
-  [_userDefaults setBool:flag forKey:@"RemapRootDirectoryLocalhostPrefix"];
+  [_userDefaults setBool:flag forKey:ExportConfigurationKeyRemapRootDirectoryLocalhostPrefix];
 }
 
 - (void)setFlattenPlaylistHierarchy:(BOOL)flag {
 
   [super setFlattenPlaylistHierarchy:flag];
 
-  [_userDefaults setBool:flag forKey:@"FlattenPlaylistHierarchy"];
+  [_userDefaults setBool:flag forKey:ExportConfigurationKeyFlattenPlaylistHierarchy];
 }
 
 - (void)setIncludeInternalPlaylists:(BOOL)flag {
 
   [super setIncludeInternalPlaylists:flag];
 
-  [_userDefaults setBool:flag forKey:@"IncludeInternalPlaylists"];
+  [_userDefaults setBool:flag forKey:ExportConfigurationKeyIncludeInternalPlaylists];
 }
 
 - (void)setExcludedPlaylistPersistentIds:(NSSet<NSString*>*)excludedIds {
 
   [super setExcludedPlaylistPersistentIds:excludedIds];
 
-  [_userDefaults setObject:[excludedIds allObjects] forKey:@"ExcludedPlaylistPersistentIds"];
+  [_userDefaults setObject:[excludedIds allObjects] forKey:ExportConfigurationKeyExcludedPlaylistPersistentIds];
 }
 
 - (void)addExcludedPlaylistPersistentId:(NSString*)playlistId {
 
   [super addExcludedPlaylistPersistentId:playlistId];
   
-  [_userDefaults setObject:[[super excludedPlaylistPersistentIds] allObjects] forKey:@"ExcludedPlaylistPersistentIds"];
+  [_userDefaults setObject:[[super excludedPlaylistPersistentIds] allObjects] forKey:ExportConfigurationKeyExcludedPlaylistPersistentIds];
 }
 
 - (void)removeExcludedPlaylistPersistentId:(NSString*)playlistId {
 
   [super removeExcludedPlaylistPersistentId:playlistId];
 
-  [_userDefaults setObject:[[super excludedPlaylistPersistentIds] allObjects] forKey:@"ExcludedPlaylistPersistentIds"];
+  [_userDefaults setObject:[[super excludedPlaylistPersistentIds] allObjects] forKey:ExportConfigurationKeyExcludedPlaylistPersistentIds];
 }
 
 - (void)setCustomSortColumnDict:(NSDictionary*)dict {
 
   [super setCustomSortColumnDict:dict];
 
-  [_userDefaults setObject:dict forKey:@"PlaylistCustomSortColumns"];
+  [_userDefaults setObject:dict forKey:ExportConfigurationKeyPlaylistCustomSortColumns];
 }
 
 - (void)setCustomSortOrderDict:(NSDictionary*)dict {
 
   [super setCustomSortOrderDict:dict];
 
-  [_userDefaults setObject:dict forKey:@"PlaylistCustomSortOrders"];
+  [_userDefaults setObject:dict forKey:ExportConfigurationKeyPlaylistCustomSortOrders];
 }
 
 - (void)loadPropertiesFromUserDefaults {
@@ -226,7 +220,7 @@
   MLE_Log_Info(@"UserDefaultsExportConfiguration [resolveOutputDirectoryBookmarkAndReturnError]");
 
   // fetch output directory bookmark data
-  NSData* outputDirBookmarkData = [self fetchOutputDirectoryBookmarkData];
+  NSData* outputDirBookmarkData = [_userDefaults dataForKey: [self outputDirectoryBookmarkKey]];
 
   // no bookmark has been saved yet
   if (outputDirBookmarkData == nil) {
