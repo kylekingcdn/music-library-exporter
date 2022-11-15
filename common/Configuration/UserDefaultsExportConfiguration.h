@@ -14,12 +14,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UserDefaultsExportConfiguration : ExportConfiguration
 
-@property NSString* outputDirectoryBookmarkKeySuffix;
-
 
 #pragma mark - Initializers
 
 - (instancetype)init;
+- (instancetype)initWithOutputDirectoryBookmarkKeySuffix:(NSString*)suffix;
 
 
 #pragma mark - Mutators

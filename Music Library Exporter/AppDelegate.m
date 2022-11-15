@@ -54,8 +54,7 @@
 #endif
 
   // init exportConfiguration
-  _exportConfiguration = [[UserDefaultsExportConfiguration alloc] init];
-  [_exportConfiguration setOutputDirectoryBookmarkKeySuffix:@"Main"];
+  _exportConfiguration = [[UserDefaultsExportConfiguration alloc] initWithOutputDirectoryBookmarkKeySuffix:@"Main"];
   [_exportConfiguration loadPropertiesFromUserDefaults];
 
   // init scheduleConfiguration

@@ -13,6 +13,8 @@
 @implementation UserDefaultsExportConfiguration {
 
   NSUserDefaults* _userDefaults;
+
+  NSString* _outputDirectoryBookmarkKeySuffix;
 }
 
 
@@ -23,7 +25,21 @@
   if (self = [super init]) {
 
     _userDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
-    
+    _outputDirectoryBookmarkKeySuffix = nil;
+
+    return self;
+  }
+  else {
+    return nil;
+  }
+}
+
+- (instancetype)initWithOutputDirectoryBookmarkKeySuffix:(NSString*)suffix {
+
+  if (self = [self init]) {
+
+    _outputDirectoryBookmarkKeySuffix = suffix;
+
     return self;
   }
   else {
