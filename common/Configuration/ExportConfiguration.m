@@ -204,7 +204,7 @@
   return sortOrder;
 }
 
-- (NSString*)generatePersistentLibraryId {
++ (NSString*)generatePersistentLibraryId {
 
   NSArray<NSString*>* uuidParts = [[NSUUID UUID].UUIDString componentsSeparatedByString:@"-"];
   NSString* newLibraryId = [NSString stringWithFormat:@"%@%@", [uuidParts objectAtIndex:uuidParts.count-2], [uuidParts lastObject]];

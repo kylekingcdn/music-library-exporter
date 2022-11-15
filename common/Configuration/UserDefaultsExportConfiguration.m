@@ -39,9 +39,9 @@
   return [NSDictionary dictionaryWithObjectsAndKeys:
     @"",             ExportConfigurationKeyMusicLibraryPath,
 
-//  @"",             ExportConfigurationKeyGeneratedPersistentLibraryId, /* nil */
+//  nil,             ExportConfigurationKeyGeneratedPersistentLibraryId,
 
-//  @"",             ExportConfigurationKeyOutputDirectoryBookmark, /* nil */
+//  nil,             ExportConfigurationKeyOutputDirectoryBookmark,
     @"",             ExportConfigurationKeyOutputDirectoryPath,
     @"",             ExportConfigurationKeyOutputFileName,
 
@@ -204,7 +204,7 @@
   [super loadValuesFromDictionary:[_userDefaults dictionaryRepresentation]];
 
   if ([self generatedPersistentLibraryId] == nil) {
-    [self setGeneratedPersistentLibraryId:[self generatePersistentLibraryId]];
+    [self setGeneratedPersistentLibraryId:[ExportConfiguration generatePersistentLibraryId]];
   }
 }
 

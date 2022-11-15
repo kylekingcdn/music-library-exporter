@@ -122,7 +122,7 @@ NSErrorDomain const __MLE_ErrorDomain_ArgParser = @"com.kylekingcdn.MusicLibrary
 
   // generate new persistent library id if not set
   if (configuration.generatedPersistentLibraryId == nil) {
-    [configuration setGeneratedPersistentLibraryId:[configuration generatePersistentLibraryId]];
+    [configuration setGeneratedPersistentLibraryId:[ExportConfiguration generatePersistentLibraryId]];
   }
 
   // --flatten

@@ -48,9 +48,9 @@
 
   return [NSDictionary dictionaryWithObjectsAndKeys:
     @NO,             ScheduleConfigurationKeyScheduleEnabled,
-    @3600,              ScheduleConfigurationKeyScheduleInterval,
-//    nil,             ScheduleConfigurationKeyLastExportedAt,
-//    nil,             ScheduleConfigurationKeyNextExportAt,
+    @3600,           ScheduleConfigurationKeyScheduleInterval,
+//  nil,             ScheduleConfigurationKeyLastExportedAt,
+//  nil,             ScheduleConfigurationKeyNextExportAt,
     @NO,             ScheduleConfigurationKeySkipOnBattery,
     nil
   ];

@@ -22,14 +22,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init;
 
 
-#pragma mark - Accessors
-
-- (NSDictionary*)defaultValues;
-
-- (NSString*)outputDirectoryBookmarkKey;
-- (nullable NSData*)fetchOutputDirectoryBookmarkData;
-
-
 #pragma mark - Mutators
 
 - (void)setMusicLibraryPath:(NSString*)musicLibraryPath;
