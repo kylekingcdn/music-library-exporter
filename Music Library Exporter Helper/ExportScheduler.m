@@ -23,6 +23,7 @@
   NSUserDefaults* _groupDefaults;
 
   UserDefaultsExportConfiguration* _exportConfiguration;
+  ScheduleConfiguration* _scheduleConfiguration;
 
   NSTimer* _timer;
 
@@ -44,6 +45,7 @@
     [_groupDefaults addObserver:self forKeyPath:@"OutputDirectoryPath" options:NSKeyValueObservingOptionNew context:NULL];
 
     _exportConfiguration = nil;
+    _scheduleConfiguration = nil;
 
     _timer = nil;
 

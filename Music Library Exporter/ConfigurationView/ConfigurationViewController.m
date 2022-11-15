@@ -51,6 +51,8 @@
 @implementation ConfigurationViewController {
 
   UserDefaultsExportConfiguration* _exportConfiguration;
+
+  ScheduleConfiguration* _scheduleConfiguration;
   HourNumberFormatter* _scheduleIntervalHourFormatter;
 }
 
@@ -65,6 +67,8 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
   if (self = [super initWithNibName:@"ConfigurationView" bundle:nil]) {
 
     _exportConfiguration = nil;
+
+    _scheduleConfiguration = nil;
     _scheduleIntervalHourFormatter = nil;
 
     return self;
