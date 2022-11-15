@@ -16,8 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PlaylistsViewController : NSViewController <NSOutlineViewDelegate, NSOutlineViewDataSource>
 
-typedef NS_ENUM(NSInteger, TableColumnType) {
-  NullColumn,
+typedef NS_ENUM(NSUInteger, TableColumnType) {
+  NullColumn = 0,
   TitleColumn,
   KindColumn,
   ItemsColumn,

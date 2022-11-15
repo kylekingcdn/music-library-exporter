@@ -21,8 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 extern NSErrorDomain const __MLE_ErrorDomain_ArgParser;
 
-typedef NS_ENUM(NSInteger, ArgParserErrorCode) {
-  ArgParserErrorUknown,
+typedef NS_ENUM(NSUInteger, ArgParserErrorCode) {
+  ArgParserErrorUknown = 0,
   ArgParserErrorInvalidCommand,
   ArgParserErrorInvalidOption,
   ArgParserErrorMissingRequiredOption,

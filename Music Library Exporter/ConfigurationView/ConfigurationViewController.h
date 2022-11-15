@@ -20,8 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 extern NSErrorDomain const __MLE_ErrorDomain_ConfigurationView;
 
-typedef NS_ENUM(NSInteger, ConfigurationViewErrorCode) {
-  ConfigurationViewErrorUknown,
+typedef NS_ENUM(NSUInteger, ConfigurationViewErrorCode) {
+  ConfigurationViewErrorUknown = 0,
   ConfigurationViewErrorOutputDirectoryUnwritable,
 };
 

@@ -12,19 +12,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CLIDefines : NSObject
 
-typedef NS_ENUM(NSInteger, CLICommandKind) {
-  CLICommandKindHelp,
+typedef NS_ENUM(NSUInteger, CLICommandKind) {
+  CLICommandKindHelp = 0,
   CLICommandKindVersion,
   CLICommandKindPrint,
   CLICommandKindExport,
   CLICommandKindUnknown,
 };
 
-typedef NS_ENUM(NSInteger, CLIOptionKind) {
+typedef NS_ENUM(NSUInteger, CLIOptionKind) {
 
   // - shared - //
 
-  CLIOptionKindHelp,
+  CLIOptionKindHelp = 0,
 
   CLIOptionKindVersion,
 

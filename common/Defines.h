@@ -16,8 +16,8 @@ extern NSString* const __MLE__AppGroupIdentifier;
 extern NSString* const __MLE__AppBundleIdentifier;
 extern NSString* const __MLE__HelperBundleIdentifier;
 
-typedef NS_ENUM(NSInteger, ExportState) {
-  ExportStopped,
+typedef NS_ENUM(NSUInteger, ExportState) {
+  ExportStopped = 0,
   ExportPreparing,
   ExportGeneratingTracks,
   ExportGeneratingPlaylists,
@@ -27,8 +27,8 @@ typedef NS_ENUM(NSInteger, ExportState) {
   ExportError
 };
 
-typedef NS_ENUM(NSInteger, ExportDeferralReason) {
-  ExportDeferralOnBatteryReason,
+typedef NS_ENUM(NSUInteger, ExportDeferralReason) {
+  ExportDeferralOnBatteryReason = 0,
   ExportDeferralMainAppOpenReason,
   ExportDeferralErrorReason,
   ExportDeferralUnknownReason,

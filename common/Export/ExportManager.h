@@ -21,8 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 extern NSErrorDomain const __MLE_ErrorDomain_ExportManager;
 
-typedef NS_ENUM(NSInteger, ExportManagerErrorCode) {
-  ExportManagerErrorMusicMediaLocationUnset,
+typedef NS_ENUM(NSUInteger, ExportManagerErrorCode) {
+  ExportManagerErrorMusicMediaLocationUnset = 0,
   ExportManagerErrorOutputDirectoryInvalid,
   ExportManagerErrorRemappingInvalid,
   ExportManagerErrorBusyState,

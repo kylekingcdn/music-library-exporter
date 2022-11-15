@@ -20,8 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 extern NSErrorDomain const __MLE_ErrorDomain_CLIManager;
 
-typedef NS_ENUM(NSInteger, CLIManagerErrorCode) {
-  CLIManagerErrorUknown,
+typedef NS_ENUM(NSUInteger, CLIManagerErrorCode) {
+  CLIManagerErrorUknown = 0,
   CLIManagerErrorInvalidOutputPath,
   CLIManagerErrorInvalidMusicMediaDirectory,
   CLIManagerErrorInvalidRemapping,
