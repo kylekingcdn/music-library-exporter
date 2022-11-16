@@ -600,7 +600,7 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
 
 #pragma mark - ExportManagerDelegate
 
-- (void) exportStateChangedFrom:(ExportState)oldState toState:(ExportState)newState {
+- (void)exportStateChangedFrom:(ExportState)oldState toState:(ExportState)newState {
 
   switch (oldState) {
     case ExportFinished:
@@ -665,14 +665,14 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
   }
 }
 
-- (void) exportedItems:(NSUInteger)exportedItems ofTotal:(NSUInteger)totalItems {
+- (void)exportedItems:(NSUInteger)exportedItems ofTotal:(NSUInteger)totalItems {
 
   if (_printProgress) {
     [self drawProgressBarWithStatus:@"generating tracks" forCurrentValue:exportedItems andTotalValue:totalItems];
   }
 }
 
-- (void) exportedPlaylists:(NSUInteger)exportedPlaylists ofTotal:(NSUInteger)totalPlaylists {
+- (void)exportedPlaylists:(NSUInteger)exportedPlaylists ofTotal:(NSUInteger)totalPlaylists {
 
   if (_printProgress) {
     [self drawProgressBarWithStatus:@"generating playlists" forCurrentValue:exportedPlaylists andTotalValue:totalPlaylists];

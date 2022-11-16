@@ -304,7 +304,6 @@
   }
   else if (self.isOutputDirectoryBookmarkValid) {
     MLE_Log_Info(@"ExportScheduler [requestOutputDirectoryPermissionsIfRequired] output dir bookmark is valid, permissions grant not required");
-
   }
   else {
     MLE_Log_Info(@"ExportScheduler [requestOutputDirectoryPermissionsIfRequired] output dir bookmark is either not valid or inconsistent. Triggering prompt for permissions grant");

@@ -488,7 +488,7 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
 
 #pragma mark - ExportManagerDelegate
 
-- (void) exportStateChangedFrom:(ExportState)oldState toState:(ExportState)newState {
+- (void)exportStateChangedFrom:(ExportState)oldState toState:(ExportState)newState {
 
   NSString* stateDescription = ExportStateNames[newState];
 
@@ -517,7 +517,7 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
   });
 }
 
-- (void) exportedItems:(NSUInteger)exportedItems ofTotal:(NSUInteger)totalItems {
+- (void)exportedItems:(NSUInteger)exportedItems ofTotal:(NSUInteger)totalItems {
 
   // handle UI updates in main thread
   dispatch_async(dispatch_get_main_queue(), ^{
@@ -529,7 +529,7 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
   });
 }
 
-- (void) exportedPlaylists:(NSUInteger)exportedPlaylists ofTotal:(NSUInteger)totalPlaylists {
+- (void)exportedPlaylists:(NSUInteger)exportedPlaylists ofTotal:(NSUInteger)totalPlaylists {
 
 }
 
