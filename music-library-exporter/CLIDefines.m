@@ -160,44 +160,6 @@
   }
 }
 
-+ (nullable NSString*)nameAndValueForOption:(CLIOptionKind)option {
-
-  NSString* optionName = [CLIDefines nameForOption:option];
-
-  switch (option) {
-
-    case CLIOptionKindExcludeIds: {
-      optionName = [optionName stringByAppendingString:@" <playlist_ids>"];
-      break;
-    }
-    case CLIOptionKindMusicMediaDirectory: {
-      optionName = [optionName stringByAppendingString:@" <music_dir>"];
-      break;
-    }
-    case CLIOptionKindSort: {
-      optionName = [optionName stringByAppendingString:@" <playlist_sorting_value>"];
-      break;
-    }
-    case CLIOptionKindRemapSearch: {
-      optionName = [optionName stringByAppendingString:@" <text_to_find>"];
-      break;
-    }
-    case CLIOptionKindRemapReplace: {
-      optionName = [optionName stringByAppendingString:@" <replacement_text>"];
-      break;
-    }
-    case CLIOptionKindOutputPath: {
-      optionName = [optionName stringByAppendingString:@" <path>"];
-      break;
-    }
-    default: {
-      break;
-    }
-  }
-
-  return optionName;
-}
-
 + (NSArray<NSString*>*)commandNames {
 
   NSMutableArray<NSString*>* names = [NSMutableArray array];

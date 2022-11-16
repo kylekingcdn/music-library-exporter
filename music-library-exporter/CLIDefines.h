@@ -51,12 +51,9 @@ typedef NS_ENUM(NSUInteger, CLIOptionKind) {
 + (nullable NSString*)nameForCommand:(CLICommandKind)command;
 + (nullable NSString*)nameForOption:(CLIOptionKind)option;
 
-+ (nullable NSString*)nameAndValueForOption:(CLIOptionKind)option;
-
 + (NSArray<NSString*>*)commandNames;
 
 + (NSArray<NSNumber*>*)optionsForCommand:(CLICommandKind)command;
-
 + (NSArray<NSNumber*>*)requiredOptionsForCommand:(CLICommandKind)command;
 
 + (nullable NSString*)signatureFormatForCommand:(CLICommandKind)command;
