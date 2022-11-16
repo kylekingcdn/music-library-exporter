@@ -18,6 +18,8 @@
 
 @implementation HelperAppDelegate {
 
+  NSUserDefaults* _groupDefaults;
+
   UserDefaultsExportConfiguration* _exportConfiguration;
 
   ScheduleConfiguration* _scheduleConfiguration;
@@ -31,6 +33,13 @@
 
   if (self = [super init]) {
 
+    // detect changes in NSUSerDefaults for app group
+    _groupDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
+    [_groupDefaults addObserver:self forKeyPath:ScheduleConfigurationKeyScheduleEnabled options:NSKeyValueObservingOptionNew context:NULL];
+    [_groupDefaults addObserver:self forKeyPath:ScheduleConfigurationKeyScheduleInterval options:NSKeyValueObservingOptionNew context:NULL];
+    [_groupDefaults addObserver:self forKeyPath:ScheduleConfigurationKeyLastExportedAt options:NSKeyValueObservingOptionNew context:NULL];
+    [_groupDefaults addObserver:self forKeyPath:ExportConfigurationKeyOutputDirectoryPath options:NSKeyValueObservingOptionNew context:NULL];
+
     _exportConfiguration = nil;
 
     _scheduleConfiguration = nil;
@@ -42,7 +51,6 @@
     return nil;
   }
 }
-
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 
@@ -71,6 +79,24 @@
   [_exportScheduler deactivateScheduler];
 
   [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)observeValueForKeyPath:(NSString*)keyPath ofObject:(id)anObject change:(NSDictionary*)aChange context:(void*)aContext {
+
+  MLE_Log_Info(@"HelperAppDelegate [observeValueForKeyPath:%@]", keyPath);
+
+  if ([keyPath isEqualToString:ScheduleConfigurationKeyScheduleEnabled] ||
+      [keyPath isEqualToString:ScheduleConfigurationKeyScheduleInterval] ||
+      [keyPath isEqualToString:ScheduleConfigurationKeyLastExportedAt] ||
+      [keyPath isEqualToString:ExportConfigurationKeyOutputDirectoryPath]) {
+
+    // fetch latest configuration values
+    [_scheduleConfiguration loadPropertiesFromUserDefaults];
+    [_exportConfiguration loadPropertiesFromUserDefaults];
+
+    [_exportScheduler requestOutputDirectoryPermissionsIfRequired];
+    [_exportScheduler updateSchedule];
+  }
 }
 
 @end
