@@ -7,6 +7,7 @@
 
 #import "CLIDefines.h"
 
+#import "Defines.h"
 
 @implementation CLIDefines
 
@@ -251,10 +252,10 @@
     NSFileManager.defaultManager.homeDirectoryForCurrentUser.path,
     @"Library",
     @"Group Containers",
-    @"group.9YLM7HTV6V.com.MusicLibraryExporter",
+    __MLE__AppGroupIdentifier,
     @"Library",
     @"Preferences",
-    @"group.9YLM7HTV6V.com.MusicLibraryExporter.plist",
+    [__MLE__AppGroupIdentifier stringByAppendingString:@".plist"],
   ];
 
   return [NSURL fileURLWithPathComponents:pathComponents];
