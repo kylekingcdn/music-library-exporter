@@ -9,7 +9,7 @@
 
 #import "Logger.h"
 #import "Utils.h"
-#import "UserDefaultsExportConfiguration.h"
+#import "ExportConfiguration.h"
 #import "ScheduleConfiguration.h"
 #import "HourNumberFormatter.h"
 #import "AppDelegate.h"
@@ -51,7 +51,7 @@
 
 @implementation ConfigurationViewController {
 
-  UserDefaultsExportConfiguration* _exportConfiguration;
+  ExportConfiguration* _exportConfiguration;
 
   ScheduleConfiguration* _scheduleConfiguration;
   HourNumberFormatter* _scheduleIntervalHourFormatter;
@@ -79,7 +79,7 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
   }
 }
 
-- (instancetype)initWithExportConfiguration:(UserDefaultsExportConfiguration*)exportConfiguration
+- (instancetype)initWithExportConfiguration:(ExportConfiguration*)exportConfiguration
                    andScheduleConfiguration:(ScheduleConfiguration*)scheduleConfiguration {
 
   if (self = [self init]) {

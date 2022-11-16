@@ -11,7 +11,7 @@
 #import "Utils.h"
 #import "PlaylistTreeNode.h"
 #import "PlaylistTreeGenerator.h"
-#import "UserDefaultsExportConfiguration.h"
+#import "ExportConfiguration.h"
 #import "CheckBoxTableCellView.h"
 #import "PopupButtonTableCellView.h"
 #import "PlaylistFilterGroup.h"
@@ -27,7 +27,7 @@
 
   NSUserDefaults* _groupDefaults;
 
-  UserDefaultsExportConfiguration* _exportConfiguration;
+  ExportConfiguration* _exportConfiguration;
 
   PlaylistTreeNode* _playlistTreeRoot;
 }
@@ -55,7 +55,7 @@
   }
 }
 
-- (instancetype)initWithExportConfiguration:(UserDefaultsExportConfiguration*)exportConfiguration {
+- (instancetype)initWithExportConfiguration:(ExportConfiguration*)exportConfiguration {
 
   if (self = [self init]) {
 

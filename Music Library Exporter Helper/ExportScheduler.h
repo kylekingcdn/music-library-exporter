@@ -9,7 +9,7 @@
 
 #import "Defines.h"
 
-@class UserDefaultsExportConfiguration;
+@class ExportConfiguration;
 @class ScheduleConfiguration;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Initializers
 
 - (instancetype)init;
-- (instancetype)initWithExportConfiguration:(UserDefaultsExportConfiguration*)exportConfiguration
+- (instancetype)initWithExportConfiguration:(ExportConfiguration*)exportConfiguration
                    andScheduleConfiguration:(ScheduleConfiguration*)scheduleConfiguration;
 
 

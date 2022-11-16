@@ -13,7 +13,7 @@
 #import "Logger.h"
 #import "Defines.h"
 #import "Utils.h"
-#import "UserDefaultsExportConfiguration.h"
+#import "ExportConfiguration.h"
 #import "DirectoryBookmarkHandler.h"
 #import "ExportManager.h"
 #import "ScheduleConfiguration.h"
@@ -21,7 +21,7 @@
 
 @implementation ExportScheduler {
 
-  UserDefaultsExportConfiguration* _exportConfiguration;
+  ExportConfiguration* _exportConfiguration;
   ScheduleConfiguration* _scheduleConfiguration;
 
   NSTimer* _timer;
@@ -50,7 +50,7 @@
   }
 }
 
-- (instancetype)initWithExportConfiguration:(UserDefaultsExportConfiguration*)exportConfiguration
+- (instancetype)initWithExportConfiguration:(ExportConfiguration*)exportConfiguration
                    andScheduleConfiguration:(ScheduleConfiguration*)scheduleConfiguration {
 
   if (self = [self init]) {
