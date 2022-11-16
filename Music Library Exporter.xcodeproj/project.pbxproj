@@ -95,6 +95,8 @@
 		27CAC23229101576008D4313 /* PlaylistParentIDFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC22B29101576008D4313 /* PlaylistParentIDFilter.m */; };
 		27CAC23329101576008D4313 /* PlaylistParentIDFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC22B29101576008D4313 /* PlaylistParentIDFilter.m */; };
 		27CAC23429101576008D4313 /* PlaylistParentIDFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC22B29101576008D4313 /* PlaylistParentIDFilter.m */; };
+		27CD3D2329246754003A22DB /* DirectoryBookmarkHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CD3D2229246754003A22DB /* DirectoryBookmarkHandler.m */; };
+		27CD3D2429246754003A22DB /* DirectoryBookmarkHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CD3D2229246754003A22DB /* DirectoryBookmarkHandler.m */; };
 		27D56E5425D85B2700A87B1F /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 27D56E4C25D85A5B00A87B1F /* Credits.rtf */; };
 		27D56E5825D85B2700A87B1F /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 27D56E4C25D85A5B00A87B1F /* Credits.rtf */; };
 		27D6827525D9055300BBF8FE /* Defines.m in Sources */ = {isa = PBXBuildFile; fileRef = 273B522F25CA666000421B14 /* Defines.m */; };
@@ -286,6 +288,8 @@
 		27CAC217290FF874008D4313 /* PlaylistIDFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaylistIDFilter.m; sourceTree = "<group>"; };
 		27CAC22B29101576008D4313 /* PlaylistParentIDFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaylistParentIDFilter.m; sourceTree = "<group>"; };
 		27CAC23129101576008D4313 /* PlaylistParentIDFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaylistParentIDFilter.h; sourceTree = "<group>"; };
+		27CD3D2129246754003A22DB /* DirectoryBookmarkHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DirectoryBookmarkHandler.h; sourceTree = "<group>"; };
+		27CD3D2229246754003A22DB /* DirectoryBookmarkHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DirectoryBookmarkHandler.m; sourceTree = "<group>"; };
 		27D56E4C25D85A5B00A87B1F /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		27DBB9A825E6E746003BE889 /* PreferencesWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreferencesWindow.xib; sourceTree = "<group>"; };
 		27DBB9B525E6E91E003BE889 /* PreferencesWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreferencesWindowController.h; sourceTree = "<group>"; };
@@ -606,6 +610,8 @@
 				27EC7C6225C8C3E500996E9E /* UserDefaultsExportConfiguration.m */,
 				27C0A0F025CB045C00EDDE22 /* ScheduleConfiguration.h */,
 				27C0A0EF25CB045C00EDDE22 /* ScheduleConfiguration.m */,
+				27CD3D2129246754003A22DB /* DirectoryBookmarkHandler.h */,
+				27CD3D2229246754003A22DB /* DirectoryBookmarkHandler.m */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -891,6 +897,7 @@
 				27A2C08B25C097C000AAD73C /* Utils.m in Sources */,
 				27CAC21B29100502008D4313 /* PlaylistMasterFilter.m in Sources */,
 				27A2C08725C097B600AAD73C /* OrderedDictionary.m in Sources */,
+				27CD3D2429246754003A22DB /* DirectoryBookmarkHandler.m in Sources */,
 				2783C76825C518CC002ED7B7 /* ExportConfiguration.m in Sources */,
 				27B54AA029126B2200BEC366 /* PathMapper.m in Sources */,
 				27B54AAB29126B2900BEC366 /* ExportManager.m in Sources */,
@@ -924,6 +931,7 @@
 				27CAC20F290FF359008D4313 /* PlaylistFilterGroup.m in Sources */,
 				273B523725CA672700421B14 /* Defines.m in Sources */,
 				27A2BFC325C085E400AAD73C /* Utils.m in Sources */,
+				27CD3D2329246754003A22DB /* DirectoryBookmarkHandler.m in Sources */,
 				27A2BFC625C085E400AAD73C /* OrderedDictionary.m in Sources */,
 				27642A64291129D2006FEF7B /* PathMapper.m in Sources */,
 				2783C76725C518CC002ED7B7 /* ExportConfiguration.m in Sources */,
