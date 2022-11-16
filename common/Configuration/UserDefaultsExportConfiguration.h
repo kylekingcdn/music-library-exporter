@@ -18,8 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Initializers
 
 - (instancetype)init;
-- (instancetype)initWithOutputDirectoryBookmarkKeySuffix:(NSString*)suffix;
-
+- (instancetype)initWithOutputDirectoryBookmarkKey:(NSString*)outputDirectoryBookmarkKey;
 
 #pragma mark - Mutators
 
@@ -47,9 +46,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setCustomSortOrderDict:(NSDictionary*)dict;
 
 - (void)loadPropertiesFromUserDefaults;
-
-- (nullable NSURL*)resolveOutputDirectoryBookmarkAndReturnError:(NSError**)error;
-- (BOOL)saveBookmarkForOutputDirectoryUrl:(nullable NSURL*)outputDirUrl;
 
 @end
 

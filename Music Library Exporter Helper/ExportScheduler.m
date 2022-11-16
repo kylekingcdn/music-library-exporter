@@ -14,6 +14,7 @@
 #import "Defines.h"
 #import "Utils.h"
 #import "UserDefaultsExportConfiguration.h"
+#import "DirectoryBookmarkHandler.h"
 #import "ExportManager.h"
 #import "ScheduleConfiguration.h"
 #import "DirectoryPermissionsWindowController.h"
@@ -50,12 +51,6 @@
     _timer = nil;
 
     _permissionsWindowController = nil;
-    
-    // update schedule
-    [self updateSchedule];
-
-    // request output dir permission if required
-    [self requestOutputDirectoryPermissionsIfRequired];
 
     return self;
   }
@@ -71,6 +66,12 @@
 
     _exportConfiguration = exportConfiguration;
     _scheduleConfiguration = scheduleConfiguration;
+
+    // update schedule
+    [self updateSchedule];
+
+    // request output dir permission if required
+    [self requestOutputDirectoryPermissionsIfRequired];
 
     return self;
   }
@@ -147,15 +148,16 @@
     return NO;
   }
 
-  NSURL* outputDirUrl = [_exportConfiguration resolveOutputDirectoryBookmarkAndReturnError:nil];
+  DirectoryBookmarkHandler* bookmarkHandler = [[DirectoryBookmarkHandler alloc] initWithUserDefaultsKey:OUTPUT_DIRECTORY_BOOKMARK_KEY];
+  NSURL* outputDirectoryURL = [bookmarkHandler urlFromDefaultsAndReturnError:nil];
 
-  if (outputDirUrl && outputDirUrl.isFileURL) {
+  if (outputDirectoryURL && outputDirectoryURL.isFileURL) {
 
-    if ([outputDirUrl.path isEqualToString:outputDirPath]) {
+    if ([outputDirectoryURL.path isEqualToString:outputDirPath]) {
       MLE_Log_Info(@"ExportScheduler [isOutputDirectoryBookmarkValid] bookmark is valid");
       return YES;
     }
-    MLE_Log_Info(@"ExportScheduler [isOutputDirectoryBookmarkValid] bookmarked path: %@", outputDirUrl.path);
+    MLE_Log_Info(@"ExportScheduler [isOutputDirectoryBookmarkValid] bookmarked path: %@", outputDirectoryURL.path);
   }
 
   MLE_Log_Info(@"ExportScheduler [isOutputDirectoryBookmarkValid] bookmark is not valid. The helper app must be granted write permission to: %@", outputDirPath);
@@ -210,28 +212,37 @@
   ExportDeferralReason deferralReason = [self reasonToDeferExport];
   if (deferralReason == ExportNoDeferralReason) {
 
-    NSError* outputDirResolveError;
-    NSURL* outputDirectoryUrl = [_exportConfiguration resolveOutputDirectoryBookmarkAndReturnError:&outputDirResolveError];
-    if (outputDirectoryUrl == nil) {
-      MLE_Log_Info(@"ExportScheduler [onTimerFinished] unable to retrieve output directory - a directory must be selected to obtain write permission");
-    }
+    // resolve output filename (fallback to default if none provided)
     NSString* outputFileName = _exportConfiguration.outputFileName;
     if (outputFileName == nil || outputFileName.length == 0) {
-      outputFileName = @"Library.xml"; // fallback to default filename
-      MLE_Log_Info(@"ExportScheduler [onTimerFinished] output filename unspecified - falling back to default: %@", outputFileName);
+      outputFileName = @"Library.xml";
+      MLE_Log_Info(@"ConfigurationViewController [exportLibrary] output filename unspecified - falling back to default: %@", outputFileName);
     }
-    NSURL* outputFileUrl = [outputDirectoryUrl URLByAppendingPathComponent:outputFileName];
-    if (outputFileUrl == nil) {
-      return;
+
+    // resolve output directory
+    DirectoryBookmarkHandler* bookmarkHandler = [[DirectoryBookmarkHandler alloc] initWithUserDefaultsKey:OUTPUT_DIRECTORY_BOOKMARK_KEY];
+    NSError* bookmarkResolveError;
+    NSURL* outputDirectoryURL = [bookmarkHandler urlFromDefaultsAndReturnError:&bookmarkResolveError];
+    if (outputDirectoryURL == nil) {
+      MLE_Log_Info(@"ConfigurationViewController [exportLibrary] unable to retrieve output directory url: %@", bookmarkResolveError);
     }
+
+    // init outputFileURL from OutputDirectoryURL anbd outputFileName
+    NSURL* outputFileURL = [outputDirectoryURL URLByAppendingPathComponent:outputFileName];
 
     ExportManager* exportManager = [[ExportManager alloc] initWithConfiguration:_exportConfiguration];
-    [exportManager setOutputFileURL:outputFileUrl];
+    [exportManager setOutputFileURL:outputFileURL];
 
+    /* ---- scoped security access started ---- */
+    [outputDirectoryURL startAccessingSecurityScopedResource];
+
+    // run export
     NSError* exportError;
-    [outputDirectoryUrl startAccessingSecurityScopedResource];
     BOOL exportSuccessful = [exportManager exportLibraryWithError:&exportError];
-    [outputDirectoryUrl stopAccessingSecurityScopedResource];
+
+    [outputDirectoryURL stopAccessingSecurityScopedResource];
+    /* ---- scoped security access stopped ---- */
+
     if (!exportSuccessful) {
       // ... handle export error
       return;
@@ -302,7 +313,7 @@
     MLE_Log_Info(@"ExportScheduler [requestOutputDirectoryPermissionsIfRequired] not prompting for permissions since output path hasn't been set yet");
     return;
   }
-  else if (self.isOutputDirectoryBookmarkValid) {
+  else if ([self isOutputDirectoryBookmarkValid]) {
     MLE_Log_Info(@"ExportScheduler [requestOutputDirectoryPermissionsIfRequired] output dir bookmark is valid, permissions grant not required");
   }
   else {

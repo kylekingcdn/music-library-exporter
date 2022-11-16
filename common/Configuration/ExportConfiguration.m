@@ -71,12 +71,12 @@
   return _generatedPersistentLibraryId;
 }
 
-- (NSURL*)outputDirectoryUrl {
+- (nullable NSURL*)outputDirectoryUrl {
 
   return _outputDirectoryUrl;
 }
 
-- (NSString*)outputDirectoryUrlPath {
+- (NSString*)outputDirectoryUrlAsPath {
 
   if (_outputDirectoryUrl && _outputDirectoryUrl.isFileURL) {
     return _outputDirectoryUrl.path;
@@ -84,6 +84,11 @@
   else {
     return [NSString string];
   }
+}
+
+- (NSString*)outputDirectoryPath {
+
+  return _outputDirectoryPath;
 }
 
 - (BOOL)isOutputDirectoryValid {
@@ -419,7 +424,6 @@
 NSString* const ExportConfigurationKeyMusicLibraryPath = @"MusicLibraryPath";
 NSString* const ExportConfigurationKeyGeneratedPersistentLibraryId = @"GeneratedPersistentLibraryId";
 NSString* const ExportConfigurationKeyOutputDirectoryPath = @"OutputDirectoryPath";
-NSString* const ExportConfigurationKeyOutputDirectoryBookmark = @"OutputDirectoryBookmark";
 NSString* const ExportConfigurationKeyOutputFileName = @"OutputFileName";
 NSString* const ExportConfigurationKeyRemapRootDirectory = @"RemapRootDirectory";
 NSString* const ExportConfigurationKeyRemapRootDirectoryOriginalPath = @"RemapRootDirectoryOriginalPath";

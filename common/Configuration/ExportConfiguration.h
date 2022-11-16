@@ -27,8 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString*)generatedPersistentLibraryId;
 
 - (nullable NSURL*)outputDirectoryUrl;
+- (NSString*)outputDirectoryUrlAsPath;
 - (NSString*)outputDirectoryPath;
-- (NSString*)outputDirectoryUrlPath;
 - (BOOL)isOutputDirectoryValid;
 
 - (NSString*)outputFileName;
@@ -93,7 +93,6 @@ NS_ASSUME_NONNULL_BEGIN
 extern NSString* const ExportConfigurationKeyMusicLibraryPath;
 extern NSString* const ExportConfigurationKeyGeneratedPersistentLibraryId;
 extern NSString* const ExportConfigurationKeyOutputDirectoryPath;
-extern NSString* const ExportConfigurationKeyOutputDirectoryBookmark;
 extern NSString* const ExportConfigurationKeyOutputFileName;
 extern NSString* const ExportConfigurationKeyRemapRootDirectory;
 extern NSString* const ExportConfigurationKeyRemapRootDirectoryOriginalPath;

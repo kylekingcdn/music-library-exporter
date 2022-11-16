@@ -62,7 +62,7 @@ typedef NS_ENUM(NSUInteger, ConfigurationViewErrorCode) {
 
 - (IBAction)exportLibrary:(id)sender;
 
-- (BOOL)validateOutputDirectory:(NSURL*)outputDirUrl error:(NSError**)error;
+- (BOOL)validateOutputDirectory:(NSURL*)outputDirectoryURL error:(NSError**)error;
 - (void)browseForOutputDirectoryWithCallback:(nullable void(^)(NSURL* _Nullable outputUrl))callback;
 - (void)browseAndValidateOutputDirectoryWithCallback:(nullable void(^)(BOOL isValid))callback;
 

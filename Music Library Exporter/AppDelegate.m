@@ -13,6 +13,7 @@
 #import "Utils.h"
 #import "UserDefaultsExportConfiguration.h"
 #import "ScheduleConfiguration.h"
+#import "DirectoryBookmarkHandler.h"
 #import "HelperAppManager.h"
 #import "ConfigurationViewController.h"
 #import "PlaylistsViewController.h"
@@ -54,8 +55,12 @@
 #endif
 
   // init exportConfiguration
-  _exportConfiguration = [[UserDefaultsExportConfiguration alloc] initWithOutputDirectoryBookmarkKeySuffix:@"Main"];
+  _exportConfiguration = [[UserDefaultsExportConfiguration alloc] initWithOutputDirectoryBookmarkKey:OUTPUT_DIRECTORY_BOOKMARK_KEY];
   [_exportConfiguration loadPropertiesFromUserDefaults];
+
+  // resolve output directory bookmark data
+  DirectoryBookmarkHandler* bookmarkHandler = [[DirectoryBookmarkHandler alloc] initWithUserDefaultsKey:OUTPUT_DIRECTORY_BOOKMARK_KEY];
+  [_exportConfiguration setOutputDirectoryUrl:[bookmarkHandler urlFromDefaultsAndReturnError:nil]];
 
   // init scheduleConfiguration
   _scheduleConfiguration = [[ScheduleConfiguration alloc] init];
@@ -67,6 +72,7 @@
   [_groupDefaults addObserver:self forKeyPath:ScheduleConfigurationKeyLastExportedAt options:NSKeyValueObservingOptionNew context:NULL];
   [_groupDefaults addObserver:self forKeyPath:ScheduleConfigurationKeyNextExportAt options:NSKeyValueObservingOptionNew context:NULL];
   [_groupDefaults addObserver:self forKeyPath:ExportConfigurationKeyOutputDirectoryPath options:NSKeyValueObservingOptionNew context:NULL];
+  [_groupDefaults addObserver:self forKeyPath:OUTPUT_DIRECTORY_BOOKMARK_KEY options:NSKeyValueObservingOptionNew context:NULL];
 
   // init helper manager and ensure helper registration status matches configuration value for scheduleEnabled
   _helperAppManager = [[HelperAppManager alloc] init];
@@ -106,7 +112,13 @@
 
   MLE_Log_Info(@"AppDelegate [observeValueForKeyPath:%@]", aKeyPath);
 
-  if ([aKeyPath isEqualToString:ScheduleConfigurationKeyScheduleInterval] ||
+  // update the OutputDirectoryPath variable *only* when the main application's URL bookmark changes.
+  // This allows stale bookmark updates to be propagated while also ensuring that the helper application URL bookmark is consistent and synchronized
+  if ([aKeyPath isEqualToString:OUTPUT_DIRECTORY_BOOKMARK_KEY]) {
+    [_exportConfiguration setOutputDirectoryPath:_exportConfiguration.outputDirectoryUrl.path];
+  }
+
+  else if ([aKeyPath isEqualToString:ScheduleConfigurationKeyScheduleInterval] ||
       [aKeyPath isEqualToString:ScheduleConfigurationKeyLastExportedAt] ||
       [aKeyPath isEqualToString:ScheduleConfigurationKeyNextExportAt] ||
       [aKeyPath isEqualToString:ScheduleConfigurationKeyScheduleEnabled] ||

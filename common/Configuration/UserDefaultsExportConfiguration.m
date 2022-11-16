@@ -14,7 +14,7 @@
 
   NSUserDefaults* _userDefaults;
 
-  NSString* _outputDirectoryBookmarkKeySuffix;
+  NSString* _outputDirectoryBookmarkKey;
 }
 
 
@@ -25,7 +25,8 @@
   if (self = [super init]) {
 
     _userDefaults = [[NSUserDefaults alloc] initWithSuiteName:__MLE__AppGroupIdentifier];
-    _outputDirectoryBookmarkKeySuffix = nil;
+
+    _outputDirectoryBookmarkKey = nil;
 
     return self;
   }
@@ -34,11 +35,14 @@
   }
 }
 
-- (instancetype)initWithOutputDirectoryBookmarkKeySuffix:(NSString*)suffix {
+- (instancetype)initWithOutputDirectoryBookmarkKey:(NSString*)outputDirectoryBookmarkKey {
 
   if (self = [self init]) {
 
-    _outputDirectoryBookmarkKeySuffix = suffix;
+    _outputDirectoryBookmarkKey = outputDirectoryBookmarkKey;
+
+    // observe changes of output directory bookmark to allow for automatic updating of OutputDirectoryPath
+    [_userDefaults addObserver:self forKeyPath:_outputDirectoryBookmarkKey options:NSKeyValueObservingOptionNew context:NULL];
 
     return self;
   }
@@ -57,7 +61,6 @@
 
 //  nil,             ExportConfigurationKeyGeneratedPersistentLibraryId,
 
-//  nil,             ExportConfigurationKeyOutputDirectoryBookmark,
     @"",             ExportConfigurationKeyOutputDirectoryPath,
     @"",             ExportConfigurationKeyOutputFileName,
 
@@ -75,16 +78,6 @@
 
     nil
   ];
-}
-
-- (NSString*)outputDirectoryBookmarkKey {
-
-  NSString* key = ExportConfigurationKeyOutputDirectoryBookmark;
-  if (_outputDirectoryBookmarkKeySuffix != nil) {
-    key = [key stringByAppendingString:_outputDirectoryBookmarkKeySuffix];
-  }
-
-  return key;
 }
 
 #pragma mark - Mutators
@@ -105,17 +98,9 @@
 
 - (void)setOutputDirectoryUrl:(nullable NSURL*)dirUrl {
 
-  NSString* outputDirPath;
-  // update path variable
-  if (dirUrl && dirUrl.isFileURL) {
-    outputDirPath = dirUrl.path;
-  }
-
   [super setOutputDirectoryUrl:dirUrl];
-  [self saveBookmarkForOutputDirectoryUrl:dirUrl];
 
-  // since this is being observed by KVO, call it after the bookmark and member variables for the URL have been updated
-  [self setOutputDirectoryPath:outputDirPath];
+  // The NSUserDefaults setValue call is skipped here as this is done by the security scoped bookmark handler
 }
 
 - (void)setOutputDirectoryPath:(nullable NSString*)dirPath {
@@ -215,8 +200,6 @@
 
   [_userDefaults registerDefaults:[self defaultValues]];
 
-  [super setOutputDirectoryUrl: [self resolveOutputDirectoryBookmarkAndReturnError:nil]];
-
   [super loadValuesFromDictionary:[_userDefaults dictionaryRepresentation]];
 
   if ([self generatedPersistentLibraryId] == nil) {
@@ -224,70 +207,22 @@
   }
 }
 
-- (nullable NSURL*)resolveOutputDirectoryBookmarkAndReturnError:(NSError**)error {
+- (void)observeValueForKeyPath:(NSString *)aKeyPath ofObject:(id)anObject change:(NSDictionary *)aChange context:(void *)aContext {
 
-  MLE_Log_Info(@"UserDefaultsExportConfiguration [resolveOutputDirectoryBookmarkAndReturnError]");
+  MLE_Log_Info(@"UserDefaultsExportConfiguration [observeValueForKeyPath:%@]", aKeyPath);
 
-  // fetch output directory bookmark data
-  NSData* outputDirBookmarkData = [_userDefaults dataForKey: [self outputDirectoryBookmarkKey]];
+  if ([aKeyPath isEqualToString:_outputDirectoryBookmarkKey]) {
 
-  // no bookmark has been saved yet
-  if (outputDirBookmarkData == nil) {
-    MLE_Log_Info(@"UserDefaultsExportConfiguration [resolveOutputDirectoryBookmarkAndReturnError] bookmark is nil");
-    return nil;
-  }
-
-  // resolve output directory URL for bookmark data
-  BOOL outputDirBookmarkIsStale;
-  NSURL* outputDirBookmarkUrl = [NSURL URLByResolvingBookmarkData:outputDirBookmarkData options:NSURLBookmarkResolutionWithSecurityScope relativeToURL:nil bookmarkDataIsStale:&outputDirBookmarkIsStale error:error];
-
-  // error resolving bookmark data
-  if (outputDirBookmarkUrl == nil) {
-    if (error) {
-      MLE_Log_Info(@"UserDefaultsExportConfiguration [resolveOutputDirectoryBookmarkAndReturnError] error resolving output dir bookmark: %@", [*error localizedDescription]);
+    NSData* bookmarkData = [_userDefaults dataForKey:aKeyPath];
+    if (bookmarkData == nil) {
+      [self setOutputDirectoryUrl:nil];
+      return;
     }
-    [self setOutputDirectoryUrl:nil];
-    return nil;
-  }
-
-  // bookmark data is stale, update saved bookmark + output path variable
-  if (outputDirBookmarkIsStale) {
-
-    MLE_Log_Info(@"UserDefaultsExportConfiguration [resolveOutputDirectoryBookmarkAndReturnError] bookmark is stale, saving new bookmark");
-
-    [outputDirBookmarkUrl startAccessingSecurityScopedResource];
-    // we call this instead of saveBookmark since it handles updating internal member variables as well as the path variable
-    [self setOutputDirectoryUrl:outputDirBookmarkUrl];
-    [outputDirBookmarkUrl stopAccessingSecurityScopedResource];
-  }
-
-  MLE_Log_Info(@"UserDefaultsExportConfiguration [resolveOutputDirectoryBookmarkAndReturnError] bookmarked output directory: %@", outputDirBookmarkUrl.path);
-
-  return outputDirBookmarkUrl;
-}
-
-- (BOOL)saveBookmarkForOutputDirectoryUrl:(nullable NSURL*)outputDirUrl {
-
-  MLE_Log_Info(@"UserDefaultsExportConfiguration [saveBookmarkForOutputDirectoryUrl: %@]", outputDirUrl);
-
-  if (outputDirUrl == nil) {
-    [_userDefaults removeObjectForKey:[self outputDirectoryBookmarkKey]];
-    return YES;
-  }
-
-  NSError* outputDirBookmarkError;
-  NSData* outputDirBookmarkData = [outputDirUrl bookmarkDataWithOptions:NSURLBookmarkCreationWithSecurityScope includingResourceValuesForKeys:nil relativeToURL:nil error:&outputDirBookmarkError];
-
-  // error generating bookmark
-  if (outputDirBookmarkError) {
-    MLE_Log_Info(@"UserDefaultsExportConfiguration [saveBookmarkForOutputDirectoryUrl] error generating output directory bookmark data: %@", outputDirBookmarkError.localizedDescription);
-    return NO;
-  }
-
-  // save bookmark data to user defaults
-  else {
-    [_userDefaults setValue:outputDirBookmarkData forKey:[self outputDirectoryBookmarkKey]];
-    return YES;
+    // update output directory url
+    else {
+      NSURL* bookmarkURL = [NSURL URLByResolvingBookmarkData:bookmarkData options:NSURLBookmarkResolutionWithSecurityScope relativeToURL:nil bookmarkDataIsStale:nil error:nil];
+      [self setOutputDirectoryUrl:bookmarkURL];
+    }
   }
 }
 

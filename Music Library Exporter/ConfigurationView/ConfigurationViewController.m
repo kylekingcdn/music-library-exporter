@@ -14,6 +14,7 @@
 #import "HourNumberFormatter.h"
 #import "AppDelegate.h"
 #import "ExportManager.h"
+#import "DirectoryBookmarkHandler.h"
 
 
 @interface ConfigurationViewController ()
@@ -125,7 +126,7 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
   MLE_Log_Info(@"ConfigurationViewController [updateFromConfiguration]");
 
   [_libraryPathTextField setStringValue:_exportConfiguration.musicLibraryPath];
-  [_outputDirectoryTextField setStringValue:_exportConfiguration.outputDirectoryUrlPath];
+  [_outputDirectoryTextField setStringValue:_exportConfiguration.outputDirectoryUrlAsPath];
   [_outputFileNameTextField setStringValue:_exportConfiguration.outputFileName];
 
   [_remapRootDirectoryCheckBox setState:(_exportConfiguration.remapRootDirectory ? NSControlStateValueOn : NSControlStateValueOff)];
@@ -308,31 +309,39 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
   [_exportProgressBar setDoubleValue:0];
   [_exportProgressBar setMinValue:0];
 
-  NSError* outputDirResolveError;
-  NSURL* outputDirectoryUrl = [_exportConfiguration resolveOutputDirectoryBookmarkAndReturnError:&outputDirResolveError];
-  if (outputDirectoryUrl == nil) {
-    MLE_Log_Info(@"ConfigurationViewController [exportLibrary] unable to retrieve output directory - a directory must be selected to obtain write permission");
-  }
+  // resolve output filename (fallback to default if none provided)
   NSString* outputFileName = _exportConfiguration.outputFileName;
   if (outputFileName == nil || outputFileName.length == 0) {
-    outputFileName = @"Library.xml"; // fallback to default filename
+    outputFileName = @"Library.xml";
     MLE_Log_Info(@"ConfigurationViewController [exportLibrary] output filename unspecified - falling back to default: %@", outputFileName);
   }
-  NSURL* outputFileUrl = [outputDirectoryUrl URLByAppendingPathComponent:outputFileName];
-  if (outputFileUrl == nil) {
-    return;
+
+  // resolve output directory
+  DirectoryBookmarkHandler* bookmarkHandler = [[DirectoryBookmarkHandler alloc] initWithUserDefaultsKey:OUTPUT_DIRECTORY_BOOKMARK_KEY];
+  NSError* bookmarkResolveError;
+  NSURL* outputDirectoryURL = [bookmarkHandler urlFromDefaultsAndReturnError:&bookmarkResolveError];
+  if (outputDirectoryURL == nil) {
+    MLE_Log_Info(@"ConfigurationViewController [exportLibrary] unable to retrieve output directory url: %@", bookmarkResolveError);
   }
+
+  // init outputFileURL from OutputDirectoryURL anbd outputFileName
+  NSURL* outputFileURL = [outputDirectoryURL URLByAppendingPathComponent:outputFileName];
 
   ExportManager* exportManager = [[ExportManager alloc] initWithConfiguration:_exportConfiguration];
   [exportManager setDelegate:self];
-  [exportManager setOutputFileURL:outputFileUrl];
+  [exportManager setOutputFileURL:outputFileURL];
 
   dispatch_async(gcdQueue, ^{
 
+    /* ---- scoped security access started ---- */
+    [outputDirectoryURL startAccessingSecurityScopedResource];
+
+    // run export
     NSError* exportError;
-    [outputDirectoryUrl startAccessingSecurityScopedResource];
     BOOL exportSuccessful = [exportManager exportLibraryWithError:&exportError];
-    [outputDirectoryUrl stopAccessingSecurityScopedResource];
+
+    [outputDirectoryURL stopAccessingSecurityScopedResource];
+    /* ---- scoped security access stopped ---- */
 
     MLE_Log_Info(@"ConfigurationViewController [exportLibrary] export successful: %@", (exportSuccessful ? @"YES" : @"NO"));
 
@@ -351,12 +360,12 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
 }
 
 
-- (BOOL)validateOutputDirectory:(NSURL*)outputDirUrl error:(NSError**)error {
+- (BOOL)validateOutputDirectory:(NSURL*)outputDirectoryURL error:(NSError**)error {
 
-  BOOL outputDirWritable = [[NSFileManager defaultManager] isWritableFileAtPath:outputDirUrl.path];
+  BOOL outputDirectoryWritable = [[NSFileManager defaultManager] isWritableFileAtPath:outputDirectoryURL.path];
 
   // selected directory isn't writable, create alert that prompts user to re-select a directory
-  if (!outputDirWritable) {
+  if (!outputDirectoryWritable) {
 
     if (error) {
       *error = [NSError errorWithDomain:__MLE_ErrorDomain_ConfigurationView code:ConfigurationViewErrorOutputDirectoryUnwritable userInfo:@{
@@ -372,7 +381,7 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
   return YES;
 }
 
-- (void)browseForOutputDirectoryWithCallback:(nullable void(^)(NSURL* _Nullable outputUrl))callback {
+- (void)browseForOutputDirectoryWithCallback:(nullable void(^)(NSURL* _Nullable outputDirectoryURL))callback {
 
   MLE_Log_Info(@"ConfigurationViewController [browseOutputDirectory]");
 
@@ -386,24 +395,24 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
 
   [openPanel beginSheetModalForWindow:window completionHandler:^(NSInteger result) {
 
-    NSURL* outputDirUrl;
+    NSURL* outputDirectoryURL;
 
     if (result == NSModalResponseOK) {
-      outputDirUrl = [openPanel URL];
+      outputDirectoryURL = [openPanel URL];
     }
 
-    // if callback is specified, call it with (potentially nil) outputDirUrl
+    // if callback is specified, call it with (potentially nil) outputDirectoryURL
     if (callback) {
-      callback(outputDirUrl);
+      callback(outputDirectoryURL);
     }
   }];
 }
 
 - (void)browseAndValidateOutputDirectoryWithCallback:(nullable void(^)(BOOL isValid))callback {
 
-  [self browseForOutputDirectoryWithCallback:^(NSURL* _Nullable outputDirUrl){
+  [self browseForOutputDirectoryWithCallback:^(NSURL* _Nullable outputDirectoryURL){
 
-    if (outputDirUrl == nil) {
+    if (outputDirectoryURL == nil) {
       if (callback) {
         callback(NO);
       }
@@ -411,16 +420,17 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
     }
 
     NSError* validationError;
-    BOOL outputDirIsValid = [self validateOutputDirectory:outputDirUrl error:&validationError];
+    BOOL outputDirIsValid = [self validateOutputDirectory:outputDirectoryURL error:&validationError];
 
     // selected directory is valid
     if (outputDirIsValid) {
 
-      // update config
-      [self->_exportConfiguration setOutputDirectoryUrl:outputDirUrl];
+      // save bookmark url for selected directory
+      DirectoryBookmarkHandler* bookmarkHandler = [[DirectoryBookmarkHandler alloc] initWithUserDefaultsKey:OUTPUT_DIRECTORY_BOOKMARK_KEY];
+      [bookmarkHandler saveURLToDefaults:outputDirectoryURL];
 
       // update text field
-      [self->_outputDirectoryTextField setStringValue:outputDirUrl.path];
+//      [self->_outputDirectoryTextField setStringValue:outputDirectoryURL.path];
 
       if (callback) {
         callback(YES);

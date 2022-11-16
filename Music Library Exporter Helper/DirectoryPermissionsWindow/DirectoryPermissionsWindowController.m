@@ -10,6 +10,7 @@
 #import "Logger.h"
 #import "ExportConfiguration.h"
 #import "ScheduleConfiguration.h"
+#import "DirectoryBookmarkHandler.h"
 
 
 @implementation DirectoryPermissionsWindowController {
@@ -96,7 +97,7 @@
 
   MLE_Log_Info(@"DirectoryPermissionsWindowController [requestOutputDirectoryPermissions]");
 
-  NSString* outputDirPath = _exportConfiguration.outputDirectoryPath;
+  NSString* outputDirectoryPath = _exportConfiguration.outputDirectoryPath;
 
   NSOpenPanel* openPanel = [NSOpenPanel openPanel];
   [openPanel setCanChooseDirectories:YES];
@@ -104,20 +105,21 @@
   [openPanel setAllowsMultipleSelection:NO];
 
   [openPanel setMessage:@"Please select the same output directory that you selected in the main application ."];
-  if (outputDirPath.length > 0) {
-    [openPanel setDirectoryURL:[NSURL fileURLWithPath:outputDirPath]];
+  if (outputDirectoryPath.length > 0) {
+    [openPanel setDirectoryURL:[NSURL fileURLWithPath:outputDirectoryPath]];
   }
 
   [openPanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
 
     if (result == NSModalResponseOK) {
 
-      NSURL* outputDirUrl = [openPanel URL];
+      NSURL* outputDirectoryURL = [openPanel URL];
 
-      if (outputDirUrl) {
-        if (outputDirPath.length == 0 || [outputDirUrl.path isEqualToString:outputDirPath]) {
+      if (outputDirectoryURL) {
+        if (outputDirectoryPath.length == 0 || [outputDirectoryURL.path isEqualToString:outputDirectoryPath]) {
           MLE_Log_Info(@"DirectoryPermissionsWindowController [requestOutputDirectoryPermissions] the correct output directory has been selected");
-          [self->_exportConfiguration setOutputDirectoryUrl:outputDirUrl];
+          DirectoryBookmarkHandler* bookmarkHandler = [[DirectoryBookmarkHandler alloc] initWithUserDefaultsKey:OUTPUT_DIRECTORY_BOOKMARK_KEY];
+          [bookmarkHandler saveURLToDefaults:outputDirectoryURL];
           [[NSApplication sharedApplication] setActivationPolicy:NSApplicationActivationPolicyProhibited];
           return;
         }
