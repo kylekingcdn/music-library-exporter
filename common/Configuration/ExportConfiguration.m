@@ -76,11 +76,6 @@
   return _outputDirectoryUrl;
 }
 
-- (NSString*)outputDirectoryPath {
-
-  return _outputDirectoryPath;
-}
-
 - (NSString*)outputDirectoryUrlPath {
 
   if (_outputDirectoryUrl && _outputDirectoryUrl.isFileURL) {
@@ -101,11 +96,6 @@
   return _outputFileName;
 }
 
-- (BOOL)isOutputFileNameValid {
-
-  return _outputFileName.length > 0;
-}
-
 - (NSURL*)outputFileUrl {
 
   // check if output directory is valid path
@@ -118,24 +108,6 @@
   }
 
   return nil;
-}
-
-- (NSString*)outputFilePath {
-
-  NSURL* outputFileUrl = [self outputFileUrl];
-
-  // check if output file url is valid
-  if (outputFileUrl) {
-    return outputFileUrl.path;
-  }
-  else {
-    return [NSString string];
-  }
-}
-
-- (BOOL)isOutputFilePathValid {
-
-  return [self isOutputDirectoryValid] && [self isOutputFileNameValid];
 }
 
 - (BOOL)remapRootDirectory {

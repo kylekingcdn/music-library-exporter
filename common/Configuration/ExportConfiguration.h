@@ -32,11 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)isOutputDirectoryValid;
 
 - (NSString*)outputFileName;
-- (BOOL)isOutputFileNameValid;
 
 - (nullable NSURL*)outputFileUrl;
-- (NSString*)outputFilePath;
-- (BOOL)isOutputFilePathValid;
 
 - (BOOL)remapRootDirectory;
 - (NSString*)remapRootDirectoryOriginalPath;
