@@ -545,31 +545,6 @@ NSErrorDomain const __MLE_ErrorDomain_ArgParser = @"com.kylekingcdn.MusicLibrary
     return NO;
   }
 
-//  NSArray<NSNumber*>* requiredOptions = [CLIDefines requiredOptionsForCommand:_command];
-//  NSMutableArray* requiredOptionsMissing = [NSMutableArray array];
-//  NSMutableArray* requiredOptionsMissingNames = [NSMutableArray array];
-//
-//  // validate required options have been specified
-//  for (NSNumber* optionType in requiredOptions) {
-//
-//    CLIOptionKind option = [optionType integerValue];
-//    XPMArgumentSignature* sig = [self signatureForOption:option];
-//    NSUInteger sigCount = [_package countOfSignature:sig];
-//    if (sigCount == 0) {
-//      MLE_Log_Info(@"ArgParser [validateOptionsAndReturnError] missing required option: %@", [CLIDefines nameForOption:option]);
-//      [requiredOptionsMissing addObject:sig];
-//      [requiredOptionsMissingNames addObject:[CLIDefines nameAndValueForOption:option]];
-//    }
-//  }
-//  if (requiredOptionsMissing.count > 0) {
-//    if (error) {
-//      *error = [NSError errorWithDomain:__MLE_ErrorDomain_ArgParser code:ArgParserErrorMissingRequiredOption userInfo:@{
-//        NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Required options are incomplete:  %@", [requiredOptionsMissingNames componentsJoinedByString:@", "]],
-//      }];
-//    }
-//    return NO;
-//  }
-
   MLE_Log_Info(@"ArgParser [validateOptionsAndReturnError] options seem valid");
 
   return YES;
