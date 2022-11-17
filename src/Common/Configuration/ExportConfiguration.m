@@ -165,22 +165,6 @@
   return _playlistCustomSortOrderDict;
 }
 
-- (PlaylistSortColumnType)playlistCustomSortColumn:(NSString*)playlistId {
-
-  NSString* sortColumnTitle = [_playlistCustomSortColumnDict valueForKey:playlistId];
-  PlaylistSortColumnType sortColumn = [Utils playlistSortColumnForTitle:sortColumnTitle];
-
-  return sortColumn;
-}
-
-- (PlaylistSortOrderType)playlistCustomSortOrder:(NSString*)playlistId {
-
-  NSString* sortOrderTitle = [_playlistCustomSortOrderDict valueForKey:playlistId];
-  PlaylistSortOrderType sortOrder = [Utils playlistSortOrderForTitle:sortOrderTitle];
-
-  return sortOrder;
-}
-
 + (NSString*)generatePersistentLibraryId {
 
   NSArray<NSString*>* uuidParts = [[NSUUID UUID].UUIDString componentsSeparatedByString:@"-"];

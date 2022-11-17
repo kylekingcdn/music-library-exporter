@@ -48,9 +48,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSDictionary*)playlistCustomSortColumnDict;
 - (NSDictionary*)playlistCustomSortOrderDict;
 
-- (PlaylistSortColumnType)playlistCustomSortColumn:(NSString*)playlistId;
-- (PlaylistSortOrderType)playlistCustomSortOrder:(NSString*)playlistId;
-
 + (NSString*)generatePersistentLibraryId;
 
 - (void)dumpProperties;

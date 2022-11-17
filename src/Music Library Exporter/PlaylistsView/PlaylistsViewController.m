@@ -259,8 +259,8 @@
     return;
   }
 
-  PlaylistSortColumnType sortColumn = [_exportConfiguration playlistCustomSortColumn:node.playlistPersistentHexID];
-  PlaylistSortOrderType sortOrder = [_exportConfiguration playlistCustomSortOrder:node.playlistPersistentHexID];
+  PlaylistSortColumnType sortColumn = node.customSortColumn;
+  PlaylistSortOrderType sortOrder = node.customSortOrder;
 
   BOOL isDefault = (sortColumn == PlaylistSortColumnNull);
 
@@ -345,6 +345,7 @@
   // default
   if (itemTag == 101) {
     MLE_Log_Info(@"PlaylistsViewController [setPlaylistSorting] Default");
+    [node setCustomSortColumn:PlaylistSortColumnNull];
     [_exportConfiguration setDefaultSortingForPlaylist:node.playlistPersistentHexID];
   }
   // sort column
@@ -354,11 +355,12 @@
       MLE_Log_Info(@"PlaylistsViewController [setPlaylistSorting] error - failed to determine sort column for itemTag:%li", (long)itemTag);
     }
     // ignore if no change
-    else if (sortColumn == [_exportConfiguration playlistCustomSortColumn:node.playlistPersistentHexID]) {
+    else if (sortColumn == node.customSortColumn) {
       return;
     }
     else {
       MLE_Log_Info(@"PlaylistsViewController [setPlaylistSorting] column: %@", PlaylistSortColumnNames[sortColumn]);
+      [node setCustomSortColumn:sortColumn];
       [_exportConfiguration setCustomSortColumn:sortColumn forPlaylist:node.playlistPersistentHexID];
     }
   }
@@ -369,11 +371,12 @@
       MLE_Log_Info(@"PlaylistsViewController [setPlaylistSorting] error - failed to determine sort order for itemTag:%li", (long)itemTag);
     }
     // ignore if no change
-    else if (sortOrder == [_exportConfiguration playlistCustomSortOrder:node.playlistPersistentHexID]) {
+    else if (sortOrder == node.customSortOrder) {
       return;
     }
     else {
       MLE_Log_Info(@"PlaylistsViewController [setPlaylistSorting] order: %@", PlaylistSortOrderTypeNames[sortOrder]);
+      [node setCustomSortOrder:sortOrder];
       [_exportConfiguration setCustomSortOrder:sortOrder forPlaylist:node.playlistPersistentHexID];
     }
   }
