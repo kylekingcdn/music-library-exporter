@@ -79,20 +79,16 @@
   }];
 }
 
-+ (NSComparisonResult)alphabeticallyCompareString:(NSString*)string1 withString:(NSString*)string2 {
++ (NSComparisonResult)alphabeticallyCompareString:(NSString*)str1 withString:(NSString*)str2 {
 
-  BOOL string1HasLetterPrefix = [[NSCharacterSet letterCharacterSet] characterIsMember:[string1 characterAtIndex:0]];
-  BOOL string2HasLetterPrefix = [[NSCharacterSet letterCharacterSet] characterIsMember:[string2 characterAtIndex:0]];
+  // sort so that strings that begin with letters come before non-letter strings (begin with digit, special char, etc)
+  BOOL str1LetterPrefix = [[NSCharacterSet letterCharacterSet] characterIsMember:[str1 characterAtIndex:0]];
+  BOOL str2LetterPrefix = [[NSCharacterSet letterCharacterSet] characterIsMember:[str2 characterAtIndex:0]];
+  if (str1LetterPrefix != str2LetterPrefix) {
+    return str1LetterPrefix ? NSOrderedAscending : NSOrderedDescending;
+  }
 
-  if (string1HasLetterPrefix && !string2HasLetterPrefix) {
-    return NSOrderedAscending;
-  }
-  else if (!string1HasLetterPrefix && string2HasLetterPrefix) {
-    return NSOrderedDescending;
-  }
-  else {
-    return [string1 compare:string2 options:(NSCaseInsensitiveSearch | NSDiacriticInsensitiveSearch | NSNumericSearch)];
-  }
+  return [str1 compare:str2 options:(NSCaseInsensitiveSearch | NSDiacriticInsensitiveSearch | NSNumericSearch)];
 }
 
 @end
