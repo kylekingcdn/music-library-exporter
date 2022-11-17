@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		2705444925B66A0A00FE6D65 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2705444825B66A0A00FE6D65 /* main.m */; };
 		2705445225B66B7A00FE6D65 /* iTunesLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2705445125B66B7A00FE6D65 /* iTunesLibrary.framework */; };
+		2715FC832926540C005C5F09 /* SorterDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 2715FC822926540C005C5F09 /* SorterDefines.m */; };
+		2715FC8929265410005C5F09 /* SorterDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 2715FC822926540C005C5F09 /* SorterDefines.m */; };
+		2715FC8A29265410005C5F09 /* SorterDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 2715FC822926540C005C5F09 /* SorterDefines.m */; };
 		271DD26E25DB9FCF009BB292 /* ArgParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 271DD26D25DB9FCF009BB292 /* ArgParser.m */; };
 		271DD27425DBA246009BB292 /* CLIDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 271DD27325DBA246009BB292 /* CLIDefines.m */; };
 		2725CA4725D3F2D7002C1203 /* PlaylistsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2725CA4625D3F2D7002C1203 /* PlaylistsViewController.m */; };
@@ -201,6 +204,8 @@
 		2705444825B66A0A00FE6D65 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2705445125B66B7A00FE6D65 /* iTunesLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTunesLibrary.framework; path = System/Library/Frameworks/iTunesLibrary.framework; sourceTree = SDKROOT; };
 		270D786825DB682000B3D409 /* ArgumentParser.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ArgumentParser.xcodeproj; path = ArgumentParser/ArgumentParser.xcodeproj; sourceTree = "<group>"; };
+		2715FC812926540C005C5F09 /* SorterDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SorterDefines.h; sourceTree = "<group>"; };
+		2715FC822926540C005C5F09 /* SorterDefines.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SorterDefines.m; sourceTree = "<group>"; };
 		271DD26C25DB9FCF009BB292 /* ArgParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArgParser.h; sourceTree = "<group>"; };
 		271DD26D25DB9FCF009BB292 /* ArgParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArgParser.m; sourceTree = "<group>"; };
 		271DD27225DBA246009BB292 /* CLIDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLIDefines.h; sourceTree = "<group>"; };
@@ -450,6 +455,8 @@
 			children = (
 				27642A58291119BA006FEF7B /* MediaItemSorter.h */,
 				27642A59291119BA006FEF7B /* MediaItemSorter.m */,
+				2715FC812926540C005C5F09 /* SorterDefines.h */,
+				2715FC822926540C005C5F09 /* SorterDefines.m */,
 			);
 			path = Sorter;
 			sourceTree = "<group>";
@@ -881,6 +888,7 @@
 				271DD26E25DB9FCF009BB292 /* ArgParser.m in Sources */,
 				2739C5C325DE29E400C57218 /* CLIManager.m in Sources */,
 				27CAC21F29100503008D4313 /* PlaylistDistinguishedKindFilter.m in Sources */,
+				2715FC8929265410005C5F09 /* SorterDefines.m in Sources */,
 				27B54AA129126B2400BEC366 /* MediaEntityRepository.m in Sources */,
 				27CAC23429101576008D4313 /* PlaylistParentIDFilter.m in Sources */,
 				27723EF02921D0B000E51B7E /* PlaylistTreeGenerator.m in Sources */,
@@ -903,6 +911,7 @@
 				27B54AAB29126B2900BEC366 /* ExportManager.m in Sources */,
 				27F5866025E4661300872731 /* SentryHandler.m in Sources */,
 				27CAC22429100507008D4313 /* MediaItemFilterGroup.m in Sources */,
+				2715FC8A29265410005C5F09 /* SorterDefines.m in Sources */,
 				27EC7C6725C8C41800996E9E /* UserDefaultsExportConfiguration.m in Sources */,
 				27B54AA929126B2900BEC366 /* LibrarySerializer.m in Sources */,
 				27CAC22329100507008D4313 /* MediaItemKindFilter.m in Sources */,
@@ -951,6 +960,7 @@
 				27CAC218290FF874008D4313 /* PlaylistIDFilter.m in Sources */,
 				276B1AE125D42453002D7289 /* PopupButtonTableCellView.m in Sources */,
 				27642A5E29111CB7006FEF7B /* MediaEntityRepository.m in Sources */,
+				2715FC832926540C005C5F09 /* SorterDefines.m in Sources */,
 				2725CA4725D3F2D7002C1203 /* PlaylistsViewController.m in Sources */,
 				2783C75825C4FB60002ED7B7 /* ConfigurationViewController.m in Sources */,
 				27642A6029111EF1006FEF7B /* MediaItemSerializer.m in Sources */,
