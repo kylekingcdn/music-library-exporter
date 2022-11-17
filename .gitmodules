@@ -1,3 +1,3 @@
-[submodule "3rd/ArgumentParser"]
+[submodule "ArgumentParser"]
 	path = src/3rd/ArgumentParser
 	url = https://github.com/mysteriouspants/ArgumentParser.git
