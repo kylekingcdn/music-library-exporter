@@ -48,9 +48,9 @@ The library is exported in an XML format, and is compatible with other applicati
    ```
 1. Copy Sentry.base.xcconfig (this is required for the xcode build to run properly)
    ```
-   cp Config/Common/Sentry.base.xcconfig Config/Common/Sentry.xcconfig
+   cp src/Config/Common/Sentry.base.xcconfig src/Config/Common/Sentry.xcconfig
    ```
-1. Update codesigning configuration as desired (`Config/Common/Signing.xcconfig`)
+1. Update codesigning configuration as desired (`src/Config/Common/Signing.xcconfig`)
 1. Open `Music Library Exporter.xcodeproj` in Xcode
 1. Specify the build target (if required)
 1. Build!
