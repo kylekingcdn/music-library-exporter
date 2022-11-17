@@ -20,6 +20,9 @@
 
     _children = [NSArray array];
 
+    _customSortColumn = PlaylistSortColumnNull;
+    _customSortOrder = PlaylistSortOrderNull;
+
     _playlistPersistentHexID = nil;
     _playlistParentPersistentHexID = nil;
     _playlistName = nil;

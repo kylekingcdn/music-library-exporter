@@ -8,6 +8,7 @@
 #import <Foundation/Foundation.h>
 #import <iTunesLibrary/ITLibPlaylist.h>
 
+#import "Defines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,6 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Properties
 
 @property NSArray<PlaylistTreeNode*>* children;
+
+@property (nonatomic, assign) PlaylistSortColumnType customSortColumn;
+@property (nonatomic, assign) PlaylistSortOrderType customSortOrder;
 
 @property (nullable, readonly, nonatomic, copy) NSString* playlistPersistentHexID;
 @property (nullable, readonly, nonatomic, copy) NSString* playlistParentPersistentHexID;

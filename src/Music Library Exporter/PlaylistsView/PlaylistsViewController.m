@@ -8,7 +8,6 @@
 #import "PlaylistsViewController.h"
 
 #import "Logger.h"
-#import "Utils.h"
 #import "PlaylistTreeNode.h"
 #import "PlaylistTreeGenerator.h"
 #import "ExportConfiguration.h"
@@ -307,6 +306,8 @@
 
   PlaylistTreeGenerator* generator = [[PlaylistTreeGenerator alloc] initWithFilters:playlistFilters];
   [generator setFlattenFolders:_exportConfiguration.flattenPlaylistHierarchy];
+  [generator setCustomSortColumns:_exportConfiguration.playlistCustomSortColumnDict];
+  [generator setCustomSortOrders:_exportConfiguration.playlistCustomSortOrderDict];
 
   NSError* generateError;
   _playlistTreeRoot = [generator generateTreeWithError:&generateError];

@@ -12,6 +12,7 @@
 
 #import "PlaylistFilterGroup.h"
 #import "PlaylistTreeNode.h"
+#import "Utils.h"
 
 @implementation PlaylistTreeGenerator
 
@@ -21,6 +22,9 @@
 
     _filters = nil;
     _flattenFolders = NO;
+
+    _customSortColumns = [NSDictionary dictionary];
+    _customSortOrders = [NSDictionary dictionary];
 
     return self;
   }
@@ -74,6 +78,20 @@
 - (PlaylistTreeNode*)createNodeForPlaylist:(ITLibPlaylist*)playlist fromSourcePlaylists:(NSArray<ITLibPlaylist*>*)sourcePlaylists{
 
   PlaylistTreeNode* node = [PlaylistTreeNode nodeWithPlaylist:playlist];
+
+  NSString* playlistHexID = [Utils hexStringForPersistentId:playlist.persistentID];
+
+  // set custom sort colummn
+  NSString* sortColumnTitle = [_customSortColumns valueForKey:playlistHexID];
+  PlaylistSortColumnType sortColumn = [Utils playlistSortColumnForTitle:sortColumnTitle];
+  [node setCustomSortColumn:sortColumn];
+
+  // set custom sort order
+  NSString* sortOrderTitle = [_customSortOrders valueForKey:playlistHexID];
+  PlaylistSortOrderType sortOrder = [Utils playlistSortOrderForTitle:sortOrderTitle];
+  [node setCustomSortOrder:sortOrder];
+
+  // generate children if folders are enabled
   if (!_flattenFolders) {
     [node setChildren:[self generateChildrenForPlaylist:playlist fromSourcePlaylists:sourcePlaylists]];
   }
