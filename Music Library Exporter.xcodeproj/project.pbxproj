@@ -351,7 +351,7 @@
 			isa = PBXGroup;
 			children = (
 				2749611325CE2A1700B98E11 /* Config */,
-				27A2BFBE25C0851B00AAD73C /* common */,
+				27A2BFBE25C0851B00AAD73C /* Common */,
 				27EF9A6525BF23910051CE7B /* Music Library Exporter */,
 				27A2C05625C0934A00AAD73C /* Music Library Exporter Helper */,
 				27EF9A3D25BF20C60051CE7B /* music-library-exporter */,
@@ -464,7 +464,7 @@
 			path = Export;
 			sourceTree = "<group>";
 		};
-		27A2BFBE25C0851B00AAD73C /* common */ = {
+		27A2BFBE25C0851B00AAD73C /* Common */ = {
 			isa = PBXGroup;
 			children = (
 				27A4496725DE026B00C770E8 /* Logger.h */,
@@ -481,7 +481,7 @@
 				27642A572911199A006FEF7B /* Sorter */,
 				27642A5C29111A33006FEF7B /* Export */,
 			);
-			path = common;
+			path = Common;
 			sourceTree = "<group>";
 		};
 		27A2C05625C0934A00AAD73C /* Music Library Exporter Helper */ = {
