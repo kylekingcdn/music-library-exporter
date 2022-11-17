@@ -328,12 +328,7 @@
   NSString* sortColumnTitle = PlaylistSortColumnNames[sortColumn];
   NSMutableDictionary* sortColumnDict = [_playlistCustomSortColumnDict mutableCopy];
 
-  if (sortColumnTitle) {
-    [sortColumnDict setValue:sortColumnTitle forKey:playlistId];
-  }
-  else {
-    [sortColumnDict removeObjectForKey:playlistId];
-  }
+  [sortColumnDict setValue:sortColumnTitle forKey:playlistId];
 
   [self setCustomSortColumnDict:sortColumnDict];
 }
@@ -343,12 +338,7 @@
   NSString* sortOrderTitle = PlaylistSortOrderNames[sortOrder];
   NSMutableDictionary* sortOrderDict = [_playlistCustomSortOrderDict mutableCopy];
 
-  if (sortOrderTitle) {
-    [sortOrderDict setValue:sortOrderTitle forKey:playlistId];
-  }
-  else {
-    [sortOrderDict removeObjectForKey:playlistId];
-  }
+  [sortOrderDict setValue:sortOrderTitle forKey:playlistId];
 
   [self setCustomSortOrderDict:sortOrderDict];
 }

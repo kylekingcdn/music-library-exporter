@@ -112,12 +112,7 @@
   MLE_Log_Info(@"DirectoryBookmarkHandler [saveBookmarkDataToDefaults]");
 
   // data is nil, remove the value from user defaults
-  if (bookmarkData == nil) {
-    [_userDefaults removeObjectForKey:_defaultsKey];
-  }
-  else {
-    [_userDefaults setValue:bookmarkData forKey:_defaultsKey];
-  }
+  [_userDefaults setValue:bookmarkData forKey:_defaultsKey];
 }
 
 - (BOOL)saveURLToDefaults:(nullable NSURL*)url {
