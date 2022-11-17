@@ -26,7 +26,7 @@ DerivedData/
 /*.gcno
 
 # Sentry DSN/keys
-/Config/Common/Sentry.xcconfig
+/src/Config/Common/Sentry.xcconfig
 /scripts/.sentry.keys
 
 # Script logs
