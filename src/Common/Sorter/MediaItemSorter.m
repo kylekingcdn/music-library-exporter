@@ -17,10 +17,15 @@
 
 - (instancetype)init {
 
+  return [self initWithSortColumn:PlaylistSortColumnNull andSortOrder:PlaylistSortOrderNull];
+}
+
+- (instancetype)initWithSortColumn:(PlaylistSortColumnType)sortColumn andSortOrder:(PlaylistSortOrderType)sortOrder {
+
   if (self = [super init]) {
 
-    _sortColumn = PlaylistSortColumnNull;
-    _sortOrder = PlaylistSortOrderNull;
+    _sortColumn = sortColumn;
+    _sortOrder = sortOrder;
 
     return self;
   }

@@ -119,16 +119,20 @@
     [playlistDict setValue:[NSNumber numberWithBool:YES] forKey:@"Folder"];
   }
 
-  MediaItemSorter* sorter = [[MediaItemSorter alloc] init];
+  MediaItemSorter* sorter = nil;
 
   if (_playlistCustomSortColumns != nil && _playlistCustomSortOrders != nil) {
+
     NSString* sortColumnTitle = [_playlistCustomSortColumns valueForKey:[Utils hexStringForPersistentId:playlist.persistentID]];
     PlaylistSortColumnType sortColumn = [Utils playlistSortColumnForTitle:sortColumnTitle];
-    [sorter setSortColumn:sortColumn];
 
     NSString* sortOrderTitle = [_playlistCustomSortOrders valueForKey:[Utils hexStringForPersistentId:playlist.persistentID]];
     PlaylistSortOrderType sortOrder = [Utils playlistSortOrderForTitle:sortOrderTitle];
-    [sorter setSortOrder:sortOrder];
+
+    sorter = [[MediaItemSorter alloc] initWithSortColumn:sortColumn andSortOrder:sortOrder];
+  }
+  else {
+    sorter = [[MediaItemSorter alloc] init];
   }
 
   NSArray<ITLibMediaItem*>* sortedItems = [sorter sortItems:playlist.items];

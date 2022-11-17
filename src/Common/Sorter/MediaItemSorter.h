@@ -14,10 +14,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MediaItemSorter : NSObject
 
-@property PlaylistSortColumnType sortColumn;
-@property PlaylistSortOrderType sortOrder;
+@property (readonly) PlaylistSortColumnType sortColumn;
+@property (readonly) PlaylistSortOrderType sortOrder;
+
+#pragma mark - Initializers
 
 - (instancetype)init;
+- (instancetype)initWithSortColumn:(PlaylistSortColumnType)sortColumn andSortOrder:(PlaylistSortOrderType)sortOrder;
 
 - (NSArray<ITLibMediaItem*>*)sortItems:(NSArray<ITLibMediaItem*>*)items;
 
