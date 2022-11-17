@@ -340,7 +340,7 @@
 
 - (void)setCustomSortOrder:(PlaylistSortOrderType)sortOrder forPlaylist:(NSString*)playlistId {
 
-  NSString* sortOrderTitle = PlaylistSortOrderTypeNames[sortOrder];
+  NSString* sortOrderTitle = PlaylistSortOrderNames[sortOrder];
   NSMutableDictionary* sortOrderDict = [_playlistCustomSortOrderDict mutableCopy];
 
   if (sortOrderTitle) {

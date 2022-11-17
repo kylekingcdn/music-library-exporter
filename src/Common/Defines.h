@@ -83,7 +83,7 @@ typedef NS_ENUM(NSUInteger, PlaylistSortOrderType) {
   PlaylistSortOrderNull,
 };
 
-static NSString *_Nullable const PlaylistSortOrderTypeNames[] = {
+static NSString *_Nullable const PlaylistSortOrderNames[] = {
   @"Ascending",
   @"Descending",
   nil,

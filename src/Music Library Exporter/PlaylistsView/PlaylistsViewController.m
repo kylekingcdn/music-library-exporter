@@ -375,7 +375,7 @@
       return;
     }
     else {
-      MLE_Log_Info(@"PlaylistsViewController [setPlaylistSorting] order: %@", PlaylistSortOrderTypeNames[sortOrder]);
+      MLE_Log_Info(@"PlaylistsViewController [setPlaylistSorting] order: %@", PlaylistSortOrderNames[sortOrder]);
       [node setCustomSortOrder:sortOrder];
       [_exportConfiguration setCustomSortOrder:sortOrder forPlaylist:node.playlistPersistentHexID];
     }
