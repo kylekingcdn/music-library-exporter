@@ -24,6 +24,10 @@ DerivedData/
 
 ## Gcc Patch
 /*.gcno
+
+# Sentry DSN/keys
 /Config/Common/Sentry.xcconfig
 /scripts/.sentry.keys
+
+# Script logs
 /scripts/mle-sentry-upload.log
