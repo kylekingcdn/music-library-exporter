@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init;
 - (instancetype)initWithSortColumn:(PlaylistSortColumnType)sortColumn andSortOrder:(PlaylistSortOrderType)sortOrder;
 
+#pragma mark - Accessors
+
 - (NSArray<ITLibMediaItem*>*)sortItems:(NSArray<ITLibMediaItem*>*)items;
 
 @end
