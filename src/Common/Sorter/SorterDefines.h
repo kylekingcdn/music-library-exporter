@@ -23,7 +23,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSDictionary*)propertySubstitutions;
 
 // Subsets of allProperties
-+ (NSArray<NSString*>*)sortVariantProperties;
 + (NSSet<NSString*>*)sortPrefixedProperties;
 
 // Alternative properties to compare/sort when the value is identical for both provided instances

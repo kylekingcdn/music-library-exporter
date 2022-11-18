@@ -18,7 +18,6 @@ static SorterDefines* _sharedDefines;
 @property NSDictionary* propertyNames;
 @property NSDictionary* propertySubstitutions;
 
-@property NSArray<NSString*>* sortVariantProperties;
 @property NSSet<NSString*>* sortPrefixedProperties;
 
 @property NSDictionary* fallbackSortProperties;
@@ -29,7 +28,6 @@ static SorterDefines* _sharedDefines;
 - (void)populatePropertyNames;
 - (void)populatePropertySubstitutions;
 
-- (void)populateSortVariantProperties;
 - (void)populateSortPrefixedProperties;
 
 - (void)populateFallbackSortProperties;
@@ -53,7 +51,7 @@ static SorterDefines* _sharedDefines;
     [self populatePropertyNames];
     [self populatePropertySubstitutions];
 
-    [self populateSortVariantProperties];
+
     [self populateSortPrefixedProperties];
 
     [self populateFallbackSortProperties];
@@ -94,15 +92,6 @@ static SorterDefines* _sharedDefines;
   }
 
   return _sharedDefines.propertySubstitutions;
-}
-
-+ (NSArray<NSString*>*)sortVariantProperties {
-
-  if (_sharedDefines == nil) {
-    _sharedDefines = [[SorterDefines alloc] init];
-  }
-
-  return _sharedDefines.sortVariantProperties;
 }
 
 + (NSSet<NSString*>*)sortPrefixedProperties {
@@ -272,17 +261,6 @@ static SorterDefines* _sharedDefines;
       ITLibMediaItemPropertyComposer,
     ],
   };
-}
-
-- (void)populateSortVariantProperties {
-
-  _sortVariantProperties = @[
-    ITLibMediaItemPropertySortAlbumTitle,
-    ITLibMediaItemPropertySortAlbumArtist,
-    ITLibMediaItemPropertySortArtistName,
-    ITLibMediaItemPropertySortComposer,
-    ITLibMediaItemPropertySortTitle,
-  ];
 }
 
 - (void)populateSortPrefixedProperties {
