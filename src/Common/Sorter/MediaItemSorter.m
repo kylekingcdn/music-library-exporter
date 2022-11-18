@@ -160,13 +160,16 @@
 
     for (NSString* fallbackProperty in [SorterDefines fallbackPropertiesForProperty:_sortProperty]) {
 
-      // use ascending order for fallback properties
-      result = [self compareProperty:fallbackProperty ofItem:item1 withItem:item2 order:PlaylistSortOrderAscending];
+      // skip redundant fallback properties (useful when fallbacks are the default list)
+      if (fallbackProperty != _sortProperty) {
+        // use ascending order for fallback properties
+        result = [self compareProperty:fallbackProperty ofItem:item1 withItem:item2 order:PlaylistSortOrderAscending];
 
-      // use first result that is not equal
-      if (result != NSOrderedSame) {
-//        MLE_Log_Info(@"MediaItemSorter [compareItem] used fallback %@ for property %@ ('%@ - %@', '%@ - %@')", fallbackProperty, _sortProperty, item1.album.albumArtist, item1.title, item2.album.albumArtist, item2.title);
-        break;
+        // use first result that is not equal
+        if (result != NSOrderedSame) {
+  //        MLE_Log_Info(@"MediaItemSorter [compareItem] used fallback %@ for property %@ ('%@ - %@', '%@ - %@')", fallbackProperty, _sortProperty, item1.album.albumArtist, item1.title, item2.album.albumArtist, item2.title);
+          break;
+        }
       }
     }
   }
