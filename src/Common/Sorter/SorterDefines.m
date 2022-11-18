@@ -282,6 +282,8 @@ static SorterDefines* _sharedDefines;
       ITLibMediaItemPropertyAlbumArtist,
       ITLibMediaItemPropertyAlbumDiscNumber,
       ITLibMediaItemPropertyTrackNumber,
+      ITLibMediaItemPropertyTitle,
+      ITLibMediaItemPropertyYear,
       ITLibMediaItemPropertyAddedDate
     ],
   };
@@ -291,10 +293,10 @@ static SorterDefines* _sharedDefines;
 
   _defaultFallbackSortProperties = @[
       ITLibMediaItemPropertyAlbumArtist,
-      ITLibMediaItemPropertyArtistName,
+      ITLibMediaItemPropertyAlbumTitle,
       ITLibMediaItemPropertyAlbumDiscNumber,
-      ITLibMediaItemPropertyArtistName,
       ITLibMediaItemPropertyTrackNumber,
+      ITLibMediaItemPropertyTitle,
       ITLibMediaItemPropertyYear,
       ITLibMediaItemPropertyAddedDate,
   ];
