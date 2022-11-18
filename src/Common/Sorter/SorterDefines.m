@@ -19,7 +19,7 @@ static SorterDefines* _sharedDefines;
 @property NSDictionary* propertySubstitutions;
 
 @property NSArray<NSString*>* sortVariantProperties;
-@property NSArray<NSString*>* sortPrefixedProperties;
+@property NSSet<NSString*>* sortPrefixedProperties;
 
 @property NSDictionary* fallbackSortProperties;
 @property NSArray<NSString*>* defaultFallbackSortProperties;
@@ -105,7 +105,7 @@ static SorterDefines* _sharedDefines;
   return _sharedDefines.sortVariantProperties;
 }
 
-+ (NSArray<NSString*>*)sortPrefixedProperties {
++ (NSSet<NSString*>*)sortPrefixedProperties {
 
   if (_sharedDefines == nil) {
     _sharedDefines = [[SorterDefines alloc] init];
@@ -287,12 +287,13 @@ static SorterDefines* _sharedDefines;
 
 - (void)populateSortPrefixedProperties {
 
-  _sortPrefixedProperties = @[
+  _sortPrefixedProperties = [NSSet setWithObjects:
     ITLibMediaItemPropertyTitle,
     ITLibMediaItemPropertyArtistName,
     ITLibMediaItemPropertyAlbumArtist,
     ITLibMediaItemPropertyAlbumTitle,
     ITLibMediaItemPropertyComposer,
+    nil
   ];
 }
 
