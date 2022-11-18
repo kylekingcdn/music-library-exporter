@@ -233,7 +233,7 @@
 
   // add boolean attributes for media kind
   NSString* mediaItemKindStr = [[NSNumber numberWithUnsignedInteger:item.mediaKind] stringValue];
-  if ([_mediaItemKindMappings doesContain:mediaItemKindStr]) {
+  if ([_mediaItemKindMappings objectForKey:mediaItemKindStr] != nil) {
     [itemDict setValue:[NSNumber numberWithBool:YES] forKey:[_mediaItemKindMappings valueForKey:mediaItemKindStr]];
   }
 //  [itemDict setValue:item.title forKey:@"Track Type"]; - invalid

@@ -139,7 +139,7 @@ static SorterDefines* _sharedDefines;
 
 + (NSArray<NSString*>*)substitutionsForProperty:(NSString*)property {
 
-  if ([[SorterDefines propertySubstitutions] doesContain:property]) {
+  if ([[SorterDefines propertySubstitutions] objectForKey:property] != nil) {
     return [[_sharedDefines propertySubstitutions] valueForKey:property];
   }
   else {
@@ -149,7 +149,7 @@ static SorterDefines* _sharedDefines;
 
 + (NSArray<NSString*>*)fallbackPropertiesForProperty:(NSString*)property {
 
-  if ([[SorterDefines fallbackSortProperties] doesContain:property]) {
+  if ([[SorterDefines fallbackSortProperties] objectForKey:property] != nil) {
     return [[_sharedDefines fallbackSortProperties] valueForKey:property];
   }
   else {
