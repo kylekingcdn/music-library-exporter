@@ -16,6 +16,8 @@
 
 @interface MediaItemSorter()
 
+- (instancetype)init;
+
 - (nullable id)valueOfItem:(ITLibMediaItem*)item forProperty:(NSString*)property;
 - (nullable id)preprocessValue:(nullable id)value forProperty:(NSString*)property;
 

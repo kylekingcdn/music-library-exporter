@@ -19,7 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Initializers
 
-- (instancetype)init;
 - (instancetype)initWithSortColumn:(PlaylistSortColumnType)sortColumn andSortOrder:(PlaylistSortOrderType)sortOrder;
 
 #pragma mark - Accessors
