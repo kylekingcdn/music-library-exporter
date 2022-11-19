@@ -253,7 +253,7 @@ NSErrorDomain const __MLE_ErrorDomain_ConfigurationView = @"com.kylekingcdn.Musi
 
 - (IBAction)customizePlaylists:(id)sender {
 
-  [(AppDelegate*)NSApp.delegate showPlaylistsView];
+  [(AppDelegate*)NSApp.delegate showPlaylistsView:nil];
 }
 
 - (IBAction)setScheduleInterval:(id)sender {

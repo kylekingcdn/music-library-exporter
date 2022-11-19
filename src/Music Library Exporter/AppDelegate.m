@@ -133,7 +133,7 @@
   }
 }
 
-- (void)showPlaylistsView {
+- (IBAction)showPlaylistsView:(id)sender {
 
   if (_playlistsViewController == nil) {
 
@@ -147,7 +147,7 @@
   [_playlistsViewWindow makeKeyAndOrderFront:NSApp];
 }
 
-- (void)hidePlaylistsView {
+- (IBAction)hidePlaylistsView:(id)sender {
 
   [_playlistsViewWindow orderOut:NSApp];
 }
