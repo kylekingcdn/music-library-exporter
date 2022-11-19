@@ -55,7 +55,11 @@
       _sortProperty = @"";
     }
 
-    _sortPrefixes = @[ @"a", @"an", @"the", ]; // temp
+    // load sort prefixes
+    NSBundle* ampLibraryBundle = [NSBundle bundleWithPath:@"/System/Library/PrivateFrameworks/AMPLibrary.framework"]; // TODO: fallback to iTunes if not available
+    NSString* sortPrefixesStr = [ampLibraryBundle localizedStringForKey:@"SORT_PREFIXES" value:@"a|an|the" table:@"SortPrefixes"];
+    _sortPrefixes = [sortPrefixesStr componentsSeparatedByString:@"|"];
+    // TODO: pass in as parameter
 
     return self;
   }
