@@ -107,7 +107,32 @@
 
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender {
 
+  return NO;
+}
+
+- (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender {
+
+  return ([_window isVisible] == NO);
+}
+
+- (BOOL)applicationOpenUntitledFile:(NSApplication *)sender {
+
+  if ([_window isVisible]) {
+    return NO;
+  }
+
+  [self showConfigurationView:self];
   return YES;
+}
+
+- (void)applicationWillBecomeActive:(NSNotification *)notification {
+
+  [self showConfigurationView:self];
+}
+
+- (void)applicationDidBecomeActive:(NSNotification *)notification {
+
+  [self showConfigurationView:self];
 }
 
 - (void)observeValueForKeyPath:(NSString *)aKeyPath ofObject:(id)anObject change:(NSDictionary *)aChange context:(void *)aContext {
