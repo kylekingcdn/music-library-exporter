@@ -20,7 +20,6 @@
 - (instancetype)init;
 
 - (nullable id)valueOfItem:(ITLibMediaItem*)item forProperty:(NSString*)property;
-- (nullable id)preprocessValue:(nullable id)value forProperty:(NSString*)property;
 
 - (NSComparisonResult)compareItem:(ITLibMediaItem*)item1 withItem:(ITLibMediaItem*)item2;
 - (NSComparisonResult)compareProperty:(NSString*)property ofItem:(ITLibMediaItem*)item1 withItem:(ITLibMediaItem*)item2 order:(PlaylistSortOrderType)order;
@@ -32,8 +31,6 @@
 @implementation MediaItemSorter {
 
   NSString* _sortProperty; // temporary until PlaylistSortColumnType is migrated to property strings
-
-  NSArray<NSString*>* _sortPrefixes; // temp
 }
 
 #pragma mark - Initializers
@@ -54,12 +51,6 @@
     if (_sortProperty == nil) {
       _sortProperty = @"";
     }
-
-    // load sort prefixes
-    NSBundle* ampLibraryBundle = [NSBundle bundleWithPath:@"/System/Library/PrivateFrameworks/AMPLibrary.framework"]; // TODO: fallback to iTunes if not available
-    NSString* sortPrefixesStr = [ampLibraryBundle localizedStringForKey:@"SORT_PREFIXES" value:@"a|an|the" table:@"SortPrefixes"];
-    _sortPrefixes = [sortPrefixesStr componentsSeparatedByString:@"|"];
-    // TODO: pass in as parameter
 
     return self;
   }
@@ -118,41 +109,7 @@
     itemValue = [item valueForProperty:property];
   }
 
-  // preprocess and return the value
-  return [self preprocessValue:itemValue forProperty:property];
-}
-
-- (nullable id)preprocessValue:(nullable id)value forProperty:(NSString*)property {
-
-  // trim sort prefixes
-  if ([[SorterDefines sortPrefixedProperties] containsObject:property]) {
-
-    NSString* valueStr = (NSString*)value;
-
-    // don't process nil or empty values
-    if (valueStr != nil && valueStr.length > 0) {
-
-      for (NSString* sortPrefix in _sortPrefixes) {
-
-        // only trim values that are longer than prefix (plus space)
-        if (sortPrefix.length+1 < valueStr.length) {
-
-          NSString* processedValue = [valueStr stringByReplacingOccurrencesOfString:[sortPrefix stringByAppendingString:@" "]
-                                                                      withString:@""
-                                                                         options:(NSCaseInsensitiveSearch)
-                                                                           range:NSMakeRange(0,sortPrefix.length+1)];
-          // sort prefix removed
-          if ([processedValue isNotEqualTo:valueStr]) {
-            value = processedValue;
-            // break to prevent additional sort prefix occurences from being trimmed
-            break;
-          }
-        }
-      }
-    }
-  }
-
-  return value;
+  return itemValue;
 }
 
 - (NSComparisonResult)compareItem:(ITLibMediaItem*)item1 withItem:(ITLibMediaItem*)item2 {

@@ -22,9 +22,6 @@ NS_ASSUME_NONNULL_BEGIN
 // Substitute properties to use when the value of a given property is empty/nil
 + (NSDictionary*)propertySubstitutions;
 
-// Subsets of allProperties
-+ (NSSet<NSString*>*)sortPrefixedProperties;
-
 // Alternative properties to compare/sort when the value is identical for both provided instances
 + (NSDictionary*)fallbackSortProperties;
 
