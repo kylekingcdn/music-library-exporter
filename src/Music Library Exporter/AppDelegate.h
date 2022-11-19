@@ -9,6 +9,8 @@
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
+- (IBAction)showConfigurationView:(id)sender;
+
 - (IBAction)showPlaylistsView:(id)sender;
 - (IBAction)hidePlaylistsView:(id)sender;
 

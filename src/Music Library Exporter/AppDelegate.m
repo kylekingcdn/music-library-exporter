@@ -134,6 +134,13 @@
   }
 }
 
+- (IBAction)showConfigurationView:(id)sender {
+
+  [_window makeKeyAndOrderFront:self];
+  
+  [NSApp activateIgnoringOtherApps:YES];
+}
+
 - (IBAction)showPlaylistsView:(id)sender {
 
   if (_playlistsViewController == nil) {
