@@ -73,6 +73,17 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="File" id="bib-Uj-vzu">
                         <items>
+                            <menuItem title="Export Library" keyEquivalent="e" id="4YO-3y-Vds" userLabel="Export Library">
+                                <connections>
+                                    <action selector="exportLibrary:" target="-1" id="6T3-fZ-Qpn"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Customize Playlists..." keyEquivalent="P" id="Ndi-Ad-37f">
+                                <connections>
+                                    <action selector="showPlaylistsView:" target="-1" id="vlj-Y1-D07"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="vi5-c7-LdJ"/>
                             <menuItem title="Close" keyEquivalent="w" id="DVo-aG-piG">
                                 <connections>
                                     <action selector="performClose:" target="-1" id="HmO-Ls-i7Q"/>

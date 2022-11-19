@@ -166,6 +166,12 @@
   [_preferencesWindowController.window makeKeyAndOrderFront:self];
 }
 
+- (IBAction)exportLibrary:(id)sender {
+
+  [_configurationViewController.view.window makeKeyAndOrderFront:self];
+  [_configurationViewController exportLibrary:sender];
+}
+
 - (IBAction)openMusicLibraryExporterWebsite:(id)sender {
 
   [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://music-exporter.app/"]];
