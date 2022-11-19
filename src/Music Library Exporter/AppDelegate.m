@@ -85,6 +85,7 @@
   [_configurationViewController.view setFrame:_window.contentView.frame];
   [_window.contentView addSubview:_configurationViewController.view];
   [_window setInitialFirstResponder:_configurationViewController.firstResponderView];
+  [_window setExcludedFromWindowsMenu:YES];
   [_window setReleasedWhenClosed:NO];
 
   [_window makeKeyAndOrderFront:NSApp];
@@ -150,6 +151,7 @@
     _playlistsViewWindow = [NSWindow windowWithContentViewController:_playlistsViewController];
     [_playlistsViewWindow setFrameAutosaveName:@"PlaylistsWindow"];
     [_playlistsViewWindow setTitle:@"Playlists"];
+    [_playlistsViewWindow setExcludedFromWindowsMenu:YES];
     [_playlistsViewWindow setReleasedWhenClosed:NO];
   }
 

@@ -75,12 +75,12 @@
                         <items>
                             <menuItem title="Export Library" keyEquivalent="e" id="4YO-3y-Vds" userLabel="Export Library">
                                 <connections>
-                                    <action selector="exportLibrary:" target="-1" id="6T3-fZ-Qpn"/>
+                                    <action selector="exportLibrary:" target="Voe-Tx-rLC" id="hmG-Gs-ycl"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Customize Playlists..." keyEquivalent="P" id="Ndi-Ad-37f">
                                 <connections>
-                                    <action selector="showPlaylistsView:" target="-1" id="vlj-Y1-D07"/>
+                                    <action selector="showPlaylistsView:" target="Voe-Tx-rLC" id="MsG-KJ-cew"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="vi5-c7-LdJ"/>
@@ -329,6 +329,17 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="eu3-7i-yIM"/>
+                            <menuItem title="Music Library Exporter" state="on" keyEquivalent="1" id="0Ix-Kh-j6G">
+                                <connections>
+                                    <action selector="showConfigurationView:" target="Voe-Tx-rLC" id="6rB-wM-joh"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Playlists" keyEquivalent="2" id="cev-GX-06j">
+                                <connections>
+                                    <action selector="showPlaylistsView:" target="Voe-Tx-rLC" id="Aid-je-H5n"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="lBQ-VH-vIf"/>
                             <menuItem title="Bring All to Front" id="LE2-aR-0XJ">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
