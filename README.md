@@ -178,16 +178,50 @@ More information on launchd services can be found [here](https://www.launchd.inf
 >
 > A playlist sort specifier has the following format:
 >
-> `{PLAYLIST_ID}:{SORT_COLUMN}-{SORT_ORDER}`
+> `{PLAYLIST_ID}:{SORT_PROPERTY}-{SORT_ORDER}`
 >
 > Where:
 > - `PLAYLIST_ID`  is the persistent ID of the playlist. Playlist IDs can be found with: `music-library-exporter print`
-> - `SORT_COLUMN`  is one of the following:  `title`, `artist`, `albumartist`, `dateadded`
+> - `SORT_PROPERTY`  is one of the values listed in the table below
 > - `SORT_ORDER`   is either `a` (for ascending) or `d` (for descending)
 >
 > Example:
 >
 > `--sort "3245022223634E16:title-a,3FD8F8235DE3C8C9:dateadded-d"`
+>
+> | Sort property name | Sort property value |
+> | ------------------ | -------------       |
+> | Album              | album               |
+> | Album Artist       | albumartist         |
+> | Album Rating       | albumrating         |
+> | Artist             | artist              |
+> | Beats Per Minute   | bpm                 |
+> | Bit Rate           | bitrate             |
+> | Category           | category            |
+> | Comments           | comments            |
+> | Composer           | composer            |
+> | Date Added         | dateadded           |
+> | Date Modified      | datemodified        |
+> | Description        | description         |
+> | Disc Number        | discnumber          |
+> | Genre              | genre               |
+> | Grouping           | grouping            |
+> | Kind               | kind                |
+> | Last Played        | lastplayed          |
+> | Last Skipped       | lastskipped         |
+> | Movement Name      | movementname        |
+> | Movement Number    | movementnumber      |
+> | Plays              | plays               |
+> | Rating             | rating              |
+> | Release Date       | releasedate         |
+> | Sample Rate        | samplerate          |
+> | Size               | size                |
+> | Skips              | skips               |
+> | Time               | time                |
+> | Title              | title               |
+> | Track Number       | tracknumber         |
+> | Work               | work                |
+> | Year               | year                |
 
 **`--remap_search <text_to_find>, -s <text_to_find>`**
 
