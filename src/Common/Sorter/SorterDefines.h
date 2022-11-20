@@ -29,6 +29,9 @@ NS_ASSUME_NONNULL_BEGIN
 // Default alternatives to use when there is no corresponding array in the `fallbackSortProperties` dictionary
 + (NSArray<NSString*>*)defaultFallbackSortProperties;
 
+// Maps old properties to their new values
++ (NSDictionary*)migratedProperties;
+
 + (nullable NSString*)nameForProperty:(NSString*)property;
 
 + (NSArray<NSString*>*)substitutionsForProperty:(NSString*)property;

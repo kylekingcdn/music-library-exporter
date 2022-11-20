@@ -22,6 +22,8 @@ static SorterDefines* _sharedDefines;
 @property NSDictionary* fallbackSortProperties;
 @property NSArray<NSString*>* defaultFallbackSortProperties;
 
+@property NSDictionary* migratedProperties;
+
 - (void)populateAllProperties;
 
 - (void)populatePropertyNames;
@@ -29,6 +31,8 @@ static SorterDefines* _sharedDefines;
 
 - (void)populateFallbackSortProperties;
 - (void)populateDefaultFallbackSortProperties;
+
+- (void)populateMigratedProperties;
 
 @end
 
@@ -50,6 +54,8 @@ static SorterDefines* _sharedDefines;
 
     [self populateFallbackSortProperties];
     [self populateDefaultFallbackSortProperties];
+
+    [self populateMigratedProperties];
 
     return self;
   }
@@ -112,6 +118,15 @@ static SorterDefines* _sharedDefines;
   }
 
   return _sharedDefines.defaultFallbackSortProperties;
+}
+
++ (NSDictionary*)migratedProperties {
+
+  if (_sharedDefines == nil) {
+    _sharedDefines = [[SorterDefines alloc] init];
+  }
+
+  return _sharedDefines.migratedProperties;
 }
 
 + (nullable NSString*)nameForProperty:(NSString*)property {
@@ -284,6 +299,17 @@ static SorterDefines* _sharedDefines;
       ITLibMediaItemPropertyAddedDate,
   ];
 }
+
+- (void)populateMigratedProperties {
+
+  _migratedProperties = @{
+    @"Title": ITLibMediaItemPropertyTitle,
+    @"Artist": ITLibMediaItemPropertyArtistName,
+    @"Album Artist": ITLibMediaItemPropertyAlbumArtist,
+    @"Date Added": ITLibMediaItemPropertyAddedDate,
+  };
+}
+
 
 
 
