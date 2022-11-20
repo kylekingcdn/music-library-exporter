@@ -186,16 +186,12 @@ static SorterDefines* _sharedDefines;
     ITLibMediaItemPropertyReleaseDate,
     ITLibMediaItemPropertySampleRate,
     ITLibMediaItemPropertySize,
-    ITLibMediaItemPropertyFileSize,
     ITLibMediaItemPropertyUserSkipCount,
     ITLibMediaItemPropertySkipDate,
     ITLibMediaItemPropertyTotalTime,
     ITLibMediaItemPropertyTrackNumber,
-    ITLibMediaItemPropertyLocationType,
     ITLibMediaItemPropertyWork,
     ITLibMediaItemPropertyYear,
-    ITLibMediaItemPropertyMediaKind,
-    ITLibMediaItemPropertyLocation,
   ];
 
   _allPropertiesSet = [NSSet setWithArray:_allProperties];
@@ -230,16 +226,12 @@ static SorterDefines* _sharedDefines;
     ITLibMediaItemPropertyReleaseDate: @"Release Date",
     ITLibMediaItemPropertySampleRate: @"Sample Rate",
     ITLibMediaItemPropertySize: @"Size",
-    ITLibMediaItemPropertyFileSize: @"File Size",
     ITLibMediaItemPropertyUserSkipCount: @"Skips",
     ITLibMediaItemPropertySkipDate: @"Last Skipped",
     ITLibMediaItemPropertyTotalTime: @"Time",
     ITLibMediaItemPropertyTrackNumber: @"Track Number",
-    ITLibMediaItemPropertyLocationType: @"Location Type",
     ITLibMediaItemPropertyWork: @"Work",
     ITLibMediaItemPropertyYear: @"Year",
-    ITLibMediaItemPropertyMediaKind: @"Media Kind",
-    ITLibMediaItemPropertyLocation: @"Location",
   };
 }
 
