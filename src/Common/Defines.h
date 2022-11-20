@@ -61,22 +61,6 @@ typedef NS_ENUM(NSUInteger, PlaylistSortModeType) {
   PlaylistSortCustomMode,
 };
 
-typedef NS_ENUM(NSUInteger, PlaylistSortColumnType) {
-  PlaylistSortColumnTitle = 0,
-  PlaylistSortColumnArtist,
-  PlaylistSortColumnAlbumArtist,
-  PlaylistSortColumnDateAdded,
-  PlaylistSortColumnNull,
-};
-
-static NSString *_Nonnull const PlaylistSortColumnNames[] = {
-  @"Title",
-  @"Artist",
-  @"Album Artist",
-  @"Date Added",
-  nil,
-};
-
 typedef NS_ENUM(NSUInteger, PlaylistSortOrderType) {
   PlaylistSortOrderAscending = 0,
   PlaylistSortOrderDescending,
