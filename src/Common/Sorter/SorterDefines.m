@@ -206,7 +206,7 @@ static SorterDefines* _sharedDefines;
     ITLibMediaItemPropertyAlbumDiscNumber: @"Disc Number",
     ITLibMediaItemPropertyArtistName: @"Artist",
     ITLibMediaItemPropertyBitRate: @"Bit Rate",
-    ITLibMediaItemPropertyBeatsPerMinute: @"BPM",
+    ITLibMediaItemPropertyBeatsPerMinute: @"Beats Per Minute",
     ITLibMediaItemPropertyCategory: @"Category",
     ITLibMediaItemPropertyComments: @"Comments",
     ITLibMediaItemPropertyComposer: @"Composer",
