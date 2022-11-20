@@ -13,7 +13,6 @@
 
 #import "Logger.h"
 #import "SorterDefines.h"
-#import "Utils.h"
 
 @interface MediaItemSorter()
 

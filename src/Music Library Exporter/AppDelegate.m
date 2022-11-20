@@ -10,7 +10,6 @@
 #import <ServiceManagement/ServiceManagement.h>
 
 #import "Logger.h"
-#import "Utils.h"
 #import "UserDefaultsExportConfiguration.h"
 #import "ScheduleConfiguration.h"
 #import "DirectoryBookmarkHandler.h"

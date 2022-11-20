@@ -8,7 +8,6 @@
 #import "ConfigurationViewController.h"
 
 #import "Logger.h"
-#import "Utils.h"
 #import "ExportConfiguration.h"
 #import "ScheduleConfiguration.h"
 #import "HourNumberFormatter.h"
