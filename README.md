@@ -2,7 +2,7 @@
   <a><img src="https://i.imgur.com/nZU1lCj.png" alt="Logo" width="100" height="100"></a>
 </p>
 <h3 align="center">Music Library Exporter</h3>
-<p align="center">A lightweight macOS application that brings back automated iTunes Library XML generation</p>
+<p align="center">A lightweight macOS app used to automatically generate (and customize) an Apple Music/iTunes Music Library XML file.</p>
 <p align="center">
   <a href="https://music-exporter.app">Visit our website</a>
   ·
@@ -21,7 +21,7 @@
 
 Music Library Exporter allows you to export your library and playlists from the native macOS Music app.
 
-The library is exported in an XML format, and is compatible with other applications, services, and tools that rely on the Music (previously iTunes) XML library format.
+The library is exported as an XML file and is compatible with other applications, services, and tools that rely on the `iTunes Music Library.xml` format.
 
 ![Music Library Exporter Screenshot](https://i.imgur.com/38obfhV.jpg)
 
