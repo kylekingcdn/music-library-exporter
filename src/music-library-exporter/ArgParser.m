@@ -7,6 +7,8 @@
 
 #import "ArgParser.h"
 
+#import <iTunesLibrary/ITLibMediaItem.h>
+
 #import "Logger.h"
 #import "Utils.h"
 #import "XPMArguments.h"
@@ -169,15 +171,15 @@ NSErrorDomain const __MLE_ErrorDomain_ArgParser = @"com.kylekingcdn.MusicLibrary
     NSString* playlistSortingOpt = [_package firstObjectForSignature:[self signatureForOption:CLIOptionKindSort]];
     if (playlistSortingOpt) {
 
-      NSMutableDictionary* sortColumnDict = [NSMutableDictionary dictionary];
+      NSMutableDictionary* sortPropertyDict = [NSMutableDictionary dictionary];
       NSMutableDictionary* sortOrderDict = [NSMutableDictionary dictionary];
-      BOOL sortingOptionParsed = [ArgParser parsePlaylistSortingOption:playlistSortingOpt forColumnDict:sortColumnDict andOrderDict:sortOrderDict andReturnError:error];
+      BOOL sortingOptionParsed = [ArgParser parsePlaylistSortingOption:playlistSortingOpt forPropertyDict:sortPropertyDict andOrderDict:sortOrderDict andReturnError:error];
 
       if (!sortingOptionParsed) {
         return NO;
       }
 
-      [configuration setCustomSortColumnDict:sortColumnDict];
+      [configuration setCustomSortPropertyDict:sortPropertyDict];
       [configuration setCustomSortOrderDict:sortOrderDict];
     }
   }
@@ -286,16 +288,16 @@ NSErrorDomain const __MLE_ErrorDomain_ArgParser = @"com.kylekingcdn.MusicLibrary
 
 }
 
-+ (BOOL)parsePlaylistSortingOption:(NSString*)sortOptions forColumnDict:(NSMutableDictionary*)sortColDict andOrderDict:(NSMutableDictionary*)sortOrderDict andReturnError:(NSError**)error {
++ (BOOL)parsePlaylistSortingOption:(NSString*)sortOptions forPropertyDict:(NSMutableDictionary*)sortPropertyDict andOrderDict:(NSMutableDictionary*)sortOrderDict andReturnError:(NSError**)error {
 
 //  MLE_Log_Info(@"ArgParser [parsePlaylistSortingOption:%@]", sortOptions);
 
-  // each will be in form of {id}:{sort_col}-{sort_order}
+  // each will be in form of {id}:{sort_property}-{sort_order}
   NSArray<NSString*>* playlistSortingStrings = [sortOptions componentsSeparatedByString:@","];
 
   for (NSString* sortOption in playlistSortingStrings) {
 
-    if (![ArgParser parsePlaylistSortingSegment:sortOption forColumnDict:sortColDict andOrderDict:sortOrderDict andReturnError:error]) {
+    if (![ArgParser parsePlaylistSortingSegment:sortOption forPropertyDict:sortPropertyDict andOrderDict:sortOrderDict andReturnError:error]) {
       return NO;
     }
   }
@@ -303,11 +305,11 @@ NSErrorDomain const __MLE_ErrorDomain_ArgParser = @"com.kylekingcdn.MusicLibrary
   return YES;
 }
 
-+ (BOOL)parsePlaylistSortingSegment:(NSString*)sortOption forColumnDict:(NSMutableDictionary*)sortColDict andOrderDict:(NSMutableDictionary*)sortOrderDict andReturnError:(NSError**)error {
++ (BOOL)parsePlaylistSortingSegment:(NSString*)sortOption forPropertyDict:(NSMutableDictionary*)sortPropertyDict andOrderDict:(NSMutableDictionary*)sortOrderDict andReturnError:(NSError**)error {
 
 //  MLE_Log_Info(@"ArgParser [parsePlaylistSortingSegment:%@]", sortOption);
 
-  // part 1 will be {id}, part 2 will be {sort_col}-{sort_order}
+  // part 1 will be {id}, part 2 will be {sort_property}-{sort_order}
   NSArray<NSString*>* sortOptionParts = [sortOption componentsSeparatedByString:@":"];
   if (sortOptionParts.count != 2) {
     if (error) {
@@ -318,24 +320,23 @@ NSErrorDomain const __MLE_ErrorDomain_ArgParser = @"com.kylekingcdn.MusicLibrary
     return NO;
   }
 
-  // part 1 will be {sort_col}, part 2 will be {sort_order}
+  // part 1 will be {sort_property}, part 2 will be {sort_order}
   NSString* playlistId = sortOptionParts.firstObject;
   NSString* playlistSortValuesStr = sortOptionParts.lastObject;
 
-  PlaylistSortColumnType sortColumn = PlaylistSortColumnNull;
   PlaylistSortOrderType sortOrder = PlaylistSortOrderNull;
-  BOOL valueParsed = [ArgParser parsePlaylistSortingSegmentValue:playlistSortValuesStr forColumn:&sortColumn andOrder:&sortOrder andReturnError:error];
-  if (!valueParsed) {
+  NSString* sortProperty = [ArgParser parsePlaylistSortingSegmentValue:playlistSortValuesStr forOrder:&sortOrder andReturnError:error];
+  if (sortProperty == nil) {
     return NO;
   }
 
-  [sortColDict setValue:PlaylistSortColumnNames[sortColumn] forKey:playlistId];
+  [sortPropertyDict setValue:sortProperty forKey:playlistId];
   [sortOrderDict setValue:PlaylistSortOrderNames[sortOrder] forKey:playlistId];
 
   return YES;
 }
 
-+ (BOOL)parsePlaylistSortingSegmentValue:(NSString*)sortOptionValue forColumn:(PlaylistSortColumnType*)aSortColumn andOrder:(PlaylistSortOrderType*)aSortOrder andReturnError:(NSError**)error {
++ (nullable NSString*)parsePlaylistSortingSegmentValue:(NSString*)sortOptionValue forOrder:(PlaylistSortOrderType*)aSortOrder andReturnError:(NSError**)error {
 
 //  MLE_Log_Info(@"ArgParser [parsePlaylistSortingSegmentValue:%@]", sortOptionValue);
 
@@ -347,19 +348,19 @@ NSErrorDomain const __MLE_ErrorDomain_ArgParser = @"com.kylekingcdn.MusicLibrary
         NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Invalid sorting option format: %@", sortOptionValue],
       }];
     }
-    return NO;
+    return nil;
   }
 
-  NSString* sortColStr = sortOptionValueParts.firstObject;
-  PlaylistSortColumnType sortCol = [ArgParser sortColumnForOptionName:sortColStr];
+  NSString* sortPropertyStr = sortOptionValueParts.firstObject;
+  NSString* sortProperty = [ArgParser sortPropertyForOptionName:sortPropertyStr];
 
-  if (sortCol == PlaylistSortColumnNull) {
+  if (sortProperty == nil) {
     if (error) {
-      *error = [NSError errorWithDomain:__MLE_ErrorDomain_ArgParser code:ArgParserErrorUnknownSortColumn userInfo:@{
-        NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Unknown sort column specifier: %@", sortColStr],
+      *error = [NSError errorWithDomain:__MLE_ErrorDomain_ArgParser code:ArgParserErrorUnknownSortProperty userInfo:@{
+        NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Unknown sort property specifier: %@", sortPropertyStr],
       }];
     }
-    return NO;
+    return nil;
   }
 
   NSString* sortOrderStr = sortOptionValueParts.lastObject;
@@ -371,31 +372,30 @@ NSErrorDomain const __MLE_ErrorDomain_ArgParser = @"com.kylekingcdn.MusicLibrary
         NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Unknown sort order specifier: %@", sortOrderStr],
       }];
     }
-    return NO;
+    return nil;
   }
 
-  *aSortColumn = sortCol;
   *aSortOrder = sortOrder;
 
-  return YES;
+  return sortProperty;
 }
 
-+ (PlaylistSortColumnType)sortColumnForOptionName:(NSString*)sortColumnOption {
++ (nullable NSString*)sortPropertyForOptionName:(NSString*)sortPropertyOption {
 
-  if ([sortColumnOption isEqualToString:@"title" ]) {
-    return PlaylistSortColumnTitle;
+  if ([sortPropertyOption isEqualToString:@"title" ]) {
+    return ITLibMediaItemPropertyTitle;
   }
-  else if ([sortColumnOption isEqualToString:@"artist" ]) {
-    return PlaylistSortColumnArtist;
+  else if ([sortPropertyOption isEqualToString:@"artist" ]) {
+    return ITLibMediaItemPropertyArtistName;
   }
-  else if ([sortColumnOption isEqualToString:@"albumartist" ]) {
-    return PlaylistSortColumnAlbumArtist;
+  else if ([sortPropertyOption isEqualToString:@"albumartist" ]) {
+    return ITLibMediaItemPropertyAlbumArtist;
   }
-  else if ([sortColumnOption isEqualToString:@"dateadded" ]) {
-    return PlaylistSortColumnDateAdded;
+  else if ([sortPropertyOption isEqualToString:@"dateadded" ]) {
+    return ITLibMediaItemPropertyAddedDate;
   }
 
-  return PlaylistSortColumnNull;
+  return nil;
 }
 
 + (PlaylistSortOrderType)sortOrderForOptionName:(NSString*)sortOrderOption {

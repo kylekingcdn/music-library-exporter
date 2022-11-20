@@ -75,7 +75,7 @@
     @YES,            ExportConfigurationKeyIncludeInternalPlaylists,
     @[],             ExportConfigurationKeyExcludedPlaylistPersistentIds,
 
-    @{},             ExportConfigurationKeyPlaylistCustomSortColumns,
+    @{},             ExportConfigurationKeyPlaylistCustomSortProperties,
     @{},             ExportConfigurationKeyPlaylistCustomSortOrders,
 
     NO,              UserDefaultsExportConfigurationSortColumnsMigrated,
@@ -184,11 +184,11 @@
   [_userDefaults setObject:[[super excludedPlaylistPersistentIds] allObjects] forKey:ExportConfigurationKeyExcludedPlaylistPersistentIds];
 }
 
-- (void)setCustomSortColumnDict:(NSDictionary*)dict {
+- (void)setCustomSortPropertyDict:(NSDictionary*)dict {
 
-  [super setCustomSortColumnDict:dict];
+  [super setCustomSortPropertyDict:dict];
 
-  [_userDefaults setObject:dict forKey:ExportConfigurationKeyPlaylistCustomSortColumns];
+  [_userDefaults setObject:dict forKey:ExportConfigurationKeyPlaylistCustomSortProperties];
 }
 
 - (void)setCustomSortOrderDict:(NSDictionary*)dict {
@@ -222,25 +222,25 @@
 
   MLE_Log_Info(@"UserDefaultsExportConfiguration [migrateSortColumnsToSortProperties] Migrating sort columns...");
 
-  NSMutableDictionary* sortColumns = [[self playlistCustomSortColumnDict] mutableCopy];
-  for (NSString* playlistID in [sortColumns allKeys]) {
+  NSMutableDictionary* sortProperties = [[self playlistCustomSortPropertyDict] mutableCopy];
+  for (NSString* playlistID in [sortProperties allKeys]) {
 
-    NSString* sortColumn = [sortColumns valueForKey:playlistID];
-    if ([sortColumn isEqualToString:@"Title"]) {
-      [sortColumns setValue:ITLibMediaItemPropertyTitle forKey:playlistID];
+    NSString* sortProperty = [sortProperties valueForKey:playlistID];
+    if ([sortProperty isEqualToString:@"Title"]) {
+      [sortProperties setValue:ITLibMediaItemPropertyTitle forKey:playlistID];
     }
-    else if ([sortColumn isEqualToString:@"Artist"]) {
-      [sortColumns setValue:ITLibMediaItemPropertyArtistName forKey:playlistID];
+    else if ([sortProperty isEqualToString:@"Artist"]) {
+      [sortProperties setValue:ITLibMediaItemPropertyArtistName forKey:playlistID];
     }
-    else if ([sortColumn isEqualToString:@"Album Artist"]) {
-      [sortColumns setValue:ITLibMediaItemPropertyAlbumArtist forKey:playlistID];
+    else if ([sortProperty isEqualToString:@"Album Artist"]) {
+      [sortProperties setValue:ITLibMediaItemPropertyAlbumArtist forKey:playlistID];
     }
-    else if ([sortColumn isEqualToString:@"Date Added"]) {
-      [sortColumns setValue:ITLibMediaItemPropertyAddedDate forKey:playlistID];
+    else if ([sortProperty isEqualToString:@"Date Added"]) {
+      [sortProperties setValue:ITLibMediaItemPropertyAddedDate forKey:playlistID];
     }
   }
 
-  [self setCustomSortColumnDict:sortColumns];
+  [self setCustomSortPropertyDict:sortProperties];
 
   [_userDefaults setBool:YES forKey:UserDefaultsExportConfigurationSortColumnsMigrated];
 }

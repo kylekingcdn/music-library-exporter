@@ -7,6 +7,8 @@
 
 #import "PlaylistsViewController.h"
 
+#import <iTunesLibrary/ITLibMediaItem.h>
+
 #import "Logger.h"
 #import "PlaylistTreeNode.h"
 #import "PlaylistTreeGenerator.h"
@@ -14,6 +16,7 @@
 #import "CheckBoxTableCellView.h"
 #import "PopupButtonTableCellView.h"
 #import "PlaylistFilterGroup.h"
+#import "SorterDefines.h"
 
 @interface PlaylistsViewController ()
 
@@ -131,30 +134,30 @@
   }
 }
 
-+ (PlaylistSortColumnType)playlistSortColumnForMenuItemTag:(NSInteger)tag {
++ (nullable NSString*)playlistSortPropertyForMenuItemTag:(NSInteger)tag {
 
   if (tag > 200 && tag < 300) {
 
     switch (tag) {
       case 201: {
-        return PlaylistSortColumnTitle;
+        return ITLibMediaItemPropertyTitle;
       }
       case 202: {
-        return PlaylistSortColumnArtist;
+        return ITLibMediaItemPropertyArtistName;
       }
       case 203: {
-        return PlaylistSortColumnAlbumArtist;
+        return ITLibMediaItemPropertyAlbumArtist;
       }
       case 204: {
-        return PlaylistSortColumnDateAdded;
+        return ITLibMediaItemPropertyAddedDate;
       }
       default: {
-        break;
+        return nil;
       }
     }
   }
 
-  return PlaylistSortColumnNull;
+  return nil;
 }
 
 + (PlaylistSortOrderType)playlistSortOrderForMenuItemTag:(NSInteger)tag {
@@ -177,25 +180,26 @@
   return PlaylistSortOrderNull;
 }
 
-+ (NSInteger)menuItemTagForPlaylistSortColumn:(PlaylistSortColumnType)sortColumn {
++ (NSInteger)menuItemTagForPlaylistSortProperty:(nullable NSString*)sortProperty {
 
-  switch (sortColumn) {
-    case PlaylistSortColumnTitle: {
-      return 201;
-    }
-    case PlaylistSortColumnArtist: {
-      return 202;
-    }
-    case PlaylistSortColumnAlbumArtist: {
-      return 203;
-    }
-    case PlaylistSortColumnDateAdded: {
-      return 204;
-    }
-    default: {
-      return -1;
-    }
+  if (sortProperty == nil) {
+    return -1;
   }
+
+  if ([sortProperty isEqualToString:ITLibMediaItemPropertyTitle]) {
+    return 201;
+  }
+  else if ([sortProperty isEqualToString:ITLibMediaItemPropertyArtistName]) {
+    return 202;
+  }
+  else if ([sortProperty isEqualToString:ITLibMediaItemPropertyAlbumArtist]) {
+    return 203;
+  }
+  else if ([sortProperty isEqualToString:ITLibMediaItemPropertyAddedDate]) {
+    return 204;
+  }
+
+  return -1;
 }
 
 + (NSInteger)menuItemTagForPlaylistSortOrder:(PlaylistSortOrderType)sortOrder {
@@ -259,17 +263,17 @@
     return;
   }
 
-  PlaylistSortColumnType sortColumn = node.customSortColumn;
+  NSString* sortProperty = node.customSortProperty;
   PlaylistSortOrderType sortOrder = node.customSortOrder;
 
-  BOOL isDefault = (sortColumn == PlaylistSortColumnNull);
+  BOOL isDefault = (sortProperty == nil);
 
   // fallback to ascending if sort order hasn't been set yet
   if (!isDefault && sortOrder == PlaylistSortOrderNull) {
     sortOrder = PlaylistSortOrderAscending;
   }
 
-  NSInteger sortColumnTag = [PlaylistsViewController menuItemTagForPlaylistSortColumn:sortColumn];
+  NSInteger sortPropertyTag = [PlaylistsViewController menuItemTagForPlaylistSortProperty:sortProperty];
   NSInteger sortOrderTag = [PlaylistsViewController menuItemTagForPlaylistSortOrder:sortOrder];
 
   for (NSMenuItem* item in button.itemArray) {
@@ -278,7 +282,7 @@
       [item setState:(isDefault ? NSControlStateValueOn : NSControlStateValueOff)];
     }
     else if (itemTag > 200 && itemTag < 300) {
-      [item setState:(item.tag == sortColumnTag ? NSControlStateValueOn : NSControlStateValueOff)];
+      [item setState:(item.tag == sortPropertyTag ? NSControlStateValueOn : NSControlStateValueOff)];
     }
     else if (itemTag > 300 && itemTag < 400) {
 
@@ -291,7 +295,7 @@
     [button setTitle:@"Default"];
   }
   else {
-    [button setTitle:PlaylistSortColumnNames[sortColumn]];
+    [button setTitle:[SorterDefines nameForProperty:sortProperty]];
   }
 }
 
@@ -306,7 +310,7 @@
 
   PlaylistTreeGenerator* generator = [[PlaylistTreeGenerator alloc] initWithFilters:playlistFilters];
   [generator setFlattenFolders:_exportConfiguration.flattenPlaylistHierarchy];
-  [generator setCustomSortColumns:_exportConfiguration.playlistCustomSortColumnDict];
+  [generator setCustomSortProperties:_exportConfiguration.playlistCustomSortPropertyDict];
   [generator setCustomSortOrders:_exportConfiguration.playlistCustomSortOrderDict];
 
   NSError* generateError;
@@ -345,23 +349,23 @@
   // default
   if (itemTag == 101) {
     MLE_Log_Info(@"PlaylistsViewController [setPlaylistSorting] Default");
-    [node setCustomSortColumn:PlaylistSortColumnNull];
+    [node setCustomSortProperty:nil];
     [_exportConfiguration setDefaultSortingForPlaylist:node.playlistPersistentHexID];
   }
-  // sort column
+  // sort property
   else if (itemTag > 200 && itemTag < 300) {
-    PlaylistSortColumnType sortColumn = [PlaylistsViewController playlistSortColumnForMenuItemTag:itemTag];
-    if (sortColumn == PlaylistSortColumnNull) {
-      MLE_Log_Info(@"PlaylistsViewController [setPlaylistSorting] error - failed to determine sort column for itemTag:%li", (long)itemTag);
+    NSString* sortProperty = [PlaylistsViewController playlistSortPropertyForMenuItemTag:itemTag];
+    if (sortProperty == nil) {
+      MLE_Log_Info(@"PlaylistsViewController [setPlaylistSorting] error - failed to determine sort property for itemTag:%li", (long)itemTag);
     }
     // ignore if no change
-    else if (sortColumn == node.customSortColumn) {
+    else if ([sortProperty isEqualToString:node.customSortProperty]) {
       return;
     }
     else {
-      MLE_Log_Info(@"PlaylistsViewController [setPlaylistSorting] column: %@", PlaylistSortColumnNames[sortColumn]);
-      [node setCustomSortColumn:sortColumn];
-      [_exportConfiguration setCustomSortColumn:sortColumn forPlaylist:node.playlistPersistentHexID];
+      MLE_Log_Info(@"PlaylistsViewController [setPlaylistSorting] property: %@", sortProperty);
+      [node setCustomSortProperty:sortProperty];
+      [_exportConfiguration setCustomSortProperty:sortProperty forPlaylist:node.playlistPersistentHexID];
     }
   }
   // sort order

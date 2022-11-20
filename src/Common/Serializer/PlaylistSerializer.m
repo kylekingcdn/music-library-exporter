@@ -34,7 +34,7 @@
     _playlistFilters = nil;
     _itemFilters = nil;
 
-    _playlistCustomSortColumns = [NSDictionary dictionary];
+    _playlistCustomSortProperties = [NSDictionary dictionary];
     _playlistCustomSortOrders = [NSDictionary dictionary];
 
     _entityRepository = nil;
@@ -121,15 +121,14 @@
 
   MediaItemSorter* sorter = nil;
 
-  if (_playlistCustomSortColumns != nil && _playlistCustomSortOrders != nil) {
+  if (_playlistCustomSortProperties != nil && _playlistCustomSortProperties != nil) {
 
-    NSString* sortColumnTitle = [_playlistCustomSortColumns valueForKey:[Utils hexStringForPersistentId:playlist.persistentID]];
-    PlaylistSortColumnType sortColumn = [Utils playlistSortColumnForTitle:sortColumnTitle];
+    NSString* sortProperty = [_playlistCustomSortProperties valueForKey:[Utils hexStringForPersistentId:playlist.persistentID]];
 
     NSString* sortOrderTitle = [_playlistCustomSortOrders valueForKey:[Utils hexStringForPersistentId:playlist.persistentID]];
     PlaylistSortOrderType sortOrder = [Utils playlistSortOrderForTitle:sortOrderTitle];
 
-    sorter = [[MediaItemSorter alloc] initWithSortColumn:sortColumn andSortOrder:sortOrder];
+    sorter = [[MediaItemSorter alloc] initWithSortProperty:sortProperty andSortOrder:sortOrder];
   }
   else {
     sorter = [[MediaItemSorter alloc] init];

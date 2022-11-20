@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property BOOL flattenFolders;
 @property (nullable, weak) PlaylistFilterGroup* filters;
 
-@property (nonnull, copy) NSDictionary* customSortColumns;
+@property (nonnull, copy) NSDictionary* customSortProperties;
 @property (nonnull, copy) NSDictionary* customSortOrders;
 
 - (instancetype)init;

@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property NSArray<PlaylistTreeNode*>* children;
 
-@property (nonatomic, assign) PlaylistSortColumnType customSortColumn;
+@property (nullable, nonatomic, copy) NSString* customSortProperty;
 @property (nonatomic, assign) PlaylistSortOrderType customSortOrder;
 
 @property (nullable, readonly, nonatomic, copy) NSString* playlistPersistentHexID;

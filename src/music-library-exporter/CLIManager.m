@@ -247,7 +247,7 @@ NSUInteger const __MLE_PlaylistTableColumnMargin = 2;
 
   PlaylistTreeGenerator* generator = [[PlaylistTreeGenerator alloc] initWithFilters:playlistFilterGroup];
   [generator setFlattenFolders:_configuration.flattenPlaylistHierarchy];
-  [generator setCustomSortColumns:_configuration.playlistCustomSortColumnDict];
+  [generator setCustomSortProperties:_configuration.playlistCustomSortPropertyDict];
   [generator setCustomSortOrders:_configuration.playlistCustomSortOrderDict];
 
   PlaylistTreeNode* playlistTree = [generator generateTreeWithError:nil];

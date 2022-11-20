@@ -28,29 +28,21 @@
 
 @end
 
-@implementation MediaItemSorter {
-
-  NSString* _sortProperty; // temporary until PlaylistSortColumnType is migrated to property strings
-}
+@implementation MediaItemSorter
 
 #pragma mark - Initializers
 
 - (instancetype)init {
 
-  return [self initWithSortColumn:PlaylistSortColumnNull andSortOrder:PlaylistSortOrderNull];
+  return [self initWithSortProperty:nil andSortOrder:PlaylistSortOrderNull];
 }
 
-- (instancetype)initWithSortColumn:(PlaylistSortColumnType)sortColumn andSortOrder:(PlaylistSortOrderType)sortOrder {
+- (instancetype)initWithSortProperty:(nullable NSString*)sortProperty andSortOrder:(PlaylistSortOrderType)sortOrder {
 
   if (self = [super init]) {
 
-    _sortColumn = sortColumn;
+    _sortProperty = sortProperty;
     _sortOrder = sortOrder;
-
-    _sortProperty = [Utils mediaItemPropertyForSortColumn:sortColumn]; // temp
-    if (_sortProperty == nil) {
-      _sortProperty = @"";
-    }
 
     return self;
   }
@@ -63,8 +55,8 @@
 
 - (NSArray<ITLibMediaItem*>*)sortItems:(NSArray<ITLibMediaItem*>*)items {
 
-  // don't sort if sort column is null
-  if (_sortColumn == PlaylistSortColumnNull) {
+  // don't sort if sort property is null
+  if (_sortProperty == nil) {
     return items;
   }
 

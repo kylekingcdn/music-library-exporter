@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, weak) PlaylistFilterGroup* playlistFilters;
 @property (nullable, weak) MediaItemFilterGroup* itemFilters;
 
-@property (weak) NSDictionary* playlistCustomSortColumns;
+@property (weak) NSDictionary* playlistCustomSortProperties;
 @property (weak) NSDictionary* playlistCustomSortOrders;
 
 - (instancetype) init;

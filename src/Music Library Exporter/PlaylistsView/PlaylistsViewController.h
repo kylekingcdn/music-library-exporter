@@ -38,10 +38,10 @@ typedef NS_ENUM(NSUInteger, TableColumnType) {
 + (nullable NSString*)cellViewIdentifierForColumn:(TableColumnType)column;
 + (nullable NSString*)cellTitleForColumn:(TableColumnType)column andNode:(PlaylistTreeNode*)node;
 
-+ (PlaylistSortColumnType)playlistSortColumnForMenuItemTag:(NSInteger)tag;
++ (nullable NSString*)playlistSortPropertyForMenuItemTag:(NSInteger)tag;
 + (PlaylistSortOrderType)playlistSortOrderForMenuItemTag:(NSInteger)tag;
 
-+ (NSInteger)menuItemTagForPlaylistSortColumn:(PlaylistSortColumnType)sortColumn;
++ (NSInteger)menuItemTagForPlaylistSortProperty:(nullable NSString*)sortProperty;
 + (NSInteger)menuItemTagForPlaylistSortOrder:(PlaylistSortOrderType)sortOrder;
 
 - (BOOL)isNodeParentExcluded:(nullable PlaylistTreeNode*)node;

@@ -30,7 +30,7 @@
   BOOL _includeInternalPlaylists;
   NSMutableSet<NSString*>* _excludedPlaylistPersistentIds;
 
-  NSDictionary* _playlistCustomSortColumnDict;
+  NSDictionary* _playlistCustomSortPropertyDict;
   NSDictionary* _playlistCustomSortOrderDict;
 }
 
@@ -48,7 +48,7 @@
     _includeInternalPlaylists = YES;
     _excludedPlaylistPersistentIds = [NSMutableSet set];
 
-    _playlistCustomSortColumnDict = [NSDictionary dictionary];
+    _playlistCustomSortPropertyDict = [NSDictionary dictionary];
     _playlistCustomSortOrderDict = [NSDictionary dictionary];
 
     return self;
@@ -155,9 +155,9 @@
   return [_excludedPlaylistPersistentIds containsObject:playlistId];
 }
 
-- (NSDictionary*)playlistCustomSortColumnDict {
+- (NSDictionary*)playlistCustomSortPropertyDict {
 
-  return _playlistCustomSortColumnDict;
+  return _playlistCustomSortPropertyDict;
 }
 
 - (NSDictionary*)playlistCustomSortOrderDict {
@@ -194,7 +194,7 @@
   MLE_Log_Info(@"  IncludeInternalPlaylists:          '%@'", (_includeInternalPlaylists ? @"YES" : @"NO"));
   MLE_Log_Info(@"  ExcludedPlaylistPersistentIds:     '%@'", _excludedPlaylistPersistentIds);
 
-  MLE_Log_Info(@"  PlaylistCustomSortColumns:         '%@'", _playlistCustomSortColumnDict);
+  MLE_Log_Info(@"  PlaylistCustomSortProperties:      '%@'", _playlistCustomSortPropertyDict);
   MLE_Log_Info(@"  PlaylistCustomSortOrders:          '%@'", _playlistCustomSortOrderDict);
 }
 
@@ -307,9 +307,9 @@
   }
 }
 
-- (void)setCustomSortColumnDict:(NSDictionary*)dict {
+- (void)setCustomSortPropertyDict:(NSDictionary*)dict {
 
-  _playlistCustomSortColumnDict = dict;
+  _playlistCustomSortPropertyDict = dict;
 }
 
 - (void)setCustomSortOrderDict:(NSDictionary*)dict {
@@ -319,18 +319,16 @@
 
 - (void)setDefaultSortingForPlaylist:(NSString*)playlistId {
 
-  [self setCustomSortColumn:PlaylistSortColumnNull forPlaylist:playlistId];
+  [self setCustomSortProperty:nil forPlaylist:playlistId];
   [self setCustomSortOrder:PlaylistSortOrderNull forPlaylist:playlistId];
 }
 
-- (void)setCustomSortColumn:(PlaylistSortColumnType)sortColumn forPlaylist:(NSString*)playlistId {
+- (void)setCustomSortProperty:(nullable NSString*)sortProperty forPlaylist:(NSString*)playlistId {
 
-  NSString* sortColumnTitle = PlaylistSortColumnNames[sortColumn];
-  NSMutableDictionary* sortColumnDict = [_playlistCustomSortColumnDict mutableCopy];
+  NSMutableDictionary* sortPropertyDict = [_playlistCustomSortPropertyDict mutableCopy];
+  [sortPropertyDict setValue:sortProperty forKey:playlistId];
 
-  [sortColumnDict setValue:sortColumnTitle forKey:playlistId];
-
-  [self setCustomSortColumnDict:sortColumnDict];
+  [self setCustomSortPropertyDict:sortPropertyDict];
 }
 
 - (void)setCustomSortOrder:(PlaylistSortOrderType)sortOrder forPlaylist:(NSString*)playlistId {
@@ -385,8 +383,8 @@
     [self setExcludedPlaylistPersistentIds:[NSSet setWithArray:[dict valueForKey:ExportConfigurationKeyExcludedPlaylistPersistentIds]]];
   }
 
-  if ([dict objectForKey:ExportConfigurationKeyPlaylistCustomSortColumns]) {
-    [self setCustomSortColumnDict:[dict valueForKey:ExportConfigurationKeyPlaylistCustomSortColumns]];
+  if ([dict objectForKey:ExportConfigurationKeyPlaylistCustomSortProperties]) {
+    [self setCustomSortPropertyDict:[dict valueForKey:ExportConfigurationKeyPlaylistCustomSortProperties]];
   }
   if ([dict objectForKey:ExportConfigurationKeyPlaylistCustomSortOrders]) {
     [self setCustomSortOrderDict:[dict valueForKey:ExportConfigurationKeyPlaylistCustomSortOrders]];
@@ -406,5 +404,5 @@ NSString* const ExportConfigurationKeyRemapRootDirectoryLocalhostPrefix = @"Rema
 NSString* const ExportConfigurationKeyFlattenPlaylistHierarchy = @"FlattenPlaylistHierarchy";
 NSString* const ExportConfigurationKeyIncludeInternalPlaylists = @"IncludeInternalPlaylists";
 NSString* const ExportConfigurationKeyExcludedPlaylistPersistentIds = @"ExcludedPlaylistPersistentIds";
-NSString* const ExportConfigurationKeyPlaylistCustomSortColumns = @"PlaylistCustomSortColumns";
+NSString* const ExportConfigurationKeyPlaylistCustomSortProperties = @"PlaylistCustomSortColumns";
 NSString* const ExportConfigurationKeyPlaylistCustomSortOrders = @"PlaylistCustomSortOrders";

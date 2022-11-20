@@ -120,7 +120,7 @@ NSErrorDomain const __MLE_ErrorDomain_ExportManager = @"com.kylekingcdn.MusicLib
   [playlistSerializer setPlaylistFilters:playlistFilterGroup];
   [playlistSerializer setItemFilters:itemFilterGroup];
   [playlistSerializer setFlattenFolders:_configuration.flattenPlaylistHierarchy];
-  [playlistSerializer setPlaylistCustomSortColumns:_configuration.playlistCustomSortColumnDict];
+  [playlistSerializer setPlaylistCustomSortProperties:_configuration.playlistCustomSortPropertyDict];
   [playlistSerializer setPlaylistCustomSortOrders:_configuration.playlistCustomSortOrderDict];
 
   LibrarySerializer* librarySerializer = [[LibrarySerializer alloc] init];

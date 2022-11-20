@@ -45,7 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSSet<NSString*>*)excludedPlaylistPersistentIds;
 - (BOOL)isPlaylistIdExcluded:(NSString*)playlistId;
 
-- (NSDictionary*)playlistCustomSortColumnDict;
+- (NSDictionary*)playlistCustomSortPropertyDict;
 - (NSDictionary*)playlistCustomSortOrderDict;
 
 + (NSString*)generatePersistentLibraryId;
@@ -76,11 +76,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)removeExcludedPlaylistPersistentId:(NSString*)playlistId;
 - (void)setExcluded:(BOOL)excluded forPlaylistId:(NSString*)playlistId;
 
-- (void)setCustomSortColumnDict:(NSDictionary*)dict;
+- (void)setCustomSortPropertyDict:(NSDictionary*)dict;
 - (void)setCustomSortOrderDict:(NSDictionary*)dict;
 
 - (void)setDefaultSortingForPlaylist:(NSString*)playlistId;
-- (void)setCustomSortColumn:(PlaylistSortColumnType)sortColumn forPlaylist:(NSString*)playlistId;
+- (void)setCustomSortProperty:(nullable NSString*)sortProperty forPlaylist:(NSString*)playlistId;
 - (void)setCustomSortOrder:(PlaylistSortOrderType)sortOrder forPlaylist:(NSString*)playlistId;
 
 - (void)loadValuesFromDictionary:(NSDictionary*)dict;
@@ -98,7 +98,7 @@ extern NSString* const ExportConfigurationKeyRemapRootDirectoryLocalhostPrefix;
 extern NSString* const ExportConfigurationKeyFlattenPlaylistHierarchy;
 extern NSString* const ExportConfigurationKeyIncludeInternalPlaylists;
 extern NSString* const ExportConfigurationKeyExcludedPlaylistPersistentIds;
-extern NSString* const ExportConfigurationKeyPlaylistCustomSortColumns;
+extern NSString* const ExportConfigurationKeyPlaylistCustomSortProperties;
 extern NSString* const ExportConfigurationKeyPlaylistCustomSortOrders;
 
 NS_ASSUME_NONNULL_END

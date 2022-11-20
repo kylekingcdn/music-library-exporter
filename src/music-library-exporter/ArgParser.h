@@ -28,7 +28,7 @@ typedef NS_ENUM(NSUInteger, ArgParserErrorCode) {
   ArgParserErrorMissingRequiredOption,
   ArgParserErrorMalformedPlaylistIdOption,
   ArgParserErrorMalformedSortingOptionFormat,
-  ArgParserErrorUnknownSortColumn,
+  ArgParserErrorUnknownSortProperty,
   ArgParserErrorUnknownSortOrder,
   ArgParserErrorAppPrefsPropertyListInvalid,
 };
@@ -66,11 +66,11 @@ typedef NS_ENUM(NSUInteger, ArgParserErrorCode) {
 
 + (nullable NSSet<NSString*>*)playlistIdsForIdsOption:(NSString*)playlistIdsOption error:(NSError**)error;
 
-+ (BOOL)parsePlaylistSortingOption:(NSString*)sortOption forColumnDict:(NSMutableDictionary*)sortColDict andOrderDict:(NSMutableDictionary*)sortOrderDict andReturnError:(NSError**)error;
-+ (BOOL)parsePlaylistSortingSegment:(NSString*)sortOption forColumnDict:(NSMutableDictionary*)sortColDict andOrderDict:(NSMutableDictionary*)sortOrderDict andReturnError:(NSError**)error;
-+ (BOOL)parsePlaylistSortingSegmentValue:(NSString*)sortOptionValue forColumn:(PlaylistSortColumnType*)sortColumn andOrder:(PlaylistSortOrderType*)sortOrder andReturnError:(NSError**)error;
++ (BOOL)parsePlaylistSortingOption:(NSString*)sortOption forPropertyDict:(NSMutableDictionary*)sortPropertyDict andOrderDict:(NSMutableDictionary*)sortOrderDict andReturnError:(NSError**)error;
++ (BOOL)parsePlaylistSortingSegment:(NSString*)sortOption forPropertyDict:(NSMutableDictionary*)sortPropertyDict andOrderDict:(NSMutableDictionary*)sortOrderDict andReturnError:(NSError**)error;
++ (nullable NSString*)parsePlaylistSortingSegmentValue:(NSString*)sortOptionValue forOrder:(PlaylistSortOrderType*)sortOrder andReturnError:(NSError**)error;
 
-+ (PlaylistSortColumnType)sortColumnForOptionName:(NSString*)sortColumnOption;
++ (nullable NSString*)sortPropertyForOptionName:(NSString*)sortPropertyOption;
 + (PlaylistSortOrderType)sortOrderForOptionName:(NSString*)sortOrderOption;
 
 

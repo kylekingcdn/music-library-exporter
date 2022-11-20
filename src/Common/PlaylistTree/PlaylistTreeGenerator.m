@@ -23,7 +23,7 @@
     _filters = nil;
     _flattenFolders = NO;
 
-    _customSortColumns = [NSDictionary dictionary];
+    _customSortProperties = [NSDictionary dictionary];
     _customSortOrders = [NSDictionary dictionary];
 
     return self;
@@ -81,10 +81,9 @@
 
   NSString* playlistHexID = [Utils hexStringForPersistentId:playlist.persistentID];
 
-  // set custom sort colummn
-  NSString* sortColumnTitle = [_customSortColumns valueForKey:playlistHexID];
-  PlaylistSortColumnType sortColumn = [Utils playlistSortColumnForTitle:sortColumnTitle];
-  [node setCustomSortColumn:sortColumn];
+  // set custom sort property
+  NSString* sortProperty = [_customSortProperties valueForKey:playlistHexID];
+  [node setCustomSortProperty:sortProperty];
 
   // set custom sort order
   NSString* sortOrderTitle = [_customSortOrders valueForKey:playlistHexID];
