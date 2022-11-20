@@ -86,7 +86,7 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView identifier="kindCellView" id="pZf-O5-uye">
-                                                <rect key="frame" x="185.5" y="1" width="112" height="24"/>
+                                                <rect key="frame" x="185" y="1" width="112" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yFR-Uk-IyY">
@@ -157,7 +157,7 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView identifier="sortingCellView" id="X87-G3-CBs" customClass="PopupButtonTableCellView">
-                                                <rect key="frame" x="419.5" y="1" width="127" height="24"/>
+                                                <rect key="frame" x="419" y="1" width="127" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L5B-G3-rdZ" userLabel="Sorting Button">
@@ -173,16 +173,97 @@
                                                                         <accessibility identifier="defaultSortingMenuItem"/>
                                                                     </menuItem>
                                                                     <menuItem isSeparatorItem="YES" id="AxW-Uy-mPd"/>
-                                                                    <menuItem title="Title" tag="201" identifier="titleSortingMenuItem" id="nl5-vU-6sF">
+                                                                    <menuItem title="Album" tag="201" identifier="albumSortingMenuItem" id="nl5-vU-6sF">
                                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                                     </menuItem>
-                                                                    <menuItem title="Artist" tag="202" identifier="artistSortingMenuItem" id="xsd-51-UuG" userLabel="Artist">
+                                                                    <menuItem title="Album Artist" tag="202" identifier="albumArtistSortingMenuItem" id="KIU-oU-jWA">
                                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                                     </menuItem>
-                                                                    <menuItem title="Album Artist" tag="203" identifier="albumArtistSortingMenuItem" id="6mh-Ww-WJy">
+                                                                    <menuItem title="Album Rating" tag="203" identifier="albumRatingSortingMenuItem" id="SXN-At-0UL">
                                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                                     </menuItem>
-                                                                    <menuItem title="Date Added" tag="204" identifier="dateAddedSortingMenuItem" id="h89-C4-aQf" userLabel="Date Added">
+                                                                    <menuItem title="Artist" tag="204" identifier="artistSortingMenuItem" id="TID-Bm-Bd1">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Beats Per Minute" tag="205" identifier="bpmSortingMenuItem" id="f4w-zF-jEq">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Bit Rate" tag="206" identifier="bitrateSortingMenuItem" id="aih-ZX-iTX">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Category" tag="207" identifier="categorySortingMenuItem" id="Ovu-MZ-Wkb">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Comments" tag="208" identifier="commentsSortingMenuItem" id="GFU-4p-qov">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Composer" tag="209" identifier="composerSortingMenuItem" id="W17-bv-KWh">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Date Added" tag="210" identifier="dateAddedSortingMenuItem" id="e29-vn-Hpo">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Date Modified" tag="211" identifier="dateModifiedSortingMenuItem" id="eH3-fc-5re">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Description" tag="212" identifier="descriptionSortingMenuItem" id="jE8-gB-G1y">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Disc Number" tag="213" identifier="discNumberSortingMenuItem" id="lsY-Cq-6zH">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Genre" tag="214" identifier="genreSortingMenuItem" id="opb-X3-RT3">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Grouping" tag="215" identifier="groupingSortingMenuItem" id="M4v-ab-1Mk">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Kind" tag="216" identifier="kindSortingMenuItem" id="f14-Pj-Kvz">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Last Played" tag="217" identifier="lastPlayedSortingMenuItem" id="iQe-d8-dTt">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Last Skipped" tag="218" identifier="lastSkippedSortingMenuItem" id="gpu-C4-ukt">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Movement Name" tag="219" identifier="movementNameSortingMenuItem" id="I1c-5Y-f9R">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Movement Number" tag="220" identifier="movementNumberSortingMenuItem" id="epq-9i-PmO">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Plays" tag="221" identifier="playsSortingMenuItem" id="q0T-Bm-Cdo">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Rating" tag="222" identifier="ratingSortingMenuItem" id="gdp-0K-08u">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Release Date" tag="223" identifier="releaseDateSortingMenuItem" id="LcC-wY-l6Y">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Sample Rate" tag="224" identifier="sampleRateSortingMenuItem" id="LVG-rT-xja">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Size" tag="225" identifier="sizeSortingMenuItem" id="2lX-9A-Y6J">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Skips" tag="226" identifier="skipsSortingMenuItem" id="kSb-cU-TO3">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Time" tag="227" identifier="timeSortingMenuItem" id="zS6-Ve-7Ku">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Title" tag="228" identifier="titleSortingMenuItem" id="03g-NZ-W07">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Track Number" tag="229" identifier="trackNumberSortingMenuItem" id="V2M-cQ-Eaq">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Work" tag="230" identifier="workSortingMenuItem" id="zKP-M7-VFQ">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Year" tag="231" identifier="yearSortingMenuItem" id="xJ0-TV-txt">
                                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                                     </menuItem>
                                                                     <menuItem isSeparatorItem="YES" id="kHG-8A-RLg"/>

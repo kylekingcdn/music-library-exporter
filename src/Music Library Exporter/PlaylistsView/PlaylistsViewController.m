@@ -140,16 +140,97 @@
 
     switch (tag) {
       case 201: {
-        return ITLibMediaItemPropertyTitle;
+        return ITLibMediaItemPropertyAlbumTitle;
       }
       case 202: {
-        return ITLibMediaItemPropertyArtistName;
-      }
-      case 203: {
         return ITLibMediaItemPropertyAlbumArtist;
       }
+      case 203: {
+        return ITLibMediaItemPropertyAlbumRating;
+      }
       case 204: {
+        return ITLibMediaItemPropertyArtistName;
+      }
+      case 205: {
+        return ITLibMediaItemPropertyBeatsPerMinute;
+      }
+      case 206: {
+        return ITLibMediaItemPropertyBitRate;
+      }
+      case 207: {
+        return ITLibMediaItemPropertyCategory;
+      }
+      case 208: {
+        return ITLibMediaItemPropertyComments;
+      }
+      case 209: {
+        return ITLibMediaItemPropertyComposer;
+      }
+      case 210: {
         return ITLibMediaItemPropertyAddedDate;
+      }
+      case 211: {
+        return ITLibMediaItemPropertyModifiedDate;
+      }
+      case 212: {
+        return ITLibMediaItemPropertyDescription;
+      }
+      case 213: {
+        return ITLibMediaItemPropertyAlbumDiscNumber;
+      }
+      case 214: {
+        return ITLibMediaItemPropertyGenre;
+      }
+      case 215: {
+        return ITLibMediaItemPropertyGrouping;
+      }
+      case 216: {
+        return ITLibMediaItemPropertyKind;
+      }
+      case 217: {
+        return ITLibMediaItemPropertyLastPlayDate;
+      }
+      case 218: {
+        return ITLibMediaItemPropertySkipDate;
+      }
+      case 219: {
+        return ITLibMediaItemPropertyMovementName;
+      }
+      case 220: {
+        return ITLibMediaItemPropertyMovementNumber;
+      }
+      case 221: {
+        return ITLibMediaItemPropertyPlayCount;
+      }
+      case 222: {
+        return ITLibMediaItemPropertyRating;
+      }
+      case 223: {
+        return ITLibMediaItemPropertyReleaseDate;
+      }
+      case 224: {
+        return ITLibMediaItemPropertySampleRate;
+      }
+      case 225: {
+        return ITLibMediaItemPropertySize;
+      }
+      case 226: {
+        return ITLibMediaItemPropertyUserSkipCount;
+      }
+      case 227: {
+        return ITLibMediaItemPropertyTotalTime;
+      }
+      case 228: {
+        return ITLibMediaItemPropertyTitle;
+      }
+      case 229: {
+        return ITLibMediaItemPropertyTrackNumber;
+      }
+      case 230: {
+        return ITLibMediaItemPropertyWork;
+      }
+      case 231: {
+        return ITLibMediaItemPropertyYear;
       }
       default: {
         return nil;
@@ -186,17 +267,98 @@
     return -1;
   }
 
-  if ([sortProperty isEqualToString:ITLibMediaItemPropertyTitle]) {
+  if ([sortProperty isEqualToString:ITLibMediaItemPropertyAlbumTitle]) {
     return 201;
   }
-  else if ([sortProperty isEqualToString:ITLibMediaItemPropertyArtistName]) {
+  else if ([sortProperty isEqualToString:ITLibMediaItemPropertyAlbumArtist]) {
     return 202;
   }
-  else if ([sortProperty isEqualToString:ITLibMediaItemPropertyAlbumArtist]) {
+  else if ([sortProperty isEqualToString:ITLibMediaItemPropertyAlbumRating]) {
     return 203;
   }
-  else if ([sortProperty isEqualToString:ITLibMediaItemPropertyAddedDate]) {
+  else if ([sortProperty isEqualToString:ITLibMediaItemPropertyArtistName]) {
     return 204;
+  }
+  else if ([sortProperty isEqualToString:ITLibMediaItemPropertyBeatsPerMinute]) {
+    return 205;
+  }
+  else if ([sortProperty isEqualToString:ITLibMediaItemPropertyBitRate]) {
+    return 206;
+  }
+  else if ([sortProperty isEqualToString:ITLibMediaItemPropertyCategory]) {
+    return 207;
+  }
+  else if ([sortProperty isEqualToString:ITLibMediaItemPropertyComments]) {
+    return 208;
+  }
+  else if ([sortProperty isEqualToString:ITLibMediaItemPropertyComposer]) {
+    return 209;
+  }
+  else if ([sortProperty isEqualToString:ITLibMediaItemPropertyAddedDate]) {
+    return 210;
+  }
+  else if ([sortProperty isEqualToString:ITLibMediaItemPropertyModifiedDate]) {
+    return 211;
+  }
+  else if ([sortProperty isEqualToString:ITLibMediaItemPropertyDescription]) {
+    return 212;
+  }
+  else if ([sortProperty isEqualToString:ITLibMediaItemPropertyAlbumDiscNumber]) {
+    return 213;
+  }
+  else if ([sortProperty isEqualToString:ITLibMediaItemPropertyGenre]) {
+    return 214;
+  }
+  else if ([sortProperty isEqualToString:ITLibMediaItemPropertyGrouping]) {
+    return 215;
+  }
+  else if ([sortProperty isEqualToString:ITLibMediaItemPropertyKind]) {
+    return 216;
+  }
+  else if ([sortProperty isEqualToString:ITLibMediaItemPropertyLastPlayDate]) {
+    return 217;
+  }
+  else if ([sortProperty isEqualToString:ITLibMediaItemPropertySkipDate]) {
+    return 218;
+  }
+  else if ([sortProperty isEqualToString:ITLibMediaItemPropertyMovementName]) {
+    return 219;
+  }
+  else if ([sortProperty isEqualToString:ITLibMediaItemPropertyMovementNumber]) {
+    return 220;
+  }
+  else if ([sortProperty isEqualToString:ITLibMediaItemPropertyPlayCount]) {
+    return 221;
+  }
+  else if ([sortProperty isEqualToString:ITLibMediaItemPropertyRating]) {
+    return 222;
+  }
+  else if ([sortProperty isEqualToString:ITLibMediaItemPropertyReleaseDate]) {
+    return 223;
+  }
+  else if ([sortProperty isEqualToString:ITLibMediaItemPropertySampleRate]) {
+    return 224;
+  }
+  else if ([sortProperty isEqualToString:ITLibMediaItemPropertySize]) {
+    return 225;
+  }
+  else if ([sortProperty isEqualToString:ITLibMediaItemPropertyUserSkipCount]) {
+    return 226;
+  }
+  else if ([sortProperty isEqualToString:ITLibMediaItemPropertyTotalTime]) {
+    return 227;
+  }
+  else if ([sortProperty isEqualToString:ITLibMediaItemPropertyTitle]) {
+    return 228;
+  }
+  else if ([sortProperty isEqualToString:ITLibMediaItemPropertyTrackNumber]) {
+    return 229;
+  }
+  else if ([sortProperty isEqualToString:ITLibMediaItemPropertyWork]) {
+    return 230;
+  }
+  else if ([sortProperty isEqualToString:ITLibMediaItemPropertyYear]) {
+    return 231;
   }
 
   return -1;
