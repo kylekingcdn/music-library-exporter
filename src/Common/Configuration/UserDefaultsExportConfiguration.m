@@ -7,6 +7,8 @@
 
 #import "UserDefaultsExportConfiguration.h"
 
+#import <iTunesLibrary/ITLibMediaItem.h>
+
 #import "Logger.h"
 
 
@@ -75,6 +77,8 @@
 
     @{},             ExportConfigurationKeyPlaylistCustomSortColumns,
     @{},             ExportConfigurationKeyPlaylistCustomSortOrders,
+
+    NO,              UserDefaultsExportConfigurationSortColumnsMigrated,
 
     nil
   ];
@@ -205,6 +209,40 @@
   if ([self generatedPersistentLibraryId] == nil) {
     [self setGeneratedPersistentLibraryId:[ExportConfiguration generatePersistentLibraryId]];
   }
+
+  // migrate old sort column values
+  BOOL sortColumnsMigrated = [[_userDefaults objectForKey:UserDefaultsExportConfigurationSortColumnsMigrated] boolValue];
+
+  if (!sortColumnsMigrated) {
+    [self migrateSortColumnsToSortProperties];
+  }
+}
+
+- (void)migrateSortColumnsToSortProperties {
+
+  MLE_Log_Info(@"UserDefaultsExportConfiguration [migrateSortColumnsToSortProperties] Migrating sort columns...");
+
+  NSMutableDictionary* sortColumns = [[self playlistCustomSortColumnDict] mutableCopy];
+  for (NSString* playlistID in [sortColumns allKeys]) {
+
+    NSString* sortColumn = [sortColumns valueForKey:playlistID];
+    if ([sortColumn isEqualToString:@"Title"]) {
+      [sortColumns setValue:ITLibMediaItemPropertyTitle forKey:playlistID];
+    }
+    else if ([sortColumn isEqualToString:@"Artist"]) {
+      [sortColumns setValue:ITLibMediaItemPropertyArtistName forKey:playlistID];
+    }
+    else if ([sortColumn isEqualToString:@"Album Artist"]) {
+      [sortColumns setValue:ITLibMediaItemPropertyAlbumArtist forKey:playlistID];
+    }
+    else if ([sortColumn isEqualToString:@"Date Added"]) {
+      [sortColumns setValue:ITLibMediaItemPropertyAddedDate forKey:playlistID];
+    }
+  }
+
+  [self setCustomSortColumnDict:sortColumns];
+
+  [_userDefaults setBool:YES forKey:UserDefaultsExportConfigurationSortColumnsMigrated];
 }
 
 - (void)observeValueForKeyPath:(NSString *)aKeyPath ofObject:(id)anObject change:(NSDictionary *)aChange context:(void *)aContext {
@@ -227,3 +265,5 @@
 }
 
 @end
+
+NSString* const UserDefaultsExportConfigurationSortColumnsMigrated = @"PlaylistCustomSortColumnsMigrated";

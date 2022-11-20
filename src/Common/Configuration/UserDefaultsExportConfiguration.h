@@ -49,4 +49,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+extern NSString* const UserDefaultsExportConfigurationSortColumnsMigrated;
+
 NS_ASSUME_NONNULL_END
