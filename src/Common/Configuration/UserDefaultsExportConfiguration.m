@@ -208,6 +208,8 @@
   }
 
   [self migrateOutdatedSortProperties];
+  
+  // TODO: validate sort properties
 }
 
 - (void)migrateOutdatedSortProperties {
