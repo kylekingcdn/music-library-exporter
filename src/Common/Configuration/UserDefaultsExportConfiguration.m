@@ -7,9 +7,8 @@
 
 #import "UserDefaultsExportConfiguration.h"
 
-#import <iTunesLibrary/ITLibMediaItem.h>
-
 #import "Logger.h"
+#import "SorterDefines.h"
 
 
 @implementation UserDefaultsExportConfiguration {
@@ -77,8 +76,6 @@
 
     @{},             ExportConfigurationKeyPlaylistCustomSortProperties,
     @{},             ExportConfigurationKeyPlaylistCustomSortOrders,
-
-    NO,              UserDefaultsExportConfigurationSortColumnsMigrated,
 
     nil
   ];
@@ -210,39 +207,37 @@
     [self setGeneratedPersistentLibraryId:[ExportConfiguration generatePersistentLibraryId]];
   }
 
-  // migrate old sort column values
-  BOOL sortColumnsMigrated = [[_userDefaults objectForKey:UserDefaultsExportConfigurationSortColumnsMigrated] boolValue];
-
-  if (!sortColumnsMigrated) {
-    [self migrateSortColumnsToSortProperties];
-  }
+  [self migrateOutdatedSortProperties];
 }
 
-- (void)migrateSortColumnsToSortProperties {
+- (void)migrateOutdatedSortProperties {
 
-  MLE_Log_Info(@"UserDefaultsExportConfiguration [migrateSortColumnsToSortProperties] Migrating sort columns...");
+  MLE_Log_Info(@"UserDefaultsExportConfiguration [migrateOutdatedSortProperties] Migrating any stale sort columns");
+
+  NSUInteger updatedCount = 0;
 
   NSMutableDictionary* sortProperties = [[self playlistCustomSortPropertyDict] mutableCopy];
   for (NSString* playlistID in [sortProperties allKeys]) {
 
     NSString* sortProperty = [sortProperties valueForKey:playlistID];
-    if ([sortProperty isEqualToString:@"Title"]) {
-      [sortProperties setValue:ITLibMediaItemPropertyTitle forKey:playlistID];
-    }
-    else if ([sortProperty isEqualToString:@"Artist"]) {
-      [sortProperties setValue:ITLibMediaItemPropertyArtistName forKey:playlistID];
-    }
-    else if ([sortProperty isEqualToString:@"Album Artist"]) {
-      [sortProperties setValue:ITLibMediaItemPropertyAlbumArtist forKey:playlistID];
-    }
-    else if ([sortProperty isEqualToString:@"Date Added"]) {
-      [sortProperties setValue:ITLibMediaItemPropertyAddedDate forKey:playlistID];
+
+    // currently stored sort property is listed in migrated property values
+    if ([[SorterDefines migratedProperties] objectForKey:sortProperty] != nil) {
+
+      NSString* newSortProperty = [[SorterDefines migratedProperties] objectForKey:sortProperty];
+
+      // ensure old property != new property (possible since migratedProperties dict uses ITLibMediaItem exports as values
+      if ([sortProperty isNotEqualTo:newSortProperty]) {
+        MLE_Log_Info(@"UserDefaultsExportConfiguration [migrateSortColumnsToSortProperties] Migrated playlist '%@' sort property from '%@' to '%@'", playlistID, sortProperty, newSortProperty);
+        [sortProperties setValue:newSortProperty forKey:playlistID];
+        updatedCount++;
+      }
     }
   }
-
-  [self setCustomSortPropertyDict:sortProperties];
-
-  [_userDefaults setBool:YES forKey:UserDefaultsExportConfigurationSortColumnsMigrated];
+  if (updatedCount > 0) {
+    MLE_Log_Info(@"UserDefaultsExportConfiguration [migrateSortColumnsToSortProperties] Total deprecated sort properties migrated: %lu", (unsigned long)updatedCount);
+    [self setCustomSortPropertyDict:sortProperties];
+  }
 }
 
 - (void)observeValueForKeyPath:(NSString *)aKeyPath ofObject:(id)anObject change:(NSDictionary *)aChange context:(void *)aContext {
@@ -265,5 +260,3 @@
 }
 
 @end
-
-NSString* const UserDefaultsExportConfigurationSortColumnsMigrated = @"PlaylistCustomSortColumnsMigrated";
