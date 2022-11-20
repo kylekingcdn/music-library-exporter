@@ -6,9 +6,9 @@
 <p align="center">
   <a href="https://music-exporter.app">Visit our website</a>
   ·
-  <a href="https://github.com/kylekingcdn/music-library-exporter/issues">Report a bug</a>
+  <a href="https://github.com/kylekingcdn/music-library-exporter/issues/new">Report a bug</a>
   ·
-  <a href="https://github.com/kylekingcdn/music-library-exporter/issues">Request a feature</a>
+  <a href="https://github.com/kylekingcdn/music-library-exporter/issues/new">Request a feature</a>
 </p>
 <p align="center">
   <a href="https://apps.apple.com/us/app/music-library-exporter/id1553648567">
