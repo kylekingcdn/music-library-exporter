@@ -145,7 +145,7 @@
 
   // handle nil values
   if (item1Value == nil || item2Value == nil) {
-    if (item1Value == item2Value) {
+    if ([item1Value isEqualTo:item2Value]) {
       return NSOrderedSame;
     }
     else if (item1Value) {
