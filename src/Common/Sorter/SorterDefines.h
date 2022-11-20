@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Properties that should support sorting
 + (NSArray<NSString*>*)allProperties;
++ (NSSet<NSString*>*)allPropertiesSet;
 
 // Names of properties to use for frontend, logging, etc.
 + (NSDictionary*)propertyNames;

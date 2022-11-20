@@ -14,6 +14,7 @@ static SorterDefines* _sharedDefines;
 @interface SorterDefines ()
 
 @property NSArray<NSString*>* allProperties;
+@property NSSet<NSString*>* allPropertiesSet;
 
 @property NSDictionary* propertyNames;
 @property NSDictionary* propertySubstitutions;
@@ -50,7 +51,6 @@ static SorterDefines* _sharedDefines;
     [self populateFallbackSortProperties];
     [self populateDefaultFallbackSortProperties];
 
-
     return self;
   }
   else {
@@ -67,6 +67,15 @@ static SorterDefines* _sharedDefines;
   }
 
   return _sharedDefines.allProperties;
+}
+
++ (NSSet<NSString*>*)allPropertiesSet {
+
+  if (_sharedDefines == nil) {
+    _sharedDefines = [[SorterDefines alloc] init];
+  }
+
+  return _sharedDefines.allPropertiesSet;
 }
 
 + (NSDictionary*)propertyNames {
@@ -173,6 +182,8 @@ static SorterDefines* _sharedDefines;
     ITLibMediaItemPropertyMediaKind,
     ITLibMediaItemPropertyLocation,
   ];
+
+  _allPropertiesSet = [NSSet setWithArray:_allProperties];
 }
 
 - (void)populatePropertyNames {
