@@ -88,6 +88,7 @@ The export command accepts the following options (detailed information on each o
 - `--sort <playlist_sorting_specifer>`
 - `--remap_search <text_to_find>, -s <text_to_find>`
 - `--remap_replace <replacement text>, -r <replacement text>`
+- `--localhost_path_prefix`
 
 *Note: Both `--output_path` and `--music_media_dir` are _manadatory_ unless you are using `--read_prefs` (valid values must be set in the application).*
 
