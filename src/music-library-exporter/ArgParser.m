@@ -381,17 +381,98 @@ NSErrorDomain const __MLE_ErrorDomain_ArgParser = @"com.kylekingcdn.MusicLibrary
 
 + (nullable NSString*)sortPropertyForOptionName:(NSString*)sortPropertyOption {
 
-  if ([sortPropertyOption isEqualToString:@"title" ]) {
-    return ITLibMediaItemPropertyTitle;
+  if ([sortPropertyOption isEqualToString:@"album"]) {
+    return ITLibMediaItemPropertyAlbumTitle;
   }
-  else if ([sortPropertyOption isEqualToString:@"artist" ]) {
-    return ITLibMediaItemPropertyArtistName;
-  }
-  else if ([sortPropertyOption isEqualToString:@"albumartist" ]) {
+  else if ([sortPropertyOption isEqualToString:@"albumartist"]) {
     return ITLibMediaItemPropertyAlbumArtist;
   }
-  else if ([sortPropertyOption isEqualToString:@"dateadded" ]) {
+  else if ([sortPropertyOption isEqualToString:@"albumrating"]) {
+    return ITLibMediaItemPropertyAlbumRating;
+  }
+  else if ([sortPropertyOption isEqualToString:@"artist"]) {
+    return ITLibMediaItemPropertyArtistName;
+  }
+  else if ([sortPropertyOption isEqualToString:@"bpm"]) {
+    return ITLibMediaItemPropertyBeatsPerMinute;
+  }
+  else if ([sortPropertyOption isEqualToString:@"bitrate"]) {
+    return ITLibMediaItemPropertyBitRate;
+  }
+  else if ([sortPropertyOption isEqualToString:@"category"]) {
+    return ITLibMediaItemPropertyCategory;
+  }
+  else if ([sortPropertyOption isEqualToString:@"comments"]) {
+    return ITLibMediaItemPropertyComments;
+  }
+  else if ([sortPropertyOption isEqualToString:@"composer"]) {
+    return ITLibMediaItemPropertyComposer;
+  }
+  else if ([sortPropertyOption isEqualToString:@"dateadded"]) {
     return ITLibMediaItemPropertyAddedDate;
+  }
+  else if ([sortPropertyOption isEqualToString:@"datemodified"]) {
+    return ITLibMediaItemPropertyModifiedDate;
+  }
+  else if ([sortPropertyOption isEqualToString:@"description"]) {
+    return ITLibMediaItemPropertyDescription;
+  }
+  else if ([sortPropertyOption isEqualToString:@"discnumber"]) {
+    return ITLibMediaItemPropertyAlbumDiscNumber;
+  }
+  else if ([sortPropertyOption isEqualToString:@"genre"]) {
+    return ITLibMediaItemPropertyGenre;
+  }
+  else if ([sortPropertyOption isEqualToString:@"grouping"]) {
+    return ITLibMediaItemPropertyGrouping;
+  }
+  else if ([sortPropertyOption isEqualToString:@"kind"]) {
+    return ITLibMediaItemPropertyKind;
+  }
+  else if ([sortPropertyOption isEqualToString:@"lastplayed"]) {
+    return ITLibMediaItemPropertyLastPlayDate;
+  }
+  else if ([sortPropertyOption isEqualToString:@"lastskipped"]) {
+    return ITLibMediaItemPropertySkipDate;
+  }
+  else if ([sortPropertyOption isEqualToString:@"movementname"]) {
+    return ITLibMediaItemPropertyMovementName;
+  }
+  else if ([sortPropertyOption isEqualToString:@"movementnumber"]) {
+    return ITLibMediaItemPropertyMovementNumber;
+  }
+  else if ([sortPropertyOption isEqualToString:@"plays"]) {
+    return ITLibMediaItemPropertyPlayCount;
+  }
+  else if ([sortPropertyOption isEqualToString:@"rating"]) {
+    return ITLibMediaItemPropertyRating;
+  }
+  else if ([sortPropertyOption isEqualToString:@"releasedate"]) {
+    return ITLibMediaItemPropertyReleaseDate;
+  }
+  else if ([sortPropertyOption isEqualToString:@"samplerate"]) {
+    return ITLibMediaItemPropertySampleRate;
+  }
+  else if ([sortPropertyOption isEqualToString:@"size"]) {
+    return ITLibMediaItemPropertySize;
+  }
+  else if ([sortPropertyOption isEqualToString:@"skips"]) {
+    return ITLibMediaItemPropertyUserSkipCount;
+  }
+  else if ([sortPropertyOption isEqualToString:@"time"]) {
+    return ITLibMediaItemPropertyTotalTime;
+  }
+  else if ([sortPropertyOption isEqualToString:@"title"]) {
+    return ITLibMediaItemPropertyTitle;
+  }
+  else if ([sortPropertyOption isEqualToString:@"tracknumber"]) {
+    return ITLibMediaItemPropertyTrackNumber;
+  }
+  else if ([sortPropertyOption isEqualToString:@"work"]) {
+    return ITLibMediaItemPropertyWork;
+  }
+  else if ([sortPropertyOption isEqualToString:@"year"]) {
+    return ITLibMediaItemPropertyYear;
   }
 
   return nil;
