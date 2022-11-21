@@ -37,7 +37,7 @@ The library is exported as an XML file and is compatible with other applications
 - **Custom Playlist Sorting**
   - Override the default sorting of individual playlists with over *30 options*
 - **Playlist Exclusion**
-  - Slip internal playlists and/or manually specify playlists to exclude
+  - Skip internal playlists and/or manually specify playlists to exclude
 - **Folder Flattening Support**
   - Optionally flatten the hierarchy of your playlists (no folders, all playlists appear top-level)
 - **Custom Output Location**
