@@ -23,7 +23,7 @@ Music Library Exporter allows you to export your library and playlists from the 
 
 The library is exported as an XML file and is compatible with other applications, services, and tools that rely on the `iTunes Music Library.xml` format.
 
-![Music Library Exporter Screenshot](https://i.imgur.com/38obfhV.jpg)
+![Music Library Exporter Screenshot](https://user-images.githubusercontent.com/13585221/203063700-9e5ec0fd-0cca-4991-8408-8b21e222f87e.png)
 
 
 ## Features
