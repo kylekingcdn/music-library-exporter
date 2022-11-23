@@ -37,16 +37,6 @@
             <rect key="frame" x="0.0" y="0.0" width="597" height="655"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4At-1b-40C" userLabel="Internal playlists checkbox">
-                    <rect key="frame" x="197" y="303" width="380" height="18"/>
-                    <buttonCell key="cell" type="check" title="Include internal playlists" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="LaZ-wG-55e">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="setIncludeInternalPlaylists:" target="-2" id="Egm-Ot-JC6"/>
-                    </connections>
-                </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LFz-NA-f4P" userLabel="Library path label">
                     <rect key="frame" x="18" y="619" width="175" height="16"/>
                     <constraints>
@@ -97,6 +87,16 @@
                         <outlet property="nextKeyView" destination="2Pg-dB-pIn" id="Hue-m6-8eO"/>
                     </connections>
                 </textField>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QoD-Q7-Epr">
+                    <rect key="frame" x="505" y="560" width="79" height="32"/>
+                    <buttonCell key="cell" type="push" title="Browse" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="fqK-RZ-UrK">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="browseAndValidateOutputDirectory:" target="-2" id="SfZ-RQ-CVk"/>
+                    </connections>
+                </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aNt-y7-Osz" userLabel="Output directory description">
                     <rect key="frame" x="199" y="549" width="380" height="14"/>
                     <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="left" title="The generated library will be saved in this directory" id="Dzx-Ox-qav">
@@ -191,6 +191,16 @@
                         <outlet property="nextKeyView" destination="cGM-Xy-cVO" id="wpB-AB-3Xb"/>
                     </connections>
                 </textField>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GA7-9j-vnH" userLabel="Localhost prefix checkbox">
+                    <rect key="frame" x="217" y="381" width="360" height="18"/>
+                    <buttonCell key="cell" type="check" title="Add 'localhost' prefix to track paths" bezelStyle="regularSquare" imagePosition="left" enabled="NO" inset="2" id="Udg-aN-iuh">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="setRemapLocalhostPrefix:" target="-2" id="dTX-Fs-Ujv"/>
+                    </connections>
+                </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="u8n-GV-iLz" userLabel="Playlists Label">
                     <rect key="frame" x="18" y="346" width="175" height="16"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Playlists:" id="DaD-3a-dud">
@@ -217,6 +227,16 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4At-1b-40C" userLabel="Internal playlists checkbox">
+                    <rect key="frame" x="197" y="303" width="380" height="18"/>
+                    <buttonCell key="cell" type="check" title="Include internal playlists" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="LaZ-wG-55e">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="setIncludeInternalPlaylists:" target="-2" id="Egm-Ot-JC6"/>
+                    </connections>
+                </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sDk-wE-Yki" userLabel="Internal playlists description">
                     <rect key="frame" x="219" y="286" width="360" height="14"/>
                     <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="left" title="Internal playlists include 'Library', 'Music', 'Downloaded', etc." id="pu8-RC-9DR">
@@ -225,6 +245,16 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dld-ZC-3TG">
+                    <rect key="frame" x="192" y="247" width="186" height="32"/>
+                    <buttonCell key="cell" type="push" title="Customize Playlists" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="6MZ-zj-nQO">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="customizePlaylists:" target="-2" id="gd7-VC-vWE"/>
+                    </connections>
+                </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sQ1-Ni-Bcn" userLabel="Schedule label">
                     <rect key="frame" x="18" y="216" width="175" height="16"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Schedule:" id="AZD-rD-K89">
@@ -276,16 +306,42 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QoD-Q7-Epr">
-                    <rect key="frame" x="505" y="560" width="79" height="32"/>
-                    <buttonCell key="cell" type="push" title="Browse" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="fqK-RZ-UrK">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Giv-rj-bxc" userLabel="Export button note">
+                    <rect key="frame" x="219" y="177" width="332" height="28"/>
+                    <textFieldCell key="cell" controlSize="small" alignment="left" id="gE1-SL-2Wd">
+                        <font key="font" metaFont="smallSystem"/>
+                        <string key="title">Note: automatic exports will be skipped while this app is open 
+to prevent possible conflicts</string>
+                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="016-DX-Sno" userLabel="Skip on battery checkbox">
+                    <rect key="frame" x="197" y="152" width="380" height="18"/>
+                    <buttonCell key="cell" type="check" title="Skip scheduled exports when system is running on battery" bezelStyle="regularSquare" imagePosition="left" enabled="NO" state="on" inset="2" id="jWr-7J-KmK">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <action selector="browseAndValidateOutputDirectory:" target="-2" id="SfZ-RQ-CVk"/>
+                        <action selector="setScheduleSkipOnBattery:" target="-2" id="1hk-Dc-ba8"/>
                     </connections>
                 </button>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="H6U-9e-sWo" userLabel="Last export label">
+                    <rect key="frame" x="18" y="119" width="428" height="14"/>
+                    <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="left" title="Last export: " id="79I-sU-P0A">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8Fn-3A-SPC" userLabel="Next export label">
+                    <rect key="frame" x="18" y="97" width="428" height="14"/>
+                    <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="left" title="Next export: " id="eBt-fK-Tj3">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="U62-bq-Z4J" userLabel="Export button">
                     <rect key="frame" x="445" y="87" width="139" height="32"/>
                     <constraints>
@@ -325,62 +381,6 @@
                         <constraint firstItem="sW4-rY-Iio" firstAttribute="top" secondItem="3V2-VP-Z9e" secondAttribute="bottom" constant="5" id="e9O-lV-JMS"/>
                     </constraints>
                 </visualEffectView>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8Fn-3A-SPC" userLabel="Next export label">
-                    <rect key="frame" x="18" y="97" width="428" height="14"/>
-                    <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="left" title="Next export: " id="eBt-fK-Tj3">
-                        <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Giv-rj-bxc" userLabel="Export button note">
-                    <rect key="frame" x="219" y="177" width="332" height="28"/>
-                    <textFieldCell key="cell" controlSize="small" alignment="left" id="gE1-SL-2Wd">
-                        <font key="font" metaFont="smallSystem"/>
-                        <string key="title">Note: automatic exports will be skipped while this app is open 
-to prevent possible conflicts</string>
-                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="016-DX-Sno" userLabel="Skip on battery checkbox">
-                    <rect key="frame" x="197" y="152" width="380" height="18"/>
-                    <buttonCell key="cell" type="check" title="Skip scheduled exports when system is running on battery" bezelStyle="regularSquare" imagePosition="left" enabled="NO" state="on" inset="2" id="jWr-7J-KmK">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="setScheduleSkipOnBattery:" target="-2" id="1hk-Dc-ba8"/>
-                    </connections>
-                </button>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="H6U-9e-sWo" userLabel="Last export label">
-                    <rect key="frame" x="18" y="119" width="428" height="14"/>
-                    <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="left" title="Last export: " id="79I-sU-P0A">
-                        <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dld-ZC-3TG">
-                    <rect key="frame" x="192" y="247" width="186" height="32"/>
-                    <buttonCell key="cell" type="push" title="Customize Playlists" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="6MZ-zj-nQO">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="customizePlaylists:" target="-2" id="gd7-VC-vWE"/>
-                    </connections>
-                </button>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GA7-9j-vnH" userLabel="Localhost prefix checkbox">
-                    <rect key="frame" x="217" y="381" width="360" height="18"/>
-                    <buttonCell key="cell" type="check" title="Add 'localhost' prefix to track paths" bezelStyle="regularSquare" imagePosition="left" enabled="NO" inset="2" id="Udg-aN-iuh">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="setRemapLocalhostPrefix:" target="-2" id="dTX-Fs-Ujv"/>
-                    </connections>
-                </button>
             </subviews>
             <constraints>
                 <constraint firstItem="ssc-9C-hAE" firstAttribute="leading" secondItem="ych-C4-ky6" secondAttribute="leading" id="01n-kq-26e"/>
@@ -481,14 +481,5 @@ to prevent possible conflicts</string>
             </constraints>
             <point key="canvasLocation" x="103.5" y="177.5"/>
         </customView>
-        <button verticalHuggingPriority="750" id="n27-Yv-ASF">
-            <rect key="frame" x="0.0" y="0.0" width="82" height="32"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-            <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="QbG-mk-O4D">
-                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                <font key="font" metaFont="system"/>
-            </buttonCell>
-            <point key="canvasLocation" x="-114" y="82"/>
-        </button>
     </objects>
 </document>
