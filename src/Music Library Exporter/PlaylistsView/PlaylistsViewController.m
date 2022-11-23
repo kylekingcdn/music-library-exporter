@@ -34,7 +34,6 @@
   PlaylistTreeNode* _playlistTreeRoot;
 }
 
-
 #pragma mark - Initializers
 
 - (instancetype)init {
@@ -69,7 +68,6 @@
     return nil;
   }
 }
-
 
 #pragma mark - Accessors
 
@@ -461,7 +459,6 @@
   }
 }
 
-
 #pragma mark - Mutators
 
 - (void)initPlaylistNodes {
@@ -550,7 +547,6 @@
   [self updateSortingButton:popupButton forNode:node];
 }
 
-
 #pragma mark - NSViewController
 
 - (void)viewDidLoad {
@@ -561,6 +557,19 @@
   [_outlineView reloadData];
 }
 
+#pragma mark - NSObject
+
+- (void)observeValueForKeyPath:(NSString *)aKeyPath ofObject:(id)anObject change:(NSDictionary *)aChange context:(void *)aContext {
+
+  MLE_Log_Info(@"PlaylistsViewController [observeValueForKeyPath:%@]", aKeyPath);
+
+  if ([aKeyPath isEqualToString:ExportConfigurationKeyFlattenPlaylistHierarchy] ||
+      [aKeyPath isEqualToString:ExportConfigurationKeyIncludeInternalPlaylists]) {
+
+    [self initPlaylistNodes];
+    [_outlineView reloadData];
+  }
+}
 
 #pragma mark - NSOutlineViewDataSource
 
@@ -593,7 +602,6 @@
 
   return node.children.count > 0;
 }
-
 
 #pragma mark - NSOutlineViewDelegate
 
@@ -660,18 +668,5 @@
 
   return nil;
 }
-
-- (void)observeValueForKeyPath:(NSString *)aKeyPath ofObject:(id)anObject change:(NSDictionary *)aChange context:(void *)aContext {
-
-  MLE_Log_Info(@"PlaylistsViewController [observeValueForKeyPath:%@]", aKeyPath);
-
-  if ([aKeyPath isEqualToString:ExportConfigurationKeyFlattenPlaylistHierarchy] ||
-      [aKeyPath isEqualToString:ExportConfigurationKeyIncludeInternalPlaylists]) {
-
-    [self initPlaylistNodes];
-    [_outlineView reloadData];
-  }
-}
-
 
 @end
