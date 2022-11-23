@@ -23,12 +23,12 @@
     _customSortProperty = nil;
     _customSortOrder = PlaylistSortOrderNull;
 
-    _playlistPersistentHexID = nil;
-    _playlistParentPersistentHexID = nil;
-    _playlistName = nil;
-    _playlistDistinguishedKind = ITLibDistinguishedPlaylistKindNone;
-    _playlistKind = ITLibPlaylistKindRegular;
-    _playlistMaster = NO;
+    _persistentHexID = nil;
+    _parentPersistentHexID = nil;
+    _name = nil;
+    _distinguishedKind = ITLibDistinguishedPlaylistKindNone;
+    _kind = ITLibPlaylistKindRegular;
+    _master = NO;
 
     return self;
   }
@@ -41,15 +41,15 @@
 
   PlaylistTreeNode* node = [[PlaylistTreeNode alloc] init];
   if (playlist != nil) {
-    node->_playlistPersistentHexID = [Utils hexStringForPersistentId:playlist.persistentID];
-    node->_playlistParentPersistentHexID = [Utils hexStringForPersistentId:playlist.parentID];
-    node->_playlistName = playlist.name;
-    node->_playlistDistinguishedKind = playlist.distinguishedKind;
-    node->_playlistKind = playlist.kind;
-    node->_playlistMaster = playlist.isMaster;
+    node->_persistentHexID = [Utils hexStringForPersistentId:playlist.persistentID];
+    node->_parentPersistentHexID = [Utils hexStringForPersistentId:playlist.parentID];
+    node->_name = playlist.name;
+    node->_distinguishedKind = playlist.distinguishedKind;
+    node->_kind = playlist.kind;
+    node->_master = playlist.isMaster;
   }
   else {
-    node->_playlistPersistentHexID = nil;
+    node->_persistentHexID = nil;
   }
 
   return node;
@@ -68,11 +68,11 @@
 
 - (NSString*)kindDescription {
 
-  if (_playlistDistinguishedKind != ITLibDistinguishedPlaylistKindNone || _playlistMaster) {
+  if (_distinguishedKind != ITLibDistinguishedPlaylistKindNone || _master) {
     return @"Internal";
   }
 
-  switch (_playlistKind) {
+  switch (_kind) {
     case ITLibPlaylistKindRegular: {
       return @"Playlist";
     }
@@ -93,7 +93,7 @@
 
 - (NSString*)itemsDescription {
 
-  switch (_playlistKind) {
+  switch (_kind) {
     case ITLibPlaylistKindFolder: {
       return [NSString stringWithFormat:@"%lu playlists", _children.count];
     }
@@ -101,7 +101,7 @@
     case ITLibPlaylistKindSmart:
     case ITLibPlaylistKindGenius:
     case ITLibPlaylistKindGeniusMix: {
-      return [NSString string]; //[NSString stringWithFormat:@"%lu songs", _playlist.items.count];
+      return [NSString string]; //[NSString stringWithFormat:@"%lu songs", _.items.count];
     }
   }
 }

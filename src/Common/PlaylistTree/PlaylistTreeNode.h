@@ -22,12 +22,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSString* customSortProperty;
 @property (nonatomic, assign) PlaylistSortOrderType customSortOrder;
 
-@property (nullable, readonly, nonatomic, copy) NSString* playlistPersistentHexID;
-@property (nullable, readonly, nonatomic, copy) NSString* playlistParentPersistentHexID;
-@property (nullable, readonly, nonatomic, copy) NSString* playlistName;
-@property (readonly, nonatomic, assign) ITLibDistinguishedPlaylistKind playlistDistinguishedKind;
-@property (readonly, nonatomic, assign) ITLibPlaylistKind playlistKind;
-@property (readonly, nonatomic, assign, getter=isMaster) BOOL playlistMaster;
+@property (nullable, readonly, nonatomic, copy) NSString* persistentHexID;
+@property (nullable, readonly, nonatomic, copy) NSString* parentPersistentHexID;
+@property (nullable, readonly, nonatomic, copy) NSString* name;
+@property (readonly, nonatomic, assign) ITLibDistinguishedPlaylistKind distinguishedKind;
+@property (readonly, nonatomic, assign) ITLibPlaylistKind kind;
+@property (readonly, nonatomic, assign, getter=isMaster) BOOL master;
 
 
 #pragma mark - Initializers

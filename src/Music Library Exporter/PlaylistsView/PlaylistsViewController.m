@@ -120,7 +120,7 @@
 
   switch (column) {
     case TitleColumn: {
-      return node.playlistName;
+      return node.name;
     }
     case KindColumn: {
       return node.kindDescription;
@@ -381,11 +381,11 @@
 
 - (BOOL)isNodeExcluded:(nullable PlaylistTreeNode*)node {
 
-  if (node == nil || node.playlistPersistentHexID == nil) {
+  if (node == nil || node.persistentHexID == nil) {
     return NO;
   }
 
-  if ([_exportConfiguration isPlaylistIdExcluded:node.playlistPersistentHexID]) {
+  if ([_exportConfiguration isPlaylistIdExcluded:node.persistentHexID]) {
     return YES;
   }
 
@@ -398,7 +398,7 @@
 
 - (BOOL)isNodeParentExcluded:(nullable PlaylistTreeNode*)node {
 
-  if (node == nil || node.playlistParentPersistentHexID == nil) {
+  if (node == nil || node.parentPersistentHexID == nil) {
     return NO;
   }
 
@@ -491,7 +491,7 @@
 
   BOOL excluded = ([sender state] == NSControlStateValueOff);
 
-  [_exportConfiguration setExcluded:excluded forPlaylistId:node.playlistPersistentHexID];
+  [_exportConfiguration setExcluded:excluded forPlaylistId:node.persistentHexID];
 
   [_outlineView reloadItem:node reloadChildren:YES];
 }
@@ -512,7 +512,7 @@
   if (itemTag == 101) {
     MLE_Log_Info(@"PlaylistsViewController [setPlaylistSorting] Default");
     [node setCustomSortProperty:nil];
-    [_exportConfiguration setDefaultSortingForPlaylist:node.playlistPersistentHexID];
+    [_exportConfiguration setDefaultSortingForPlaylist:node.persistentHexID];
   }
   // sort property
   else if (itemTag > 200 && itemTag < 300) {
@@ -527,7 +527,7 @@
     else {
       MLE_Log_Info(@"PlaylistsViewController [setPlaylistSorting] property: %@", sortProperty);
       [node setCustomSortProperty:sortProperty];
-      [_exportConfiguration setCustomSortProperty:sortProperty forPlaylist:node.playlistPersistentHexID];
+      [_exportConfiguration setCustomSortProperty:sortProperty forPlaylist:node.persistentHexID];
     }
   }
   // sort order
@@ -543,7 +543,7 @@
     else {
       MLE_Log_Info(@"PlaylistsViewController [setPlaylistSorting] order: %@", PlaylistSortOrderNames[sortOrder]);
       [node setCustomSortOrder:sortOrder];
-      [_exportConfiguration setCustomSortOrder:sortOrder forPlaylist:node.playlistPersistentHexID];
+      [_exportConfiguration setCustomSortOrder:sortOrder forPlaylist:node.persistentHexID];
     }
   }
 
@@ -654,7 +654,7 @@
     }
 
     [cellView.textField setStringValue:cellViewTitle];
-    
+
     return cellView;
   }
 
