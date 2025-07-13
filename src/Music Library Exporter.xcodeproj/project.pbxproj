@@ -105,6 +105,8 @@
 		27D6827525D9055300BBF8FE /* Defines.m in Sources */ = {isa = PBXBuildFile; fileRef = 273B522F25CA666000421B14 /* Defines.m */; };
 		27DBB9A925E6E746003BE889 /* PreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27DBB9A825E6E746003BE889 /* PreferencesWindow.xib */; };
 		27DBB9B725E6E91E003BE889 /* PreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DBB9B625E6E91E003BE889 /* PreferencesWindowController.m */; };
+		27EA31112E245D7700D4D480 /* Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EA31002E245CA100D4D480 /* Empty.swift */; };
+		27EA31122E245D7C00D4D480 /* Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EA31002E245CA100D4D480 /* Empty.swift */; };
 		27EC7C6325C8C41300996E9E /* UserDefaultsExportConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 27EC7C6225C8C3E500996E9E /* UserDefaultsExportConfiguration.m */; };
 		27EC7C6725C8C41800996E9E /* UserDefaultsExportConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 27EC7C6225C8C3E500996E9E /* UserDefaultsExportConfiguration.m */; };
 		27EF9A6825BF23910051CE7B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27EF9A6725BF23910051CE7B /* AppDelegate.m */; };
@@ -255,6 +257,7 @@
 		276B1AE025D42453002D7289 /* PopupButtonTableCellView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PopupButtonTableCellView.h; sourceTree = "<group>"; };
 		27723EEC2921D0B000E51B7E /* PlaylistTreeGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaylistTreeGenerator.h; sourceTree = "<group>"; };
 		27723EED2921D0B000E51B7E /* PlaylistTreeGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaylistTreeGenerator.m; sourceTree = "<group>"; };
+		2774DD1F2E24575E006B0CB8 /* Swift.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Swift.xcconfig; sourceTree = "<group>"; };
 		2783C74825C4FAF2002ED7B7 /* ConfigurationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfigurationView.xib; sourceTree = "<group>"; };
 		2783C75625C4FB60002ED7B7 /* ConfigurationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfigurationViewController.h; sourceTree = "<group>"; };
 		2783C75725C4FB60002ED7B7 /* ConfigurationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfigurationViewController.m; sourceTree = "<group>"; };
@@ -301,6 +304,8 @@
 		27DBB9B625E6E91E003BE889 /* PreferencesWindowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreferencesWindowController.m; sourceTree = "<group>"; };
 		27E9D5D02914F15F0050F44A /* PlaylistSerializerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaylistSerializerDelegate.h; sourceTree = "<group>"; };
 		27E9D5D62914F17C0050F44A /* MediaItemSerializerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MediaItemSerializerDelegate.h; sourceTree = "<group>"; };
+		27EA31002E245CA100D4D480 /* Empty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Empty.swift; sourceTree = "<group>"; };
+		27EA31192E245EF800D4D480 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		27EC7C6125C8C3E500996E9E /* UserDefaultsExportConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserDefaultsExportConfiguration.h; sourceTree = "<group>"; };
 		27EC7C6225C8C3E500996E9E /* UserDefaultsExportConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserDefaultsExportConfiguration.m; sourceTree = "<group>"; };
 		27EF9A6425BF23910051CE7B /* Music Library Exporter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Music Library Exporter.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -427,6 +432,7 @@
 				2749612025CE2A1700B98E11 /* Debug.xcconfig */,
 				2749612125CE2A1700B98E11 /* Release.xcconfig */,
 				27F253E025D867B300243606 /* Sentry.xcconfig */,
+				2774DD1F2E24575E006B0CB8 /* Swift.xcconfig */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -481,6 +487,7 @@
 				27C52A7325B69C4B00D829F3 /* Utils.m */,
 				27F5865225E4656D00872731 /* SentryHandler.h */,
 				27F5865325E4656D00872731 /* SentryHandler.m */,
+				27EA311A2E245F4500D4D480 /* SwiftCompatFix */,
 				27FA62A4292052B3001D0095 /* Configuration */,
 				27FA62A5292052D0001D0095 /* PlaylistTree */,
 				27CAC1F5290FD113008D4313 /* Filter */,
@@ -554,6 +561,15 @@
 				27CAC20E290FF359008D4313 /* PlaylistFilterGroup.m */,
 			);
 			path = Playlist;
+			sourceTree = "<group>";
+		};
+		27EA311A2E245F4500D4D480 /* SwiftCompatFix */ = {
+			isa = PBXGroup;
+			children = (
+				27EA31192E245EF800D4D480 /* Bridging-Header.h */,
+				27EA31002E245CA100D4D480 /* Empty.swift */,
+			);
+			path = SwiftCompatFix;
 			sourceTree = "<group>";
 		};
 		27EF9A3D25BF20C60051CE7B /* music-library-exporter */ = {
@@ -756,9 +772,11 @@
 					};
 					27A2C05425C0934A00AAD73C = {
 						CreatedOnToolsVersion = 12.3;
+						LastSwiftMigration = 1640;
 					};
 					27EF9A6325BF23910051CE7B = {
 						CreatedOnToolsVersion = 12.3;
+						LastSwiftMigration = 1640;
 					};
 				};
 			};
@@ -929,6 +947,7 @@
 				27CAC21C29100502008D4313 /* PlaylistIDFilter.m in Sources */,
 				27A2C06125C0934B00AAD73C /* main.m in Sources */,
 				27B54AA229126B2400BEC366 /* MediaEntityRepository.m in Sources */,
+				27EA31112E245D7700D4D480 /* Empty.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -971,6 +990,7 @@
 				27723EEE2921D0B000E51B7E /* PlaylistTreeGenerator.m in Sources */,
 				27EF9A6825BF23910051CE7B /* AppDelegate.m in Sources */,
 				27EF9A7025BF23920051CE7B /* main.m in Sources */,
+				27EA31122E245D7C00D4D480 /* Empty.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

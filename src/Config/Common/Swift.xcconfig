@@ -1,0 +1,11 @@
+//
+//  Swift.xcconfig
+//  Music Library Exporter
+//
+//  Created by Kyle King on 2025-07-13.
+//
+
+SWIFT_VERSION = 6.0
+CLANG_ENABLE_MODULES = YES
+ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
+SWIFT_OPTIMIZATION_LEVEL[config=Debug] = -Onone

@@ -6,6 +6,7 @@
 //
 
 #include "Config/Common/Sentry.xcconfig"
+#include "Config/Common/Swift.xcconfig"
 
 // Deployment
 COMBINE_HIDPI_IMAGES = YES
@@ -31,6 +32,9 @@ ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor
 
 // Apple Clang - Preprocessing
 GCC_PREPROCESSOR_DEFINITIONS = OUTPUT_DIRECTORY_BOOKMARK_KEY=@\"${OUTPUT_DIRECTORY_BOOKMARK_KEY}\" HELPER_REGISTRATION_ENABLED=$(HELPER_REGISTRATION_ENABLED) SENTRY_DSN=${SENTRY_HELPER_DSN} $(inherited)
+
+// Swift
+SWIFT_OBJC_BRIDGING_HEADER = Common/SwiftCompatFix/Bridging-Header.h
 
 // User-Defined
 OUTPUT_DIRECTORY_BOOKMARK_KEY = 'OutputDirectoryBookmarkHelper'
