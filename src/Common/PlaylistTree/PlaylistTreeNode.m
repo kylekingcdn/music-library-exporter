@@ -7,6 +7,7 @@
 
 #import "PlaylistTreeNode.h"
 
+#import "PlaylistSerializer.h"
 #import "Utils.h"
 
 
@@ -72,23 +73,7 @@
     return @"Internal";
   }
 
-  switch (_playlistKind) {
-    case ITLibPlaylistKindRegular: {
-      return @"Playlist";
-    }
-    case ITLibPlaylistKindSmart: {
-      return @"Smart Playlist";
-    }
-    case ITLibPlaylistKindGenius: {
-      return @"Genius";
-    }
-    case ITLibPlaylistKindFolder: {
-      return @"Folder";
-    }
-    case ITLibPlaylistKindGeniusMix: {
-      return @"Genius Mix";
-    }
-  }
+  return [PlaylistSerializer describePlaylistKind:_playlistKind];
 }
 
 - (NSString*)itemsDescription {

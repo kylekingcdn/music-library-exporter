@@ -159,4 +159,24 @@
   return itemsArray;
 }
 
++ (nonnull NSString *)describePlaylistKind:(ITLibPlaylistKind)kind { 
+  switch (kind) {
+    case ITLibPlaylistKindRegular: {
+      return @"Playlist";
+    }
+    case ITLibPlaylistKindSmart: {
+      return @"Smart Playlist";
+    }
+    case ITLibPlaylistKindGenius: {
+      return @"Genius";
+    }
+    case ITLibPlaylistKindFolder: {
+      return @"Folder";
+    }
+    case ITLibPlaylistKindGeniusMix: {
+      return @"Genius Mix";
+    }
+  }
+}
+
 @end

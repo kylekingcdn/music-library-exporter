@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <iTunesLibrary/ITLibPlaylist.h>
 
 #import "PlaylistSerializerDelegate.h"
 
@@ -37,6 +38,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (OrderedDictionary*)serializePlaylist:(ITLibPlaylist*)playlist;
 
 - (NSArray<OrderedDictionary*>*)serializePlaylistItems:(NSArray<ITLibMediaItem*>*)items;
+
++ (NSString*)describePlaylistKind:(ITLibPlaylistKind)kind;
 
 @end
 
