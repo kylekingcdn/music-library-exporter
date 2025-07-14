@@ -89,6 +89,8 @@
 
 - (OrderedDictionary*)serializePlaylist:(ITLibPlaylist*)playlist {
 
+  os_log_info(OS_LOG_DEFAULT, "Serializing playlist: '%{public}@' (kind: %{public}@)", playlist.name, [PlaylistSerializer describePlaylistKind:playlist.kind]);
+
   MutableOrderedDictionary* playlistDict = [MutableOrderedDictionary dictionary];
 
   [playlistDict setValue:playlist.name forKey:@"Name"];
@@ -135,13 +137,14 @@
   }
 
   NSArray<ITLibMediaItem*>* sortedItems = [sorter sortItems:playlist.items];
+  os_log_info(OS_LOG_DEFAULT, "Starting serialization of %lu child items in playlist: '%{public}@' (kind: %{public}@)", sortedItems.count, playlist.name, [PlaylistSerializer describePlaylistKind:playlist.kind]);
   [playlistDict setObject:[self serializePlaylistItems:sortedItems] forKey:@"Playlist Items"];
 
   return playlistDict;
 }
 
 - (NSArray<OrderedDictionary*>*)serializePlaylistItems:(NSArray<ITLibMediaItem*>*)items {
-
+  
   NSMutableArray<OrderedDictionary*>* itemsArray = [NSMutableArray array];
 
   for (ITLibMediaItem* item in items) {

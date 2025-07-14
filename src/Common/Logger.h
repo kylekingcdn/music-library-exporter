@@ -5,6 +5,8 @@
 //  Created by Kyle King on 2021-02-17.
 //
 
+#import <os/log.h>
+
 #if ( defined(MLE_LOG_LEVEL_NONE) && MLE_LOG_LEVEL_NONE )
 #  undef MLE_LOG_LEVEL_DEBUG
 #  undef MLE_LOG_LEVEL_INFO

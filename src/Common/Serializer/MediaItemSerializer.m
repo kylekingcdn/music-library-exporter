@@ -72,6 +72,8 @@
 
 - (OrderedDictionary*)serializeItems:(NSArray<ITLibMediaItem*>*)items {
 
+  os_log_debug(OS_LOG_DEFAULT, "Beginning batch MediaItem serialize (item count: %lu)", items.count);
+
   MutableOrderedDictionary* itemsDict = [MutableOrderedDictionary dictionary];
 
   NSUInteger serializedItems = 0;
@@ -80,6 +82,7 @@
   for (ITLibMediaItem* item in items) {
 
     if (_itemFilters == nil || [_itemFilters filtersPassForItem:item]) {
+      os_log_debug(OS_LOG_DEFAULT, "Media item passed current filters (%{public}@ - %{public}@)", (item.artist != nil ? item.artist.name : @"ERROR - NIL ARTIST"), item.title);
 
       // add item dict to main items dict with key of item ID
       [itemsDict setObject:[self serializeItem:item] forKey:[[_entityRepository getIDForEntity:item] stringValue]];
@@ -96,6 +99,10 @@
 }
 
 - (OrderedDictionary*)serializeItem:(ITLibMediaItem*)item {
+
+  os_log_debug(OS_LOG_DEFAULT, "Serializing media item: (%{public}@ - %{public}@) [%{public}@]",
+               (item.artist != nil ? item.artist.name : @"ERR_NIL-ARTIST"), item.title,
+               (item.location != nil ? item.location.absoluteString : @"---- FILE PATH IS NULL ----"));
 
   MutableOrderedDictionary* itemDict = [MutableOrderedDictionary dictionary];
 
@@ -248,6 +255,12 @@
 
   if (item.location != nil) {
     [itemDict setValue:[_pathMapper mapPath:item.location] forKey:@"Location"];
+  }
+  else {
+    os_log_info(OS_LOG_DEFAULT, "Skipping path mapping - item location is NULL: (%{public}@ - %{public}@)",
+                (item.artist != nil ? item.artist.name : @"ERR_NIL-ARTIST"),
+                item.title
+                );
   }
 
   return itemDict;
