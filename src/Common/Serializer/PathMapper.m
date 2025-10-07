@@ -60,7 +60,8 @@
   os_log_debug(OS_LOG_DEFAULT, "Mapping item path from URL: '%{public}@'", pathURL);
 
   NSURL* mappedURL = [self mapURLFromPath:pathURL.path];
-  NSString* mappedString = [mappedURL absoluteString];
+  NSString* mappedString = [ [mappedURL.absoluteString stringByRemovingPercentEncoding] precomposedStringWithCanonicalMapping];
+
 
   if (_addLocalhostPrefix) {
     mappedString = [mappedString stringByReplacingOccurrencesOfString:@"file:///" withString:@"file://localhost/"];
