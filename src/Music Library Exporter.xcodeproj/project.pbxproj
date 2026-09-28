@@ -205,6 +205,7 @@
 		2705444525B66A0A00FE6D65 /* music-library-exporter */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "music-library-exporter"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2705444825B66A0A00FE6D65 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2705445125B66B7A00FE6D65 /* iTunesLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTunesLibrary.framework; path = System/Library/Frameworks/iTunesLibrary.framework; sourceTree = SDKROOT; };
+		270BC386306A48A10018B5BD /* Permissions.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Permissions.xcconfig; sourceTree = "<group>"; };
 		270D786825DB682000B3D409 /* ArgumentParser.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ArgumentParser.xcodeproj; path = ArgumentParser/ArgumentParser.xcodeproj; sourceTree = "<group>"; };
 		2715FC812926540C005C5F09 /* SorterDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SorterDefines.h; sourceTree = "<group>"; };
 		2715FC822926540C005C5F09 /* SorterDefines.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SorterDefines.m; sourceTree = "<group>"; };
@@ -217,6 +218,7 @@
 		2725CA4B25D3F65C002C1203 /* PlaylistsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaylistsView.xib; sourceTree = "<group>"; };
 		272D6A0D25D1B0F7005023CA /* HourNumberFormatter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HourNumberFormatter.h; sourceTree = "<group>"; };
 		272D6A0E25D1B0F7005023CA /* HourNumberFormatter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HourNumberFormatter.m; sourceTree = "<group>"; };
+		272E797A306A4C4800417A4B /* App.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = App.xcconfig; sourceTree = "<group>"; };
 		2739C5BC25DE29A400C57218 /* CLIManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLIManager.h; sourceTree = "<group>"; };
 		2739C5BD25DE29A400C57218 /* CLIManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLIManager.m; sourceTree = "<group>"; };
 		273B522825CA5F3E00421B14 /* ExportScheduler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ExportScheduler.h; path = "Music Library Exporter Helper/ExportScheduler.h"; sourceTree = SOURCE_ROOT; };
@@ -431,6 +433,8 @@
 				2749612425CE2FF400B98E11 /* Signing.xcconfig */,
 				2749612025CE2A1700B98E11 /* Debug.xcconfig */,
 				2749612125CE2A1700B98E11 /* Release.xcconfig */,
+				272E797A306A4C4800417A4B /* App.xcconfig */,
+				270BC386306A48A10018B5BD /* Permissions.xcconfig */,
 				27F253E025D867B300243606 /* Sentry.xcconfig */,
 				2774DD1F2E24575E006B0CB8 /* Swift.xcconfig */,
 			);
@@ -1033,6 +1037,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2749612025CE2A1700B98E11 /* Debug.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = "$(MLE_DEVELOPMENT_TEAM)";
 			};
 			name = Debug;
 		};
@@ -1040,6 +1045,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2749612125CE2A1700B98E11 /* Release.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = "$(MLE_DEVELOPMENT_TEAM)";
 			};
 			name = Release;
 		};
