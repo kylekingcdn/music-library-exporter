@@ -1037,7 +1037,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2749612025CE2A1700B98E11 /* Debug.xcconfig */;
 			buildSettings = {
-				DEVELOPMENT_TEAM = "$(MLE_DEVELOPMENT_TEAM)";
+				DEVELOPMENT_TEAM = 9YLM7HTV6V;
 			};
 			name = Debug;
 		};
@@ -1045,7 +1045,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2749612125CE2A1700B98E11 /* Release.xcconfig */;
 			buildSettings = {
-				DEVELOPMENT_TEAM = "$(MLE_DEVELOPMENT_TEAM)";
+				DEVELOPMENT_TEAM = 9YLM7HTV6V;
 			};
 			name = Release;
 		};
